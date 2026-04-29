@@ -5,6 +5,8 @@ import { ProblemSection } from "@/components/landing/ProblemSection";
 import { SolutionSection } from "@/components/landing/SolutionSection";
 import { DifferenceSection } from "@/components/landing/DifferenceSection";
 import { AudienceSection } from "@/components/landing/AudienceSection";
+import { SocialProofSection } from "@/components/landing/SocialProofSection";
+import { SwissPremiumSection } from "@/components/landing/SwissPremiumSection";
 import { DemoSection } from "@/components/landing/DemoSection";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 
@@ -38,6 +40,8 @@ function LandingPage() {
       <ProblemSection />
       <SolutionSection />
       <DifferenceSection />
+      <SwissPremiumSection />
+      <SocialProofSection />
       <AudienceSection />
       <DemoSection />
       <SiteFooter />

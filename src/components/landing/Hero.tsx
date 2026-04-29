@@ -1,4 +1,5 @@
 import { ProductMockup } from "./ProductMockup";
+import swissHardware from "@/assets/swiss-hardware.jpg";
 
 export function Hero() {
   return (
@@ -41,7 +42,16 @@ export function Hero() {
           </p>
         </div>
 
-        <div className="lg:pl-8">
+        <div className="lg:pl-8 space-y-4">
+          <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border shadow-md">
+            <img
+              src={swissHardware}
+              alt="Boîtier dédié installé dans un cabinet fiduciaire suisse, vue sur le lac et les Alpes"
+              width={1280}
+              height={896}
+              className="w-full h-full object-cover"
+            />
+          </div>
           <ProductMockup />
         </div>
       </div>
