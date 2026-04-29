@@ -30,6 +30,15 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "Fiducia IA offers a sovereign AI agent for Swiss fiduciaries to automate document processing locally." },
+      { property: "og:description", content: "Fiducia IA offers a sovereign AI agent for Swiss fiduciaries to automate document processing locally." },
+      { name: "twitter:description", content: "Fiducia IA offers a sovereign AI agent for Swiss fiduciaries to automate document processing locally." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8047a01d-4b7e-485a-b691-63a87f720294/id-preview-33bdc98c--6982286e-a1c4-4a04-9fb8-86355e4854b4.lovable.app-1777447095773.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8047a01d-4b7e-485a-b691-63a87f720294/id-preview-33bdc98c--6982286e-a1c4-4a04-9fb8-86355e4854b4.lovable.app-1777447095773.png" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       {
