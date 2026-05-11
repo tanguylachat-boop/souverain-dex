@@ -4,6 +4,7 @@ import { Hero } from "@/components/landing/Hero";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { SolutionSection } from "@/components/landing/SolutionSection";
 import { DifferenceSection } from "@/components/landing/DifferenceSection";
+import { RoiSection } from "@/components/landing/RoiSection";
 import { AudienceSection } from "@/components/landing/AudienceSection";
 import { SocialProofSection } from "@/components/landing/SocialProofSection";
 import { SwissPremiumSection } from "@/components/landing/SwissPremiumSection";
@@ -40,6 +41,7 @@ function LandingPage() {
       <ProblemSection />
       <SolutionSection />
       <DifferenceSection />
+      <RoiSection />
       <SwissPremiumSection />
       <SocialProofSection />
       <AudienceSection />
