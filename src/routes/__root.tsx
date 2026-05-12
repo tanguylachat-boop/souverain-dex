@@ -30,20 +30,75 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "Fiducia IA offers a sovereign AI agent for Swiss fiduciaries to automate document processing locally." },
-      { property: "og:description", content: "Fiducia IA offers a sovereign AI agent for Swiss fiduciaries to automate document processing locally." },
-      { name: "twitter:description", content: "Fiducia IA offers a sovereign AI agent for Swiss fiduciaries to automate document processing locally." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8047a01d-4b7e-485a-b691-63a87f720294/id-preview-33bdc98c--6982286e-a1c4-4a04-9fb8-86355e4854b4.lovable.app-1777447095773.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8047a01d-4b7e-485a-b691-63a87f720294/id-preview-33bdc98c--6982286e-a1c4-4a04-9fb8-86355e4854b4.lovable.app-1777447095773.png" },
+      { title: "LX Studio — Agent IA souverain pour fiduciaires suisses" },
+      {
+        name: "description",
+        content:
+          "Agent IA local pour fiduciaires en Suisse romande. Scan, classement et automatisation de vos documents — vos données ne quittent jamais votre cabinet. Conforme nLPD et secret professionnel.",
+      },
+      { property: "og:title", content: "LX Studio — Agent IA souverain pour fiduciaires suisses" },
+      {
+        property: "og:description",
+        content:
+          "Hardware dédié installé chez vous. Vos données restent dans votre LAN. Pensé pour Genève, Vaud, Valais, Fribourg, Neuchâtel et le Jura.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "fr_CH" },
+      { property: "og:site_name", content: "LX Studio" },
+      { name: "twitter:title", content: "LX Studio — Agent IA souverain pour fiduciaires suisses" },
+      {
+        name: "twitter:description",
+        content:
+          "L'agent IA local qui automatise vos documents — sans jamais quitter votre cabinet fiduciaire.",
+      },
+      // SEO Suisse
+      { name: "geo.region", content: "CH" },
+      { name: "geo.placename", content: "Genève, Lausanne, Suisse romande" },
+      { name: "geo.position", content: "46.5197;6.6323" },
+      { name: "ICBM", content: "46.5197, 6.6323" },
+      { name: "language", content: "fr-CH" },
+      { name: "author", content: "LX Studio" },
+      {
+        name: "keywords",
+        content:
+          "agent IA fiduciaire, IA souveraine Suisse, automatisation fiduciaire, nLPD, secret professionnel, Genève, Lausanne, Suisse romande, Mac mini local, IA locale cabinet comptable",
+      },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
+      { rel: "canonical", href: "https://lxstudio.ch/" },
+      { rel: "alternate", hrefLang: "fr-CH", href: "https://lxstudio.ch/" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://lxstudio.ch/" },
+    ],
+    scripts: [
       {
-        rel: "stylesheet",
-        href: appCss,
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          name: "LX Studio",
+          description:
+            "Agent IA souverain pour fiduciaires suisses — installation locale, conforme nLPD.",
+          url: "https://lxstudio.ch",
+          areaServed: [
+            { "@type": "Country", name: "Switzerland" },
+            { "@type": "AdministrativeArea", name: "Genève" },
+            { "@type": "AdministrativeArea", name: "Vaud" },
+            { "@type": "AdministrativeArea", name: "Valais" },
+            { "@type": "AdministrativeArea", name: "Fribourg" },
+            { "@type": "AdministrativeArea", name: "Neuchâtel" },
+            { "@type": "AdministrativeArea", name: "Jura" },
+          ],
+          inLanguage: "fr-CH",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "CH",
+            addressRegion: "Suisse romande",
+          },
+          email: "contact@lxstudio.ch",
+        }),
       },
     ],
   }),

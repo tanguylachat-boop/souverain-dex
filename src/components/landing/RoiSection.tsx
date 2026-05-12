@@ -12,12 +12,19 @@ const WEEKS_PER_YEAR = 46;
 const SETUP_COST = 12000;
 const MONTHLY_FEE = 490;
 
-const fmtCHF = (n: number) =>
-  new Intl.NumberFormat("fr-CH", {
-    style: "currency",
-    currency: "CHF",
-    maximumFractionDigits: 0,
-  }).format(Math.round(n));
+// Formatter stable (évite les écarts SSR vs client sur Intl.NumberFormat)
+const fmtCHF = (n: number) => {
+  const v = Math.round(n);
+  const sign = v < 0 ? "-" : "";
+  const abs = Math.abs(v).toString();
+  // séparateur de milliers : apostrophe suisse
+  const withSep = abs.replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+  return `CHF ${sign}${withSep}`;
+};
+
+const fmtNum = (n: number) =>
+  n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+
 
 export function RoiSection() {
   const [collaborators, setCollaborators] = useState(8);
@@ -99,7 +106,7 @@ export function RoiSection() {
                     Documents traités par semaine
                   </label>
                   <span className="text-2xl font-semibold text-foreground tabular-nums">
-                    {docsPerWeek.toLocaleString("fr-CH")}
+                    {fmtNum(docsPerWeek)}
                   </span>
                 </div>
                 <input
