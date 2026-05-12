@@ -71,7 +71,7 @@ export function Hero() {
 
         {/* Premium 3D product stage */}
         <div className="lg:col-span-6">
-          <div className="relative mx-auto w-full max-w-[34rem] aspect-[5/6] [perspective:1600px]">
+          <div className="relative mx-auto w-full max-w-[34rem] aspect-[5/6] [perspective:1600px] hidden lg:block">
             {/* Pedestal halo */}
             <div
               aria-hidden
