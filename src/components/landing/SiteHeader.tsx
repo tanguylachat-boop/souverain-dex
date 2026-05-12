@@ -29,7 +29,7 @@ export function SiteHeader() {
       <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2 font-semibold tracking-tight text-foreground">
           <span className="inline-block w-2 h-2 rounded-sm bg-primary" aria-hidden />
-          Souverain<span className="text-muted-foreground font-normal">.ai</span>
+          LX<span className="text-muted-foreground font-normal"> Studio</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
