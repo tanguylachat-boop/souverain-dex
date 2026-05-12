@@ -106,7 +106,7 @@ export function RoiSection() {
                     Documents traités par semaine
                   </label>
                   <span className="text-2xl font-semibold text-foreground tabular-nums">
-                    {docsPerWeek.toLocaleString("fr-CH")}
+                    {fmtNum(docsPerWeek)}
                   </span>
                 </div>
                 <input
