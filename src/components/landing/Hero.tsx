@@ -5,48 +5,33 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative pt-28 pb-20 md:pt-36 md:pb-28 mesh-bg overflow-hidden"
+      className="relative pt-28 pb-24 md:pt-36 md:pb-32 overflow-hidden bg-background"
     >
-      {/* Ambient 3D blobs */}
+      {/* Subtle premium ambient light */}
       <div
         aria-hidden
-        className="blob animate-float-slow"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          top: "-8rem",
-          left: "-10rem",
-          width: "32rem",
-          height: "32rem",
           background:
-            "radial-gradient(circle at 30% 30%, oklch(0.55 0.12 250 / 0.45), transparent 65%)",
+            "radial-gradient(60rem 38rem at 85% 0%, color-mix(in oklab, var(--primary) 10%, transparent), transparent 60%), radial-gradient(50rem 32rem at 0% 100%, color-mix(in oklab, var(--primary) 6%, transparent), transparent 65%)",
         }}
       />
       <div
         aria-hidden
-        className="blob animate-float-slow"
-        style={{
-          bottom: "-10rem",
-          right: "-10rem",
-          width: "36rem",
-          height: "36rem",
-          animationDelay: "3s",
-          background:
-            "radial-gradient(circle at 70% 30%, oklch(0.7 0.08 250 / 0.4), transparent 65%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 grid-pattern opacity-40 pointer-events-none"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent"
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div className="relative mx-auto max-w-6xl px-6 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* Copy */}
         <div className="lg:col-span-6">
-          <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs text-muted-foreground mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 backdrop-blur px-3 py-1 text-xs text-muted-foreground mb-6">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary" />
             Pour les fiduciaires suisses
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.1] text-gradient">
-            L'IA qui scanne, classe et automatise vos documents — sans jamais quitter votre cabinet.
+          <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.08] tracking-tight text-foreground max-w-[18ch]">
+            L'IA qui scanne, classe et automatise vos documents —
+            <span className="text-muted-foreground"> sans jamais quitter votre cabinet.</span>
           </h1>
 
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
@@ -71,33 +56,58 @@ export function Hero() {
             </a>
           </div>
 
-          <p className="mt-8 text-xs text-muted-foreground">
-            Conforme nLPD · Hébergé dans votre cabinet · Sans cloud externe
-          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-primary" /> Conforme nLPD
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-primary" /> Hébergé dans votre cabinet
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-primary" /> Sans cloud externe
+            </span>
+          </div>
         </div>
 
-        {/* 3D stage — single composition, layered, no awkward dual rotations */}
-        <div className="lg:col-span-6 relative">
-          <div className="relative mx-auto w-full max-w-xl [perspective:1400px]">
-            {/* Soft glow under the stage */}
+        {/* Premium 3D product stage */}
+        <div className="lg:col-span-6">
+          <div className="relative mx-auto w-full max-w-[34rem] aspect-[5/6] [perspective:1600px] hidden lg:block">
+            {/* Pedestal halo */}
             <div
               aria-hidden
-              className="absolute -inset-6 rounded-[2rem] opacity-70 blur-2xl"
+              className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[85%] h-24 rounded-[100%] blur-2xl opacity-60"
               style={{
                 background:
-                  "radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--primary) 30%, transparent), transparent 70%)",
+                  "radial-gradient(closest-side, color-mix(in oklab, var(--primary) 35%, transparent), transparent 70%)",
+              }}
+            />
+            {/* Soft top spotlight */}
+            <div
+              aria-hidden
+              className="absolute -top-10 left-1/2 -translate-x-1/2 w-[120%] h-40 blur-3xl opacity-50"
+              style={{
+                background:
+                  "radial-gradient(closest-side, color-mix(in oklab, var(--primary) 28%, transparent), transparent 70%)",
               }}
             />
 
-            {/* Main hardware card */}
+            {/* The 3D scene */}
             <div
-              className="relative rounded-2xl glass shadow-depth overflow-hidden"
+              className="absolute inset-0"
               style={{
-                transform: "rotateX(8deg) rotateY(-10deg) rotateZ(-1deg)",
                 transformStyle: "preserve-3d",
+                transform: "rotateX(14deg) rotateY(-18deg)",
               }}
             >
-              <div className="aspect-[4/3]">
+              {/* Back panel — hardware photo */}
+              <div
+                className="absolute inset-x-6 top-2 bottom-20 rounded-2xl overflow-hidden border border-border bg-card"
+                style={{
+                  transform: "translateZ(0px)",
+                  boxShadow:
+                    "0 40px 80px -30px color-mix(in oklab, var(--primary) 45%, transparent), 0 20px 40px -20px color-mix(in oklab, var(--foreground) 25%, transparent)",
+                }}
+              >
                 <img
                   src={swissHardware}
                   alt="Boîtier d'agent IA souverain installé dans un cabinet fiduciaire en Suisse romande"
@@ -105,35 +115,76 @@ export function Hero() {
                   height={960}
                   className="w-full h-full object-cover"
                 />
+                {/* Glass sheen */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, color-mix(in oklab, white 14%, transparent) 0%, transparent 35%, transparent 70%, color-mix(in oklab, var(--primary) 18%, transparent) 100%)",
+                  }}
+                />
               </div>
-            </div>
 
-            {/* Floating mockup card — overlaps bottom-right */}
-            <div
-              className="hidden sm:block absolute -bottom-10 -right-4 w-[62%] rounded-xl glass shadow-depth p-2"
-              style={{
-                transform: "translateZ(40px) rotateX(6deg) rotateY(-6deg)",
-                transformStyle: "preserve-3d",
-              }}
-            >
-              <ProductMockup />
-            </div>
+              {/* Front panel — product mockup, larger and aligned */}
+              <div
+                className="absolute left-0 right-10 bottom-0 rounded-2xl overflow-hidden border border-border bg-card"
+                style={{
+                  transform: "translateZ(80px) translateY(8%)",
+                  boxShadow:
+                    "0 50px 90px -30px color-mix(in oklab, var(--primary) 50%, transparent), 0 25px 50px -25px color-mix(in oklab, var(--foreground) 30%, transparent)",
+                }}
+              >
+                <div className="p-2.5">
+                  <ProductMockup />
+                </div>
+              </div>
 
-            {/* Floating badge — top-left */}
-            <div
-              className="absolute -top-4 -left-4 rounded-full glass px-3 py-2 text-xs font-medium flex items-center gap-2"
-              style={{
-                transform: "translateZ(60px) rotateX(6deg) rotateY(-8deg)",
-              }}
-            >
-              <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
-              100% on-premise
+              {/* Floating badge — top right */}
+              <div
+                className="absolute top-6 right-0 rounded-full border border-border bg-background/90 backdrop-blur px-3 py-1.5 text-xs font-medium flex items-center gap-2 shadow-depth"
+                style={{ transform: "translateZ(120px)" }}
+              >
+                <span className="relative inline-flex">
+                  <span className="absolute inset-0 rounded-full bg-primary/40 animate-ping" />
+                  <span className="relative w-2 h-2 rounded-full bg-primary" />
+                </span>
+                100% on-premise
+              </div>
+
+              {/* Floating chip — left */}
+              <div
+                className="absolute top-1/3 -left-2 rounded-lg border border-border bg-background/90 backdrop-blur px-3 py-2 text-[11px] shadow-depth"
+                style={{ transform: "translateZ(140px)" }}
+              >
+                <div className="text-muted-foreground">Conformité</div>
+                <div className="font-semibold text-foreground">nLPD · Suisse</div>
+              </div>
+
+              {/* Floating chip — bottom right */}
+              <div
+                className="absolute bottom-10 -right-2 rounded-lg border border-border bg-background/90 backdrop-blur px-3 py-2 text-[11px] shadow-depth"
+                style={{ transform: "translateZ(140px)" }}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span className="font-semibold text-foreground">Agent actif</span>
+                </div>
+                <div className="text-muted-foreground mt-0.5">142 docs traités aujourd'hui</div>
+              </div>
             </div>
           </div>
 
-          {/* Mobile: show mockup below stacked, since absolute version is hidden */}
-          <div className="sm:hidden mt-6 rounded-xl glass shadow-depth p-2">
-            <ProductMockup />
+          {/* Mobile fallback — clean stack, no absolute overlap */}
+          <div className="lg:hidden mt-10 space-y-4">
+            <div className="rounded-2xl overflow-hidden border border-border shadow-depth">
+              <img
+                src={swissHardware}
+                alt=""
+                aria-hidden
+                className="w-full aspect-[4/3] object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
