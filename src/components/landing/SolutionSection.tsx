@@ -111,8 +111,10 @@ export function SolutionSection() {
               <img
                 src={swissHardware}
                 alt="Boîtier d'agent IA souverain installé dans un cabinet fiduciaire en Suisse romande"
-                width={1280}
-                height={960}
+                width={1024}
+                height={1024}
+                loading="lazy"
+                decoding="async"
                 style={{
                   width: "100%",
                   aspectRatio: "16/11",

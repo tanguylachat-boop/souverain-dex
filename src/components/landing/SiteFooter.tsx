@@ -24,11 +24,13 @@ export function SiteFooter() {
         <p>© {new Date().getFullYear()} LX Studio. Tous droits réservés.</p>
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
           <a
-            href="#"
+            href="/mentions-legales"
             style={{
               color: "rgba(255,255,255,0.25)",
               textDecoration: "none",
               transition: "color 0.2s",
+              padding: "0.5rem",
+              margin: "-0.5rem",
             }}
             onMouseEnter={(e) => {
               (e.target as HTMLElement).style.color = "rgba(255,255,255,0.6)";
@@ -45,6 +47,8 @@ export function SiteFooter() {
               color: "rgba(255,255,255,0.25)",
               textDecoration: "none",
               transition: "color 0.2s",
+              padding: "0.5rem",
+              margin: "-0.5rem",
             }}
             onMouseEnter={(e) => {
               (e.target as HTMLElement).style.color = "rgba(255,255,255,0.6)";

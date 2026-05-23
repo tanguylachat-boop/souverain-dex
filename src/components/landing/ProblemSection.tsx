@@ -101,10 +101,11 @@ export function ProblemSection() {
                 h
               </span>
             </div>
-            <p
+            <h2
               style={{
                 marginTop: "1rem",
                 fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
+                fontWeight: 400,
                 color: "rgba(255,255,255,0.4)",
                 maxWidth: "28rem",
                 margin: "1rem auto 0",
@@ -112,7 +113,7 @@ export function ProblemSection() {
               }}
             >
               perdues chaque semaine par cabinet sur des tâches qui devraient être automatiques.
-            </p>
+            </h2>
           </div>
         </Reveal>
 
@@ -168,6 +169,7 @@ export function ProblemSection() {
                     strokeWidth="1.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    aria-hidden="true"
                   >
                     {p.icon}
                   </svg>
