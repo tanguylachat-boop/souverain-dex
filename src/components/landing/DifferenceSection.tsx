@@ -3,23 +3,23 @@ import { Reveal } from "@/hooks/use-scroll-reveal";
 const ROWS = [
   {
     label: "Localisation des données",
-    cloud: "Datacenter externe (même en Suisse)",
-    us: "Disque dur de votre Mac mini, dans votre cabinet",
+    cloud: "Datacenter partagé multi-clients",
+    us: "Disque dur de votre serveur, dans votre cabinet",
   },
   {
     label: "Hébergement",
-    cloud: "Serveurs partagés multi-clients",
-    us: "Hardware dédié, mono-cabinet",
+    cloud: "Serveurs partagés, mutualisés",
+    us: "Hardware dédié, mono-cabinet — rien n'est partagé",
   },
   {
     label: "Sortie réseau",
-    cloud: "Permanente vers le cloud du fournisseur",
+    cloud: "Le fournisseur a accès en clair",
     us: "Aucune — l'IA tourne sur votre LAN",
   },
   {
     label: "Conformité secret professionnel",
     cloud: "Sous conditions contractuelles",
-    us: "Maximale — vous gardez le contrôle physique",
+    us: "Maximale — infrastructure sous votre contrôle",
   },
 ];
 

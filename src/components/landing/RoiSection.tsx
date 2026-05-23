@@ -4,8 +4,13 @@ import { Reveal } from "@/hooks/use-scroll-reveal";
 const HOURLY_COST = 85;
 const MIN_PER_DOC = 4;
 const WEEKS_PER_YEAR = 46;
-const SETUP_COST = 12000;
-const MONTHLY_FEE = 490;
+
+/** Pricing tiers based on cabinet size */
+function getPricing(collaborators: number) {
+  if (collaborators <= 5) return { setup: 8000, monthly: 590, tier: "Essentiel" };
+  if (collaborators <= 15) return { setup: 12000, monthly: 1200, tier: "Standard" };
+  return { setup: 15000, monthly: 2500, tier: "Premium" };
+}
 
 const LEADS_API = "https://command-center-iota-wheat.vercel.app/api/leads";
 
@@ -53,6 +58,9 @@ export function RoiSection() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+
+  const pricing = useMemo(() => getPricing(collaborators), [collaborators]);
 
   const data = useMemo(() => {
     const totalDocsYear = docsPerWeek * WEEKS_PER_YEAR;
@@ -60,13 +68,13 @@ export function RoiSection() {
     const hoursSavedWeek = hoursSavedYear / WEEKS_PER_YEAR;
     const hoursPerCollabWeek = hoursSavedWeek / Math.max(collaborators, 1);
     const grossSavingsYear = hoursSavedYear * HOURLY_COST;
-    const annualCost = SETUP_COST + MONTHLY_FEE * 12;
+    const annualCost = pricing.setup + pricing.monthly * 12;
     const netYear1 = grossSavingsYear - annualCost;
-    const netRecurring = grossSavingsYear - MONTHLY_FEE * 12;
+    const netRecurring = grossSavingsYear - pricing.monthly * 12;
     const monthlySavings = grossSavingsYear / 12;
     const paybackMonths =
-      monthlySavings - MONTHLY_FEE > 0
-        ? SETUP_COST / (monthlySavings - MONTHLY_FEE)
+      monthlySavings - pricing.monthly > 0
+        ? pricing.setup / (monthlySavings - pricing.monthly)
         : Infinity;
 
     return {
@@ -77,14 +85,15 @@ export function RoiSection() {
       netRecurring,
       paybackMonths,
     };
-  }, [collaborators, docsPerWeek]);
+  }, [collaborators, docsPerWeek, pricing]);
 
   const handleLeadCapture = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || submitting) return;
     setSubmitting(true);
+    setSubmitError(false);
     try {
-      await fetch(LEADS_API, {
+      const res = await fetch(LEADS_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,15 +101,16 @@ export function RoiSection() {
           employees: collaborators,
           hours_per_week: data.hoursSavedWeek,
           hourly_cost: HOURLY_COST,
-          tier: collaborators <= 5 ? "Essentiel" : collaborators <= 10 ? "Standard" : "Premium",
+          tier: pricing.tier,
           annual_saving: Math.max(0, data.grossSavingsYear),
-          roi: data.grossSavingsYear > 0 ? data.netYear1 / (SETUP_COST + MONTHLY_FEE * 12) : 0,
+          roi: data.grossSavingsYear > 0 ? data.netYear1 / (pricing.setup + pricing.monthly * 12) : 0,
         }),
       });
+      if (!res.ok) throw new Error("API error");
+      setSubmitted(true);
     } catch {
-      // Silent fail
+      setSubmitError(true);
     }
-    setSubmitted(true);
     setSubmitting(false);
   };
 
@@ -306,12 +316,24 @@ export function RoiSection() {
                 boxShadow: "0 0 60px -15px rgba(26, 54, 93, 0.3)",
               }}
             >
-              <p
-                className="text-xs font-medium uppercase mb-8"
-                style={{ letterSpacing: "0.2em", color: "var(--primary)" }}
-              >
-                Estimation annuelle
-              </p>
+              <div className="flex items-center justify-between mb-8">
+                <p
+                  className="text-xs font-medium uppercase"
+                  style={{ letterSpacing: "0.2em", color: "var(--primary)" }}
+                >
+                  Estimation annuelle
+                </p>
+                <span
+                  className="text-xs font-medium px-3 py-1 rounded-full"
+                  style={{
+                    background: "rgba(75, 124, 201, 0.15)",
+                    color: "var(--primary)",
+                    border: "1px solid rgba(75, 124, 201, 0.25)",
+                  }}
+                >
+                  Offre {pricing.tier}
+                </span>
+              </div>
 
               <div className="space-y-8 flex-1">
                 {/* Gross savings */}
@@ -412,13 +434,13 @@ export function RoiSection() {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => { setEmail(e.target.value); setSubmitError(false); }}
                       placeholder="votre@email.ch"
                       required
                       className="flex-1 h-11 px-4 rounded-md text-sm"
                       style={{
                         background: "rgba(255,255,255,0.1)",
-                        border: "1px solid rgba(255,255,255,0.15)",
+                        border: `1px solid ${submitError ? "rgba(239,68,68,0.5)" : "rgba(255,255,255,0.15)"}`,
                         color: "#ffffff",
                         outline: "none",
                       }}
@@ -436,6 +458,14 @@ export function RoiSection() {
                       {submitting ? "..." : "Envoyer"}
                     </button>
                   </div>
+                  {submitError && (
+                    <p
+                      className="mt-2 text-xs"
+                      style={{ color: "#ef4444" }}
+                    >
+                      Une erreur est survenue. Veuillez réessayer ou nous contacter à contact@lxstudio.ch.
+                    </p>
+                  )}
                 </form>
               ) : (
                 <div
@@ -458,9 +488,10 @@ export function RoiSection() {
             style={{ color: "rgba(255,255,255,0.25)" }}
           >
             Estimation indicative basée sur les retours de cabinets comparables. Hypothèses :
-            coût horaire chargé {HOURLY_COST} CHF, {MIN_PER_DOC} min économisées par document,
-            investissement {fmtCHF(SETUP_COST)} (hardware + installation), abonnement{" "}
-            {fmtCHF(MONTHLY_FEE)}/mois (support, mises à jour, monitoring).
+            coût horaire chargé {HOURLY_COST} CHF, {MIN_PER_DOC} min économisées par document.
+            Offre {pricing.tier} : investissement {fmtCHF(pricing.setup)} (hardware + installation),
+            abonnement {fmtCHF(pricing.monthly)}/mois (support, mises à jour, monitoring).
+            Tarif adapté à la taille de votre cabinet.
           </p>
         </Reveal>
       </div>

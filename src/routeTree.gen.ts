@@ -9,8 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PolitiqueDeConfidentialiteRoute =
+  PolitiqueDeConfidentialiteRouteImport.update({
+    id: '/politique-de-confidentialite',
+    path: '/politique-de-confidentialite',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +32,50 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/mentions-legales' | '/politique-de-confidentialite'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/mentions-legales' | '/politique-de-confidentialite'
+  id: '__root__' | '/' | '/mentions-legales' | '/politique-de-confidentialite'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
+  PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/politique-de-confidentialite': {
+      id: '/politique-de-confidentialite'
+      path: '/politique-de-confidentialite'
+      fullPath: '/politique-de-confidentialite'
+      preLoaderRoute: typeof PolitiqueDeConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +88,18 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
+  PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

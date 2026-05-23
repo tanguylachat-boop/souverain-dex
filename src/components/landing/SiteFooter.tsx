@@ -22,7 +22,7 @@ export function SiteFooter() {
         }}
       >
         <p>© {new Date().getFullYear()} LX Studio. Tous droits réservés.</p>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap" as const }}>
           <a
             href="/mentions-legales"
             style={{
@@ -40,6 +40,24 @@ export function SiteFooter() {
             }}
           >
             Mentions légales
+          </a>
+          <a
+            href="/politique-de-confidentialite"
+            style={{
+              color: "rgba(255,255,255,0.25)",
+              textDecoration: "none",
+              transition: "color 0.2s",
+              padding: "0.5rem",
+              margin: "-0.5rem",
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.color = "rgba(255,255,255,0.6)";
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.color = "rgba(255,255,255,0.25)";
+            }}
+          >
+            Confidentialité
           </a>
           <a
             href="mailto:contact@lxstudio.ch"

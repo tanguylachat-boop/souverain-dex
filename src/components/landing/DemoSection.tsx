@@ -14,6 +14,7 @@ import {
 import { Reveal } from "@/hooks/use-scroll-reveal";
 
 const CAL_URL = "https://cal.com/lx-studio/15min";
+const LEADS_API = "https://command-center-iota-wheat.vercel.app/api/leads";
 
 const ROMANDS = [
   { value: "GE", label: "Genève" },
@@ -52,7 +53,7 @@ export function DemoSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const values = {
@@ -75,6 +76,24 @@ export function DemoSection() {
     }
     setErrors({});
     setSubmitting(true);
+
+    // Persist lead to command-center BEFORE opening cal.com
+    try {
+      await fetch(LEADS_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: result.data.email,
+          name: `${result.data.prenom} ${result.data.nom}`,
+          cabinet: result.data.cabinet,
+          telephone: result.data.telephone,
+          canton: result.data.canton,
+          source: "demo_form",
+        }),
+      });
+    } catch {
+      // Non-blocking: persist best-effort, always open cal.com
+    }
 
     const params = new URLSearchParams({
       name: `${result.data.prenom} ${result.data.nom}`,

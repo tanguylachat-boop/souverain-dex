@@ -8,7 +8,7 @@ const PILLARS = [
   },
   {
     title: "Données hébergées chez vous",
-    body: "Le boîtier est physiquement installé dans votre cabinet. Aucun cloud, aucun transit, aucune juridiction étrangère.",
+    body: "Le hardware est physiquement installé dans votre cabinet. Aucun cloud, aucun transit, aucune juridiction étrangère.",
   },
   {
     title: "Conforme LPD & secret professionnel",

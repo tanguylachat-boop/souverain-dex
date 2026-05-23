@@ -4,19 +4,65 @@ import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#050507",
+        padding: "1rem",
+      }}
+    >
+      <div style={{ maxWidth: "28rem", textAlign: "center" }}>
+        <h1
+          style={{
+            fontSize: "5rem",
+            fontWeight: 800,
+            color: "#ffffff",
+            letterSpacing: "-0.04em",
+            lineHeight: 1,
+          }}
+        >
+          404
+        </h1>
+        <h2
+          style={{
+            marginTop: "1rem",
+            fontSize: "1.25rem",
+            fontWeight: 600,
+            color: "#ffffff",
+          }}
+        >
+          Page introuvable
+        </h2>
+        <p
+          style={{
+            marginTop: "0.5rem",
+            fontSize: "0.875rem",
+            color: "rgba(255,255,255,0.45)",
+            lineHeight: 1.6,
+          }}
+        >
+          La page que vous cherchez n'existe pas ou a été déplacée.
         </p>
-        <div className="mt-6">
+        <div style={{ marginTop: "1.5rem" }}>
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "0.625rem 1.25rem",
+              borderRadius: "0.375rem",
+              background: "#ffffff",
+              color: "#050507",
+              fontSize: "0.875rem",
+              fontWeight: 600,
+              textDecoration: "none",
+            }}
           >
-            Go home
+            Retour à l'accueil
           </Link>
         </div>
       </div>
@@ -40,7 +86,7 @@ export const Route = createRootRoute({
       {
         property: "og:description",
         content:
-          "Hardware dédié installé chez vous. Vos données restent dans votre LAN. Pensé pour Genève, Vaud, Valais, Fribourg, Neuchâtel et le Jura.",
+          "Hardware dédié installé chez vous. Vos données restent dans votre cabinet. Pensé pour Genève, Vaud, Valais, Fribourg, Neuchâtel et le Jura.",
       },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "fr_CH" },
@@ -68,7 +114,7 @@ export const Route = createRootRoute({
       {
         name: "keywords",
         content:
-          "agent IA fiduciaire, IA souveraine Suisse, automatisation fiduciaire, nLPD, secret professionnel, Genève, Lausanne, Suisse romande, Mac mini local, IA locale cabinet comptable",
+          "agent IA fiduciaire, IA souveraine Suisse, automatisation fiduciaire, nLPD, secret professionnel, Genève, Lausanne, Suisse romande, IA locale cabinet comptable, hardware dédié",
       },
     ],
     links: [
@@ -83,6 +129,11 @@ export const Route = createRootRoute({
       { rel: "alternate", hrefLang: "x-default", href: "https://lxstudio.ch/" },
     ],
     scripts: [
+      {
+        src: "https://plausible.io/js/script.js",
+        defer: true,
+        "data-domain": "lxstudio.ch",
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({

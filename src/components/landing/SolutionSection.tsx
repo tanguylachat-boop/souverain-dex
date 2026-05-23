@@ -92,7 +92,7 @@ export function SolutionSection() {
                   maxWidth: "28rem",
                 }}
               >
-                Un pipeline simple, déployé sur un Mac mini dédié installé chez vous. Aucune donnée ne sort.
+                Un pipeline simple, déployé sur du hardware dédié installé chez vous. Aucune donnée ne sort de votre cabinet.
               </p>
             </Reveal>
           </div>
@@ -110,7 +110,7 @@ export function SolutionSection() {
             >
               <img
                 src={swissHardware}
-                alt="Boîtier d'agent IA souverain installé dans un cabinet fiduciaire en Suisse romande"
+                alt="Hardware dédié installé dans un cabinet fiduciaire en Suisse romande"
                 width={1024}
                 height={1024}
                 loading="lazy"

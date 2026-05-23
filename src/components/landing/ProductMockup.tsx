@@ -4,7 +4,7 @@ export function ProductMockup() {
       viewBox="0 0 520 440"
       className="w-full h-auto"
       role="img"
-      aria-label="Mac mini installé dans le cabinet, traitement local des documents"
+      aria-label="Hardware dédié installé dans le cabinet, traitement local des documents"
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Soft frame */}
@@ -49,7 +49,7 @@ export function ProductMockup() {
         <path d="M148 298 L208 238" />
       </g>
 
-      {/* Mac mini (center) */}
+      {/* Hardware dédié (center) */}
       <g transform="translate(208, 178)">
         <rect width="148" height="100" rx="10" fill="var(--foreground)" />
         <rect x="14" y="14" width="120" height="2" rx="1" fill="white" opacity="0.15" />

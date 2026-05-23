@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ParticleField } from "./ParticleField";
 
 export function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -56,6 +57,9 @@ export function Hero() {
         }}
       />
 
+      {/* Animated particle network */}
+      <ParticleField />
+
       {/* Subtle grid pattern */}
       <div
         aria-hidden="true"
@@ -63,7 +67,7 @@ export function Hero() {
           position: "absolute",
           inset: 0,
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
           maskImage: "radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%)",
           WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%)",

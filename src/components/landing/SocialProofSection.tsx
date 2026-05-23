@@ -16,7 +16,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Avant de signer, j'ai fait auditer le boîtier par notre prestataire IT. Verdict : aucun trafic sortant. Exactement ce qu'on m'avait promis.",
+      "Avant de signer, j'ai fait auditer le système par notre prestataire IT. Verdict : aucun trafic sortant. Exactement ce qu'on m'avait promis.",
     name: "M. Roduit",
     role: "Expert-comptable diplômé — Sion",
   },
@@ -25,7 +25,7 @@ const TESTIMONIALS = [
 const STATS = [
   { value: 12, suffix: "h", label: "économisées par collaborateur / semaine" },
   { value: 0, suffix: "", label: "donnée transmise hors du cabinet" },
-  { value: 100, suffix: "%", label: "hébergé sur votre LAN, en Suisse" },
+  { value: 100, suffix: "%", label: "hébergé dans votre cabinet, en Suisse" },
   { value: 1, prefix: "< ", suffix: " j", label: "d'installation sur site" },
 ];
 
