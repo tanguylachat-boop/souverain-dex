@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Reveal } from "@/hooks/use-scroll-reveal";
 
 const CAL_URL = "https://cal.com/lx-studio/15min";
 
@@ -87,74 +88,262 @@ export function DemoSection() {
   };
 
   return (
-    <section id="demo" className="py-20 md:py-28 bg-surface border-t border-border">
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="text-center max-w-2xl mx-auto">
-          <p className="text-xs font-medium tracking-[0.15em] text-primary uppercase mb-4">Réserver</p>
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-            Voyez ce que l'IA peut faire pour votre cabinet — en 20 minutes.
-          </h2>
-          <p className="mt-5 text-muted-foreground text-lg leading-relaxed">
-            Démo personnalisée sur vos cas d'usage. Sans engagement, sans pitch commercial.
-          </p>
-        </div>
+    <section
+      id="demo"
+      style={{
+        position: "relative",
+        padding: "8rem 0",
+        background: "linear-gradient(180deg, #0a0a10 0%, #060608 50%, #0a0a10 100%)",
+        overflow: "hidden",
+      }}
+    >
+      {/* Accent line */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 1,
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)",
+        }}
+      />
 
-        <form
-          onSubmit={handleSubmit}
-          noValidate
-          className="mt-12 rounded-xl border border-border bg-background p-6 md:p-8 shadow-sm"
-        >
-          <div className="grid sm:grid-cols-2 gap-5">
-            <Field id="prenom" label="Prénom" error={errors.prenom}>
-              <Input id="prenom" name="prenom" autoComplete="given-name" maxLength={60} required />
-            </Field>
-            <Field id="nom" label="Nom" error={errors.nom}>
-              <Input id="nom" name="nom" autoComplete="family-name" maxLength={60} required />
-            </Field>
-            <Field id="cabinet" label="Cabinet" error={errors.cabinet} className="sm:col-span-2">
-              <Input id="cabinet" name="cabinet" autoComplete="organization" maxLength={120} required />
-            </Field>
-            <Field id="email" label="Email professionnel" error={errors.email}>
-              <Input id="email" name="email" type="email" autoComplete="email" maxLength={160} required />
-            </Field>
-            <Field id="telephone" label="Téléphone" error={errors.telephone}>
-              <Input id="telephone" name="telephone" type="tel" autoComplete="tel" maxLength={25} placeholder="+41 ..." required />
-            </Field>
-            <Field id="canton" label="Canton" error={errors.canton} className="sm:col-span-2">
-              <Select name="canton">
-                <SelectTrigger id="canton" className="w-full">
-                  <SelectValue placeholder="Sélectionnez un canton" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Suisse romande</SelectLabel>
-                    {ROMANDS.map((c) => (
-                      <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
-                    ))}
-                  </SelectGroup>
-                  <SelectGroup>
-                    <SelectLabel>Autres cantons</SelectLabel>
-                    {AUTRES.map((c) => (
-                      <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </Field>
+      {/* Gradient orb */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "30%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "50vw",
+          height: "50vw",
+          maxWidth: "600px",
+          maxHeight: "600px",
+          borderRadius: "50%",
+          background: "radial-gradient(closest-side, rgba(75, 124, 201, 0.06), transparent 70%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          maxWidth: "48rem",
+          margin: "0 auto",
+          padding: "0 1.5rem",
+        }}
+      >
+        <Reveal>
+          <div style={{ textAlign: "center", maxWidth: "36rem", margin: "0 auto" }}>
+            <p
+              style={{
+                fontSize: "0.6875rem",
+                fontWeight: 500,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase" as const,
+                color: "#4b7cc9",
+                marginBottom: "1.25rem",
+              }}
+            >
+              Réserver
+            </p>
+            <h2
+              style={{
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontWeight: 700,
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                color: "#ffffff",
+              }}
+            >
+              Voyez ce que l'IA peut faire pour votre cabinet —{" "}
+              <span style={{ color: "#4b7cc9" }}>en 20 minutes.</span>
+            </h2>
+            <p
+              style={{
+                marginTop: "1rem",
+                fontSize: "1.0625rem",
+                color: "rgba(255,255,255,0.4)",
+                lineHeight: 1.7,
+              }}
+            >
+              Démo personnalisée sur vos cas d'usage. Sans engagement, sans pitch commercial.
+            </p>
           </div>
+        </Reveal>
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="mt-8 w-full inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-60"
+        <Reveal delay={0.15}>
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            style={{
+              marginTop: "3rem",
+              padding: "2rem",
+              borderRadius: "1rem",
+              border: "1px solid rgba(255,255,255,0.08)",
+              background: "rgba(255,255,255,0.03)",
+              backdropFilter: "blur(8px)",
+            }}
           >
-            {submitting ? "Ouverture du calendrier…" : "Réserver une démo"}
-          </button>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field id="prenom" label="Prénom" error={errors.prenom}>
+                <Input
+                  id="prenom"
+                  name="prenom"
+                  autoComplete="given-name"
+                  maxLength={60}
+                  required
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    color: "#ffffff",
+                  }}
+                />
+              </Field>
+              <Field id="nom" label="Nom" error={errors.nom}>
+                <Input
+                  id="nom"
+                  name="nom"
+                  autoComplete="family-name"
+                  maxLength={60}
+                  required
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    color: "#ffffff",
+                  }}
+                />
+              </Field>
+              <Field
+                id="cabinet"
+                label="Cabinet"
+                error={errors.cabinet}
+                className="sm:col-span-2"
+              >
+                <Input
+                  id="cabinet"
+                  name="cabinet"
+                  autoComplete="organization"
+                  maxLength={120}
+                  required
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    color: "#ffffff",
+                  }}
+                />
+              </Field>
+              <Field id="email" label="Email professionnel" error={errors.email}>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  maxLength={160}
+                  required
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    color: "#ffffff",
+                  }}
+                />
+              </Field>
+              <Field id="telephone" label="Téléphone" error={errors.telephone}>
+                <Input
+                  id="telephone"
+                  name="telephone"
+                  type="tel"
+                  autoComplete="tel"
+                  maxLength={25}
+                  placeholder="+41 ..."
+                  required
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    color: "#ffffff",
+                  }}
+                />
+              </Field>
+              <Field
+                id="canton"
+                label="Canton"
+                error={errors.canton}
+                className="sm:col-span-2"
+              >
+                <Select name="canton">
+                  <SelectTrigger
+                    id="canton"
+                    className="w-full"
+                    style={{
+                      background: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      color: "#ffffff",
+                    }}
+                  >
+                    <SelectValue placeholder="Sélectionnez un canton" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Suisse romande</SelectLabel>
+                      {ROMANDS.map((c) => (
+                        <SelectItem key={c.value} value={c.value}>
+                          {c.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                    <SelectGroup>
+                      <SelectLabel>Autres cantons</SelectLabel>
+                      {AUTRES.map((c) => (
+                        <SelectItem key={c.value} value={c.value}>
+                          {c.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </Field>
+            </div>
 
-          <p className="mt-5 text-center text-xs text-muted-foreground">
-            Conforme LPD et secret professionnel suisse
-          </p>
-        </form>
+            <button
+              type="submit"
+              disabled={submitting}
+              style={{
+                marginTop: "2rem",
+                width: "100%",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0.875rem 1.5rem",
+                borderRadius: "0.375rem",
+                background: "#ffffff",
+                color: "#050507",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+                transition: "opacity 0.2s",
+                opacity: submitting ? 0.6 : 1,
+              }}
+            >
+              {submitting ? "Ouverture du calendrier…" : "Réserver une démo"}
+            </button>
+
+            <p
+              style={{
+                marginTop: "1.25rem",
+                textAlign: "center",
+                fontSize: "0.75rem",
+                color: "rgba(255,255,255,0.25)",
+              }}
+            >
+              Conforme LPD et secret professionnel suisse
+            </p>
+          </form>
+        </Reveal>
       </div>
     </section>
   );
@@ -175,11 +364,24 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <Label htmlFor={id} className="text-sm font-medium text-foreground mb-1.5 block">
+      <Label
+        htmlFor={id}
+        style={{
+          display: "block",
+          fontSize: "0.8125rem",
+          fontWeight: 500,
+          color: "rgba(255,255,255,0.6)",
+          marginBottom: "0.375rem",
+        }}
+      >
         {label}
       </Label>
       {children}
-      {error && <p className="mt-1.5 text-xs text-destructive">{error}</p>}
+      {error && (
+        <p style={{ marginTop: "0.375rem", fontSize: "0.75rem", color: "#ef4444" }}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }

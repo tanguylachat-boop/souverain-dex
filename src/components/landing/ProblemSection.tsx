@@ -1,4 +1,5 @@
-import { Reveal } from "@/hooks/use-scroll-reveal";
+import { Reveal, useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useEffect, useState } from "react";
 
 const PAINS = [
   {
@@ -24,32 +25,172 @@ const PAINS = [
   },
 ];
 
+function AnimatedHours({ visible }: { visible: boolean }) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!visible) return;
+    const duration = 1500;
+    const target = 15;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(target * eased));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [visible]);
+
+  return <>{display}</>;
+}
+
 export function ProblemSection() {
+  const { ref: numRef, visible: numVisible } = useScrollReveal<HTMLDivElement>(0.3);
+
   return (
-    <section id="probleme" className="py-20 md:py-28 bg-surface border-y border-border">
-      <div className="mx-auto max-w-6xl px-6">
+    <section
+      id="probleme"
+      style={{
+        position: "relative",
+        padding: "8rem 0",
+        background: "#0a0a10",
+        overflow: "hidden",
+      }}
+    >
+      {/* Subtle gradient top transition */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "1px",
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+        }}
+      />
+
+      <div style={{ maxWidth: "76rem", margin: "0 auto", padding: "0 1.5rem" }}>
+        {/* Big number hero */}
         <Reveal>
-          <div className="max-w-3xl">
-            <p className="text-xs font-medium tracking-[0.15em] text-primary uppercase mb-4">Le constat</p>
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-              Vos collaborateurs perdent 10 à 15 heures par semaine sur des tâches qui devraient être automatiques.
-            </h2>
+          <div
+            ref={numRef}
+            style={{ textAlign: "center", marginBottom: "5rem" }}
+          >
+            <div
+              style={{
+                fontSize: "clamp(5rem, 15vw, 12rem)",
+                fontWeight: 900,
+                lineHeight: 0.85,
+                letterSpacing: "-0.05em",
+                color: "#ffffff",
+                textShadow: "0 0 80px rgba(75, 124, 201, 0.15)",
+              }}
+            >
+              <AnimatedHours visible={numVisible} />
+              <span
+                style={{
+                  fontSize: "0.4em",
+                  fontWeight: 400,
+                  color: "rgba(255,255,255,0.25)",
+                  marginLeft: "0.1em",
+                }}
+              >
+                h
+              </span>
+            </div>
+            <p
+              style={{
+                marginTop: "1rem",
+                fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
+                color: "rgba(255,255,255,0.4)",
+                maxWidth: "28rem",
+                margin: "1rem auto 0",
+                lineHeight: 1.6,
+              }}
+            >
+              perdues chaque semaine par cabinet sur des tâches qui devraient être automatiques.
+            </p>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
+        {/* Pain point cards */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
           {PAINS.map((p, i) => (
-            <Reveal key={p.title} delay={0.1 + i * 0.1}>
+            <Reveal key={p.title} delay={0.1 + i * 0.12}>
               <article
-                className="rounded-lg border border-border bg-background p-6 transition-all duration-300 hover:border-foreground/20 hover-lift h-full"
+                style={{
+                  padding: "2rem",
+                  borderRadius: "0.75rem",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: "rgba(255,255,255,0.02)",
+                  transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                  height: "100%",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.12)";
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 40px -15px rgba(0,0,0,0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.06)";
+                  (e.currentTarget as HTMLElement).style.transform = "none";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                }}
               >
-                <div className="w-10 h-10 rounded-md bg-surface border border-border flex items-center justify-center mb-5">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="text-foreground">
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "0.5rem",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "rgba(255,255,255,0.03)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "1.25rem",
+                  }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.5)"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     {p.icon}
                   </svg>
                 </div>
-                <h3 className="text-base font-semibold text-foreground mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.body}</p>
+                <h3
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    color: "#ffffff",
+                    marginBottom: "0.625rem",
+                  }}
+                >
+                  {p.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.875rem",
+                    color: "rgba(255,255,255,0.4)",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {p.body}
+                </p>
               </article>
             </Reveal>
           ))}

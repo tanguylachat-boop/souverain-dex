@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main style={{ minHeight: "100vh", background: "#050507", color: "#f0f0f2" }}>
       <SiteHeader />
       <Hero />
       <ProblemSection />

@@ -21,43 +21,132 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/85 backdrop-blur-md border-b border-border shadow-sm"
-          : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        transition: "all 0.3s ease",
+        background: scrolled ? "rgba(5, 5, 7, 0.85)" : "transparent",
+        backdropFilter: scrolled ? "blur(16px) saturate(140%)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+      }}
     >
-      <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2 font-semibold tracking-tight text-foreground">
-          <span className="inline-block w-2 h-2 rounded-sm bg-primary" aria-hidden />
-          LX<span className="text-muted-foreground font-normal"> Studio</span>
+      <div
+        style={{
+          maxWidth: "76rem",
+          margin: "0 auto",
+          padding: "0 1.5rem",
+          height: "4rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* Logo */}
+        <a
+          href="#top"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            color: "#ffffff",
+            textDecoration: "none",
+            fontSize: "0.9375rem",
+          }}
+        >
+          <span
+            aria-hidden="true"
+            style={{
+              display: "inline-block",
+              width: 8,
+              height: 8,
+              borderRadius: 2,
+              background: "#4b7cc9",
+            }}
+          />
+          LX
+          <span style={{ fontWeight: 400, color: "rgba(255,255,255,0.45)" }}>
+            {" "}Studio
+          </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+        {/* Desktop nav */}
+        <nav
+          className="hidden md:flex"
+          style={{
+            alignItems: "center",
+            gap: "2rem",
+            fontSize: "0.8125rem",
+          }}
+        >
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="hover:text-foreground transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-primary after:transition-all hover:after:w-full"
+              style={{
+                color: "rgba(255,255,255,0.45)",
+                textDecoration: "none",
+                transition: "color 0.2s",
+                position: "relative",
+              }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.color = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.color = "rgba(255,255,255,0.45)";
+              }}
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        {/* CTA + mobile menu */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <a
             href="#demo"
-            className="hidden sm:inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 hover:translate-y-[-1px] transition-all duration-200"
+            className="hidden sm:inline-flex"
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "0.5rem 1.125rem",
+              borderRadius: "0.375rem",
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "#ffffff",
+              fontSize: "0.8125rem",
+              fontWeight: 500,
+              textDecoration: "none",
+              transition: "all 0.2s",
+            }}
           >
             Demander une démo
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden p-2 -mr-2 text-foreground"
+            className="md:hidden"
+            style={{
+              padding: "0.5rem",
+              marginRight: "-0.5rem",
+              color: "#ffffff",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+            }}
             aria-label="Menu"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               {open ? (
                 <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
               ) : (
@@ -68,15 +157,33 @@ export function SiteHeader() {
         </div>
       </div>
 
+      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
-          <nav className="flex flex-col px-6 py-4 gap-4 text-sm">
+        <div
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+            background: "rgba(5, 5, 7, 0.95)",
+            backdropFilter: "blur(16px)",
+          }}
+        >
+          <nav
+            style={{
+              display: "flex",
+              flexDirection: "column" as const,
+              padding: "1rem 1.5rem",
+              gap: "1rem",
+              fontSize: "0.875rem",
+            }}
+          >
             {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="text-muted-foreground hover:text-foreground"
+                style={{
+                  color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none",
+                }}
               >
                 {item.label}
               </a>
@@ -84,7 +191,19 @@ export function SiteHeader() {
             <a
               href="#demo"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground"
+              style={{
+                marginTop: "0.5rem",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0.625rem 1rem",
+                borderRadius: "0.375rem",
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#ffffff",
+                fontWeight: 500,
+                textDecoration: "none",
+              }}
             >
               Demander une démo
             </a>
