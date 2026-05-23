@@ -18,13 +18,13 @@ interface Particle {
   pulseOffset: number;
 }
 
-const ACCENT_R = 75;
-const ACCENT_G = 124;
-const ACCENT_B = 201;
-const CONNECTION_DISTANCE = 180;
-const PARTICLE_DENSITY = 0.00006; // particles per pixel²
-const MIN_PARTICLES = 40;
-const MAX_PARTICLES = 120;
+const ACCENT_R = 90;
+const ACCENT_G = 140;
+const ACCENT_B = 220;
+const CONNECTION_DISTANCE = 200;
+const PARTICLE_DENSITY = 0.00008; // particles per pixel²
+const MIN_PARTICLES = 50;
+const MAX_PARTICLES = 140;
 
 function createParticle(w: number, h: number): Particle {
   return {
@@ -32,8 +32,8 @@ function createParticle(w: number, h: number): Particle {
     y: Math.random() * h,
     vx: (Math.random() - 0.5) * 0.3,
     vy: (Math.random() - 0.5) * 0.3,
-    r: Math.random() * 2 + 0.8,
-    opacity: Math.random() * 0.5 + 0.25,
+    r: Math.random() * 2.5 + 1.2,
+    opacity: Math.random() * 0.4 + 0.4,
     pulseSpeed: Math.random() * 0.008 + 0.003,
     pulseOffset: Math.random() * Math.PI * 2,
   };
@@ -153,12 +153,12 @@ export function ParticleField() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < CONNECTION_DISTANCE) {
-            const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.18;
+            const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.3;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.strokeStyle = `rgba(${ACCENT_R}, ${ACCENT_G}, ${ACCENT_B}, ${alpha})`;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -170,13 +170,13 @@ export function ParticleField() {
           const dx = p.x - mouse.x;
           const dy = p.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 200) {
-            const alpha = (1 - dist / 200) * 0.25;
+          if (dist < 250) {
+            const alpha = (1 - dist / 250) * 0.4;
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(p.x, p.y);
             ctx.strokeStyle = `rgba(${ACCENT_R}, ${ACCENT_G}, ${ACCENT_B}, ${alpha})`;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -190,14 +190,14 @@ export function ParticleField() {
 
         // Outer glow
         ctx.beginPath();
-        ctx.arc(p.x, p.y, currentR * 6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${ACCENT_R}, ${ACCENT_G}, ${ACCENT_B}, ${currentOpacity * 0.04})`;
+        ctx.arc(p.x, p.y, currentR * 8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${ACCENT_R}, ${ACCENT_G}, ${ACCENT_B}, ${currentOpacity * 0.06})`;
         ctx.fill();
 
         // Inner glow
         ctx.beginPath();
-        ctx.arc(p.x, p.y, currentR * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${ACCENT_R}, ${ACCENT_G}, ${ACCENT_B}, ${currentOpacity * 0.12})`;
+        ctx.arc(p.x, p.y, currentR * 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${ACCENT_R}, ${ACCENT_G}, ${ACCENT_B}, ${currentOpacity * 0.15})`;
         ctx.fill();
 
         // Core
@@ -208,8 +208,8 @@ export function ParticleField() {
 
         // Bright center
         ctx.beginPath();
-        ctx.arc(p.x, p.y, currentR * 0.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * 0.6})`;
+        ctx.arc(p.x, p.y, currentR * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * 0.8})`;
         ctx.fill();
       }
 
@@ -236,11 +236,11 @@ export function ParticleField() {
         width: "100%",
         height: "100%",
         pointerEvents: "auto",
-        opacity: 0.85,
+        opacity: 1,
         maskImage:
-          "radial-gradient(ellipse 100% 90% at 55% 45%, black 30%, transparent 75%)",
+          "linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 25%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 65%, black 85%)",
         WebkitMaskImage:
-          "radial-gradient(ellipse 100% 90% at 55% 45%, black 30%, transparent 75%)",
+          "linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 25%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 65%, black 85%)",
       }}
     />
   );
