@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "#probleme", label: "Problème" },
+  { href: "#probleme", label: "Probleme" },
   { href: "#solution", label: "Solution" },
-  { href: "#difference", label: "Différence" },
-  { href: "#demo", label: "Démo" },
+  { href: "#difference", label: "Difference" },
+  { href: "#roi", label: "Calculateur" },
+  { href: "#demo", label: "Demo" },
 ];
 
 export function SiteHeader() {
@@ -20,9 +21,9 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-md border-b border-border"
+          ? "bg-background/85 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -37,7 +38,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
-              className="hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-primary after:transition-all hover:after:w-full"
             >
               {item.label}
             </a>
@@ -47,9 +48,9 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#demo"
-            className="hidden sm:inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="hidden sm:inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 hover:translate-y-[-1px] transition-all duration-200"
           >
-            Demander une démo
+            Demander une demo
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -68,7 +69,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-border bg-background">
+        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
           <nav className="flex flex-col px-6 py-4 gap-4 text-sm">
             {NAV.map((item) => (
               <a
@@ -85,7 +86,7 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground"
             >
-              Demander une démo
+              Demander une demo
             </a>
           </nav>
         </div>

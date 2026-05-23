@@ -12,8 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// TODO: remplacer par votre vraie URL cal.com
-const CAL_URL = "https://cal.com/your-handle/demo-fiduciaire";
+const CAL_URL = "https://cal.com/lx-studio/15min";
 
 const ROMANDS = [
   { value: "GE", label: "Genève" },
