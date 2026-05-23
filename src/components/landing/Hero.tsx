@@ -76,7 +76,7 @@ export function Hero() {
               transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s",
             }}
           >
-            Concu pour les fiduciaires suisses qui placent le secret professionnel au-dessus de tout.
+            Conçu pour les fiduciaires suisses qui placent le secret professionnel au-dessus de tout.
           </p>
 
           <div
@@ -91,7 +91,7 @@ export function Hero() {
               href="#demo"
               className="group inline-flex items-center justify-center rounded-md bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-depth hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300"
             >
-              Demander une demo de 20 minutes
+              Demander une démo de 20 minutes
               <svg
                 width="14"
                 height="14"
@@ -108,7 +108,7 @@ export function Hero() {
               href="#solution"
               className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
-              Voir comment ca fonctionne
+              Voir comment ça fonctionne
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -126,7 +126,7 @@ export function Hero() {
               <span className="w-1 h-1 rounded-full bg-primary" /> Conforme nLPD
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-primary" /> Heberge dans votre cabinet
+              <span className="w-1 h-1 rounded-full bg-primary" /> Hébergé dans votre cabinet
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-primary" /> Sans cloud externe
@@ -229,8 +229,8 @@ export function Hero() {
                 className="absolute top-1/3 -left-2 rounded-lg border border-border bg-background/90 backdrop-blur px-3 py-2 text-[11px] shadow-depth animate-float-slow"
                 style={{ transform: "translateZ(140px)", animationDelay: "2s" }}
               >
-                <div className="text-muted-foreground">Conformite</div>
-                <div className="font-semibold text-foreground">nLPD - Suisse</div>
+                <div className="text-muted-foreground">Conformité</div>
+                <div className="font-semibold text-foreground">nLPD · Suisse</div>
               </div>
 
               {/* Floating chip — bottom right */}
@@ -242,7 +242,7 @@ export function Hero() {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   <span className="font-semibold text-foreground">Agent actif</span>
                 </div>
-                <div className="text-muted-foreground mt-0.5">142 docs traites aujourd'hui</div>
+                <div className="text-muted-foreground mt-0.5">142 docs traités aujourd'hui</div>
               </div>
             </div>
           </div>

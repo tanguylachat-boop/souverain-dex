@@ -131,14 +131,14 @@ export function RoiSection() {
               Calculateur ROI
             </p>
             <h2 className="text-3xl md:text-5xl font-semibold text-white leading-tight">
-              Combien votre cabinet economise{" "}
+              Combien votre cabinet économise{" "}
               <span className="text-gradient" style={{ background: "linear-gradient(135deg, white 0%, var(--primary) 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-                reellement
+                réellement
               </span>{" "}
-              chaque annee.
+              chaque année.
             </h2>
             <p className="mt-5 text-base text-white/60 leading-relaxed">
-              Ajustez les curseurs selon votre cabinet. Estimation basee sur{" "}
+              Ajustez les curseurs selon votre cabinet. Estimation basée sur{" "}
               {HOURLY_COST} CHF/h et {MIN_PER_DOC} minutes economisees par document.
             </p>
           </div>
@@ -178,7 +178,7 @@ export function RoiSection() {
                 <div>
                   <div className="flex items-baseline justify-between mb-4">
                     <label htmlFor="docs" className="text-sm font-medium text-white/80">
-                      Documents traites par semaine
+                      Documents traités par semaine
                     </label>
                     <span className="text-3xl font-semibold text-white tabular-nums glow-primary">
                       {fmtNum(docsPerWeek)}
@@ -203,7 +203,7 @@ export function RoiSection() {
                 {/* Metrics */}
                 <div className="pt-6 border-t border-white/10 space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-white/50">Heures economisees / semaine</span>
+                    <span className="text-white/50">Heures économisées / semaine</span>
                     <span className="font-medium text-white tabular-nums">
                       {data.hoursSavedWeek.toFixed(1)} h
                     </span>
@@ -229,7 +229,7 @@ export function RoiSection() {
               <div className="space-y-8 flex-1">
                 {/* Gross savings — hero number */}
                 <div>
-                  <p className="text-sm text-white/60 mb-2">Economies brutes / an</p>
+                  <p className="text-sm text-white/60 mb-2">Économies brutes / an</p>
                   <p className="text-5xl md:text-6xl font-bold text-white tabular-nums tracking-tight">
                     <AnimatedNumber value={Math.round(data.grossSavingsYear)} prefix="CHF " />
                   </p>
@@ -238,18 +238,18 @@ export function RoiSection() {
                 {/* Grid metrics */}
                 <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
                   <div>
-                    <p className="text-xs text-white/50 mb-1">Net annee 1</p>
+                    <p className="text-xs text-white/50 mb-1">Net année 1</p>
                     <p className="text-xl font-semibold text-white tabular-nums">
                       {fmtCHF(data.netYear1)}
                     </p>
-                    <p className="text-xs text-white/40 mt-1">apres setup + abonnement</p>
+                    <p className="text-xs text-white/40 mt-1">après setup + abonnement</p>
                   </div>
                   <div>
-                    <p className="text-xs text-white/50 mb-1">Net recurrent / an</p>
+                    <p className="text-xs text-white/50 mb-1">Net récurrent / an</p>
                     <p className="text-xl font-semibold text-white tabular-nums">
                       {fmtCHF(data.netRecurring)}
                     </p>
-                    <p className="text-xs text-white/40 mt-1">des l'annee 2</p>
+                    <p className="text-xs text-white/40 mt-1">dès l'année 2</p>
                   </div>
                 </div>
 
@@ -268,7 +268,7 @@ export function RoiSection() {
               {!submitted ? (
                 <form onSubmit={handleLeadCapture} className="mt-8">
                   <p className="text-xs text-white/50 mb-3">
-                    Recevez cette estimation detaillee par email
+                    Recevez cette estimation détaillée par email
                   </p>
                   <div className="flex gap-2">
                     <input
@@ -302,10 +302,10 @@ export function RoiSection() {
 
         <Reveal delay={0.3}>
           <p className="mt-8 text-xs text-white/30 max-w-3xl">
-            Estimation indicative basee sur les retours de cabinets comparables. Hypotheses :
-            cout horaire charge {HOURLY_COST} CHF, {MIN_PER_DOC} min economisees par document,
+            Estimation indicative basée sur les retours de cabinets comparables. Hypothèses :
+            coût horaire chargé {HOURLY_COST} CHF, {MIN_PER_DOC} min économisées par document,
             investissement {fmtCHF(SETUP_COST)} (hardware + installation), abonnement{" "}
-            {fmtCHF(MONTHLY_FEE)}/mois (support, mises a jour, monitoring).
+            {fmtCHF(MONTHLY_FEE)}/mois (support, mises à jour, monitoring).
           </p>
         </Reveal>
       </div>

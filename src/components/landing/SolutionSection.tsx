@@ -3,19 +3,19 @@ import { Reveal } from "@/hooks/use-scroll-reveal";
 const STEPS = [
   {
     title: "Le document arrive",
-    body: "Mail, scan, photo de facture — l'agent capte chaque piece des son entree dans votre systeme.",
+    body: "Mail, scan, photo de facture — l'agent capte chaque pièce dès son entrée dans votre système.",
   },
   {
     title: "Extraction & classification",
-    body: "L'agent extrait les donnees, comprend le contexte et classifie automatiquement par client et par type.",
+    body: "L'agent extrait les données, comprend le contexte et classifie automatiquement par client et par type.",
   },
   {
     title: "Renommage & rangement",
-    body: "Chaque fichier est renomme et depose selon vos conventions. Vos dossiers restent impeccables.",
+    body: "Chaque fichier est renommé et déposé selon vos conventions. Vos dossiers restent impeccables.",
   },
   {
-    title: "Relances automatisees",
-    body: "TVA, pieces manquantes, echeances : les relances clients partent au bon moment, signees par votre cabinet.",
+    title: "Relances automatisées",
+    body: "TVA, pièces manquantes, échéances : les relances clients partent au bon moment, signées par votre cabinet.",
   },
 ];
 
@@ -30,7 +30,7 @@ export function SolutionSection() {
               Un agent IA qui apprend votre process, en local sur votre infra.
             </h2>
             <p className="mt-5 text-muted-foreground text-lg leading-relaxed">
-              Un pipeline simple, deploye sur un Mac mini dedie installe chez vous. Aucune donnee ne sort.
+              Un pipeline simple, déployé sur un Mac mini dédié installé chez vous. Aucune donnée ne sort.
             </p>
           </div>
         </Reveal>

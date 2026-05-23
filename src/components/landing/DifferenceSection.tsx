@@ -1,10 +1,10 @@
 import { Reveal } from "@/hooks/use-scroll-reveal";
 
 const ROWS = [
-  { label: "Localisation des donnees", cloud: "Datacenter externe (meme en Suisse)", us: "Disque dur de votre Mac mini, dans votre cabinet" },
-  { label: "Hebergement", cloud: "Serveurs partages multi-clients", us: "Hardware dedie, mono-cabinet" },
-  { label: "Sortie reseau", cloud: "Permanente vers le cloud du fournisseur", us: "Aucune — l'IA tourne sur votre LAN" },
-  { label: "Conformite secret professionnel", cloud: "Sous conditions contractuelles", us: "Maximale — vous gardez le controle physique" },
+  { label: "Localisation des données", cloud: "Datacenter externe (même en Suisse)", us: "Disque dur de votre Mac mini, dans votre cabinet" },
+  { label: "Hébergement", cloud: "Serveurs partages multi-clients", us: "Hardware dédié, mono-cabinet" },
+  { label: "Sortie réseau", cloud: "Permanente vers le cloud du fournisseur", us: "Aucune — l'IA tourne sur votre LAN" },
+  { label: "Conformité secret professionnel", cloud: "Sous conditions contractuelles", us: "Maximale — vous gardez le contrôle physique" },
 ];
 
 export function DifferenceSection() {
@@ -15,7 +15,7 @@ export function DifferenceSection() {
           <div className="max-w-3xl">
             <p className="text-xs font-medium tracking-[0.15em] text-primary uppercase mb-4">Ce qui change</p>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-              Cloud Suisse, cloud etranger — et nous.
+              Cloud Suisse, cloud étranger — et nous.
             </h2>
           </div>
         </Reveal>
@@ -24,7 +24,7 @@ export function DifferenceSection() {
         <Reveal delay={0.15}>
           <div className="mt-12 hidden md:block rounded-lg border border-border bg-background overflow-hidden">
             <div className="grid grid-cols-3 text-xs font-medium tracking-[0.1em] uppercase text-muted-foreground border-b border-border">
-              <div className="px-6 py-4">Critere</div>
+              <div className="px-6 py-4">Critère</div>
               <div className="px-6 py-4 border-l border-border">Sequence ERP, Pennylane, Accounto...</div>
               <div className="px-6 py-4 border-l border-border bg-primary/[0.04] text-primary">Notre solution</div>
             </div>
@@ -64,7 +64,7 @@ export function DifferenceSection() {
 
         <Reveal delay={0.3}>
           <p className="mt-12 text-2xl md:text-3xl font-semibold text-foreground text-center max-w-3xl mx-auto leading-snug">
-            Vos donnees restent chez vous.{" "}
+            Vos données restent chez vous.{" "}
             <span className="text-primary">Votre IA aussi.</span>
           </p>
         </Reveal>

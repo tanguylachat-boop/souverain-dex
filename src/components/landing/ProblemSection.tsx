@@ -3,21 +3,21 @@ import { Reveal } from "@/hooks/use-scroll-reveal";
 const PAINS = [
   {
     title: "Tri manuel des documents",
-    body: "Scan, renommage et classement des pieces recues par mail ou par courrier — un travail a faible valeur ajoutee que vos collaborateurs subissent chaque jour.",
+    body: "Scan, renommage et classement des pièces reçues par mail ou par courrier — un travail à faible valeur ajoutée que vos collaborateurs subissent chaque jour.",
     icon: (
       <path d="M7 4h7l5 5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z M14 4v5h5" />
     ),
   },
   {
     title: "Relances clients en boucle",
-    body: "TVA, pieces manquantes, paiements en retard : les relances se font a la main, dans Outlook, sans suivi consolide.",
+    body: "TVA, pièces manquantes, paiements en retard : les relances se font à la main, dans Outlook, sans suivi consolidé.",
     icon: (
       <path d="M4 6h16v10H7l-3 3V6z M8 10h8 M8 13h5" />
     ),
   },
   {
-    title: "Saisie comptable repetitive",
-    body: "Recopier des PDFs de qualite variable dans le logiciel comptable. Une perte de temps qui pese sur la rentabilite de chaque mandat.",
+    title: "Saisie comptable répétitive",
+    body: "Recopier des PDFs de qualité variable dans le logiciel comptable. Une perte de temps qui pèse sur la rentabilité de chaque mandat.",
     icon: (
       <path d="M5 4h14v16H5z M9 8h6 M9 12h6 M9 16h4" />
     ),
@@ -32,7 +32,7 @@ export function ProblemSection() {
           <div className="max-w-3xl">
             <p className="text-xs font-medium tracking-[0.15em] text-primary uppercase mb-4">Le constat</p>
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground leading-tight">
-              Vos collaborateurs perdent 10 a 15 heures par semaine sur des taches qui devraient etre automatiques.
+              Vos collaborateurs perdent 10 à 15 heures par semaine sur des tâches qui devraient être automatiques.
             </h2>
           </div>
         </Reveal>

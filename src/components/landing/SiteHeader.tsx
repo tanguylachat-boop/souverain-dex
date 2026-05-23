@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "#probleme", label: "Probleme" },
+  { href: "#probleme", label: "Problème" },
   { href: "#solution", label: "Solution" },
-  { href: "#difference", label: "Difference" },
+  { href: "#difference", label: "Différence" },
   { href: "#roi", label: "Calculateur" },
-  { href: "#demo", label: "Demo" },
+  { href: "#demo", label: "Démo" },
 ];
 
 export function SiteHeader() {
@@ -50,7 +50,7 @@ export function SiteHeader() {
             href="#demo"
             className="hidden sm:inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 hover:translate-y-[-1px] transition-all duration-200"
           >
-            Demander une demo
+            Demander une démo
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -86,7 +86,7 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground"
             >
-              Demander une demo
+              Demander une démo
             </a>
           </nav>
         </div>
