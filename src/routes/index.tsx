@@ -8,6 +8,9 @@ import { RoiSection } from "@/components/landing/RoiSection";
 import { AudienceSection } from "@/components/landing/AudienceSection";
 import { SocialProofSection } from "@/components/landing/SocialProofSection";
 import { SwissPremiumSection } from "@/components/landing/SwissPremiumSection";
+import { FounderSection } from "@/components/landing/FounderSection";
+import { FaqSection } from "@/components/landing/FaqSection";
+import { GuaranteeSection } from "@/components/landing/GuaranteeSection";
 import { DemoSection } from "@/components/landing/DemoSection";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 
@@ -26,7 +29,10 @@ function LandingPage() {
       <RoiSection />
       <SwissPremiumSection />
       <SocialProofSection />
+      <FounderSection />
       <AudienceSection />
+      <FaqSection />
+      <GuaranteeSection />
       <DemoSection />
       <SiteFooter />
     </main>
