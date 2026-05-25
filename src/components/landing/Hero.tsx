@@ -196,9 +196,9 @@ export function Hero() {
             transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
           }}
         >
-          Sans jamais quitter votre cabinet.
+          Prenez 5 mandats de plus sans embaucher.
           <br />
-          Conçu pour le secret professionnel suisse.
+          100% on-premise. Conforme au secret professionnel suisse.
         </p>
 
         {/* CTAs */}
@@ -231,7 +231,7 @@ export function Hero() {
               transition: "all 0.3s",
             }}
           >
-            Demander une démo
+            Réserver ma démo gratuite
             <svg
               width="14"
               height="14"

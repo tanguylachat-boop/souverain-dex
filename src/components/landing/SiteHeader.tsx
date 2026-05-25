@@ -124,7 +124,7 @@ export function SiteHeader() {
               transition: "all 0.2s",
             }}
           >
-            Demander une démo
+            Réserver ma démo
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -205,7 +205,7 @@ export function SiteHeader() {
                 textDecoration: "none",
               }}
             >
-              Demander une démo
+              Réserver ma démo
             </a>
           </nav>
         </div>
