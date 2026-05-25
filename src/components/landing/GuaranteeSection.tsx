@@ -2,6 +2,7 @@ import { Reveal } from "@/hooks/use-scroll-reveal";
 
 const INCLUDED = [
   { item: "Mac mini M4 Pro 64 Go dédié à votre cabinet", value: "2'800" },
+  { item: "Scanner haute vitesse Fujitsu ScanSnap (50 pages/min)", value: "400" },
   { item: "Installation sur site + configuration réseau", value: "1'500" },
   { item: "Calibrage IA sur votre plan de comptes et vos mandants", value: "2'000" },
   { item: "Formation équipe (2h sur site)", value: "800" },
@@ -170,7 +171,7 @@ export function GuaranteeSection() {
                       color: "rgba(255,255,255,0.4)",
                     }}
                   >
-                    CHF 12'000+
+                    CHF 12'500+
                   </span>
                 </p>
                 <p
