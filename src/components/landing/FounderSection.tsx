@@ -1,4 +1,5 @@
 import { Reveal } from "@/hooks/use-scroll-reveal";
+import tanguyPhoto from "@/assets/tanguy.jpg";
 
 export function FounderSection() {
   return (
@@ -55,31 +56,30 @@ export function FounderSection() {
               Qui sommes-nous
             </p>
 
-            {/* Avatar */}
+            {/* Photo */}
             <div
               style={{
-                width: 96,
-                height: 96,
+                width: 120,
+                height: 120,
                 borderRadius: "50%",
-                background: "linear-gradient(135deg, rgba(75, 124, 201, 0.2), rgba(75, 124, 201, 0.05))",
                 border: "2px solid rgba(75, 124, 201, 0.25)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                overflow: "hidden",
                 marginBottom: "1.75rem",
                 boxShadow: "0 0 40px rgba(75, 124, 201, 0.1)",
               }}
             >
-              <span
+              <img
+                src={tanguyPhoto}
+                alt="Tanguy Lachat, fondateur de LX Studio"
+                width={120}
+                height={120}
                 style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 700,
-                  color: "#4b7cc9",
-                  letterSpacing: "0.05em",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center 15%",
                 }}
-              >
-                TL
-              </span>
+              />
             </div>
 
             <h3
