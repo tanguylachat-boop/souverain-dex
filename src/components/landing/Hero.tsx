@@ -14,7 +14,7 @@ export function Hero() {
       id="top"
       style={{
         position: "relative",
-        minHeight: "100vh",
+        minHeight: "100svh",
         display: "flex",
         alignItems: "center",
         background: "linear-gradient(180deg, #030305 0%, #070710 40%, #0a0a14 100%)",
@@ -24,6 +24,8 @@ export function Hero() {
       {/* Gradient orb — top right */}
       <div
         aria-hidden="true"
+        className="hidden md:block"
+
         style={{
           position: "absolute",
           top: "-20%",
@@ -42,6 +44,8 @@ export function Hero() {
       {/* Gradient orb — bottom left */}
       <div
         aria-hidden="true"
+        className="hidden md:block"
+
         style={{
           position: "absolute",
           bottom: "-10%",
