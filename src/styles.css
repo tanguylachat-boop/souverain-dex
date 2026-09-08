@@ -145,3 +145,26 @@
     animation: gradient-flow 4s ease infinite;
   }
 }
+
+/* Scroll reveal — driven by an inline script, independent from hydration */
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-reveal="up"] { transform: translateY(40px); }
+[data-reveal="left"] { transform: translateX(-40px); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+html.no-js [data-reveal],
+html:not(.reveal-ready) [data-reveal] { opacity: 1; transform: none; }
+html.reveal-ready [data-reveal]:not(.is-visible) { opacity: 0; }
+html.reveal-ready [data-reveal="up"]:not(.is-visible) { transform: translateY(40px); }
+html.reveal-ready [data-reveal="left"]:not(.is-visible) { transform: translateX(-40px); }
+html.reveal-ready [data-reveal="right"]:not(.is-visible) { transform: translateX(40px); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
