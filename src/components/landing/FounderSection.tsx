@@ -1,5 +1,5 @@
 import { Reveal } from "@/hooks/use-scroll-reveal";
-import tanguyPhoto from "@/assets/tanguy.jpg";
+import tanguyPhoto from "@/assets/tanguy.webp";
 
 export function FounderSection() {
   return (
@@ -71,6 +71,8 @@ export function FounderSection() {
               <img
                 src={tanguyPhoto}
                 alt="Tanguy Lachat, fondateur de LX Studio"
+                loading="lazy"
+                decoding="async"
                 width={120}
                 height={120}
                 style={{

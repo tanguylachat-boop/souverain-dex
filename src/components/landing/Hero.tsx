@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
 import { ParticleField } from "./ParticleField";
 
 export function Hero() {
-  const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(t);
-  }, []);
 
   return (
     <section
       id="top"
       style={{
         position: "relative",
-        minHeight: "100vh",
+        minHeight: "100svh",
         display: "flex",
         alignItems: "center",
         background: "linear-gradient(180deg, #030305 0%, #070710 40%, #0a0a14 100%)",
@@ -24,6 +18,8 @@ export function Hero() {
       {/* Gradient orb — top right */}
       <div
         aria-hidden="true"
+        className="hidden md:block"
+
         style={{
           position: "absolute",
           top: "-20%",
@@ -42,6 +38,8 @@ export function Hero() {
       {/* Gradient orb — bottom left */}
       <div
         aria-hidden="true"
+        className="hidden md:block"
+
         style={{
           position: "absolute",
           bottom: "-10%",
@@ -98,13 +96,8 @@ export function Hero() {
         }}
       >
         {/* Badge */}
-        <div
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(20px)",
-            transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
-          }}
-        >
+        <div data-reveal="up" style={{ transitionDelay: "0.05s" }}>
+
           <span
             style={{
               display: "inline-flex",
@@ -152,6 +145,8 @@ export function Hero() {
 
         {/* Massive headline */}
         <h1
+          data-reveal="up"
+
           style={{
             marginTop: "2.5rem",
             fontSize: "clamp(2.75rem, 7.5vw, 7.5rem)",
@@ -160,9 +155,8 @@ export function Hero() {
             letterSpacing: "-0.04em",
             color: "#ffffff",
             maxWidth: "18ch",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(50px)",
-            transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
+            transitionDelay: "0.15s",
+
           }}
         >
           L'IA qui scanne,
@@ -185,15 +179,16 @@ export function Hero() {
 
         {/* Subtitle */}
         <p
+          data-reveal="up"
+
           style={{
             marginTop: "2rem",
             fontSize: "clamp(1rem, 1.5vw, 1.375rem)",
             color: "rgba(255,255,255,0.4)",
             lineHeight: 1.75,
             maxWidth: "32rem",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(30px)",
-            transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
+            transitionDelay: "0.25s",
+
           }}
         >
           Prenez 5 mandats de plus sans embaucher.
@@ -203,15 +198,16 @@ export function Hero() {
 
         {/* CTAs */}
         <div
+          data-reveal="up"
+
           style={{
             marginTop: "2.5rem",
             display: "flex",
             flexWrap: "wrap" as const,
             gap: "1rem",
             alignItems: "center",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(20px)",
-            transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s",
+            transitionDelay: "0.35s",
+
           }}
         >
           <a
@@ -281,13 +277,15 @@ export function Hero() {
 
         {/* Trust badges */}
         <div
+          data-reveal="up"
+
           style={{
             marginTop: "3.5rem",
             display: "flex",
             flexWrap: "wrap" as const,
             gap: "2rem",
-            opacity: loaded ? 1 : 0,
-            transition: "opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.85s",
+            transitionDelay: "0.45s",
+
           }}
         >
           {["Conforme nLPD", "Hébergé dans votre cabinet", "Sans cloud externe"].map(
@@ -330,8 +328,8 @@ export function Hero() {
           flexDirection: "column" as const,
           alignItems: "center",
           gap: "0.5rem",
-          opacity: loaded ? 0.35 : 0,
-          transition: "opacity 1.2s ease 1.4s",
+          opacity: 0.35,
+
         }}
       >
         <span

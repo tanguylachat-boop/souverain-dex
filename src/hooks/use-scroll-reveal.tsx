@@ -31,8 +31,10 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
 }
 
 /**
- * Wrapper component for scroll-reveal sections.
- * Applies fade-in + slide-up animation.
+ * Wrapper for scroll-reveal sections.
+ * Reveal is driven by CSS + a tiny inline script in the document head, so the
+ * content appears as soon as the HTML is painted — it never waits for the
+ * React bundle to hydrate.
  */
 export function Reveal({
   children,
@@ -45,25 +47,11 @@ export function Reveal({
   delay?: number;
   direction?: "up" | "left" | "right" | "none";
 }) {
-  const { ref, visible } = useScrollReveal<HTMLDivElement>(0.1);
-
-  const transform = {
-    up: "translateY(40px)",
-    left: "translateX(-40px)",
-    right: "translateX(40px)",
-    none: "none",
-  }[direction];
-
   return (
     <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "none" : transform,
-        transition: `opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-        willChange: visible ? "auto" : "opacity, transform",
-      }}
+      className={className || undefined}
+      data-reveal={direction}
+      style={{ transitionDelay: delay ? `${delay}s` : undefined }}
     >
       {children}
     </div>

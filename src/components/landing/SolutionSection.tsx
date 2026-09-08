@@ -1,5 +1,5 @@
 import { Reveal } from "@/hooks/use-scroll-reveal";
-import swissHardware from "@/assets/swiss-hardware.jpg";
+import swissHardware from "@/assets/swiss-hardware.webp";
 
 const STEPS = [
   {
