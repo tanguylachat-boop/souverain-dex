@@ -217,6 +217,17 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
+const REVEAL_SCRIPT = `(function(){
+  var d=document,h=d.documentElement;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!('IntersectionObserver' in window))return;
+  h.classList.add('reveal-ready');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -5% 0px'});
+  function scan(){d.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(function(el){io.observe(el);});}
+  function ready(){scan();setTimeout(scan,600);setTimeout(function(){d.querySelectorAll('[data-reveal]').forEach(function(el){el.classList.add('is-visible');});},6000);}
+  if(d.readyState==='loading'){d.addEventListener('DOMContentLoaded',ready);}else{ready();}
+})();`;
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr-CH">
@@ -225,11 +236,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_SCRIPT }} />
         <Scripts />
       </body>
     </html>
   );
 }
+
 
 function RootComponent() {
   return <Outlet />;
