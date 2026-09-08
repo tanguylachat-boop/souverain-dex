@@ -49,7 +49,7 @@ export function Reveal({
 }) {
   return (
     <div
-      className={className}
+      className={className || undefined}
       data-reveal={direction}
       style={{ transitionDelay: delay ? `${delay}s` : undefined }}
     >

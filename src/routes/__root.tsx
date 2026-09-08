@@ -221,10 +221,10 @@ const REVEAL_SCRIPT = `(function(){
   var d=document,h=d.documentElement;
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   if(!('IntersectionObserver' in window))return;
-  h.classList.add('reveal-ready');
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -5% 0px'});
-  function scan(){d.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(function(el){io.observe(el);});}
-  function ready(){scan();setTimeout(scan,600);setTimeout(function(){d.querySelectorAll('[data-reveal]').forEach(function(el){el.classList.add('is-visible');});},6000);}
+  h.setAttribute('data-reveal-ready','');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.setAttribute('data-visible','');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -5% 0px'});
+  function scan(){d.querySelectorAll('[data-reveal]:not([data-visible])').forEach(function(el){io.observe(el);});}
+  function ready(){scan();setTimeout(scan,600);setTimeout(function(){d.querySelectorAll('[data-reveal]').forEach(function(el){el.setAttribute('data-visible','');});},6000);}
   if(d.readyState==='loading'){d.addEventListener('DOMContentLoaded',ready);}else{ready();}
 })();`;
 
