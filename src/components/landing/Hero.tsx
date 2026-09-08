@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
 import { ParticleField } from "./ParticleField";
 
 export function Hero() {
-  const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(t);
-  }, []);
 
   return (
     <section
@@ -102,13 +96,8 @@ export function Hero() {
         }}
       >
         {/* Badge */}
-        <div
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(20px)",
-            transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
-          }}
-        >
+        <div data-reveal="up" style={{ transitionDelay: "0.05s" }}>
+
           <span
             style={{
               display: "inline-flex",
@@ -164,9 +153,8 @@ export function Hero() {
             letterSpacing: "-0.04em",
             color: "#ffffff",
             maxWidth: "18ch",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(50px)",
-            transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
+            transitionDelay: "0.15s",
+
           }}
         >
           L'IA qui scanne,
@@ -195,9 +183,8 @@ export function Hero() {
             color: "rgba(255,255,255,0.4)",
             lineHeight: 1.75,
             maxWidth: "32rem",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(30px)",
-            transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
+            transitionDelay: "0.25s",
+
           }}
         >
           Prenez 5 mandats de plus sans embaucher.
@@ -213,9 +200,8 @@ export function Hero() {
             flexWrap: "wrap" as const,
             gap: "1rem",
             alignItems: "center",
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "none" : "translateY(20px)",
-            transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s",
+            transitionDelay: "0.35s",
+
           }}
         >
           <a
@@ -290,8 +276,8 @@ export function Hero() {
             display: "flex",
             flexWrap: "wrap" as const,
             gap: "2rem",
-            opacity: loaded ? 1 : 0,
-            transition: "opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.85s",
+            transitionDelay: "0.45s",
+
           }}
         >
           {["Conforme nLPD", "Hébergé dans votre cabinet", "Sans cloud externe"].map(
@@ -334,8 +320,8 @@ export function Hero() {
           flexDirection: "column" as const,
           alignItems: "center",
           gap: "0.5rem",
-          opacity: loaded ? 0.35 : 0,
-          transition: "opacity 1.2s ease 1.4s",
+          opacity: 0.35,
+
         }}
       >
         <span
