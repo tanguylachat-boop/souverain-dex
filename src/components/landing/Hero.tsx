@@ -145,6 +145,8 @@ export function Hero() {
 
         {/* Massive headline */}
         <h1
+          data-reveal="up"
+
           style={{
             marginTop: "2.5rem",
             fontSize: "clamp(2.75rem, 7.5vw, 7.5rem)",
@@ -177,6 +179,8 @@ export function Hero() {
 
         {/* Subtitle */}
         <p
+          data-reveal="up"
+
           style={{
             marginTop: "2rem",
             fontSize: "clamp(1rem, 1.5vw, 1.375rem)",
@@ -194,6 +198,8 @@ export function Hero() {
 
         {/* CTAs */}
         <div
+          data-reveal="up"
+
           style={{
             marginTop: "2.5rem",
             display: "flex",
@@ -271,6 +277,8 @@ export function Hero() {
 
         {/* Trust badges */}
         <div
+          data-reveal="up"
+
           style={{
             marginTop: "3.5rem",
             display: "flex",
