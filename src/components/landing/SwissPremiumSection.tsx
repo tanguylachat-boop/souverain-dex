@@ -1,5 +1,5 @@
 import { Reveal } from "@/hooks/use-scroll-reveal";
-import swissOffice from "@/assets/swiss-office.jpg";
+import swissOffice from "@/assets/swiss-office.webp";
 
 const PILLARS = [
   {
