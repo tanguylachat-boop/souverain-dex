@@ -47,20 +47,27 @@ export function Hero({
     >
       <div
         aria-hidden="true"
-        className="hidden md:block"
+        className="glow glow-blue glow-drift hidden md:block"
         style={{
-          position: "absolute",
-          top: "-22%",
-          right: "-6%",
-          width: "48vw",
-          height: "48vw",
-          maxWidth: 760,
-          maxHeight: 760,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(closest-side, rgba(75,124,201,0.10), transparent 70%)",
-          filter: "blur(80px)",
-          pointerEvents: "none",
+          top: "-26%",
+          right: "-8%",
+          width: "46vw",
+          height: "46vw",
+          maxWidth: 720,
+          maxHeight: 720,
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="glow glow-warm glow-drift hidden md:block"
+        style={{
+          bottom: "-22%",
+          left: "-6%",
+          width: "34vw",
+          height: "34vw",
+          maxWidth: 520,
+          maxHeight: 520,
+          animationDelay: "-7s",
         }}
       />
       <div

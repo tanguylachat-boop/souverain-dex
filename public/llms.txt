@@ -48,6 +48,8 @@ Langue : français (Suisse romande). Devise : CHF.
   du baromètre, limites explicites du produit.
 - [Athlit](https://lxstudio.ch/athlit) : principe d'adaptation, deux versions,
   conditions de la bêta.
+- [Le journal](https://lxstudio.ch/blog) : notes de terrain sur l'IA en
+  entreprise, une question par article avec sa réponse en tête de page.
 - [Mentions légales](https://lxstudio.ch/mentions-legales)
 - [Politique de confidentialité](https://lxstudio.ch/politique-de-confidentialite)
 

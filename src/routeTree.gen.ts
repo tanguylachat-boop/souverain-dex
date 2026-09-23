@@ -15,6 +15,8 @@ import { Route as MentiaRouteImport } from './routes/mentia'
 import { Route as FiduciaireRouteImport } from './routes/fiduciaire'
 import { Route as AthlitRouteImport } from './routes/athlit'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const PolitiqueDeConfidentialiteRoute =
   PolitiqueDeConfidentialiteRouteImport.update({
@@ -47,6 +49,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -55,6 +67,8 @@ export interface FileRoutesByFullPath {
   '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -63,6 +77,8 @@ export interface FileRoutesByTo {
   '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -72,6 +88,8 @@ export interface FileRoutesById {
   '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -82,6 +100,8 @@ export interface FileRouteTypes {
     | '/mentia'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -90,6 +110,8 @@ export interface FileRouteTypes {
     | '/mentia'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
+    | '/blog/$slug'
+    | '/blog'
   id:
     | '__root__'
     | '/'
@@ -98,6 +120,8 @@ export interface FileRouteTypes {
     | '/mentia'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -107,6 +131,8 @@ export interface RootRouteChildren {
   MentiaRoute: typeof MentiaRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -153,6 +179,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -163,6 +203,8 @@ const rootRouteChildren: RootRouteChildren = {
   MentiaRoute: MentiaRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

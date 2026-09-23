@@ -13,6 +13,7 @@ const ROUTES = [
   { to: "/fiduciaire", label: "Agent fiduciaire" },
   { to: "/mentia", label: "Mentia" },
   { to: "/athlit", label: "Athlit" },
+  { to: "/blog", label: "Journal" },
 ] as const;
 
 const BOOKING = "https://cal.com/lx-studio/15min";

@@ -63,11 +63,28 @@
   --text-muted: rgba(255, 255, 255, 0.52);
   --text-faint: rgba(255, 255, 255, 0.38);
 
-  /* Brand blue. --accent is for fills and dots, --accent-text for anything
-   * a human has to read: the fill colour alone measures 4.4:1 on dark. */
+  /* ---------------------------------------------------------------------
+   * Colour.
+   *
+   * One blue on black reads as competent and cold. A second, warmer accent
+   * gives the page somewhere to go: blue carries the system and the proof,
+   * amber carries the human parts, the person and the money saved. Two hues
+   * is a palette; three would be decoration.
+   *
+   * --accent fills, --accent-text is for anything a human reads: the fill
+   * alone measures 4.4:1 on dark and fails as body colour.
+   * ------------------------------------------------------------------- */
   --accent: #4b7cc9;
   --accent-text: #8ab0ee;
   --accent-soft: rgba(75, 124, 201, 0.12);
+
+  --warm: #e0904a;
+  --warm-text: #f0b47a;
+  --warm-soft: rgba(224, 144, 74, 0.12);
+
+  /* Used on headline fragments and on figures that carry the promise. */
+  --gradient-hero: linear-gradient(104deg, #ffffff 0%, #cfe0fa 38%, #8ab0ee 62%, #f0b47a 100%);
+  --gradient-accent: linear-gradient(120deg, var(--accent-text), var(--warm-text));
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
@@ -530,6 +547,65 @@
     will-change: transform;
   }
 
+  /* Gradient text. The fallback colour is set first so the words stay
+   * readable if background-clip fails; only then is the paint replaced. */
+  .gradient-text {
+    color: var(--accent-text);
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gradient-warm {
+    color: var(--warm-text);
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Slow coloured light behind a section. Decorative, so it is hidden from
+   * assistive technology and dropped on small screens where it only costs
+   * paint time. */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .glow-blue {
+    background: radial-gradient(closest-side, rgba(75, 124, 201, 0.5), transparent 72%);
+  }
+  .glow-warm {
+    background: radial-gradient(closest-side, rgba(224, 144, 74, 0.34), transparent 72%);
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(2%, -4%, 0) scale(1.08); }
+  }
+  .glow-drift {
+    animation: drift 18s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glow-drift { animation: none; }
+  }
+
+  /* A credential, shown as a badge rather than buried in a paragraph. */
+  .credential {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4375rem 0.875rem;
+    border-radius: 999px;
+    border: 1px solid rgba(224, 144, 74, 0.32);
+    background: var(--warm-soft);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--warm-text);
+  }
+
   .prose-link {
     color: var(--accent-text);
     text-decoration: underline;
@@ -755,5 +831,6 @@
     --border-subtle: rgba(255, 255, 255, 0.24);
     --border-strong: rgba(255, 255, 255, 0.4);
     --accent-text: #a8c8f5;
+    --warm-text: #f7cba3;
   }
 }
