@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Page } from "@/components/site/Page";
-import { Hero } from "@/components/site/Hero";
+import { Hero, Words } from "@/components/site/Hero";
+import { AgentFlow } from "@/components/site/AgentFlow";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
-import { Process } from "@/components/site/Process";
+import { ProcessPinned } from "@/components/site/ProcessPinned";
 import { Roi } from "@/components/site/Roi";
 import { Infrastructure } from "@/components/site/Infrastructure";
 import { Examples } from "@/components/site/Examples";
@@ -168,13 +169,19 @@ function HomePage() {
         eyebrow="Consultant IA · Suisse romande"
         title={
           <>
-            Des dizaines d'heures
+            <Words text="Des dizaines d'heures" delay={0.15} />
             <br />
-            <span className="gradient-text">rendues à votre équipe.</span>
+            <Words
+              text="rendues à votre équipe."
+              delay={0.45}
+              className="gradient-text"
+              split={false}
+            />
             <br />
-            <span style={{ color: "var(--text-muted)" }}>Chaque mois.</span>
+            <Words text="Chaque mois." delay={0.85} />
           </>
         }
+        visual={<AgentFlow />}
         lede={
           <>
             Je suis consultant en intelligence artificielle. J'analyse vos
@@ -285,7 +292,7 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Process />
+      <ProcessPinned />
       <Roi />
       <Examples />
       <Infrastructure />

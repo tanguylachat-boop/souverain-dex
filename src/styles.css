@@ -606,6 +606,190 @@
     color: var(--warm-text);
   }
 
+  /* ------------------------------------------------------------------------
+   * The hero flow animation.
+   *
+   * Transform and opacity only, so nothing here can trigger layout. Each
+   * document runs the same 8.8s loop offset by its own delay, which is what
+   * produces a continuous stream from four elements.
+   * --------------------------------------------------------------------- */
+  .agent-flow {
+    width: 100%;
+    max-width: 560px;
+  }
+  .agent-flow svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Must clip: the travelling documents start and end outside the viewBox,
+     * and `visible` scatters them across the headline. */
+    overflow: hidden;
+  }
+
+  /* One lane, left to right. The document slows as it nears the agent, the
+   * way a thing being examined does, then is absorbed rather than passing
+   * through: it fades exactly at the core. */
+  @keyframes af-travel {
+    0%   { transform: translateX(-100px); opacity: 0; }
+    14%  { opacity: 1; }
+    52%  { transform: translateX(150px);  opacity: 1; }
+    64%  { transform: translateX(186px);  opacity: 0; }
+    100% { transform: translateX(186px);  opacity: 0; }
+  }
+  .af-doc {
+    animation: af-travel 9.2s cubic-bezier(0.4, 0, 0.25, 1) infinite;
+    will-change: transform, opacity;
+  }
+
+  @keyframes af-breathe {
+    0%, 100% { transform: scale(1);    opacity: 0.55; }
+    50%      { transform: scale(1.07); opacity: 1; }
+  }
+  .af-ring {
+    transform-origin: 32px 32px;
+    animation: af-breathe 3.4s ease-in-out infinite;
+  }
+
+  @keyframes af-spin {
+    to { transform: rotate(360deg); }
+  }
+  .af-spark {
+    transform-origin: 32px 32px;
+    animation: af-spin 14s linear infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes af-file {
+    0%, 8%    { transform: translateY(10px) scale(0.96); opacity: 0; }
+    18%, 72%  { transform: translateY(0) scale(1); opacity: 1; }
+    88%, 100% { transform: translateY(-6px) scale(0.98); opacity: 0; }
+  }
+  .af-filed {
+    animation: af-file 9.2s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Reduced motion keeps the diagram, drops the movement: the still frame
+   * still shows documents in, agent, documents filed. */
+  @media (prefers-reduced-motion: reduce) {
+    .af-doc,
+    .af-ring,
+    .af-spark,
+    .af-filed {
+      animation: none;
+    }
+    .af-doc { opacity: 1; }
+    .af-filed { opacity: 1; }
+  }
+
+  /* ------------------------------------------------------------------------
+   * Pinned sequence. The container is tall; the panel inside sticks while
+   * the page scrolls past it, which is what turns scrolling into stepping.
+   * --------------------------------------------------------------------- */
+  .pinned {
+    position: relative;
+  }
+  .pinned-stage {
+    position: sticky;
+    top: 0;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+  /* Sticky needs a scroll container that is not clipped; a parent with
+   * overflow hidden silently disables it. */
+  .pinned-host {
+    overflow: visible !important;
+  }
+
+  .step-row {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1rem 0;
+    opacity: 0.32;
+    transition:
+      opacity 0.5s var(--ease-spring),
+      transform 0.5s var(--ease-spring);
+  }
+  .step-row[data-active="true"] {
+    opacity: 1;
+  }
+  .step-rail {
+    position: relative;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--border-subtle);
+    overflow: hidden;
+  }
+  .step-rail-fill {
+    position: absolute;
+    inset: 0 0 auto 0;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--warm));
+    transform-origin: top;
+    transition: transform 0.5s var(--ease-spring);
+  }
+
+  /* Headline words rising in sequence. */
+  .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translate3d(0, 0.5em, 0);
+    animation: word-rise 0.85s var(--ease-out) forwards;
+  }
+  @keyframes word-rise {
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .word { animation: none; opacity: 1; transform: none; }
+  }
+
+  .process-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    padding-block: 6rem;
+  }
+  @media (min-width: 1024px) {
+    .process-grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 4rem;
+    }
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: 2px 1fr;
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+  .stage-art {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+  }
+  .stage-art-wrap {
+    display: grid;
+    place-items: center;
+  }
+
+  /* The pinned sequence needs real scroll height, which does not work on a
+   * short viewport: the panel would be taller than the space it sticks in.
+   * Below 1024px it reverts to a plain stacked list. */
+  @media (max-width: 1023px) {
+    .pinned {
+      height: auto !important;
+    }
+    .pinned-stage {
+      position: static;
+      min-height: 0;
+    }
+    .step-row {
+      opacity: 1;
+    }
+  }
+
   .prose-link {
     color: var(--accent-text);
     text-decoration: underline;
