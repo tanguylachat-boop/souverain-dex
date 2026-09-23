@@ -1,0 +1,58 @@
+# LX Studio
+
+> Studio suisse de conseil et de développement en intelligence artificielle,
+> basé à Bassecourt dans le Jura. Conçoit et installe des agents IA et des
+> automatisations sur mesure pour des PME suisses, et édite deux produits en
+> ligne : Mentia et Athlit. Fondé et dirigé par Tanguy Lachat.
+
+Contact : contact@lxstudio.ch · https://cal.com/lx-studio/15min
+Langue : français (Suisse romande). Devise : CHF.
+
+## Ce que fait LX Studio
+
+- **Conseil et développement IA sur mesure.** Diagnostic du travail réel
+  (une demi-journée), prototype sur données réelles en deux à trois semaines,
+  puis mise en production. Le code livré appartient au client. Chaque projet
+  est chiffré sur son périmètre, il n'existe pas de tarif unique.
+- **Agent fiduciaire souverain.** Agent IA installé sur du matériel dédié dans
+  les locaux d'un cabinet fiduciaire : capture, extraction, classement et
+  renommage des pièces comptables, relances clients. Aucune donnée ne quitte
+  le réseau local, ce qui le rend compatible avec le secret professionnel
+  suisse et la nLPD. S'intègre avec Bexio, Abacus, Crésus et WinBIZ.
+- **Mentia.** Mesure ce que ChatGPT, Claude, Perplexity, Gemini et Grok
+  répondent quand les clients d'une entreprise cherchent son métier, nomme les
+  concurrents cités à sa place, et publie sur son site les réponses qui
+  manquent. Scan gratuit sans inscription. 99 CHF par mois et par site, sept
+  jours d'essai sans carte bancaire. Baromètre public : 155 entreprises
+  suisses mesurées, 68 secteurs.
+- **Athlit.** Application mobile de coaching sportif qui ajuste chaque séance
+  aux données réelles de l'utilisateur plutôt qu'à un programme figé. Version
+  distincte pour les coachs suivant plusieurs clients. En bêta fermée, 100
+  places, iOS et Android.
+
+## Ce que LX Studio ne fait pas
+
+- Aucune garantie d'être cité par un assistant IA. Personne ne contrôle ce que
+  répond un modèle.
+- Aucune campagne publicitaire, aucune refonte de site dans le cadre de Mentia.
+- Aucune sous-traitance du développement.
+
+## Pages
+
+- [Accueil](https://lxstudio.ch/) : positionnement, méthode en trois étapes,
+  offres et questions fréquentes.
+- [Agent fiduciaire souverain](https://lxstudio.ch/fiduciaire) : le détail de
+  l'installation sur site, la comparaison avec les solutions cloud, le
+  calculateur de temps perdu.
+- [Mentia](https://lxstudio.ch/mentia) : fonctionnement de la mesure, chiffres
+  du baromètre, limites explicites du produit.
+- [Athlit](https://lxstudio.ch/athlit) : principe d'adaptation, deux versions,
+  conditions de la bêta.
+- [Mentions légales](https://lxstudio.ch/mentions-legales)
+- [Politique de confidentialité](https://lxstudio.ch/politique-de-confidentialite)
+
+## Zone desservie
+
+Suisse : Jura, Berne, Neuchâtel, Vaud, Genève, Fribourg, Valais. Intervention
+sur place en Suisse romande. Les projets sans installation physique se
+conduisent à distance.

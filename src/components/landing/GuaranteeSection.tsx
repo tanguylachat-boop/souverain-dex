@@ -1,15 +1,23 @@
 import { Reveal } from "@/hooks/use-scroll-reveal";
 
+/**
+ * What the installation actually includes.
+ *
+ * Deliverables only, with no per-line price: the studio prices each mandate
+ * on its own scope and estimated hours, so a fixed grid here would be a
+ * commitment nobody has made. The figure comes from the quote, after the
+ * cabinet has been looked at.
+ */
 const INCLUDED = [
-  { item: "Mac mini M4 Pro 64 Go dédié à votre cabinet", value: "2'800" },
-  { item: "Scanner haute vitesse Fujitsu ScanSnap (50 pages/min)", value: "400" },
-  { item: "Installation sur site + configuration réseau", value: "1'500" },
-  { item: "Calibrage IA sur votre plan de comptes et vos mandants", value: "2'000" },
-  { item: "Formation équipe (2h sur site)", value: "800" },
-  { item: "Migration de vos règles de classement existantes", value: "1'200" },
-  { item: "Support prioritaire + mises à jour IA illimitées", value: "690/mois" },
-  { item: "Sauvegardes chiffrées automatiques (quotidiennes)", value: "inclus" },
-  { item: "Intervention sur site sous 48h en Suisse romande", value: "inclus" },
+  "Mac mini M4 Pro 64 Go dédié à votre cabinet",
+  "Scanner haute vitesse Fujitsu ScanSnap, 50 pages par minute",
+  "Installation sur site et configuration réseau",
+  "Calibrage de l'IA sur votre plan de comptes et vos mandants",
+  "Formation de l'équipe, deux heures sur site",
+  "Migration de vos règles de classement existantes",
+  "Support prioritaire et mises à jour du modèle",
+  "Sauvegardes chiffrées automatiques, quotidiennes",
+  "Intervention sur site sous 48 heures en Suisse romande",
 ];
 
 export function GuaranteeSection() {
@@ -100,9 +108,9 @@ export function GuaranteeSection() {
                   borderTop: "1px solid rgba(255,255,255,0.06)",
                 }}
               >
-                {INCLUDED.map((item, i) => (
+                {INCLUDED.map((item) => (
                   <div
-                    key={i}
+                    key={item}
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -129,23 +137,12 @@ export function GuaranteeSection() {
                       <span
                         style={{
                           fontSize: "0.9375rem",
-                          color: "rgba(255,255,255,0.75)",
+                          color: "var(--text-secondary)",
                         }}
                       >
-                        {item.item}
+                        {item}
                       </span>
                     </div>
-                    <span
-                      style={{
-                        fontSize: "0.8125rem",
-                        color: "rgba(255,255,255,0.3)",
-                        fontVariantNumeric: "tabular-nums",
-                        whiteSpace: "nowrap",
-                        flexShrink: 0,
-                      }}
-                    >
-                      {item.value.includes("inclus") ? item.value : `CHF ${item.value}`}
-                    </span>
                   </div>
                 ))}
               </div>
@@ -159,39 +156,30 @@ export function GuaranteeSection() {
               >
                 <p
                   style={{
-                    fontSize: "0.8125rem",
-                    color: "rgba(255,255,255,0.3)",
+                    fontSize: "clamp(1.125rem, 2.2vw, 1.5rem)",
+                    fontWeight: 600,
+                    color: "var(--text-primary)",
+                    letterSpacing: "-0.02em",
+                    maxWidth: "30rem",
+                    margin: "0 auto",
                   }}
                 >
-                  Valeur totale du package :
-                  <span
-                    style={{
-                      textDecoration: "line-through",
-                      marginLeft: "0.5rem",
-                      color: "rgba(255,255,255,0.4)",
-                    }}
-                  >
-                    CHF 12'500+
-                  </span>
+                  Le prix se calcule sur votre cabinet, pas sur un barème.
                 </p>
                 <p
                   style={{
-                    marginTop: "0.5rem",
-                    fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
-                    fontWeight: 700,
-                    color: "#ffffff",
+                    marginTop: "0.75rem",
+                    fontSize: "0.875rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.7,
+                    maxWidth: "32rem",
+                    margin: "0.75rem auto 0",
                   }}
                 >
-                  Dès CHF 8'000 setup + 590/mois
-                </p>
-                <p
-                  style={{
-                    marginTop: "0.375rem",
-                    fontSize: "0.75rem",
-                    color: "rgba(255,255,255,0.3)",
-                  }}
-                >
-                  Tarif adapté à la taille de votre cabinet (3 à 30 collaborateurs)
+                  Le volume de pièces, le nombre de mandants et votre logiciel
+                  comptable changent la charge de travail du simple au triple.
+                  Le devis arrive après avoir regardé ces trois chiffres, avec
+                  le détail des heures estimées. Il est ferme.
                 </p>
               </div>
 
