@@ -24,6 +24,7 @@ const COLUMNS: ReadonlyArray<{
     links: [
       { label: "Mentia, visibilité dans l'IA", to: "/mentia" },
       { label: "Athlit, coaching sportif IA", to: "/athlit" },
+      { label: "Le journal", to: "/blog" },
     ],
   },
   {
@@ -32,6 +33,7 @@ const COLUMNS: ReadonlyArray<{
       { label: "Réserver 15 minutes", href: "https://cal.com/lx-studio/15min" },
       { label: "contact@lxstudio.ch", href: "mailto:contact@lxstudio.ch" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/tanguy-lachat/" },
+      { label: "Instagram", href: "https://www.instagram.com/_t.24._/" },
     ],
   },
 ];

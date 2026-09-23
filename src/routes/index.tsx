@@ -36,13 +36,22 @@ import {
 /* Content                                                                    */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * The credential, held in one place.
+ *
+ * Anthropic's programme names its credentials precisely, and a page that
+ * misnames one is worse than a page with none: a prospect who knows the
+ * programme reads it as padding. Change this constant, nowhere else.
+ */
+const CREDENTIAL = "Claude Certified Developer, Anthropic";
+
 const SEO = {
   path: "/",
-  title: "LX Studio — Agents IA et automatisation sur mesure pour PME suisses",
+  title: "Consultant IA en Suisse romande — LX Studio, Tanguy Lachat",
   description:
-    "LX Studio construit les sites et les logiciels qui font tourner les PME suisses : un site qui remplit votre agenda, une automatisation qui vide votre administratif. Quatre entreprises tournent déjà dessus. Basé à Bassecourt, dans le Jura.",
+    "Consultant en intelligence artificielle pour PME suisses. Analyse de vos processus, agents IA sur mesure qui absorbent le travail répétitif, et mesure des heures récupérées. Plus de 50 personnes accompagnées. Basé à Bassecourt, dans le Jura.",
   keywords:
-    "agence IA Suisse, agent IA sur mesure, automatisation PME suisse, consultant intelligence artificielle Suisse romande, développement IA Jura, LX Studio, Tanguy Lachat",
+    "consultant IA Suisse romande, expert intelligence artificielle Suisse, optimisation de processus IA, agent IA sur mesure PME, automatisation entreprise suisse, formation IA, LX Studio, Tanguy Lachat",
 } as const;
 
 /**
@@ -156,19 +165,22 @@ function HomePage() {
   return (
     <Page>
       <Hero
-        eyebrow="Studio IA suisse"
+        eyebrow="Consultant IA · Suisse romande"
         title={
           <>
-            Plus de clients.
+            Des dizaines d'heures
             <br />
-            <span style={{ color: "var(--text-muted)" }}>Moins de travail manuel.</span>
+            <span className="gradient-text">rendues à votre équipe.</span>
+            <br />
+            <span style={{ color: "var(--text-muted)" }}>Chaque mois.</span>
           </>
         }
         lede={
           <>
-            Je construis les sites et les logiciels qui font tourner les PME
-            suisses : un site qui remplit votre agenda, une automatisation qui
-            vide votre administratif. Quatre entreprises tournent déjà dessus.
+            Je suis consultant en intelligence artificielle. J'analyse vos
+            processus, je construis les agents qui absorbent le travail
+            répétitif, et je remesure ensuite pour vous montrer exactement ce
+            que vous avez récupéré.
           </>
         }
         actions={
@@ -182,13 +194,41 @@ function HomePage() {
           </>
         }
         trust={
-          <TrustLine
-            items={[
-              "Basé à Bassecourt, Jura",
-              "Développement sans sous-traitance",
-              "Le code vous appartient",
-            ]}
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              // Without this the badge inherits the column's stretch and runs
+              // the full width of the hero.
+              alignItems: "flex-start",
+              gap: "1.5rem",
+            }}
+          >
+            <span className="credential">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              {CREDENTIAL}
+            </span>
+            <TrustLine
+              items={[
+                "Plusieurs années sur l'IA appliquée",
+                "Développement sans sous-traitance",
+                "Basé à Bassecourt, Jura",
+              ]}
+            />
+          </div>
         }
       />
 
