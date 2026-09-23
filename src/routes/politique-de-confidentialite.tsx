@@ -1,25 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/landing/SiteHeader";
-import { SiteFooter } from "@/components/landing/SiteFooter";
+import { Page } from "@/components/site/Page";
+import { pageMeta, jsonLd, webPage, breadcrumbs } from "@/lib/seo";
+
+
+const SEO = {
+  path: "/politique-de-confidentialite",
+  title: "Politique de confidentialité — LX Studio",
+  description:
+    "Comment LX Studio collecte, utilise et protège les données personnelles. Conforme à la nLPD suisse.",
+} as const;
 
 export const Route = createFileRoute("/politique-de-confidentialite")({
   component: PolitiqueConfidentialite,
-  head: () => ({
-    meta: [
-      { title: "Politique de confidentialité — LX Studio" },
-      {
-        name: "description",
-        content:
-          "Politique de confidentialité de LX Studio, conforme à la nLPD suisse. Traitement des données personnelles et droits des utilisateurs.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = pageMeta(SEO);
+    return {
+      meta,
+      links,
+      scripts: [
+        jsonLd([
+          webPage(SEO),
+          breadcrumbs([
+            { name: "Accueil", path: "/" },
+            { name: "Politique de confidentialité", path: "/politique-de-confidentialite" },
+          ]),
+        ]),
+      ],
+    };
+  },
 });
 
 function PolitiqueConfidentialite() {
   return (
-    <main style={{ minHeight: "100vh", background: "#050507", color: "#f0f0f2" }}>
-      <SiteHeader />
+    <Page>
       <article
         style={{
           maxWidth: "48rem",
@@ -212,8 +225,7 @@ function PolitiqueConfidentialite() {
           </Section>
         </div>
       </article>
-      <SiteFooter />
-    </main>
+    </Page>
   );
 }
 

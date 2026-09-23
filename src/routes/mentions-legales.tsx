@@ -1,25 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/landing/SiteHeader";
-import { SiteFooter } from "@/components/landing/SiteFooter";
+import { Page } from "@/components/site/Page";
+import { pageMeta, jsonLd, webPage, breadcrumbs } from "@/lib/seo";
+
+
+const SEO = {
+  path: "/mentions-legales",
+  title: "Mentions légales — LX Studio",
+  description:
+    "Mentions légales de LX Studio, studio suisse de conseil et de développement en intelligence artificielle. Éditeur, hébergement et protection des données.",
+} as const;
 
 export const Route = createFileRoute("/mentions-legales")({
   component: MentionsLegales,
-  head: () => ({
-    meta: [
-      { title: "Mentions légales — LX Studio" },
-      {
-        name: "description",
-        content:
-          "Mentions légales de LX Studio, agent IA souverain pour fiduciaires suisses. Informations éditeur, hébergement et protection des données.",
-      },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = pageMeta(SEO);
+    return {
+      meta,
+      links,
+      scripts: [
+        jsonLd([
+          webPage(SEO),
+          breadcrumbs([
+            { name: "Accueil", path: "/" },
+            { name: "Mentions légales", path: "/mentions-legales" },
+          ]),
+        ]),
+      ],
+    };
+  },
 });
 
 function MentionsLegales() {
   return (
-    <main style={{ minHeight: "100vh", background: "#050507", color: "#f0f0f2" }}>
-      <SiteHeader />
+    <Page>
       <article
         style={{
           maxWidth: "48rem",
@@ -140,8 +153,7 @@ function MentionsLegales() {
           </P>
         </div>
       </article>
-      <SiteFooter />
-    </main>
+    </Page>
   );
 }
 

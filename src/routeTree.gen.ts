@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as MentiaRouteImport } from './routes/mentia'
+import { Route as FiduciaireRouteImport } from './routes/fiduciaire'
+import { Route as AthlitRouteImport } from './routes/athlit'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PolitiqueDeConfidentialiteRoute =
@@ -24,6 +27,21 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
   path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MentiaRoute = MentiaRouteImport.update({
+  id: '/mentia',
+  path: '/mentia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FiduciaireRoute = FiduciaireRouteImport.update({
+  id: '/fiduciaire',
+  path: '/fiduciaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AthlitRoute = AthlitRouteImport.update({
+  id: '/athlit',
+  path: '/athlit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -32,30 +50,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/athlit': typeof AthlitRoute
+  '/fiduciaire': typeof FiduciaireRoute
+  '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/athlit': typeof AthlitRoute
+  '/fiduciaire': typeof FiduciaireRoute
+  '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/athlit': typeof AthlitRoute
+  '/fiduciaire': typeof FiduciaireRoute
+  '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/mentions-legales' | '/politique-de-confidentialite'
+  fullPaths:
+    | '/'
+    | '/athlit'
+    | '/fiduciaire'
+    | '/mentia'
+    | '/mentions-legales'
+    | '/politique-de-confidentialite'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/mentions-legales' | '/politique-de-confidentialite'
-  id: '__root__' | '/' | '/mentions-legales' | '/politique-de-confidentialite'
+  to:
+    | '/'
+    | '/athlit'
+    | '/fiduciaire'
+    | '/mentia'
+    | '/mentions-legales'
+    | '/politique-de-confidentialite'
+  id:
+    | '__root__'
+    | '/'
+    | '/athlit'
+    | '/fiduciaire'
+    | '/mentia'
+    | '/mentions-legales'
+    | '/politique-de-confidentialite'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AthlitRoute: typeof AthlitRoute
+  FiduciaireRoute: typeof FiduciaireRoute
+  MentiaRoute: typeof MentiaRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
 }
@@ -76,6 +125,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mentia': {
+      id: '/mentia'
+      path: '/mentia'
+      fullPath: '/mentia'
+      preLoaderRoute: typeof MentiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fiduciaire': {
+      id: '/fiduciaire'
+      path: '/fiduciaire'
+      fullPath: '/fiduciaire'
+      preLoaderRoute: typeof FiduciaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/athlit': {
+      id: '/athlit'
+      path: '/athlit'
+      fullPath: '/athlit'
+      preLoaderRoute: typeof AthlitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -88,6 +158,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AthlitRoute: AthlitRoute,
+  FiduciaireRoute: FiduciaireRoute,
+  MentiaRoute: MentiaRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
 }

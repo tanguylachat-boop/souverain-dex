@@ -2,12 +2,10 @@
 @source "../src";
 @import "tw-animate-css";
 
-/* Font loaded via <link preconnect> in __root.tsx for better LCP */
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-system);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -38,8 +36,65 @@
 
 :root {
   --radius: 0.5rem;
-  /* Dark immersive palette */
-  --background: #050507;
+
+  /* ---------------------------------------------------------------------
+   * Type. The system stack resolves to SF Pro on Apple devices, Segoe UI on
+   * Windows, Roboto on Android: the same choice Apple makes on apple.com.
+   * No webfont request means no render-blocking stylesheet and no FOIT.
+   * ------------------------------------------------------------------- */
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Segoe UI", system-ui, "Helvetica Neue", Arial, sans-serif;
+
+  /* Surfaces, darkest to lightest. */
+  --bg: #050507;
+  --surface-1: #0a0a10;
+  --surface-2: #0e0e16;
+  --surface-raised: rgba(255, 255, 255, 0.032);
+  --surface-glass: rgba(10, 10, 16, 0.72);
+
+  /* ---------------------------------------------------------------------
+   * Text. Opacities are chosen for contrast, not for looks: on --surface-1
+   * these land at roughly 15:1, 7.5:1 and 5.4:1. The previous palette used
+   * white at 0.40 for body copy, which measures about 3.7:1 and fails
+   * WCAG AA for anything under 24px.
+   * ------------------------------------------------------------------- */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.64);
+  --text-muted: rgba(255, 255, 255, 0.52);
+  --text-faint: rgba(255, 255, 255, 0.38);
+
+  /* Brand blue. --accent is for fills and dots, --accent-text for anything
+   * a human has to read: the fill colour alone measures 4.4:1 on dark. */
+  --accent: #4b7cc9;
+  --accent-text: #8ab0ee;
+  --accent-soft: rgba(75, 124, 201, 0.12);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --success: #30d158;
+  --warning: #ff9f0a;
+
+  /* ---------------------------------------------------------------------
+   * Motion. One spring curve for everything so the whole site shares a
+   * rhythm. Exits run shorter than entrances, which reads as responsive.
+   * ------------------------------------------------------------------- */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-base: 280ms;
+  --dur-slow: 420ms;
+
+  /* Two-layer elevation: a tight contact shadow plus a wide ambient one. */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.4), 0 28px 60px -20px rgba(0, 0, 0, 0.7);
+
+  /* Rhythm: one horizontal gutter and one content width for every page. */
+  --page-max: 76rem;
+  --gutter: 1.5rem;
+
+  /* shadcn compatibility layer — the ui/* primitives read these. */
+  --background: var(--bg);
   --foreground: #f0f0f2;
   --card: #0c0c12;
   --card-foreground: #f0f0f2;
@@ -50,47 +105,80 @@
   --secondary: #111118;
   --secondary-foreground: #f0f0f2;
   --muted: #111118;
-  --muted-foreground: #6b7280;
-  --accent: #111118;
-  --accent-foreground: #f0f0f2;
+  --muted-foreground: #9a9aa2;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.08);
+  --border: var(--border-subtle);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #4b7cc9;
-  --surface: #0a0a10;
+  --surface: var(--surface-1);
   --surface-foreground: #f0f0f2;
+  --accent-foreground: #f0f0f2;
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--border-subtle);
   }
 
   html {
     scroll-behavior: smooth;
+    /* Fixed header is 4rem; anchors must not land underneath it. */
+    scroll-padding-top: 5rem;
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--foreground);
+    font-family: var(--font-system);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "ss01", "cv11";
   }
 
-  h1, h2, h3, h4 {
-    letter-spacing: -0.03em;
+  /* Apple tightens tracking as type grows and loosens it as type shrinks.
+   * Applying it by size rather than globally is what stops large headlines
+   * from looking loose and small labels from looking cramped. */
+  h1 {
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+  h2 {
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+  h3 {
+    letter-spacing: -0.021em;
+    line-height: 1.2;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
     overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   img {
     max-width: 100%;
   }
 
-  /* Mobile density: sections are far too tall with 8rem paddings */
+  /* A focus ring is the only way a keyboard user knows where they are. */
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgba(75, 124, 201, 0.35);
+    color: #ffffff;
+  }
+
   @media (max-width: 640px) {
     main > section {
       padding-top: 4.5rem !important;
@@ -105,40 +193,196 @@
       padding: 7rem 1.25rem 4rem !important;
     }
   }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+@layer components {
+  /* Shared page rhythm. */
+  .container-page {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    width: 100%;
+  }
 
-    *, *::before, *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
+  /* Translucent chrome. The saturation boost is what makes content read as
+   * *behind* the surface rather than merely dimmed by it. */
+  .material {
+    background: var(--surface-glass);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* Feedback on pointer-down, not on release: the delay between press and
+   * response is what makes an interface feel slow. */
+  .pressable {
+    transition: transform var(--dur-fast) var(--ease-spring),
+      opacity var(--dur-fast) var(--ease-spring),
+      background-color var(--dur-fast) var(--ease-spring),
+      border-color var(--dur-fast) var(--ease-spring);
+    touch-action: manipulation;
+  }
+  .pressable:active {
+    transform: scale(0.97);
+  }
+
+  /* Cards rise toward the pointer. transform and box-shadow only: animating
+   * either would otherwise force layout on every frame. */
+  .lift {
+    transition: transform var(--dur-base) var(--ease-spring),
+      border-color var(--dur-base) var(--ease-spring),
+      box-shadow var(--dur-base) var(--ease-spring);
+    will-change: transform;
+  }
+  @media (hover: hover) {
+    .lift:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-lift);
     }
+  }
+
+  .card {
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Every interactive target clears 44px, the smallest reliable touch area. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding-inline: 1.5rem;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: #ffffff;
+    color: #050507;
+    border: 1px solid transparent;
+  }
+  @media (hover: hover) {
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.88);
+    }
+  }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+  }
+  @media (hover: hover) {
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-strong);
+    }
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+    padding-inline: 0.75rem;
+  }
+  @media (hover: hover) {
+    .btn-ghost:hover {
+      color: var(--text-primary);
+    }
+  }
+
+  .navlink {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 0.625rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-spring);
+  }
+  @media (hover: hover) {
+    .navlink:hover {
+      color: var(--text-primary);
+    }
+  }
+  .navlink[aria-current="page"] {
+    color: var(--text-primary);
+  }
+
+  /* The default disclosure triangle is replaced by our own chevron; both
+   * would otherwise render side by side. */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    content: "";
+  }
+  details[open] > summary svg {
+    transform: rotate(180deg);
+  }
+  summary svg {
+    transition: transform var(--dur-base) var(--ease-spring);
+  }
+
+  .prose-link {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
   }
 }
 
-
 @layer utilities {
-  @keyframes float-slow {
-    0%, 100% { transform: translate3d(0,0,0) scale(1); }
-    50% { transform: translate3d(0,-18px,0) scale(1.04); }
+  /* Figures in a column must not change width as they animate or update. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
-  .animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
 
   @keyframes pulse-ring {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(2.5); opacity: 0; }
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
   }
   .animate-pulse-ring {
     animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
+  @keyframes float-slow {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(0, -18px, 0) scale(1.04);
+    }
+  }
+  .animate-float-slow {
+    animation: float-slow 9s ease-in-out infinite;
+  }
+
   @keyframes gradient-flow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
   .animate-gradient-flow {
     background-size: 200% 200%;
@@ -146,34 +390,110 @@
   }
 }
 
-/* Scroll reveal — pure CSS (scroll-driven), no hydration dependency */
-[data-reveal] { opacity: 1; }
+/* Scroll reveal — CSS scroll-driven, so content paints before hydration. */
+[data-reveal] {
+  opacity: 1;
+}
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     @keyframes reveal-up {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(32px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
     @keyframes reveal-left {
-      from { opacity: 0; transform: translateX(-40px); }
-      to { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateX(-32px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
     @keyframes reveal-right {
-      from { opacity: 0; transform: translateX(40px); }
-      to { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateX(32px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
     @keyframes reveal-fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
     [data-reveal] {
       animation: reveal-up linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 22%;
     }
-    [data-reveal="left"] { animation-name: reveal-left; }
-    [data-reveal="right"] { animation-name: reveal-right; }
-    [data-reveal="none"] { animation-name: reveal-fade; }
+    [data-reveal="left"] {
+      animation-name: reveal-left;
+    }
+    [data-reveal="right"] {
+      animation-name: reveal-right;
+    }
+    [data-reveal="none"] {
+      animation-name: reveal-fade;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Accessibility settings. Each of these is a system preference a real person
+ * has deliberately turned on, so each one is honoured rather than softened.
+ * ------------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pressable:active {
+    transform: none;
+  }
+  .lift:hover {
+    transform: none;
+  }
+}
+
+/* Reduced transparency: blur is replaced by an opaque surface, never simply
+ * removed, or the chrome would sit over scrolling text with nothing behind it. */
+@media (prefers-reduced-transparency: reduce) {
+  .material {
+    background: var(--surface-1);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: rgba(255, 255, 255, 0.86);
+    --text-muted: rgba(255, 255, 255, 0.74);
+    --text-faint: rgba(255, 255, 255, 0.6);
+    --border-subtle: rgba(255, 255, 255, 0.24);
+    --border-strong: rgba(255, 255, 255, 0.4);
+    --accent-text: #a8c8f5;
   }
 }

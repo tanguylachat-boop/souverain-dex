@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Reveal } from "@/hooks/use-scroll-reveal";
 
-const FAQ_ITEMS = [
+export const FAQ_ITEMS = [
   {
     question: "Quel matériel est installé exactement ?",
     answer:
