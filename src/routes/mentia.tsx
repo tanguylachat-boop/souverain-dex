@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page } from "@/components/site/Page";
+import { Reveal } from "@/components/site/Reveal";
 import { Hero } from "@/components/site/Hero";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -229,7 +230,7 @@ function MentiaPage() {
           </Body>
         </div>
 
-        <div data-reveal="up" style={{ marginTop: "3rem" }}>
+        <Reveal style={{ marginTop: "3rem" }}>
           <p
             style={{
               fontSize: "0.6875rem",
@@ -280,7 +281,7 @@ function MentiaPage() {
               et Google
             </li>
           </ul>
-        </div>
+        </Reveal>
       </Section>
 
       {/* ------------------------------------------------------------------ */}
@@ -294,7 +295,7 @@ function MentiaPage() {
 
         <Grid min="240px" gap="2rem" style={{ marginTop: "3.5rem" }}>
           {STEPS.map((item, i) => (
-            <div key={item.step} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={item.step} delay={i * 0.08}>
               <div
                 style={{
                   display: "flex",
@@ -330,7 +331,7 @@ function MentiaPage() {
                 {item.title}
               </h3>
               <Body>{item.body}</Body>
-            </div>
+            </Reveal>
           ))}
         </Grid>
       </Section>
@@ -347,13 +348,13 @@ function MentiaPage() {
           </Lede>
         </div>
 
-        <div data-reveal="up" style={{ marginTop: "3rem" }}>
+        <Reveal style={{ marginTop: "3rem" }}>
           <StatBand>
             {STATS.map((stat) => (
               <StatTile key={stat.label} value={stat.value} label={stat.label} />
             ))}
           </StatBand>
-        </div>
+        </Reveal>
 
         <p style={{ marginTop: "1.25rem", fontSize: "0.8125rem", color: "var(--text-faint)" }}>
           Consultable sur{" "}
@@ -382,7 +383,7 @@ function MentiaPage() {
 
         <Grid style={{ marginTop: "3.5rem" }}>
           {LIMITS.map((item, i) => (
-            <div key={item.title} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={item.title} delay={i * 0.08}>
               <Card>
                 <svg
                   width="20"
@@ -410,7 +411,7 @@ function MentiaPage() {
                 </h3>
                 <Body>{item.body}</Body>
               </Card>
-            </div>
+            </Reveal>
           ))}
         </Grid>
       </Section>

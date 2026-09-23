@@ -95,6 +95,11 @@ export const Route = createRootRoute({
       { rel: "apple-touch-icon", href: "/favicon.svg" },
     ],
     scripts: [
+      // Runs in <head>, before the body is parsed, so revealed blocks start
+      // hidden without a flash of the final state. Everything stays visible
+      // when this never runs, which is the case for crawlers and for anyone
+      // with scripting off.
+      { children: "document.documentElement.classList.add('js')" },
       {
         src: "https://plausible.io/js/script.js",
         defer: true,
