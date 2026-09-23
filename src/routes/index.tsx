@@ -4,9 +4,11 @@ import { Hero } from "@/components/site/Hero";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Work } from "@/components/site/Work";
+import { LogoMarquee } from "@/components/site/LogoMarquee";
+import { Numbers } from "@/components/site/Numbers";
 import { Reveal } from "@/components/site/Reveal";
 import { BrowserFrame } from "@/components/site/BrowserFrame";
-import mentiaShot from "@/assets/work/mentia.webp";
+import taxiElsaShot from "@/assets/work/taxi-elsa.webp";
 import {
   Section,
   Eyebrow,
@@ -108,17 +110,6 @@ const OFFERS = [
   },
 ] as const;
 
-/**
- * Figures that can be checked by opening the product, and nothing else.
- * Anything requiring the reader to trust an unverifiable claim is left out.
- */
-const PROOF = [
-  { value: "155", label: "entreprises suisses mesurées dans Mentia" },
-  { value: "68", label: "secteurs d'activité couverts par le baromètre" },
-  { value: "5", label: "assistants IA interrogés à chaque mesure" },
-  { value: "3", label: "produits en production, pas en présentation" },
-] as const;
-
 const FAQ_ENTRIES: ReadonlyArray<FaqEntry> = [
   {
     q: "Que fait exactement LX Studio ?",
@@ -199,9 +190,9 @@ function HomePage() {
         }
         visual={
           <BrowserFrame
-            src={mentiaShot}
-            alt="Mentia, outil de mesure de visibilité dans les assistants IA développé par LX Studio"
-            url="mentia.ch"
+            src={taxiElsaShot}
+            alt="Site de réservation Taxi Elsa, réalisé par LX Studio"
+            url="taxi-elsa.ch"
             width={1200}
             height={750}
             parallax={26}
@@ -229,8 +220,11 @@ function HomePage() {
         }
       />
 
-      {/* Proof comes before the argument: a reader who has not yet decided
-          whether to believe anything will not weigh a diagnosis. */}
+      {/* Trust first, in the order a visitor grants it: who already works
+          with him, then the figures, then the work itself. Argument comes
+          after, because nobody weighs a diagnosis from a stranger. */}
+      <LogoMarquee />
+      <Numbers />
       <Work />
 
       {/* ------------------------------------------------------------------ */}
@@ -432,60 +426,8 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="preuve" tone="base" labelledBy="preuve-title">
-        <div style={{ maxWidth: "42rem" }}>
-          <Eyebrow>Vérifiable</Eyebrow>
-          <H2 id="preuve-title">Des chiffres que vous pouvez aller contrôler.</H2>
-          <Lede>
-            Le baromètre de Mentia est public. Vous pouvez ouvrir la page,
-            chercher votre secteur et lire les mesures, sans compte et sans
-            demander la permission.
-          </Lede>
-        </div>
-
-        <Reveal style={{ marginTop: "3rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 1, borderRadius: 14, overflow: "hidden", border: "1px solid var(--border-subtle)", background: "var(--border-subtle)", }}>
-          {PROOF.map((stat) => (
-            <div key={stat.label} style={{ padding: "1.75rem", background: "var(--bg)" }}>
-              <div
-                className="tabular"
-                style={{
-                  fontSize: "clamp(1.875rem, 3vw, 2.75rem)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.035em",
-                  color: "var(--text-primary)",
-                }}
-              >
-                {stat.value}
-              </div>
-              <p
-                style={{
-                  marginTop: "0.5rem",
-                  fontSize: "0.8125rem",
-                  color: "var(--text-muted)",
-                  lineHeight: 1.55,
-                }}
-              >
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </Reveal>
-
-        <p style={{ marginTop: "1.25rem", fontSize: "0.8125rem", color: "var(--text-faint)" }}>
-          Baromètre public :{" "}
-          <a
-            href="https://mentia.ch/classement-ia"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="prose-link"
-          >
-            mentia.ch/classement-ia
-          </a>
-        </p>
-      </Section>
-
       {/* ------------------------------------------------------------------ */}
-      <Section id="fondateur" tone="raised" labelledBy="fondateur-title">
+      <Section id="fondateur" tone="deep" labelledBy="fondateur-title">
         <div
           className="grid lg:grid-cols-[auto_1fr]"
           style={{ gap: "3rem", alignItems: "start" }}

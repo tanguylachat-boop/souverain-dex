@@ -274,12 +274,19 @@ export function Grid({
   );
 }
 
-/** Small marker dot used in trust lines and list bullets. */
+/**
+ * Small marker dot used in trust lines and list bullets.
+ *
+ * `display: inline-block` is load-bearing: width and height do nothing on an
+ * inline element, so without it the dot renders at zero size everywhere it is
+ * not already a flex item, and the bullets simply vanish.
+ */
 export function Dot() {
   return (
     <span
       aria-hidden="true"
       style={{
+        display: "inline-block",
         width: 5,
         height: 5,
         flexShrink: 0,
