@@ -2,6 +2,56 @@ import type { ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
 /**
+ * Splits a line into words that rise in sequence.
+ *
+ * Each word is its own inline-block so only transforms animate. The text
+ * stays a single readable string in the DOM, so a screen reader and a
+ * crawler get the sentence, not a pile of fragments.
+ */
+export function Words({
+  text,
+  delay = 0,
+  className,
+  split = true,
+}: {
+  text: string;
+  delay?: number;
+  className?: string;
+  /**
+   * Set false for gradient text. `-webkit-text-fill-color: transparent`
+   * inherits to child spans but the background does not, so split words paint
+   * transparent over nothing and the line vanishes. Gradient lines rise as a
+   * single block instead.
+   */
+  split?: boolean;
+}) {
+  if (!split) {
+    return (
+      <span
+        className={`word ${className ?? ""}`}
+        style={{ animationDelay: `${delay}s` }}
+      >
+        {text}
+      </span>
+    );
+  }
+  return (
+    <span className={className}>
+      {text.split(" ").map((word, i, all) => (
+        <span
+          key={`${word}-${i}`}
+          className="word"
+          style={{ animationDelay: `${delay + i * 0.06}s` }}
+        >
+          {word}
+          {i < all.length - 1 ? "\u00A0" : ""}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/**
  * Page hero.
  *
  * The headline carries the promise and nothing else: a visitor decides in a
@@ -138,8 +188,7 @@ export function Hero({
             </span>
           </Reveal>
 
-          <Reveal direction="up" delay={0.08}>
-            <h1
+          <h1
               style={{
                 marginTop: "2rem",
                 fontSize: visual
@@ -153,8 +202,7 @@ export function Hero({
               }}
             >
               {title}
-            </h1>
-          </Reveal>
+          </h1>
 
           <Reveal direction="up" delay={0.16}>
             <p

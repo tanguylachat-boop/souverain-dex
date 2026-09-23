@@ -1,5 +1,6 @@
 import { Section } from "./ui";
 import { Reveal } from "./Reveal";
+import { useCountUp } from "@/hooks/use-scroll-progress";
 
 /**
  * The credibility band.
@@ -13,27 +14,66 @@ import { Reveal } from "./Reveal";
  * the wording says the same thing, so nothing depends on seeing it.
  */
 
+/**
+ * A figure that counts up when it reaches the screen.
+ *
+ * Only the digits animate; the prefix and suffix are static, so a unit never
+ * flickers while the number climbs.
+ */
+function Figure({
+  to,
+  suffix,
+  lead,
+}: {
+  to: number;
+  suffix: string;
+  lead: boolean;
+}) {
+  const { ref, value } = useCountUp<HTMLDivElement>(to);
+  return (
+    <div
+      ref={ref}
+      className={lead ? "tabular gradient-warm" : "tabular"}
+      style={{
+        fontSize: "clamp(2.75rem, 5.5vw, 4.25rem)",
+        fontWeight: 700,
+        letterSpacing: "-0.045em",
+        lineHeight: 1,
+        color: lead ? undefined : "var(--text-primary)",
+        width: "fit-content",
+      }}
+    >
+      {value}
+      {suffix}
+    </div>
+  );
+}
+
 const FIGURES = [
   {
-    value: "50+",
+    to: 50,
+    suffix: "+",
     label: "personnes accompagnées dans l'IA",
     note: "formations, mises en place et conseil",
     lead: true,
   },
   {
-    value: "10 h+",
+    to: 10,
+    suffix: " h+",
     label: "rendues par mois, par processus automatisé",
     note: "mesuré avant, remesuré après",
     lead: true,
   },
   {
-    value: "5",
+    to: 5,
+    suffix: "",
     label: "assistants IA interrogés à chaque mesure",
     note: "ChatGPT, Claude, Perplexity, Gemini, Grok",
     lead: false,
   },
   {
-    value: "100%",
+    to: 100,
+    suffix: "%",
     label: "développé sans sous-traitance",
     note: "un seul interlocuteur, du début à la fin",
     lead: false,
@@ -61,19 +101,7 @@ export function Numbers() {
         {FIGURES.map((f, i) => (
           <Reveal key={f.label} delay={i * 0.07}>
             <div>
-              <div
-                className={f.lead ? "tabular gradient-warm" : "tabular"}
-                style={{
-                  fontSize: "clamp(2.75rem, 5.5vw, 4.25rem)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.045em",
-                  lineHeight: 1,
-                  color: f.lead ? undefined : "var(--text-primary)",
-                  width: "fit-content",
-                }}
-              >
-                {f.value}
-              </div>
+              <Figure to={f.to} suffix={f.suffix} lead={f.lead} />
               <p
                 style={{
                   marginTop: "0.875rem",
