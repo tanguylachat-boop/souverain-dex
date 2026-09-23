@@ -371,6 +371,80 @@
     white-space: nowrap;
   }
 
+  /* A project row: screenshot and description side by side, alternating.
+   * Below 900px they stack, and the screenshot always comes first, so the
+   * order matches the DOM and a screen reader hears the image before the
+   * text describing it. */
+  .work-row {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .work-row {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 4rem;
+    }
+    /* Visual order flips; DOM order does not. */
+    .work-row-flipped > *:first-child {
+      order: 2;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+   * Trust bar.
+   *
+   * Two identical tracks slide as one and the pair shifts by exactly half its
+   * width, so the moment the first track leaves the second is already in its
+   * place: the seam never shows. Masked at both edges so names fade rather
+   * than getting clipped mid-letter.
+   * --------------------------------------------------------------------- */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 42s linear infinite;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+  @media (hover: hover) {
+    /* Stopping on hover lets someone actually read a name they recognised. */
+    .marquee:hover {
+      animation-play-state: paused;
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+    margin: 0;
+    list-style: none;
+  }
+  .marquee-item {
+    white-space: nowrap;
+    font-size: clamp(1rem, 1.6vw, 1.375rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-faint);
+    transition: color var(--dur-base) var(--ease-spring);
+  }
+  @media (hover: hover) {
+    .marquee-item:hover {
+      color: var(--text-secondary);
+    }
+  }
+
   /* Headline and proof side by side, but only once both have room. Below
    * 1024px a split would squeeze the headline to a few words per line. */
   .hero-split {
@@ -581,6 +655,21 @@
   }
   .hero-visual {
     transform: none !important;
+  }
+  /* A stopped marquee must still show its names, so it wraps into a static
+   * row instead of holding a single frame of a paused animation. */
+  .marquee {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .marquee-track:last-child {
+    display: none;
+  }
+  .marquee-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
   }
 }
 

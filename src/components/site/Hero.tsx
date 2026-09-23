@@ -187,7 +187,7 @@ export function Hero({
         </div>
 
         {visual && (
-          <Reveal direction="scale" delay={0.2} amount={0}>
+          <Reveal direction="scale" delay={0.2}>
             {visual}
           </Reveal>
         )}

@@ -1,42 +1,46 @@
-import { Section, Eyebrow, H2, Lede, Body } from "./ui";
+import { Section, Eyebrow, H2, Lede, Body, Dot } from "./ui";
 import { Reveal } from "./Reveal";
 import { BrowserFrame } from "./BrowserFrame";
-import richozLogo from "@/assets/clients/richoz-sanitaire.png";
-import oasisLogo from "@/assets/clients/oasis-drink.png";
 import taxiElsaShot from "@/assets/work/taxi-elsa.webp";
 import taxiDandreaShot from "@/assets/work/taxi-dandrea.webp";
+import mentiaShot from "@/assets/work/mentia.webp";
 
 /**
- * Delivered work.
+ * Selected work, as alternating full-width rows.
  *
- * Two kinds of reference sit here, and they are shown differently on purpose.
- * A public site can be screenshotted and opened, so it is; a private business
- * application cannot be shown without exposing a client's data, so it gets its
- * logo and a description instead. Presenting a login screen as a portfolio
- * piece would prove nothing.
+ * A grid of small cards turns work into a catalogue and gives every project
+ * the same weight. Two columns at full width let one screenshot be read at a
+ * glance and leave room to say what the thing actually does, which is what a
+ * prospect is weighing.
  *
- * Each entry names the client, which is what makes it checkable. Logos are
- * used as their owners drew them, on a light tile, never recoloured.
+ * Every row names its client, and public sites carry a link, so the claim can
+ * be checked rather than taken on faith.
  */
 
-type Item = {
+type Project = {
   client: string;
   place: string;
-  work: string;
-  /** Shown as proof when the result is a public page. */
-  shot?: string;
-  url?: string;
-  href?: string;
-  /** Used when the result is a private application. */
-  logo?: string;
-  logoAlt?: string;
+  kind: string;
+  headline: string;
+  body: string;
+  points: readonly string[];
+  shot: string;
+  url: string;
+  href: string;
 };
 
-const ITEMS: ReadonlyArray<Item> = [
+const PROJECTS: ReadonlyArray<Project> = [
   {
     client: "Taxi Elsa",
     place: "Canton du Jura",
-    work: "Site de réservation pour une entreprise de taxi. Réservation par WhatsApp en un geste, tarifs annoncés à l'avance, pages par ville pour être trouvé sur les recherches locales.",
+    kind: "Site et réservation",
+    headline: "Un site dont chaque écran mène à une course réservée.",
+    body: "Une entreprise de taxi ne se choisit pas en comparant des pages. Elle se choisit en trente secondes, souvent depuis un téléphone, parfois en pleine nuit. Le site est construit autour de cette contrainte.",
+    points: [
+      "Réservation WhatsApp en un geste, sans formulaire",
+      "Tarifs annoncés avant l'appel",
+      "Une page par ville desservie, pour les recherches locales",
+    ],
     shot: taxiElsaShot,
     url: "taxi-elsa.ch",
     href: "https://taxi-elsa.ch",
@@ -44,63 +48,141 @@ const ITEMS: ReadonlyArray<Item> = [
   {
     client: "Taxi d'Andrea",
     place: "Delémont",
-    work: "Site pour un chauffeur indépendant, construit autour d'une seule action : appeler. Transferts aéroport, transport médical et scolaire, chaque prestation ayant sa page.",
+    kind: "Site et référencement local",
+    headline: "Une seule action possible, répétée partout.",
+    body: "Un chauffeur indépendant n'a pas de standard. Le site ne propose donc rien d'autre que d'appeler, avec le numéro visible à chaque hauteur de page, et une page par prestation pour être trouvé sur la bonne recherche.",
+    points: [
+      "Numéro visible en permanence, appel direct",
+      "Transferts aéroport, transport médical et scolaire",
+      "Une page par prestation",
+    ],
     shot: taxiDandreaShot,
-    // The .ch domain does not resolve yet, so the frame shows the address the
-    // link actually opens. Writing a nicer URL than the one behind the link
-    // would be a small lie in the one place meant to prove honesty.
     url: "taxi-dandrea.vercel.app",
     href: "https://taxi-dandrea.vercel.app",
   },
   {
-    client: "Oasis Drink Distribution Sàrl",
-    place: "Genève",
-    work: "Plateforme de gestion des commandes, des livraisons et de la facturation. Espace client, tableau de bord administrateur, accès comptable et application pour les livreurs sur le terrain. Factures avec QR-facture suisse.",
-    logo: oasisLogo,
-    logoAlt: "Logo d'Oasis Drink Distribution Sàrl",
-  },
-  {
-    client: "Richoz Sanitaire",
-    place: "Suisse romande",
-    work: "Automatisation des rapports d'intervention, du planning des techniciens et des bulletins de livraison. Les documents se remplissent et se classent seuls à partir de ce que les techniciens saisissent sur place.",
-    logo: richozLogo,
-    logoAlt: "Logo de Richoz Sanitaire",
+    client: "Mentia",
+    place: "Produit édité par LX Studio",
+    kind: "Logiciel en abonnement",
+    headline: "Savoir ce que les assistants IA disent de vous.",
+    body: "Mentia pose aux cinq assistants les questions que posent vos clients, relève qui est cité à votre place, et publie sur votre site les réponses qui manquaient. La mesure est refaite tous les mois.",
+    points: [
+      "ChatGPT, Claude, Perplexity, Gemini et Grok",
+      "Scan gratuit, sans compte ni carte bancaire",
+      "155 entreprises suisses déjà mesurées",
+    ],
+    shot: mentiaShot,
+    url: "mentia.ch",
+    href: "https://mentia.ch",
   },
 ];
 
-function LogoTile({ src, alt }: { src: string; alt: string }) {
+function Row({ project, flipped }: { project: Project; flipped: boolean }) {
   return (
-    <div
-      style={{
-        display: "grid",
-        placeItems: "center",
-        height: 168,
-        borderRadius: 14,
-        border: "1px solid var(--border-subtle)",
-        background: "var(--surface-2)",
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          placeItems: "center",
-          width: 104,
-          height: 104,
-          padding: "0.875rem",
-          borderRadius: 18,
-          background: "#ffffff",
-        }}
-      >
-        <img
-          src={src}
-          alt={alt}
-          width={256}
-          height={256}
-          loading="lazy"
-          decoding="async"
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+    <div className={flipped ? "work-row work-row-flipped" : "work-row"}>
+      <Reveal direction={flipped ? "right" : "left"}>
+        <BrowserFrame
+          src={project.shot}
+          alt={`Page d'accueil de ${project.client}, réalisée par LX Studio`}
+          url={project.url}
+          width={1200}
+          height={750}
         />
-      </div>
+      </Reveal>
+
+      <Reveal direction={flipped ? "left" : "right"} delay={0.08}>
+        <div>
+          <p
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontSize: "0.6875rem",
+              fontWeight: 600,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--accent-text)",
+            }}
+          >
+            {project.kind}
+            <span aria-hidden="true" style={{ color: "var(--text-faint)" }}>
+              ·
+            </span>
+            <span style={{ color: "var(--text-faint)", letterSpacing: "0.1em" }}>
+              {project.place}
+            </span>
+          </p>
+
+          <h3
+            style={{
+              marginTop: "1rem",
+              fontSize: "clamp(1.5rem, 2.6vw, 2.125rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.15,
+              color: "var(--text-primary)",
+              maxWidth: "20ch",
+            }}
+          >
+            {project.headline}
+          </h3>
+
+          <Body style={{ marginTop: "1.125rem", maxWidth: "34rem" }}>{project.body}</Body>
+
+          <ul
+            style={{
+              marginTop: "1.5rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.625rem",
+              listStyle: "none",
+              padding: 0,
+            }}
+          >
+            {project.points.map((p) => (
+              <li
+                key={p}
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "0.625rem",
+                  fontSize: "0.9375rem",
+                  color: "var(--text-secondary)",
+                  lineHeight: 1.55,
+                }}
+              >
+                <span style={{ marginTop: "0.5rem" }}>
+                  <Dot />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary pressable"
+            style={{ marginTop: "1.75rem" }}
+          >
+            Ouvrir {project.url}
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
+          </a>
+        </div>
+      </Reveal>
     </div>
   );
 }
@@ -108,123 +190,27 @@ function LogoTile({ src, alt }: { src: string; alt: string }) {
 export function Work() {
   return (
     <Section id="realisations" tone="base" labelledBy="realisations-title">
-      <div style={{ maxWidth: "46rem" }}>
+      <div style={{ maxWidth: "44rem" }}>
         <Eyebrow>Réalisations</Eyebrow>
-        <H2 id="realisations-title" style={{ maxWidth: "22ch" }}>
-          Quatre entreprises suisses, et ce qui tourne chez chacune.
+        <H2 id="realisations-title" style={{ maxWidth: "20ch" }}>
+          Trois projets, ouvrables maintenant.
         </H2>
         <Lede>
-          Ce n'est pas un mur de logos. Chaque nom porte ce qui a été livré, et
-          les sites publics sont ouvrables : vous pouvez aller voir, et poser la
-          question au client.
+          Pas de maquettes ni de concepts. Trois adresses en service, que vous
+          pouvez ouvrir dans l'onglet d'à côté pendant que vous lisez.
         </Lede>
       </div>
 
       <div
         style={{
-          marginTop: "3.5rem",
-          display: "grid",
-          // Two columns, so four entries form a clean block rather than a row
-          // of three and a lone fourth. Wider cards also make the screenshots
-          // legible instead of decorative.
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 430px), 1fr))",
-          gap: "1.75rem",
+          marginTop: "4.5rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "6rem",
         }}
       >
-        {ITEMS.map((item, i) => (
-          <Reveal key={item.client} delay={(i % 2) * 0.08} as="article">
-            <div
-              className="card lift"
-              style={{
-                height: "100%",
-                padding: "1.25rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.25rem",
-              }}
-            >
-              {item.shot && item.url ? (
-                <BrowserFrame
-                  src={item.shot}
-                  alt={`Page d'accueil du site ${item.client}, réalisé par LX Studio`}
-                  url={item.url}
-                  width={1200}
-                  height={750}
-                />
-              ) : (
-                <LogoTile src={item.logo!} alt={item.logoAlt!} />
-              )}
-
-              <div style={{ padding: "0 0.5rem 0.5rem" }}>
-                <h3
-                  style={{
-                    fontSize: "1.125rem",
-                    fontWeight: 600,
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  {item.client}
-                </h3>
-                <p
-                  style={{
-                    marginTop: "0.25rem",
-                    fontSize: "0.8125rem",
-                    color: "var(--accent-text)",
-                  }}
-                >
-                  {item.place}
-                </p>
-                <Body style={{ marginTop: "0.875rem" }}>{item.work}</Body>
-
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      marginTop: "1rem",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.4375rem",
-                      minHeight: 44,
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: "var(--text-primary)",
-                      textDecoration: "none",
-                    }}
-                  >
-                    Ouvrir le site
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M7 17 17 7M9 7h8v8" />
-                    </svg>
-                  </a>
-                ) : (
-                  <p
-                    style={{
-                      marginTop: "1rem",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      minHeight: 44,
-                      fontSize: "0.8125rem",
-                      color: "var(--text-faint)",
-                    }}
-                  >
-                    Application interne, non publique
-                  </p>
-                )}
-              </div>
-            </div>
-          </Reveal>
+        {PROJECTS.map((project, i) => (
+          <Row key={project.client} project={project} flipped={i % 2 === 1} />
         ))}
       </div>
     </Section>
