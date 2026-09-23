@@ -3,6 +3,7 @@ import { Page } from "@/components/site/Page";
 import { Hero } from "@/components/site/Hero";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
+import { Clients } from "@/components/site/Clients";
 import {
   Section,
   Eyebrow,
@@ -215,8 +216,12 @@ function HomePage() {
         }
       />
 
+      {/* Proof comes before the argument: a reader who has not yet decided
+          whether to believe anything will not weigh a diagnosis. */}
+      <Clients />
+
       {/* ------------------------------------------------------------------ */}
-      <Section id="constat" tone="base" labelledBy="constat-title">
+      <Section id="constat" tone="raised" labelledBy="constat-title">
         <Eyebrow>Le constat</Eyebrow>
         <H2 id="constat-title">
           Trois raisons pour lesquelles l'IA n'a encore rien changé chez vous.
@@ -262,7 +267,7 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="methode" tone="raised" labelledBy="methode-title">
+      <Section id="methode" tone="base" labelledBy="methode-title">
         <Eyebrow>La méthode</Eyebrow>
         <H2 id="methode-title">Trois étapes, et une porte de sortie à chacune.</H2>
         <Lede>
@@ -314,7 +319,7 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="offres" tone="base" labelledBy="offres-title">
+      <Section id="offres" tone="raised" labelledBy="offres-title">
         <Eyebrow>Ce que je construis</Eyebrow>
         <H2 id="offres-title">Un service sur mesure, deux produits en ligne.</H2>
         <Lede>
@@ -414,7 +419,7 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="preuve" tone="raised" labelledBy="preuve-title">
+      <Section id="preuve" tone="base" labelledBy="preuve-title">
         <div style={{ maxWidth: "42rem" }}>
           <Eyebrow>Vérifiable</Eyebrow>
           <H2 id="preuve-title">Des chiffres que vous pouvez aller contrôler.</H2>
@@ -479,7 +484,7 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="fondateur" tone="base" labelledBy="fondateur-title">
+      <Section id="fondateur" tone="raised" labelledBy="fondateur-title">
         <div
           className="grid lg:grid-cols-[auto_1fr]"
           style={{ gap: "3rem", alignItems: "start" }}
