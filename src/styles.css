@@ -371,6 +371,70 @@
     white-space: nowrap;
   }
 
+  /* The return calculation: argument beside the worked example. */
+  .roi-split {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 960px) {
+    .roi-split {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: 4rem;
+    }
+  }
+
+  /* Data-flow diagram. A row on wide screens, a column on narrow ones, where
+   * the arrows turn to point down so the reading direction still matches. */
+  .infra-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .infra-diagram .infra-arrow {
+    transform: rotate(90deg);
+    flex-shrink: 0;
+  }
+  @media (min-width: 900px) {
+    .infra-diagram {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+    .infra-diagram .infra-arrow {
+      transform: none;
+    }
+  }
+  .infra-col,
+  .infra-core {
+    flex: 1;
+    min-width: 0;
+  }
+  .infra-core {
+    padding: 1.5rem 1.25rem;
+    border-radius: 14px;
+    border: 1px solid rgba(75, 124, 201, 0.35);
+    background: var(--accent-soft);
+    text-align: left;
+  }
+  .infra-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.75rem;
+  }
+  .infra-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
   /* A project row: screenshot and description side by side, alternating.
    * Below 900px they stack, and the screenshot always comes first, so the
    * order matches the DOM and a screen reader hears the image before the

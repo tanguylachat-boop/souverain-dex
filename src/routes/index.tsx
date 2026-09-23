@@ -3,7 +3,10 @@ import { Page } from "@/components/site/Page";
 import { Hero } from "@/components/site/Hero";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
-import { Work } from "@/components/site/Work";
+import { Process } from "@/components/site/Process";
+import { Roi } from "@/components/site/Roi";
+import { Infrastructure } from "@/components/site/Infrastructure";
+import { Examples } from "@/components/site/Examples";
 import { LogoMarquee } from "@/components/site/LogoMarquee";
 import { Numbers } from "@/components/site/Numbers";
 import { Reveal } from "@/components/site/Reveal";
@@ -61,24 +64,6 @@ const BLOCKERS = [
   {
     title: "Personne n'assume les données",
     body: "Dès qu'un dossier client sort du pays, la question devient juridique. Beaucoup de projets s'arrêtent exactement là, parce que personne n'a voulu la traiter au départ.",
-  },
-] as const;
-
-const METHOD = [
-  {
-    step: "01",
-    title: "On regarde le travail réel",
-    body: "Une demi-journée sur place ou en visio, à suivre une tâche du début à la fin. On chronomètre, on compte les allers-retours. C'est ce chiffre qui décide de la suite, pas une intuition.",
-  },
-  {
-    step: "02",
-    title: "Un prototype qui tourne",
-    body: "En deux à trois semaines, une première version traite vos vrais documents, dans votre vrai environnement. Vous la jugez sur son résultat, pas sur une démonstration préparée.",
-  },
-  {
-    step: "03",
-    title: "Mise en production et transfert",
-    body: "Installation, formation de l'équipe, documentation. Le code vous appartient. Rien ne vous oblige à rester, ce qui est la seule raison valable de rester.",
   },
 ] as const;
 
@@ -225,7 +210,6 @@ function HomePage() {
           after, because nobody weighs a diagnosis from a stranger. */}
       <LogoMarquee />
       <Numbers />
-      <Work />
 
       {/* ------------------------------------------------------------------ */}
       <Section id="constat" tone="raised" labelledBy="constat-title">
@@ -274,59 +258,13 @@ function HomePage() {
       </Section>
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="methode" tone="base" labelledBy="methode-title">
-        <Eyebrow>La méthode</Eyebrow>
-        <H2 id="methode-title">Trois étapes, et une porte de sortie à chacune.</H2>
-        <Lede>
-          Un projet d'automatisation se juge sur un chiffre mesuré au début et
-          revérifié à la fin. Tout le reste est de la conversation.
-        </Lede>
-
-        <Grid min="240px" gap="2rem" style={{ marginTop: "3.5rem" }}>
-          {METHOD.map((item, i) => (
-            <Reveal key={item.step} delay={i * 0.08}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.75rem",
-                  marginBottom: "1.25rem",
-                }}
-              >
-                <span
-                  className="tabular"
-                  style={{
-                    fontSize: "1.75rem",
-                    fontWeight: 300,
-                    color: "var(--accent-text)",
-                    minWidth: "2.25rem",
-                  }}
-                >
-                  {item.step}
-                </span>
-                <span
-                  aria-hidden="true"
-                  style={{ flex: 1, height: 1, background: "var(--border-subtle)" }}
-                />
-              </div>
-              <h3
-                style={{
-                  fontSize: "1.0625rem",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                  marginBottom: "0.625rem",
-                }}
-              >
-                {item.title}
-              </h3>
-              <Body>{item.body}</Body>
-            </Reveal>
-          ))}
-        </Grid>
-      </Section>
+      <Process />
+      <Roi />
+      <Examples />
+      <Infrastructure />
 
       {/* ------------------------------------------------------------------ */}
-      <Section id="offres" tone="raised" labelledBy="offres-title">
+      <Section id="offres" tone="base" labelledBy="offres-title">
         <Eyebrow>Ce que je construis</Eyebrow>
         <H2 id="offres-title">Un service sur mesure, deux produits en ligne.</H2>
         <Lede>
@@ -465,6 +403,33 @@ function HomePage() {
               seule manière honnête de savoir ce qu'un logiciel coûte vraiment à
               maintenir, et cela évite de vendre aux autres ce que je n'utilise
               pas moi-même.
+            </Body>
+
+            {/* Contextual outbound links to the products, in the one place on
+                the page where naming them is the natural thing to do. */}
+            <Body style={{ marginTop: "1rem", maxWidth: "38rem" }}>
+              Le premier est{" "}
+              <a
+                href="https://mentia.ch"
+                target="_blank"
+                rel="noopener"
+                className="prose-link"
+              >
+                Mentia
+              </a>
+              , qui mesure si ChatGPT, Claude, Perplexity, Gemini et Grok citent
+              une entreprise suisse quand ses clients les interrogent. Le scan
+              est gratuit et sans inscription, et le{" "}
+              <a
+                href="https://mentia.ch/classement-ia"
+                target="_blank"
+                rel="noopener"
+                className="prose-link"
+              >
+                baromètre par secteur
+              </a>{" "}
+              est public. Le second est <Link to="/athlit" className="prose-link">Athlit</Link>,
+              une application de coaching sportif en bêta fermée.
             </Body>
 
             <div style={{ marginTop: "2rem" }}>

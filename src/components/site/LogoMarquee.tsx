@@ -12,6 +12,8 @@
  */
 
 const CLIENTS = [
+  "Coca-Cola",
+  "Migros",
   "Oasis Drink Distribution",
   "Richoz Sanitaire",
   "Taxi Elsa",
