@@ -3,7 +3,10 @@ import { Page } from "@/components/site/Page";
 import { Hero } from "@/components/site/Hero";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
-import { Clients } from "@/components/site/Clients";
+import { Work } from "@/components/site/Work";
+import { Reveal } from "@/components/site/Reveal";
+import { BrowserFrame } from "@/components/site/BrowserFrame";
+import mentiaShot from "@/assets/work/mentia.webp";
 import {
   Section,
   Eyebrow,
@@ -34,7 +37,7 @@ const SEO = {
   path: "/",
   title: "LX Studio — Agents IA et automatisation sur mesure pour PME suisses",
   description:
-    "LX Studio conçoit et installe des agents IA et des automatisations sur mesure pour les PME suisses : traitement de documents, relances, visibilité dans les assistants IA. Du logiciel en production, pas des ateliers. Basé dans le Jura.",
+    "LX Studio construit les sites et les logiciels qui font tourner les PME suisses : un site qui remplit votre agenda, une automatisation qui vide votre administratif. Quatre entreprises tournent déjà dessus. Basé à Bassecourt, dans le Jura.",
   keywords:
     "agence IA Suisse, agent IA sur mesure, automatisation PME suisse, consultant intelligence artificielle Suisse romande, développement IA Jura, LX Studio, Tanguy Lachat",
 } as const;
@@ -182,18 +185,28 @@ function HomePage() {
         eyebrow="Studio IA suisse"
         title={
           <>
-            L'IA qui fait le travail,
+            Plus de clients.
             <br />
-            <span style={{ color: "var(--text-muted)" }}>pas celle qui fait des slides.</span>
+            <span style={{ color: "var(--text-muted)" }}>Moins de travail manuel.</span>
           </>
         }
         lede={
           <>
-            LX Studio conçoit et installe des agents IA sur mesure pour les PME
-            suisses : traitement de documents, relances, suivi de dossiers. Vous
-            repartez avec un logiciel qui tourne dans votre entreprise, et avec
-            son code.
+            Je construis les sites et les logiciels qui font tourner les PME
+            suisses : un site qui remplit votre agenda, une automatisation qui
+            vide votre administratif. Quatre entreprises tournent déjà dessus.
           </>
+        }
+        visual={
+          <BrowserFrame
+            src={mentiaShot}
+            alt="Mentia, outil de mesure de visibilité dans les assistants IA développé par LX Studio"
+            url="mentia.ch"
+            width={1200}
+            height={750}
+            parallax={26}
+            priority
+          />
         }
         actions={
           <>
@@ -218,7 +231,7 @@ function HomePage() {
 
       {/* Proof comes before the argument: a reader who has not yet decided
           whether to believe anything will not weigh a diagnosis. */}
-      <Clients />
+      <Work />
 
       {/* ------------------------------------------------------------------ */}
       <Section id="constat" tone="raised" labelledBy="constat-title">
@@ -234,7 +247,7 @@ function HomePage() {
 
         <Grid style={{ marginTop: "3.5rem" }}>
           {BLOCKERS.map((item, i) => (
-            <div key={item.title} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={item.title} delay={i * 0.08}>
               <Card>
                 <span
                   aria-hidden="true"
@@ -261,7 +274,7 @@ function HomePage() {
                 </h3>
                 <Body>{item.body}</Body>
               </Card>
-            </div>
+            </Reveal>
           ))}
         </Grid>
       </Section>
@@ -277,7 +290,7 @@ function HomePage() {
 
         <Grid min="240px" gap="2rem" style={{ marginTop: "3.5rem" }}>
           {METHOD.map((item, i) => (
-            <div key={item.step} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={item.step} delay={i * 0.08}>
               <div
                 style={{
                   display: "flex",
@@ -313,7 +326,7 @@ function HomePage() {
                 {item.title}
               </h3>
               <Body>{item.body}</Body>
-            </div>
+            </Reveal>
           ))}
         </Grid>
       </Section>
@@ -329,7 +342,7 @@ function HomePage() {
 
         <Grid min="300px" style={{ marginTop: "3.5rem" }}>
           {OFFERS.map((offer, i) => (
-            <div key={offer.to} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={offer.to} delay={i * 0.08}>
               <Link
                 to={offer.to}
                 className="card lift"
@@ -413,7 +426,7 @@ function HomePage() {
                   </svg>
                 </span>
               </Link>
-            </div>
+            </Reveal>
           ))}
         </Grid>
       </Section>
@@ -430,19 +443,7 @@ function HomePage() {
           </Lede>
         </div>
 
-        <div
-          data-reveal="up"
-          style={{
-            marginTop: "3rem",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: 1,
-            borderRadius: 14,
-            overflow: "hidden",
-            border: "1px solid var(--border-subtle)",
-            background: "var(--border-subtle)",
-          }}
-        >
+        <Reveal style={{ marginTop: "3rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 1, borderRadius: 14, overflow: "hidden", border: "1px solid var(--border-subtle)", background: "var(--border-subtle)", }}>
           {PROOF.map((stat) => (
             <div key={stat.label} style={{ padding: "1.75rem", background: "var(--bg)" }}>
               <div
@@ -468,7 +469,7 @@ function HomePage() {
               </p>
             </div>
           ))}
-        </div>
+        </Reveal>
 
         <p style={{ marginTop: "1.25rem", fontSize: "0.8125rem", color: "var(--text-faint)" }}>
           Baromètre public :{" "}

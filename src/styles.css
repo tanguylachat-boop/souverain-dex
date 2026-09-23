@@ -332,6 +332,66 @@
     transition: transform var(--dur-base) var(--ease-spring);
   }
 
+  /* A browser chrome around a screenshot. It tells the reader in one glance
+   * that what follows is a real page, not an illustration of one. */
+  .browser-frame {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    background: var(--surface-2);
+    box-shadow: var(--shadow-lift);
+  }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .browser-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    flex-shrink: 0;
+  }
+  .browser-url {
+    flex: 1;
+    min-width: 0;
+    margin-left: 0.25rem;
+    padding: 0.1875rem 0.625rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 0.6875rem;
+    color: var(--text-faint);
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Headline and proof side by side, but only once both have room. Below
+   * 1024px a split would squeeze the headline to a few words per line. */
+  .hero-split {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .hero-split {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+
+  /* The hero image drifts a little slower than the page. Driven by a CSS
+   * variable a scroll listener writes, so nothing reads layout per frame. */
+  .hero-visual {
+    transform: translate3d(0, calc(var(--parallax, 0) * -1px), 0);
+    will-change: transform;
+  }
+
   .prose-link {
     color: var(--accent-text);
     text-decoration: underline;
@@ -390,7 +450,46 @@
   }
 }
 
-/* Scroll reveal — CSS scroll-driven, so content paints before hydration. */
+/* ---------------------------------------------------------------------------
+ * Scroll reveal.
+ *
+ * Elements are hidden only under `.js`, which an inline script in the document
+ * head adds. Without it the page renders complete: crawlers, assistants and
+ * readers with scripting off never meet an invisible page, which is the usual
+ * way a reveal effect quietly costs a site its indexing.
+ * ------------------------------------------------------------------------ */
+.reveal {
+  opacity: 1;
+}
+
+.js .reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+}
+.js .reveal-up {
+  transform: translate3d(0, 34px, 0);
+}
+.js .reveal-left {
+  transform: translate3d(-34px, 0, 0);
+}
+.js .reveal-right {
+  transform: translate3d(34px, 0, 0);
+}
+.js .reveal-scale {
+  transform: scale(0.96);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  /* Released once the element has landed, so the compositor stops holding a
+   * layer for every revealed block on a long page. */
+  will-change: auto;
+}
+
+/* Legacy attribute kept visible: some sections still carry it. */
 [data-reveal] {
   opacity: 1;
 }
@@ -474,6 +573,14 @@
   }
   .lift:hover {
     transform: none;
+  }
+  /* The reveal must end visible, not end hidden with its transition removed. */
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-visual {
+    transform: none !important;
   }
 }
 

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page } from "@/components/site/Page";
+import { Reveal } from "@/components/site/Reveal";
 import { Hero } from "@/components/site/Hero";
 import { Faq, type FaqEntry } from "@/components/site/Faq";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -184,7 +185,7 @@ function AthlitPage() {
 
         <Grid style={{ marginTop: "3.5rem" }}>
           {PRINCIPLES.map((item, i) => (
-            <div key={item.title} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={item.title} delay={i * 0.08}>
               <Card>
                 <span
                   aria-hidden="true"
@@ -211,7 +212,7 @@ function AthlitPage() {
                 </h3>
                 <Body>{item.body}</Body>
               </Card>
-            </div>
+            </Reveal>
           ))}
         </Grid>
       </Section>
@@ -223,7 +224,7 @@ function AthlitPage() {
 
         <Grid min="300px" gap="1.5rem" style={{ marginTop: "3rem" }}>
           {AUDIENCES.map((item, i) => (
-            <div key={item.title} data-reveal="up" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <Reveal key={item.title} delay={i * 0.08}>
               <Card>
                 <span
                   style={{
@@ -249,7 +250,7 @@ function AthlitPage() {
                 </h3>
                 <Body>{item.body}</Body>
               </Card>
-            </div>
+            </Reveal>
           ))}
         </Grid>
 
