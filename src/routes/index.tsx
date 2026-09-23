@@ -10,8 +10,6 @@ import { Examples } from "@/components/site/Examples";
 import { LogoMarquee } from "@/components/site/LogoMarquee";
 import { Numbers } from "@/components/site/Numbers";
 import { Reveal } from "@/components/site/Reveal";
-import { BrowserFrame } from "@/components/site/BrowserFrame";
-import taxiElsaShot from "@/assets/work/taxi-elsa.webp";
 import {
   Section,
   Eyebrow,
@@ -172,17 +170,6 @@ function HomePage() {
             suisses : un site qui remplit votre agenda, une automatisation qui
             vide votre administratif. Quatre entreprises tournent déjà dessus.
           </>
-        }
-        visual={
-          <BrowserFrame
-            src={taxiElsaShot}
-            alt="Site de réservation Taxi Elsa, réalisé par LX Studio"
-            url="taxi-elsa.ch"
-            width={1200}
-            height={750}
-            parallax={26}
-            priority
-          />
         }
         actions={
           <>
