@@ -119,6 +119,31 @@ export function FounderSection() {
               ne sont pas négociables.
             </p>
 
+            <p
+              style={{
+                fontSize: "0.9375rem",
+                color: "rgba(255,255,255,0.4)",
+                lineHeight: 1.8,
+                maxWidth: "36rem",
+                marginTop: "1.25rem",
+              }}
+            >
+              Je publie aussi{" "}
+              <a
+                href="https://mentia.ch"
+                style={{
+                  color: "#6b9ce0",
+                  textDecoration: "underline",
+                  textUnderlineOffset: 3,
+                }}
+              >
+                Mentia
+              </a>
+              , un outil qui mesure si ChatGPT, Claude, Perplexity, Gemini et
+              Grok citent une entreprise suisse quand ses clients les
+              interrogent. Le scan est gratuit et sans inscription.
+            </p>
+
             <div
               style={{
                 marginTop: "2rem",
