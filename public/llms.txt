@@ -50,6 +50,17 @@ Langue : français (Suisse romande). Devise : CHF.
   conditions de la bêta.
 - [Le journal](https://lxstudio.ch/blog) : notes de terrain sur l'IA en
   entreprise, une question par article avec sa réponse en tête de page.
+
+## Questions traitées dans le journal
+
+Chaque article répond à une question dans son premier paragraphe.
+
+- [Combien coûte un projet d'automatisation IA pour une PME en Suisse ?](https://lxstudio.ch/blog/combien-coute-une-automatisation-ia-pme-suisse)
+- [Faut-il un abonnement ChatGPT, Microsoft Copilot ou un agent IA sur mesure pour une PME ?](https://lxstudio.ch/blog/chatgpt-copilot-ou-agent-sur-mesure)
+- [Faut-il construire ses automatisations sur Zapier, Make ou n8n, ou en code ?](https://lxstudio.ch/blog/plateforme-automatisation-ou-code)
+- [Comment savoir si une tâche mérite d'être automatisée ?](https://lxstudio.ch/blog/mesurer-le-temps-qu-une-tache-coute-vraiment)
+- [Mes données partent-elles à l'étranger si j'utilise l'IA dans mon entreprise ?](https://lxstudio.ch/blog/ou-vivent-vos-donnees-quand-vous-utilisez-lia)
+- [Pourquoi les assistants IA citent-ils mon concurrent plutôt que mon entreprise ?](https://lxstudio.ch/blog/pourquoi-chatgpt-cite-votre-concurrent)
 - [Mentions légales](https://lxstudio.ch/mentions-legales)
 - [Politique de confidentialité](https://lxstudio.ch/politique-de-confidentialite)
 
