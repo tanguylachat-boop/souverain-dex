@@ -70,17 +70,17 @@ export const Route = createFileRoute("/fiduciaire")({
               audienceType:
                 "Cabinets fiduciaires et professions soumises au secret professionnel en Suisse romande",
             },
-            offers: {
-              "@type": "Offer",
-              "@id": `${SITE_URL}/fiduciaire#offer`,
-              priceCurrency: "CHF",
-              // Priced per mandate on scope and estimated hours, so no price
-              // is published. Advertising a figure the studio does not hold to
-              // would be worse than publishing none.
-              availability: "https://schema.org/InStock",
-              seller: { "@id": `${SITE_URL}/#organization` },
-              areaServed: { "@type": "Country", name: "Switzerland" },
-            },
+            // Aucun nœud `offers` ici, volontairement. L'agent est chiffré au
+            // mandat, sur le périmètre et les heures estimées, donc il n'existe
+            // pas de prix public à annoncer. Une `Offer` qui porte une devise
+            // sans `price` est invalide pour Google : c'est exactement ce que
+            // la Search Console remontait le 26.09.2026 sous « Extraits de
+            // produits » et « Fiches de marchand ». Un `Product` sans `offers`
+            // est valide ; il n'est simplement pas éligible aux résultats
+            // enrichis qui affichent un prix, ce qui est correct puisqu'il n'y
+            // en a pas. Le jour où un prix public existe, remettre `price` ET
+            // `priceCurrency` ensemble, jamais l'un sans l'autre.
+            areaServed: { "@type": "Country", name: "Switzerland" },
           },
         ]),
       ],
