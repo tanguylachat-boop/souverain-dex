@@ -1,30 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page } from "@/components/site/Page";
 import { HomeHero } from "@/components/site/HomeHero";
-import { ClientNames } from "@/components/site/ClientNames";
-import { Proof } from "@/components/site/Proof";
-import { TimeCost } from "@/components/site/TimeCost";
-import { Pitfalls } from "@/components/site/Pitfalls";
-import { ProcessPinned } from "@/components/site/ProcessPinned";
-import { Examples } from "@/components/site/Examples";
-import { Infrastructure } from "@/components/site/Infrastructure";
-import { Faq } from "@/components/site/Faq";
-import { About } from "@/components/site/About";
-import { CtaBand } from "@/components/site/CtaBand";
+import { Problem } from "@/components/site/Problem";
+import { Install } from "@/components/site/Install";
+import { Results } from "@/components/site/Results";
+import { Method } from "@/components/site/Method";
+import { Faq, type FaqEntry } from "@/components/site/Faq";
+import { DataDiagram } from "@/components/site/DataDiagram";
+import { Closing } from "@/components/site/Closing";
 import { OtherProjects } from "@/components/site/OtherProjects";
-import { Action } from "@/components/site/ui";
-import { SEO, SERVICE_DESCRIPTION, FAQ, CTA, IMAGES } from "@/content/home";
+import { SEO, SERVICE_DESCRIPTION, FAQ, IMAGES } from "@/content/home";
 import { pageMeta, jsonLd, webPage, faqSchema, breadcrumbs, SITE_URL } from "@/lib/seo";
 
 /**
- * Page d'accueil.
+ * Page d'accueil, en sept écrans.
  *
- * Tout le texte vit dans src/content/home.ts ; ici, seulement l'ordre des
- * sections et les métadonnées. L'ordre est celui dans lequel un patron de
- * PME accorde sa confiance : la promesse, la preuve, la reconnaissance de sa
- * propre situation, ce qu'il faut éviter, puis seulement la méthode et les
- * exemples.
+ * Tout le texte vit dans src/content/home.ts ; ici, seulement l'ordre et les
+ * métadonnées. Le fil : le problème concret, ce qu'on installe, le résultat
+ * chez des clients, comment on travaille, les questions, le rendez-vous.
  */
+
+/** Les questions, avec le schéma des données sous la question qui le mérite. */
+const FAQ_ENTRIES: ReadonlyArray<FaqEntry> = FAQ.entries.map((entry, i) =>
+  i === FAQ.dataQuestionIndex ? { ...entry, extra: <DataDiagram /> } : entry,
+);
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -34,8 +33,8 @@ export const Route = createFileRoute("/")({
       links: [
         ...links,
         // The hero photo is the largest thing on the first screen; asking
-        // for it before the stylesheet is parsed is what keeps the first
-        // paint under budget on a slow connection.
+        // for it before the stylesheet is parsed keeps the first paint
+        // under budget on a slow connection.
         { rel: "preload", as: "image", href: IMAGES.hero.src, fetchpriority: "high" },
       ],
       scripts: [
@@ -63,34 +62,18 @@ function HomePage() {
   return (
     <Page>
       <HomeHero />
-      <ClientNames />
-      <Proof />
-      <TimeCost />
-      <Pitfalls />
-      <ProcessPinned />
-      <Examples />
-      <Infrastructure />
+      <Problem />
+      <Install />
+      <Results />
+      <Method />
       <Faq
         size="lg"
-        entries={FAQ.entries}
+        entries={FAQ_ENTRIES}
         eyebrow={FAQ.eyebrow}
         title={FAQ.title}
         lede={FAQ.lede}
       />
-      <About />
-      <CtaBand
-        size="lg"
-        title={CTA.title}
-        body={CTA.body}
-        primaryLabel={CTA.primary.label}
-        primaryHref={CTA.primary.href}
-        secondary={
-          <Action variant="secondary" href={CTA.secondary.href}>
-            {CTA.secondary.label}
-          </Action>
-        }
-        note={CTA.note}
-      />
+      <Closing />
       <OtherProjects />
     </Page>
   );
