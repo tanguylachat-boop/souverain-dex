@@ -9,7 +9,7 @@ await page.goto("http://localhost:4173/", { waitUntil: "networkidle" });
 await page.waitForTimeout(600);
 const info = await page.evaluate(() => ({
   hero: document.querySelector("#accueil").offsetHeight, max: Math.round(window.innerHeight * 0.7),
-  proofTitleTop: Math.round(document.querySelector("#preuve-title").getBoundingClientRect().top),
+  proofTitleTop: Math.round(document.querySelector("#probleme-title").getBoundingClientRect().top),
   overflow: document.documentElement.scrollWidth > window.innerWidth,
   hiddenInView: [...document.querySelectorAll(".appear:not(.is-in)")].filter((el) => el.getBoundingClientRect().top < window.innerHeight).length,
 }));

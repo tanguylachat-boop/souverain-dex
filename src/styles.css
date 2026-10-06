@@ -197,12 +197,9 @@
   }
 
   @media (max-width: 640px) {
-    main > section:not(.home-hero):not(.client-row) {
+    main > section:not(.home-hero) {
       padding-top: 4.5rem !important;
       padding-bottom: 4.5rem !important;
-    }
-    main > section.tight-top {
-      padding-top: 2.5rem !important;
     }
 
     #top {
@@ -211,11 +208,6 @@
 
     #top > div {
       padding: 7rem 1.25rem 4rem !important;
-    }
-  }
-  @media (min-width: 641px) {
-    main > section.tight-top {
-      padding-top: 4rem !important;
     }
   }
 }
@@ -429,6 +421,15 @@
     background: var(--accent-soft);
     text-align: left;
   }
+  .infra-node {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-2);
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
   .infra-label {
     font-size: 0.625rem;
     font-weight: 600;
@@ -542,54 +543,6 @@
   }
 
 
-  /* ------------------------------------------------------------------------
-   * Pinned sequence. The container is tall; the panel inside sticks while
-   * the page scrolls past it, which is what turns scrolling into stepping.
-   * --------------------------------------------------------------------- */
-  .pinned {
-    position: relative;
-  }
-  .pinned-stage {
-    position: sticky;
-    /* Under the fixed header, never behind it. */
-    top: 4rem;
-    min-height: calc(100svh - 4rem);
-    display: flex;
-    align-items: center;
-  }
-  /* Sticky needs a scroll container that is not clipped; a parent with
-   * overflow hidden silently disables it. */
-  .pinned-host {
-    overflow: visible !important;
-  }
-
-  .step-row {
-    display: grid;
-    gap: 0.625rem;
-    padding: 0.75rem 0;
-    opacity: 0.45;
-    transition:
-      opacity 0.5s var(--ease-spring),
-      transform 0.5s var(--ease-spring);
-  }
-  .step-row[data-active="true"] {
-    opacity: 1;
-  }
-  .step-rail {
-    position: relative;
-    width: 2px;
-    border-radius: 2px;
-    background: var(--border-subtle);
-    overflow: hidden;
-  }
-  .step-rail-fill {
-    position: absolute;
-    inset: 0 0 auto 0;
-    border-radius: 2px;
-    background: var(--accent);
-    transform-origin: top;
-    transition: transform 0.5s var(--ease-spring);
-  }
 
   /* Headline words rising in sequence. */
   .word {
@@ -605,55 +558,6 @@
     .word { animation: none; opacity: 1; transform: none; }
   }
 
-  .process-grid {
-    display: grid;
-    gap: 3rem;
-    align-items: center;
-    padding-block: 2.5rem;
-  }
-  @media (min-width: 1024px) {
-    .process-grid {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 4rem;
-    }
-  }
-  .steps {
-    display: grid;
-    grid-template-columns: 2px 1fr;
-    gap: 1.75rem;
-    margin-top: 2rem;
-  }
-  .stage-art {
-    width: 100%;
-    max-width: 340px;
-    height: auto;
-    margin-inline: auto;
-    display: block;
-  }
-  .stage-art-wrap {
-    display: grid;
-    place-items: center;
-  }
-
-  /* The pinned sequence needs real scroll height, which does not work on a
-   * short viewport: the panel would be taller than the space it sticks in.
-   * Below 768px, and on any screen lower than 860px (the four steps need
-   * about 800px under the header), it reverts to a plain stacked list. */
-  @media (max-width: 767px), (min-width: 768px) and (max-height: 859px) {
-    .pinned {
-      height: auto !important;
-    }
-    .pinned-stage {
-      position: static;
-      min-height: 0;
-    }
-    .step-row {
-      opacity: 1;
-    }
-    .step-rail-fill {
-      transform: none !important;
-    }
-  }
 
   .prose-link {
     color: var(--accent-text);
@@ -866,13 +770,14 @@
   }
 }
 
+
 /* ---------------------------------------------------------------------------
- * Page d'accueil (refonte PME).
+ * Page d'accueil : sept écrans.
  *
- * Tout le texte courant est à 1.125rem et 1.6 d'interligne au minimum : la
- * page est lue sur un téléphone par des gens qui ne zooment pas. Les seules
- * animations sont un fondu de 500 ms à l'arrivée et la photo d'accueil qui
- * glisse de 40 px.
+ * Un écran par idée. Les listes se font défiler de droite à gauche (rangées
+ * natives à scroll-snap), les détails sont repliés (`details` natif), les
+ * photos zooment doucement au défilement. Corps de texte à 1.125rem et 1.6
+ * d'interligne ; la seule animation d'entrée est un fondu de 500 ms.
  * ------------------------------------------------------------------------ */
 @layer components {
   .appear {
@@ -887,7 +792,7 @@
       transform 500ms var(--ease-out);
   }
 
-  /* Accueil : photo, voile à 55 %, texte. */
+  /* Écran 1 : photo, voile à 55 %, voile de texte, promesse. */
   .home-hero {
     position: relative;
     overflow: hidden;
@@ -907,6 +812,7 @@
   .home-hero-photo {
     position: absolute;
     inset: 0 0 -40px 0;
+    transform-origin: center;
     will-change: transform;
   }
   .home-hero-photo img {
@@ -921,8 +827,6 @@
     inset: 0;
     background: rgba(5, 5, 7, 0.55);
   }
-  /* Second voile, derrière le texte seulement : la photo finale peut être
-   * claire, et le texte doit rester lisible (4.5:1) quoi qu'il arrive. */
   .home-hero-scrim {
     position: absolute;
     inset: 0;
@@ -978,379 +882,358 @@
     gap: 0.75rem;
     align-items: center;
   }
-  .home-hero-trust {
-    margin: 1.75rem 0 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-  }
-  .home-hero-trust li {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+  .home-hero-clients {
+    margin-top: 1.5rem;
     font-size: 0.9375rem;
+    line-height: 1.6;
     color: rgba(255, 255, 255, 0.9);
+    max-width: 36rem;
   }
-  .home-hero-dot {
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  /* On a phone the three facts read as one sentence rather than a column. */
-  @media (max-width: 639px) {
-    .home-hero-trust {
-      display: block;
-      margin-top: 1.25rem;
-      line-height: 1.6;
-    }
-    .home-hero-trust li {
-      display: inline;
-    }
-    .home-hero-trust li + li::before {
-      content: " · ";
-    }
-    .home-hero-dot {
-      display: none;
-    }
+  .home-hero-clients span {
+    color: rgba(255, 255, 255, 0.72);
   }
 
-  /* Les entreprises équipées, en une ligne immobile. */
-  .client-row {
-    padding-block: 1.5rem;
-    background: var(--surface-1);
-    border-block: 1px solid var(--border-subtle);
+  /* Rangées : défilement horizontal natif, une carte par cran. */
+  .rail {
+    position: relative;
+    margin-top: 2rem;
   }
-  .client-row-inner {
+  .rail-track {
     display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-  }
-  @media (min-width: 900px) {
-    .client-row-inner {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-    .client-row-label {
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-  }
-  .client-row-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-  .client-row-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 2rem;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding: 0.25rem var(--gutter) 1rem;
+    margin: 0 calc(-1 * var(--gutter));
     list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--text-secondary);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+    overscroll-behavior-x: contain;
   }
-  @media (max-width: 639px) {
-    .client-row {
-      padding-block: 1.25rem;
-    }
-    .client-row-label {
-      font-size: 0.6875rem;
-    }
-    .client-row-list {
-      display: block;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-    .client-row-list li {
-      display: inline;
-    }
-    .client-row-list li + li::before {
-      content: " · ";
-      color: var(--text-muted);
+  .rail-card {
+    flex: 0 0 78%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) {
+    .rail-card {
+      flex-basis: 360px;
     }
   }
-
-  /* Preuve : trois clients, une carte chacun, pleine largeur. */
-  .proof-list {
-    list-style: none;
-    margin: 3rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 1.25rem;
+  .rail-card:has(.result-card) {
+    flex-basis: 86%;
   }
-  .proof-card {
-    padding: 1.75rem;
-    display: grid;
-    gap: 1.5rem;
+  @media (min-width: 640px) {
+    .rail-card:has(.result-card) {
+      flex-basis: 420px;
+    }
   }
   @media (min-width: 1024px) {
-    .proof-card {
-      grid-template-columns: minmax(0, 0.75fr) minmax(0, 2.25fr);
-      column-gap: 3rem;
-      padding: 2rem 2.25rem;
+    .rail-card:has(.install-card) {
+      flex-basis: 440px;
     }
-    .proof-head {
-      grid-row: 1 / span 2;
+    .rail-card:has(.result-card) {
+      flex-basis: 520px;
     }
   }
-  .proof-client {
-    font-size: 1.375rem;
-    font-weight: 600;
-    color: var(--text-primary);
+  .rail-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
   }
-  .proof-meta {
-    margin-top: 0.5rem;
-    max-width: 30rem;
-    font-size: 1rem;
-    line-height: 1.5;
+  .rail-index {
+    margin-right: auto;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9375rem;
     color: var(--text-muted);
   }
-  .proof-grid {
-    margin: 0;
-    display: grid;
-    gap: 1.25rem;
+  .rail-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .rail-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  @media (hover: hover) {
+    .rail-btn:not(:disabled):hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-strong);
+    }
   }
   @media (min-width: 768px) {
-    .proof-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.75rem;
+    .rail-btn {
+      display: inline-flex;
     }
-  }
-  .proof-grid dt,
-  .example-rows dt,
-  .infra-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
-  }
-  .proof-grid dd,
-  .example-rows dd {
-    margin: 0;
-    max-width: 31rem;
-    font-size: 1.125rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-  .proof-measure {
-    margin: 0;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border-subtle);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 1rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-muted);
-  }
-  .proof-measure strong {
-    color: var(--text-primary);
-    font-weight: 600;
   }
 
-  /* Ce qui coûte du temps : titre et photo d'un côté, cinq situations de l'autre. */
-  .timecost {
-    display: grid;
-    gap: 2.5rem;
-  }
-  @media (min-width: 1024px) {
-    .timecost {
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: 4rem;
-      align-items: start;
-    }
-    .timecost-side {
-      position: sticky;
-      top: 6rem;
-    }
-  }
-  .timecost-figure {
-    margin: 2rem 0 0;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid var(--border-subtle);
-  }
-  .timecost-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
-  }
-  .timecost-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .timecost-item {
-    display: grid;
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-    gap: 0.75rem;
-    padding: 1.5rem 0;
+  /* Blocs repliables : details natif, chevron, ouverture en fondu. */
+  .disclosure {
     border-top: 1px solid var(--border-subtle);
   }
-  .timecost-item:last-child {
-    border-bottom: 1px solid var(--border-subtle);
+  .disclosure-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 44px;
+    padding: 0.75rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-primary);
   }
-  .timecost-num,
-  .pitfall-num,
-  .step-num {
+  .disclosure-summary::-webkit-details-marker {
+    display: none;
+  }
+  .disclosure-summary svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: transform var(--dur-base) var(--ease-spring);
+  }
+  .disclosure[open] > .disclosure-summary svg {
+    transform: rotate(180deg);
+  }
+  .disclosure-body {
+    padding-bottom: 1rem;
+  }
+  @keyframes disclosure-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -4px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .disclosure[open] > .disclosure-body {
+    animation: disclosure-in 200ms var(--ease-out);
+  }
+
+  /* Photos qui zooment doucement au défilement. */
+  .zoom-photo {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .zoom-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  /* Cartes : le vocabulaire commun des écrans 2, 3, 4 et 5. */
+  .card-num {
+    display: block;
+    margin-bottom: 0.75rem;
     font-variant-numeric: tabular-nums;
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--accent-text);
   }
-  .timecost-num {
-    padding-top: 0.4rem;
-  }
-  .timecost-title,
-  .pitfall-title,
-  .step-title {
+  .card-title {
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
   }
-  .timecost-body,
-  .pitfall-body,
-  .step-body {
+  .card-body {
     margin-top: 0.5rem;
     font-size: 1.125rem;
     line-height: 1.6;
     color: var(--text-secondary);
-    max-width: 30rem;
+  }
+  .card-rows {
+    margin: 0;
+  }
+  .card-rows div + div {
+    margin-top: 0.875rem;
+  }
+  .card-rows dt {
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .card-rows dd {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .card-detail {
+    margin-top: 1.25rem;
+  }
+  .card-detail > .disclosure-summary {
+    font-size: 1rem;
+    color: var(--accent-text);
+  }
+  .card-aside {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
   }
 
-  /* Les trois façons de rater : trois colonnes sans cadre, puis la réponse. */
+  /* Écran 2. */
+  .problem-card {
+    padding: 1.5rem;
+    height: 100%;
+  }
   .pitfalls {
-    list-style: none;
-    margin: 3rem 0 0;
-    padding: 0;
-    display: grid;
-    border-top: 1px solid var(--border-subtle);
-  }
-  @media (min-width: 900px) {
-    .pitfalls {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 2.5rem;
-    }
-  }
-  .pitfall {
-    padding: 1.75rem 0;
+    margin-top: 2rem;
     border-bottom: 1px solid var(--border-subtle);
   }
-  .pitfall-num {
-    display: block;
-    margin-bottom: 0.875rem;
+  .pitfalls-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 900px) {
+    .pitfalls-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+  }
+  .pitfalls-list .card-num {
+    margin-bottom: 0.5rem;
+  }
+  .pitfalls-list h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .pitfalls-list p {
+    margin-top: 0.375rem;
+    max-width: 30rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
   }
   .pitfalls-answer {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     max-width: 33rem;
     padding-left: 1.25rem;
     border-left: 2px solid var(--accent);
-    font-size: 1.25rem;
-    line-height: 1.55;
+    font-size: 1.125rem;
+    line-height: 1.6;
     font-weight: 500;
     color: var(--text-primary);
   }
 
-  /* Méthode : la tête de chaque étape. */
-  .step-head {
+  /* Écran 3. */
+  .install-card {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .install-card .zoom-photo {
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .install-body {
+    padding: 1.25rem 1.5rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  /* Écran 4. */
+  .result-card {
+    padding: 1.5rem;
+    height: 100%;
+  }
+  .result-meta {
+    margin-top: 0.375rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .result-card .card-rows {
+    margin-top: 1.25rem;
+  }
+  .result-label {
+    color: var(--text-muted);
+  }
+  .result-value {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* Écran 5. */
+  .method {
+    margin-top: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .method-head {
     display: flex;
     align-items: baseline;
     gap: 0.75rem;
     flex-wrap: wrap;
   }
-  .step-duration {
+  .method-head .card-num {
+    display: inline;
+    margin-bottom: 0;
+  }
+  .method-title {
+    font-size: 1.125rem;
+  }
+  .method-duration {
     font-size: 0.9375rem;
+    font-weight: 400;
     color: var(--text-muted);
   }
-  .step-output {
+  .method-step .card-body {
+    margin-top: 0;
+    max-width: 34rem;
+  }
+  .method-output {
     margin-top: 0.5rem;
     max-width: 30rem;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     line-height: 1.6;
     color: var(--warm-text);
   }
-  .step-output span {
+  .method-output span {
     color: var(--text-muted);
   }
 
-  /* Exemples : quatre cartes, deux avec photo. */
-  .examples-grid {
-    margin-top: 3rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
-    gap: 1.5rem;
-    align-items: start;
-  }
-  .example-card {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .example-photo {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 1;
-    object-fit: cover;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-  .example-body {
-    padding: 1.75rem;
-  }
-  .example-title {
-    font-size: 1.375rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-  }
-  .example-rows {
-    margin: 0;
-  }
-  .example-rows > div {
-    padding: 0.875rem 0;
-    border-top: 1px solid var(--border-subtle);
-  }
-  .example-aside {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-subtle);
-    max-width: 31rem;
-    font-size: 1.125rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-  }
-
-  /* Infrastructure : le cœur du schéma. */
+  /* Écran 6 : le cœur du schéma, dans la réponse sur les données. */
   .infra-core-label {
+    margin-bottom: 0.75rem;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--accent-text);
-    margin-bottom: 0.75rem;
   }
   .infra-core-title {
+    margin-bottom: 0.5rem;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
   }
   .infra-core-body {
     max-width: 30rem;
@@ -1358,35 +1241,61 @@
     line-height: 1.6;
     color: var(--text-secondary);
   }
+  .infra-diagram {
+    padding: 1.5rem;
+  }
 
-  /* À propos. */
-  .about {
+  /* Écran 7. */
+  .closing {
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: start;
   }
   @media (min-width: 768px) {
-    .about {
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 3rem;
+    .closing {
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 2.5rem;
     }
   }
-  .about-photo {
-    width: 140px;
+  .closing-photo {
+    width: 120px;
     height: auto;
     border-radius: 14px;
     border: 1px solid var(--border-strong);
-    object-fit: cover;
   }
   @media (min-width: 768px) {
-    .about-photo {
-      width: 200px;
+    .closing-photo {
+      width: 160px;
     }
   }
-  .about-credential {
-    margin-top: 1.25rem;
+  .closing-title {
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    max-width: 18ch;
+  }
+  .closing-body {
+    margin-top: 1rem;
+    max-width: 31rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .closing-person {
+    margin-top: 0.75rem;
+    max-width: 31rem;
     font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .closing-person span {
     color: var(--text-muted);
+  }
+  .closing-actions {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 
   /* Autres projets : une ligne, tout en bas. */
@@ -1434,7 +1343,11 @@
     transform: none !important;
     transition: none !important;
   }
-  .home-hero-photo {
+  .home-hero-photo,
+  .zoom-photo img {
     transform: none !important;
+  }
+  .disclosure[open] > .disclosure-body {
+    animation: none;
   }
 }

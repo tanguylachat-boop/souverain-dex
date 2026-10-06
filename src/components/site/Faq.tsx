@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Section, Eyebrow, H2, Lede } from "./ui";
 
 /**
@@ -8,7 +9,12 @@ import { Section, Eyebrow, H2, Lede } from "./ui";
  * same entries feed the FAQPage schema on the route, so what a person reads
  * and what an assistant quotes are the same text.
  */
-export type FaqEntry = { q: string; a: string };
+export type FaqEntry = {
+  q: string;
+  a: string;
+  /** Contenu rendu sous la réponse (un schéma, par exemple). Pas dans le balisage FAQPage. */
+  extra?: ReactNode;
+};
 
 export function Faq({
   entries,
@@ -85,6 +91,7 @@ export function Faq({
             >
               {entry.a}
             </p>
+            {entry.extra && <div style={{ marginTop: "1rem" }}>{entry.extra}</div>}
           </details>
         ))}
       </div>
