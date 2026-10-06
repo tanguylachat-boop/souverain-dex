@@ -3,247 +3,363 @@ import { mkdirSync, writeFileSync } from "node:fs";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:4173/";
 const OUT = process.env.OUT_DIR ?? "./verif/captures";
-const BASELINE_CHARS = Number(process.env.BASELINE_CHARS ?? 9428);
 const VIEWPORTS = [
   { name: "iphone", width: 390, height: 844, dsf: 2, mobile: true },
   { name: "tablet", width: 768, height: 1024, dsf: 2, mobile: true },
   { name: "desktop", width: 1440, height: 900, dsf: 1, mobile: false },
 ];
-const SCREENS = ["#accueil", "#probleme", "#installe", "#resultats", "#methode", "#faq", "#reserver", ".other-projects", "footer"];
-
+const SECTIONS = [
+  ".hero",
+  ".chiffres",
+  ".works",
+  ".avis",
+  ".pourquoi",
+  ".methode",
+  ".inclus",
+  ".seuil",
+  ".tarifs",
+  ".faq",
+  ".cta",
+];
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const report = {};
+
 const browser = await chromium.launch();
-
-async function scrollThrough(page) {
-  await page.evaluate(async () => {
-    const step = Math.round(window.innerHeight * 0.6);
-    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
-      window.scrollTo({ top: y, behavior: "instant" });
-      await new Promise((r) => setTimeout(r, 160));
-    }
-    window.scrollTo({ top: 0, behavior: "instant" });
-    await new Promise((r) => setTimeout(r, 600));
-  });
-}
-
 for (const vp of VIEWPORTS) {
   const dir = `${OUT}/${vp.name}`;
   mkdirSync(dir, { recursive: true });
-  const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: vp.dsf, isMobile: vp.mobile, hasTouch: vp.mobile, locale: "fr-CH" });
+  const ctx = await browser.newContext({
+    viewport: { width: vp.width, height: vp.height },
+    deviceScaleFactor: vp.dsf,
+    isMobile: vp.mobile,
+    hasTouch: vp.mobile,
+  });
   const page = await ctx.newPage();
-  const consoleErrors = [];
-  page.on("console", (m) => { if (m.type() === "error") consoleErrors.push(m.text()); });
-  page.on("pageerror", (e) => consoleErrors.push(`pageerror: ${e.message}`));
+  const errors = [];
+  page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+  page.on("pageerror", (e) => errors.push(String(e)));
   await page.goto(BASE, { waitUntil: "networkidle" });
-  await page.waitForTimeout(400);
+  await sleep(1200);
+  const r = (report[vp.name] = {});
+
+  // 1. First screen
+  r.first = await page.evaluate(() => {
+    const hero = document.querySelector(".hero").getBoundingClientRect();
+    const v = document.querySelector(".hero-video");
+    const h1 = document.querySelector(".hero-h1").getBoundingClientRect();
+    const ctas = document.querySelector(".hero-ctas").getBoundingClientRect();
+    const rot = document.querySelector(".rw.on")?.textContent;
+    return {
+      heroHeight: Math.round(hero.height),
+      innerHeight: innerHeight,
+      h1Top: Math.round(h1.top),
+      h1Lines: Math.round(
+        h1.height / parseFloat(getComputedStyle(document.querySelector(".hero-h1")).lineHeight),
+      ),
+      ctasBottom: Math.round(ctas.bottom),
+      videoSrc: v?.getAttribute("src"),
+      videoPlaying: v ? !v.paused && v.readyState >= 2 : null,
+      rotating: rot,
+      font: getComputedStyle(document.querySelector(".hero-h1")).fontFamily.split(",")[0],
+    };
+  });
   await page.screenshot({ path: `${dir}/00-first-screen.png` });
 
-  const firstScreen = await page.evaluate(() => {
-    const hero = document.querySelector("#accueil");
-    const title = document.querySelector("#probleme-title");
+  // 2. Rotating word changes
+  await sleep(3600);
+  r.rotatingAfter = await page.evaluate(() => document.querySelector(".rw.on")?.textContent);
+
+  // 3. Sections: scroll, wait reveal, screenshot
+  r.sections = {};
+  for (const sel of SECTIONS) {
+    const ok = await page.evaluate((s) => {
+      const el = document.querySelector(s);
+      if (!el) return false;
+      window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 60, behavior: "instant" });
+      return true;
+    }, sel);
+    if (!ok) {
+      r.sections[sel] = "missing";
+      continue;
+    }
+    await sleep(1600);
+    r.sections[sel] = await page.evaluate((s) => {
+      const el = document.querySelector(s);
+      const rv = [...el.querySelectorAll("[data-rv]")];
+      const hidden = rv.filter((e) => {
+        const b = e.getBoundingClientRect();
+        return b.top < innerHeight && b.bottom > 0 && getComputedStyle(e).opacity === "0";
+      }).length;
+      const root = document.querySelector("main.lx");
+      return {
+        height: Math.round(el.getBoundingClientRect().height),
+        hiddenInView: hidden,
+        tone: getComputedStyle(root).getPropertyValue("--tone").trim(),
+        inkOn: root.classList.contains("ink-on"),
+        bg: getComputedStyle(el).backgroundColor,
+        text: getComputedStyle(el).color,
+      };
+    }, sel);
+    await page.screenshot({ path: `${dir}/${sel.replace(".", "")}.png` });
+  }
+
+  // 4. Counters
+  r.counters = await page.evaluate(() =>
+    [...document.querySelectorAll("[data-count]")].map((e) => ({
+      target: e.dataset.count,
+      shown: e.querySelector("[data-count-value]")?.textContent,
+    })),
+  );
+
+  // 5. Carousel: go back, wait autoplay
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.querySelector(".works").getBoundingClientRect().top + scrollY + 100,
+      behavior: "instant",
+    }),
+  );
+  await sleep(800);
+  const idx0 = await page.evaluate(() =>
+    getComputedStyle(document.querySelector(".wk-piste")).getPropertyValue("--i").trim(),
+  );
+  const pausedAttr = await page.evaluate(() =>
+    document.querySelector(".wk-car").hasAttribute("data-pause"),
+  );
+  await sleep(7800);
+  const idx1 = await page.evaluate(() =>
+    getComputedStyle(document.querySelector(".wk-piste")).getPropertyValue("--i").trim(),
+  );
+  await page.click(".wk-fl[aria-label='Client suivant']");
+  await sleep(900);
+  const idx2 = await page.evaluate(() =>
+    getComputedStyle(document.querySelector(".wk-piste")).getPropertyValue("--i").trim(),
+  );
+  const tabSel = await page.evaluate(() =>
+    [...document.querySelectorAll(".wk-onglet")].map((b) => b.getAttribute("aria-selected")),
+  );
+  const coverClip = await page.evaluate(
+    () =>
+      getComputedStyle(document.querySelector(".wf:not([aria-hidden='true']) .wf-cover > img"))
+        .clipPath,
+  );
+  r.carousel = { idx0, pausedAttr, idxAfter7s: idx1, idxAfterArrow: idx2, tabSel, coverClip };
+  await page.screenshot({ path: `${dir}/works-after.png` });
+  if (vp.mobile) {
+    const box = await page.locator(".wk-vue").boundingBox();
+    const y = box.y + box.height / 2;
+    await page.mouse.move(box.x + box.width * 0.8, y);
+    await page.mouse.down();
+    await page.mouse.move(box.x + box.width * 0.2, y, { steps: 8 });
+    await page.mouse.up();
+    await sleep(900);
+    r.carousel.idxAfterSwipe = await page.evaluate(() =>
+      getComputedStyle(document.querySelector(".wk-piste")).getPropertyValue("--i").trim(),
+    );
+  }
+
+  // 6. Wall motion
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.querySelector(".avis").getBoundingClientRect().top + scrollY + 200,
+      behavior: "instant",
+    }),
+  );
+  await sleep(600);
+  const t1 = await page.evaluate(
+    () => getComputedStyle(document.querySelector(".av-col .av-piste")).transform,
+  );
+  await sleep(1200);
+  const t2 = await page.evaluate(
+    () => getComputedStyle(document.querySelector(".av-col .av-piste")).transform,
+  );
+  r.wall = {
+    moving: t1 !== t2,
+    t1,
+    t2,
+    cols: await page.evaluate(() => document.querySelectorAll(".av-col").length),
+  };
+
+  // 7. Tone flip around the threshold
+  r.tone = [];
+  for (const sel of [".inclus", ".seuil", ".tarifs", ".faq", ".cta"]) {
+    await page.evaluate(
+      (s) =>
+        window.scrollTo({
+          top: document.querySelector(s).getBoundingClientRect().top + scrollY - 40,
+          behavior: "instant",
+        }),
+      sel,
+    );
+    await sleep(700);
+    r.tone.push(
+      await page.evaluate((s) => {
+        const root = document.querySelector("main.lx");
+        const el = document.querySelector(s);
+        return {
+          sel: s,
+          tone: getComputedStyle(root).getPropertyValue("--tone").trim(),
+          inkOn: root.classList.contains("ink-on"),
+          bg: getComputedStyle(root).backgroundColor,
+          text: getComputedStyle(el).color,
+          h2: el.querySelector(".h2, .sl-pivot")
+            ? getComputedStyle(el.querySelector(".h2, .sl-pivot")).color
+            : null,
+        };
+      }, sel),
+    );
+  }
+
+  // 8. FAQ
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.querySelector(".faq").getBoundingClientRect().top + scrollY,
+      behavior: "instant",
+    }),
+  );
+  await sleep(900);
+  const open0 = await page.evaluate(() =>
+    [...document.querySelectorAll(".fq-item")].map((e) => e.hasAttribute("data-open")),
+  );
+  await page.click("#fq-q2");
+  await sleep(800);
+  const open1 = await page.evaluate(() =>
+    [...document.querySelectorAll(".fq-item")].map((e) => e.hasAttribute("data-open")),
+  );
+  const a2h = await page.evaluate(() =>
+    Math.round(document.querySelector("#fq-a2").getBoundingClientRect().height),
+  );
+  r.faq = { open0, open1, a2Height: a2h };
+  await page.screenshot({ path: `${dir}/faq-open.png` });
+
+  // 9. Footer reveal
+  await page.evaluate(() =>
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }),
+  );
+  await sleep(1200);
+  r.footer = await page.evaluate(() => {
+    const root = document.querySelector(".lx-site-footer");
+    const ft = root.querySelector(".ft");
     return {
-      innerHeight: window.innerHeight,
-      heroHeight: hero?.offsetHeight,
-      heroMaxAllowed: Math.round(window.innerHeight * 0.7),
-      problemTitleTop: Math.round(title?.getBoundingClientRect().top ?? -1),
-      hiddenInViewport: [...document.querySelectorAll(".appear:not(.is-in)")].filter((el) => el.getBoundingClientRect().top < window.innerHeight).length,
+      sticky: getComputedStyle(root).position === "sticky",
+      flow: root.classList.contains("ft-flow"),
+      pos: getComputedStyle(ft).position,
+      ftp: root.style.getPropertyValue("--ftp"),
+      fth: root.style.getPropertyValue("--fth"),
+      vh: innerHeight,
+      ftHeight: Math.round(ft.getBoundingClientRect().height),
+      visibleTop: Math.round(ft.getBoundingClientRect().top),
+      graveFont: getComputedStyle(root.querySelector(".ft-grave")).fontSize,
+    };
+  });
+  await page.screenshot({ path: `${dir}/footer.png` });
+
+  // 10. Menu
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await sleep(600);
+  await page.click(".nav-key");
+  await sleep(1000);
+  r.menu = await page.evaluate(() => {
+    const nav = document.querySelector("header.nav");
+    const body = nav.querySelector(".nav-body");
+    return {
+      open: nav.classList.contains("open"),
+      bodyHeight: Math.round(body.getBoundingClientRect().height),
+      links: [...nav.querySelectorAll(".nav-links a")].map((a) => a.textContent),
+      veilOpacity: getComputedStyle(nav.querySelector(".nav-veil")).opacity,
+      shellWidth: Math.round(nav.querySelector(".nav-shell").getBoundingClientRect().width),
+    };
+  });
+  await page.screenshot({ path: `${dir}/menu.png` });
+  await page.keyboard.press("Escape");
+  await sleep(700);
+  r.menuClosed = await page.evaluate(
+    () => !document.querySelector("header.nav").classList.contains("open"),
+  );
+
+  // 11. Layout checks
+  r.layout = await page.evaluate(() => {
+    const em = (document.body.innerText.match(/—/g) || []).length;
+    const overflow =
+      document.documentElement.scrollWidth > document.documentElement.clientWidth + 1;
+    const imgs = [...document.querySelectorAll("main img")].map((i) => ({
+      src: i.getAttribute("src").split("/").pop(),
+      alt: i.hasAttribute("alt"),
+      w: i.getAttribute("width"),
+      loading: i.getAttribute("loading"),
+    }));
+    const small = [...document.querySelectorAll("main p, main li, main dd")]
+      .filter(
+        (e) =>
+          e.offsetParent &&
+          parseFloat(getComputedStyle(e).fontSize) < 14 &&
+          !e.closest(
+            ".mono, .ch-l, .wf-meta, .av-meta, .in-sheet-h, .pr-label, .cp-legende, .bn-badge-l, .ft-eti, .ft-pied-c",
+          ),
+      )
+      .map((e) => e.className + " " + e.textContent.slice(0, 30));
+    return {
+      emDash: em,
+      overflow,
+      docHeight: document.documentElement.scrollHeight,
+      imgs,
+      smallText: small.slice(0, 8),
     };
   });
 
-  // Text mass with every disclosure closed, against the previous version.
-  const textMass = await page.evaluate(() => {
-    const opened = [...document.querySelectorAll("details[open]")];
-    for (const d of opened) d.open = false;
-    const t = document.querySelector("main").innerText.replace(/\s+/g, " ").trim();
-    for (const d of opened) d.open = true;
-    return { chars: t.length, words: t.split(" ").length };
-  });
-  textMass.ratio = +(textMass.chars / BASELINE_CHARS).toFixed(2);
-
-  // Hero contrast on the darkened photo, worst 5 % of pixels behind each block.
-  const heroContrast = await page.evaluate(async () => {
-    const img = document.querySelector("#accueil img");
-    const shade = 0.55, bg = [5, 5, 7];
-    const c = document.createElement("canvas");
-    const box = img.getBoundingClientRect();
-    c.width = Math.round(box.width); c.height = Math.round(box.height);
-    const g = c.getContext("2d");
-    try { g.drawImage(img, 0, 0, c.width, c.height); } catch (e) { return { error: String(e) }; }
-    const lum = (r, gg, b) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(gg) + 0.0722 * f(b); };
-    const out = {};
-    const wide = window.innerWidth >= 768;
-    for (const [name, sel, alpha] of [["title", "#accueil-title", 1], ["lede", ".home-hero-lede", 0.92], ["clients", ".home-hero-clients", 0.9], ["eyebrow", ".home-hero-eyebrow", 0.92]]) {
-      const el = document.querySelector(sel); if (!el) continue;
-      const b = el.getBoundingClientRect();
-      const x0 = Math.max(0, Math.round(b.left - box.left)), y0 = Math.max(0, Math.round(b.top - box.top));
-      const w = Math.min(c.width - x0, Math.round(b.width)), h = Math.min(c.height - y0, Math.round(b.height));
-      if (w <= 0 || h <= 0) continue;
-      const d = g.getImageData(x0, y0, w, h).data;
-      const lums = [];
-      for (let i = 0; i < d.length; i += 16) {
-        const px = ((i / 4) % w + x0) / c.width;
-        const scrim = !wide ? 0.22 : px < 0.45 ? 0.5 - (0.2 * px) / 0.45 : px < 0.8 ? 0.3 * (1 - (px - 0.45) / 0.35) : 0;
-        const keep = (1 - shade) * (1 - scrim), dark = 1 - keep;
-        lums.push(lum(d[i] * keep + bg[0] * dark, d[i + 1] * keep + bg[1] * dark, d[i + 2] * keep + bg[2] * dark));
-      }
-      lums.sort((a, b2) => a - b2);
-      const p95 = lums[Math.floor(lums.length * 0.95)];
-      const textLum = lum(255 * alpha, 255 * alpha, 255 * alpha);
-      out[name] = +((textLum + 0.05) / (p95 + 0.05)).toFixed(2);
-    }
-    return out;
-  });
-
-  // Rails: scrollable on the phone, index follows, arrows work on wide screens.
-  const rails = [];
-  const railCount = await page.locator(".rail").count();
-  for (let r = 0; r < railCount; r++) {
-    const rail = page.locator(".rail").nth(r);
-    await rail.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
-    const info = await rail.evaluate((el) => {
-      const track = el.querySelector(".rail-track");
-      return { label: track.getAttribute("aria-label"), cards: track.children.length, scrollable: track.scrollWidth > track.clientWidth + 2, index: el.querySelector(".rail-index")?.textContent?.trim() ?? null, pageOverflow: document.documentElement.scrollWidth > window.innerWidth };
-    });
-    await rail.screenshot({ path: `${dir}/rail-${r + 1}-start.png` });
-    // Swipe: scroll the track by one card.
-    await rail.evaluate((el) => { const t = el.querySelector(".rail-track"); const first = t.firstElementChild; const gap = parseFloat(getComputedStyle(t).columnGap) || 0; t.scrollBy({ left: first.offsetWidth + gap, behavior: "instant" }); });
-    await page.waitForTimeout(350);
-    info.indexAfterSwipe = await rail.evaluate((el) => el.querySelector(".rail-index")?.textContent?.trim() ?? null);
-    await rail.screenshot({ path: `${dir}/rail-${r + 1}-second.png` });
-    // Arrow button (wide screens only).
-    const next = rail.locator('button[aria-label="Carte suivante"]');
-    info.arrowVisible = (await next.count()) > 0 && (await next.isVisible());
-    info.arrowEnabledAfterSwipe = info.arrowVisible ? !(await next.isDisabled()) : null;
-    if (info.arrowVisible && info.arrowEnabledAfterSwipe) {
-      await next.click();
-      await page.waitForTimeout(500);
-      info.indexAfterArrow = await rail.evaluate((el) => el.querySelector(".rail-index")?.textContent?.trim() ?? null);
-    }
-    await rail.evaluate((el) => { const t = el.querySelector(".rail-track"); t.scrollTo({ left: t.scrollWidth, behavior: "instant" }); });
-    await page.waitForTimeout(350);
-    info.indexAtEnd = await rail.evaluate((el) => el.querySelector(".rail-index")?.textContent?.trim() ?? null);
-    info.nextDisabledAtEnd = info.arrowVisible ? await next.isDisabled() : null;
-    await rail.screenshot({ path: `${dir}/rail-${r + 1}-end.png` });
-    await rail.evaluate((el) => el.querySelector(".rail-track").scrollTo({ left: 0, behavior: "instant" }));
-    rails.push(info);
-  }
-
-  // Disclosures: click, keyboard, accordion.
-  const disclosures = await (async () => {
-    const pitfalls = page.locator(".pitfalls > summary");
-    await pitfalls.scrollIntoViewIfNeeded();
-    await pitfalls.click();
-    await page.waitForTimeout(300);
-    const pitfallsOpen = await page.locator(".pitfalls").evaluate((el) => el.open);
-    await pitfalls.click();
-    const detail = page.locator(".card-detail > summary").first();
-    await detail.scrollIntoViewIfNeeded();
-    await detail.focus();
-    await page.keyboard.press("Enter");
-    await page.waitForTimeout(300);
-    const detailOpenByKeyboard = await page.locator(".card-detail").first().evaluate((el) => el.open);
-    const stepsBefore = await page.locator(".method details[open]").count();
-    const second = page.locator(".method-step > summary").nth(1);
-    await second.scrollIntoViewIfNeeded();
-    await second.click();
-    await page.waitForTimeout(400);
-    const openSteps = await page.locator(".method details[open]").evaluateAll((els) => els.map((e) => e.querySelector(".method-title")?.textContent));
-    return { pitfallsOpen, detailOpenByKeyboard, openStepsBefore: stepsBefore, openStepsAfterSecondClick: openSteps };
-  })();
-
-  // Photos zoom while crossing the screen.
-  const zoom = await (async () => {
-    const fig = page.locator(".zoom-photo").first();
-    const top = await fig.evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
-    await page.evaluate((y) => window.scrollTo({ top: y - window.innerHeight + 40, behavior: "instant" }), top);
-    await page.waitForTimeout(250);
-    const entering = await fig.locator("img").evaluate((img) => img.style.transform);
-    await page.evaluate((y) => window.scrollTo({ top: y - 80, behavior: "instant" }), top);
-    await page.waitForTimeout(250);
-    const atTop = await fig.locator("img").evaluate((img) => img.style.transform);
-    return { entering, atTop };
-  })();
-
-  await scrollThrough(page);
-
-  const typography = await page.evaluate(() => {
-    const small = [], longLines = [];
-    for (const el of document.querySelectorAll("main p, main dd, main li, main summary")) {
-      const text = (el.innerText || "").trim();
-      if (!text || el.closest("[aria-hidden='true']")) continue;
-      const cs = getComputedStyle(el);
-      const fs = parseFloat(cs.fontSize);
-      const isBody = (el.tagName === "P" || el.tagName === "DD") && text.length > 60;
-      const label = `${el.tagName.toLowerCase()}.${(el.className || "").toString().split(" ").filter(Boolean).slice(0, 2).join(".")} “${text.slice(0, 36)}”`;
-      if (isBody && fs < 17) small.push({ label, fontSize: fs });
-      if (isBody) {
-        const range = document.createRange(); range.selectNodeContents(el);
-        const rects = [...range.getClientRects()].filter((r) => r.width > 0);
-        const avg = rects.reduce((a, r) => a + r.width, 0) / Math.max(1, text.length);
-        const longest = Math.round(Math.max(...rects.map((r) => r.width)) / avg);
-        if (longest > 65) longLines.push({ label, longestLineChars: longest });
-      }
-    }
-    return { small, longLines };
-  });
-
-  const layout = await page.evaluate(() => ({
-    overflow: document.documentElement.scrollWidth > window.innerWidth,
-    emDash: (document.body.innerText.match(/—/g) || []).length,
-    hiddenAfterScroll: document.querySelectorAll(".appear:not(.is-in)").length,
-    images: [...document.querySelectorAll("main img")].map((img) => ({ src: img.getAttribute("src").split("/").pop(), alt: !!img.alt, loading: img.getAttribute("loading"), sized: !!(img.getAttribute("width") && img.getAttribute("height")), upscale: +((img.getBoundingClientRect().width * devicePixelRatio) / (img.naturalWidth || 1)).toFixed(2) })),
-  }));
-
-  for (const sel of SCREENS) {
-    const loc = page.locator(sel).first();
-    if ((await loc.count()) === 0) continue;
-    await loc.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(600);
-    await loc.screenshot({ path: `${dir}/${sel.replace(/[^a-z-]/gi, "")}.png` });
-  }
+  // 12. Full page
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-  await page.waitForTimeout(400);
   await page.screenshot({ path: `${dir}/full-page.png`, fullPage: true });
-
-  report[vp.name] = { firstScreen, textMass, heroContrast, rails, disclosures, zoom, typography, layout, consoleErrors };
+  r.errors = errors;
   await ctx.close();
 }
 
-// Reduced motion: nothing hidden, nothing moving.
+// Reduced motion
 {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
+  const ctx = await browser.newContext({
+    viewport: { width: 1440, height: 900 },
+    reducedMotion: "reduce",
+  });
   const page = await ctx.newPage();
   await page.goto(BASE, { waitUntil: "networkidle" });
-  await page.waitForTimeout(500);
-  await page.evaluate(() => window.scrollTo({ top: 900, behavior: "instant" }));
-  await page.waitForTimeout(300);
+  await sleep(800);
   report.reducedMotion = await page.evaluate(() => ({
-    hiddenAppear: document.querySelectorAll(".appear:not(.is-in)").length,
-    heroTransform: document.querySelector(".home-hero-photo").style.transform || "none",
-    photoTransforms: [...document.querySelectorAll(".zoom-photo img")].map((i) => i.style.transform || "none"),
+    hiddenRv: [...document.querySelectorAll("[data-rv]")].filter(
+      (e) => getComputedStyle(e).opacity === "0",
+    ).length,
+    video: !!document.querySelector(".hero-video"),
+    poster: !!document.querySelector(".hero-poster"),
+    wall: getComputedStyle(document.querySelector(".av-piste")).animationName,
+    rotating: document.querySelectorAll(".rw.on").length,
   }));
   await ctx.close();
 }
 
-// Keyboard and links.
+// Inner routes with the new chrome
 {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
-  await page.goto(BASE, { waitUntil: "networkidle" });
-  const focus = [];
-  for (let i = 0; i < 16; i++) {
-    await page.keyboard.press("Tab");
-    focus.push(await page.evaluate(() => { const el = document.activeElement; const cs = getComputedStyle(el); return { tag: el.tagName.toLowerCase(), text: (el.innerText || el.getAttribute("aria-label") || "").trim().slice(0, 36), outline: cs.outlineStyle !== "none" }; }));
+  report.inner = {};
+  for (const path of ["/fiduciaire", "/mentia", "/athlit", "/blog"]) {
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(String(e)));
+    const res = await page.goto(BASE.replace(/\/$/, "") + path, { waitUntil: "networkidle" });
+    await sleep(600);
+    report.inner[path] = await page.evaluate(() => ({
+      nav: !!document.querySelector("header.nav"),
+      footer: !!document.querySelector("footer.ft"),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      h1: document.querySelector("h1")?.textContent.slice(0, 50),
+      heroTop: Math.round(
+        document.querySelector("#top, main > section")?.getBoundingClientRect().top ?? -1,
+      ),
+    }));
+    report.inner[path].status = res.status();
+    report.inner[path].errors = errors;
+    await page.screenshot({ path: `${OUT}/inner${path.replace("/", "-")}.png` });
   }
-  report.keyboard = focus;
-  await page.goto(BASE, { waitUntil: "networkidle" });
-  await page.keyboard.press("Tab"); await page.keyboard.press("Enter"); await page.waitForTimeout(300);
-  report.skipLink = await page.evaluate(() => document.activeElement.id);
-  report.links = await page.evaluate(() => [...document.querySelectorAll("main a[href]")].map((a) => ({ href: a.getAttribute("href"), target: a.getAttribute("target") })));
   await ctx.close();
 }
 
 await browser.close();
-writeFileSync(`${OUT}/report.json`, JSON.stringify(report, null, 2));
-console.log("report written");
+writeFileSync(`${OUT}/report.json`, JSON.stringify(report, null, 1));
+console.log(JSON.stringify(report, null, 1));
