@@ -929,6 +929,14 @@
       flex-basis: 420px;
     }
   }
+  @media (min-width: 1024px) {
+    .rail-card:has(.install-card) {
+      flex-basis: 440px;
+    }
+    .rail-card:has(.result-card) {
+      flex-basis: 520px;
+    }
+  }
   .rail-nav {
     display: flex;
     align-items: center;
