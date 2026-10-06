@@ -97,8 +97,8 @@ export function SiteFooter() {
                 maxWidth: "22rem",
               }}
             >
-              Conseil et développement en intelligence artificielle pour les
-              PME suisses. Basé à Bassecourt, dans le Jura.
+              Conseil et développement en intelligence artificielle pour les PME suisses. Basé à
+              Bassecourt, dans le Jura.
             </p>
           </div>
 
@@ -110,7 +110,7 @@ export function SiteFooter() {
                   fontWeight: 600,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  color: "var(--text-faint)",
+                  color: "var(--text-muted)",
                   marginBottom: "0.75rem",
                 }}
               >
@@ -152,21 +152,15 @@ export function SiteFooter() {
             justifyContent: "space-between",
             gap: "1rem",
             fontSize: "0.75rem",
-            color: "var(--text-faint)",
+            color: "var(--text-muted)",
           }}
         >
           <p>© {new Date().getFullYear()} LX Studio. Tous droits réservés.</p>
           <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-            <Link
-              to="/mentions-legales"
-              style={{ ...linkStyle, fontSize: "0.75rem", color: "var(--text-faint)" }}
-            >
+            <Link to="/mentions-legales" style={{ ...linkStyle, fontSize: "0.75rem" }}>
               Mentions légales
             </Link>
-            <Link
-              to="/politique-de-confidentialite"
-              style={{ ...linkStyle, fontSize: "0.75rem", color: "var(--text-faint)" }}
-            >
+            <Link to="/politique-de-confidentialite" style={{ ...linkStyle, fontSize: "0.75rem" }}>
               Confidentialité
             </Link>
           </div>

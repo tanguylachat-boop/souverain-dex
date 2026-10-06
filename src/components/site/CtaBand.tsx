@@ -16,6 +16,7 @@ export function CtaBand({
   primaryTo,
   secondary,
   note,
+  size = "base",
 }: {
   title: string;
   body: string;
@@ -25,7 +26,11 @@ export function CtaBand({
   secondary?: ReactNode;
   /** One line under the buttons: what happens next, or what it costs. */
   note?: string;
+  /** "lg" for pages read on a phone by people who do not zoom. */
+  size?: "base" | "lg";
 }) {
+  const large = size === "lg";
+
   return (
     <Section tone="deep" labelledBy="cta-title" style={{ padding: "6rem 0" }}>
       <div style={{ maxWidth: "44rem" }}>
@@ -43,9 +48,10 @@ export function CtaBand({
         <p
           style={{
             marginTop: "1.25rem",
-            fontSize: "1.0625rem",
+            fontSize: large ? "1.125rem" : "1.0625rem",
             color: "var(--text-secondary)",
-            lineHeight: 1.7,
+            lineHeight: large ? 1.6 : 1.7,
+            maxWidth: large ? "31rem" : undefined,
           }}
         >
           {body}
@@ -59,12 +65,7 @@ export function CtaBand({
             alignItems: "center",
           }}
         >
-          <Action
-            variant="primary"
-            arrow
-            href={primaryHref}
-            to={primaryTo}
-          >
+          <Action variant="primary" arrow href={primaryHref} to={primaryTo}>
             {primaryLabel}
           </Action>
           {secondary}
@@ -73,8 +74,10 @@ export function CtaBand({
           <p
             style={{
               marginTop: "1.25rem",
-              fontSize: "0.8125rem",
-              color: "var(--text-faint)",
+              fontSize: large ? "1rem" : "0.8125rem",
+              lineHeight: 1.6,
+              maxWidth: large ? "29rem" : undefined,
+              color: "var(--text-muted)",
             }}
           >
             {note}
