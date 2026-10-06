@@ -15,17 +15,22 @@ export function Faq({
   eyebrow = "Questions fréquentes",
   title,
   lede,
+  size = "base",
 }: {
   entries: ReadonlyArray<FaqEntry>;
   eyebrow?: string;
   title: string;
   lede?: string;
+  /** "lg" for pages read on a phone by people who do not zoom. */
+  size?: "base" | "lg";
 }) {
+  const large = size === "lg";
+
   return (
     <Section id="faq" tone="base" labelledBy="faq-title">
       <Eyebrow>{eyebrow}</Eyebrow>
       <H2 id="faq-title">{title}</H2>
-      {lede && <Lede>{lede}</Lede>}
+      {lede && <Lede size={size}>{lede}</Lede>}
 
       <div style={{ marginTop: "3rem", maxWidth: "48rem" }}>
         {entries.map((entry) => (
@@ -44,23 +49,22 @@ export function Faq({
                 gap: "1.5rem",
                 cursor: "pointer",
                 listStyle: "none",
-                fontSize: "1.0625rem",
+                fontSize: large ? "1.1875rem" : "1.0625rem",
                 fontWeight: 600,
                 letterSpacing: "-0.015em",
+                lineHeight: 1.35,
                 color: "var(--text-primary)",
                 minHeight: 44,
               }}
             >
               {/* h3 inside summary keeps the document outline intact. */}
-              <h3 style={{ fontSize: "inherit", fontWeight: "inherit", margin: 0 }}>
-                {entry.q}
-              </h3>
+              <h3 style={{ fontSize: "inherit", fontWeight: "inherit", margin: 0 }}>{entry.q}</h3>
               <svg
                 width="18"
                 height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="var(--text-faint)"
+                stroke="var(--text-muted)"
                 strokeWidth="2"
                 strokeLinecap="round"
                 aria-hidden="true"
@@ -73,10 +77,10 @@ export function Faq({
               style={{
                 marginTop: "0.875rem",
                 paddingRight: "2.5rem",
-                fontSize: "0.9375rem",
+                fontSize: large ? "1.125rem" : "0.9375rem",
                 color: "var(--text-secondary)",
-                lineHeight: 1.75,
-                maxWidth: "42rem",
+                lineHeight: large ? 1.65 : 1.75,
+                maxWidth: large ? "35rem" : "42rem",
               }}
             >
               {entry.a}

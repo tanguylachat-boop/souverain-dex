@@ -18,7 +18,8 @@ type SectionTone = "base" | "raised" | "deep";
 
 const TONE_BACKGROUND: Record<SectionTone, string> = {
   base: "var(--surface-1)",
-  raised: "linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 50%, var(--surface-1) 100%)",
+  raised:
+    "linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 50%, var(--surface-1) 100%)",
   deep: "var(--bg)",
 };
 
@@ -28,6 +29,7 @@ export function Section({
   children,
   style,
   labelledBy,
+  className,
 }: {
   id?: string;
   tone?: SectionTone;
@@ -35,10 +37,12 @@ export function Section({
   style?: CSSProperties;
   /** id of the heading that names this section, for screen readers. */
   labelledBy?: string;
+  className?: string;
 }) {
   return (
     <section
       id={id}
+      className={className}
       aria-labelledby={labelledBy}
       style={{
         position: "relative",
@@ -56,8 +60,7 @@ export function Section({
           insetInline: 0,
           top: 0,
           height: 1,
-          background:
-            "linear-gradient(90deg, transparent, var(--border-subtle), transparent)",
+          background: "linear-gradient(90deg, transparent, var(--border-subtle), transparent)",
         }}
       />
       <div className="container-page">{children}</div>
@@ -111,17 +114,21 @@ export function H2({
 export function Lede({
   children,
   style,
+  size = "base",
 }: {
   children: ReactNode;
   style?: CSSProperties;
+  /** "lg" for pages read on a phone by people who do not zoom. */
+  size?: "base" | "lg";
 }) {
+  const large = size === "lg";
   return (
     <p
       style={{
         marginTop: "1.25rem",
-        fontSize: "clamp(1rem, 1.4vw, 1.1875rem)",
+        fontSize: large ? "1.25rem" : "clamp(1rem, 1.4vw, 1.1875rem)",
         color: "var(--text-secondary)",
-        lineHeight: 1.65,
+        lineHeight: large ? 1.6 : 1.65,
         maxWidth: "38rem",
         ...style,
       }}
@@ -131,13 +138,7 @@ export function Lede({
   );
 }
 
-export function Body({
-  children,
-  style,
-}: {
-  children: ReactNode;
-  style?: CSSProperties;
-}) {
+export function Body({ children, style }: { children: ReactNode; style?: CSSProperties }) {
   return (
     <p
       style={{
@@ -181,6 +182,8 @@ type ActionProps = {
   variant?: "primary" | "secondary" | "ghost";
   arrow?: boolean;
   style?: CSSProperties;
+  /** Extra classes, for responsive display utilities. */
+  className?: string;
 };
 
 /**
@@ -195,8 +198,9 @@ export function Action({
   variant = "primary",
   arrow = false,
   style,
+  className: extra,
 }: ActionProps) {
-  const className = `btn btn-${variant} pressable`;
+  const className = `btn btn-${variant} pressable${extra ? ` ${extra}` : ""}`;
   const content = (
     <>
       {children}
@@ -292,13 +296,12 @@ export function Dot() {
         flexShrink: 0,
         borderRadius: "50%",
         background: "var(--accent)",
-        boxShadow: "0 0 8px rgba(75,124,201,0.5)",
       }}
     />
   );
 }
 
-export function TrustLine({ items }: { items: string[] }) {
+export function TrustLine({ items, size = "base" }: { items: string[]; size?: "base" | "lg" }) {
   return (
     <ul
       style={{
@@ -317,7 +320,7 @@ export function TrustLine({ items }: { items: string[] }) {
             display: "inline-flex",
             alignItems: "center",
             gap: "0.5rem",
-            fontSize: "0.8125rem",
+            fontSize: size === "lg" ? "1rem" : "0.8125rem",
             color: "var(--text-muted)",
           }}
         >
@@ -329,13 +332,7 @@ export function TrustLine({ items }: { items: string[] }) {
   );
 }
 
-export function StatTile({
-  value,
-  label,
-}: {
-  value: string;
-  label: string;
-}) {
+export function StatTile({ value, label }: { value: string; label: string }) {
   return (
     <div style={{ padding: "1.5rem 1.75rem", background: "var(--bg)" }}>
       <div
