@@ -10,10 +10,16 @@ Langue : français (Suisse romande). Devise : CHF.
 
 ## Ce que fait LX Studio
 
-- **Conseil et développement IA sur mesure.** Diagnostic du travail réel
-  (une demi-journée), prototype sur données réelles en deux à trois semaines,
-  puis mise en production. Le code livré appartient au client. Chaque projet
-  est chiffré sur son périmètre, il n'existe pas de tarif unique.
+- **Automatisation du travail de bureau des PME.** Devis, factures, relances,
+  mails qui se répètent, pièces pour la fiduciaire : un système installé dans
+  les outils existants de l'entreprise. Quatre étapes : une demi-journée
+  d'observation d'une tâche sur place, un devis sur heures estimées sous 48
+  heures, une installation en deux à trois semaines testée sur les vrais
+  dossiers, une journée de formation puis une nouvelle mesure un mois après.
+  Le code livré appartient au client. Chaque projet est chiffré sur son
+  périmètre, il n'existe pas de tarif unique. Clients équipés : Oasis Drink
+  Distribution (Genève), Richoz Sanitaire (Genève), Taxi Elsa et Taxi
+  d'Andrea (Jura).
 - **Agent fiduciaire souverain.** Agent IA installé sur du matériel dédié dans
   les locaux d'un cabinet fiduciaire : capture, extraction, classement et
   renommage des pièces comptables, relances clients. Aucune donnée ne quitte
