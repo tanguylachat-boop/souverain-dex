@@ -1,5 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 
+type RevealOptions = {
+  /**
+   * Laisse l'élément visible au rendu serveur et au premier rendu client, et
+   * ne le cache qu'après l'hydratation, seulement s'il est encore sous le pli.
+   *
+   * Un lecteur sur une connexion lente lit donc le texte dès que le HTML est
+   * peint : rien n'attend le script. Seuls les blocs qu'il n'a pas encore
+   * atteints apparaissent en fondu quand il y arrive. Sans cette option, le
+   * comportement historique est conservé : caché jusqu'à l'intersection.
+   */
+  deferHide?: boolean;
+};
+
 /**
  * Intersection-observer-based scroll reveal.
  * Returns a ref to attach and a boolean `visible`.
@@ -7,13 +20,23 @@ import { useEffect, useRef, useState } from "react";
  */
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   threshold = 0.15,
+  { deferHide = false }: RevealOptions = {},
 ) {
   const ref = useRef<T>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(deferHide);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (deferHide) {
+      // Mouvement réduit demandé : l'état final tout de suite, rien à cacher.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      // Déjà à l'écran, ou au-dessus : on ne cache pas ce que le lecteur a pu voir.
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      setVisible(false);
+    }
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -25,7 +48,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [threshold]);
+  }, [threshold, deferHide]);
 
   return { ref, visible };
 }
