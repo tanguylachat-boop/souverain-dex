@@ -1,51 +1,32 @@
 import { useEffect, useRef } from "react";
 import { HERO, IMAGES } from "@/content/home";
+import { prefersReducedMotion, trackScroll } from "@/lib/scroll-track";
 import { Action } from "./ui";
 
-/** Déplacement maximal de la photo, en pixels, sur toute la hauteur de l'accueil. */
-const PARALLAX_MAX = 40;
+/** Glissement maximal de la photo, en pixels, et agrandissement maximal. */
+const SLIDE = 40;
+const ZOOM = 0.06;
 
 /**
  * Accueil de la page d'accueil.
  *
- * Une photo pleine largeur, assombrie de 55 %, et la promesse par-dessus. Un
- * second voile, plus léger, ne couvre que la colonne de texte : il garantit le
- * contraste quelle que soit la photo finale. Pas de
- * visuel animé : la preuve, ce sont les trois clients juste en dessous, et
- * l'accueil ne dépasse pas 70 % de l'écran pour qu'ils restent visibles sans
- * défiler.
- *
- * La photo glisse de 0 à 40 px vers le haut pendant que l'accueil sort de
- * l'écran. Le calcul est fait au plus une fois par image, sur `transform`
- * seulement, et débranché quand le système demande moins de mouvement.
+ * Une photo pleine largeur, assombrie de 55 %, un second voile derrière la
+ * colonne de texte, et la promesse par-dessus. La photo glisse de 40 px et
+ * s'agrandit de 6 % pendant que l'accueil sort de l'écran, sur `transform`
+ * seulement ; rien ne bouge avec le mouvement réduit. Un seul bouton : la
+ * preuve est juste en dessous, pas derrière un second lien.
  */
 export function HomeHero() {
   const photo = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = photo.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let frame = 0;
-    const update = () => {
-      frame = 0;
+    if (!el || prefersReducedMotion()) return;
+    return trackScroll(() => {
       const height = el.parentElement?.offsetHeight || window.innerHeight;
       const ratio = Math.min(1, Math.max(0, window.scrollY / height));
-      el.style.transform = `translate3d(0, ${(-ratio * PARALLAX_MAX).toFixed(1)}px, 0)`;
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+      el.style.transform = `translate3d(0, ${(-ratio * SLIDE).toFixed(1)}px, 0) scale(${(1 + ZOOM * ratio).toFixed(4)})`;
+    });
   }, []);
 
   const image = IMAGES.hero;
@@ -76,18 +57,10 @@ export function HomeHero() {
           <Action variant="primary" arrow href={HERO.primary.href}>
             {HERO.primary.label}
           </Action>
-          <Action variant="secondary" href={HERO.secondary.href} className="hidden sm:inline-flex">
-            {HERO.secondary.label}
-          </Action>
         </div>
-        <ul className="home-hero-trust">
-          {HERO.trust.map((item) => (
-            <li key={item}>
-              <span className="home-hero-dot" aria-hidden="true" />
-              {item}
-            </li>
-          ))}
-        </ul>
+        <p className="home-hero-clients">
+          <span>{HERO.clientsLabel}</span> {HERO.clients.join(" · ")}
+        </p>
       </div>
     </section>
   );
