@@ -129,7 +129,7 @@ export function Lede({
         fontSize: large ? "1.25rem" : "clamp(1rem, 1.4vw, 1.1875rem)",
         color: "var(--text-secondary)",
         lineHeight: large ? 1.6 : 1.65,
-        maxWidth: "38rem",
+        maxWidth: large ? "33rem" : "38rem",
         ...style,
       }}
     >

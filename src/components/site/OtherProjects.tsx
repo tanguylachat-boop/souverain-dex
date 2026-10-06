@@ -12,7 +12,10 @@ export function OtherProjects() {
   return (
     <aside className="other-projects" aria-label={OTHER_PROJECTS.label}>
       <div className="container-page other-projects-inner">
-        <span className="other-projects-label">{OTHER_PROJECTS.label} :</span>
+        <span className="other-projects-label">
+          {OTHER_PROJECTS.label}
+          {"\u00a0:"}
+        </span>
         <ul>
           {OTHER_PROJECTS.links.map((link) => (
             <li key={link.to}>

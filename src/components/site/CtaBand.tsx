@@ -51,7 +51,7 @@ export function CtaBand({
             fontSize: large ? "1.125rem" : "1.0625rem",
             color: "var(--text-secondary)",
             lineHeight: large ? 1.6 : 1.7,
-            maxWidth: large ? "35rem" : undefined,
+            maxWidth: large ? "31rem" : undefined,
           }}
         >
           {body}
@@ -74,8 +74,9 @@ export function CtaBand({
           <p
             style={{
               marginTop: "1.25rem",
-              fontSize: large ? "0.9375rem" : "0.8125rem",
-              lineHeight: 1.5,
+              fontSize: large ? "1rem" : "0.8125rem",
+              lineHeight: 1.6,
+              maxWidth: large ? "29rem" : undefined,
               color: "var(--text-muted)",
             }}
           >

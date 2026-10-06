@@ -45,7 +45,7 @@ export const IMAGES = {
     src: "/img/hero-atelier.webp",
     width: 1600,
     height: 900,
-    alt: "Atelier d'une PME romande : établi, outils rangés, lumière du matin",
+    alt: "Atelier d'une PME romande\u00a0: établi, outils rangés, lumière du matin",
   },
   bureau: {
     src: "/img/bureau-soir.webp",
@@ -81,7 +81,7 @@ export const SEO = {
   path: "/",
   title: "Devis, factures et relances automatisés pour PME romandes | LX Studio",
   description:
-    "LX Studio installe dans vos outils un système qui fait le travail de bureau de votre PME : devis, factures, relances, mails qui se répètent, pièces pour la fiduciaire. Le temps gagné est mesuré avant et après. Tanguy Lachat, Bassecourt, Jura.",
+    "LX Studio installe dans vos outils un système qui fait le travail de bureau de votre PME\u00a0: devis, factures, relances, mails qui se répètent, pièces pour la fiduciaire. Le temps gagné est mesuré avant et après. Tanguy Lachat, Bassecourt, Jura.",
   keywords:
     "automatisation PME Suisse romande, devis automatique artisan, relance de factures automatique, agent IA PME, LX Studio, Tanguy Lachat, Jura",
 } as const;
@@ -94,9 +94,9 @@ export const SERVICE_DESCRIPTION =
 /* -------------------------------------------------------------------------- */
 
 export const HERO = {
-  eyebrow: "Automatisation pour PME · Jura et Suisse romande",
+  eyebrow: "Automatisation pour PME romandes",
   title: "Le travail de bureau se fait sans vous. Vous gardez la main.",
-  lede: "Devis, factures, relances, mails qui reviennent chaque semaine : un système installé dans vos outils s'en charge. Vous validez ce qui compte. Le temps gagné est mesuré, pas promis.",
+  lede: "Devis, factures, relances, mails qui se répètent\u00a0: un système installé dans vos outils s'en charge. Vous validez ce qui compte. Le temps gagné est mesuré, pas promis.",
   primary: { label: "Réserver 15 minutes avec Tanguy", href: BOOKING_URL },
   secondary: { label: "Voir les trois cas clients", href: "#preuve" },
   trust: [
@@ -111,7 +111,7 @@ export const HERO = {
 /* -------------------------------------------------------------------------- */
 
 export const CLIENT_ROW = {
-  label: "Ils travaillent chaque jour avec des systèmes que j'ai installés",
+  label: "Ils utilisent ces systèmes chaque jour",
   names: ["Oasis Drink Distribution", "Richoz Sanitaire", "Taxi Elsa", "Taxi d'Andrea"],
 } as const;
 
@@ -153,11 +153,11 @@ const PROOF_CARDS: ReadonlyArray<ProofCard> = [
   {
     client: "Taxi d'Andrea",
     place: "Delémont",
-    sector: "Chauffeur indépendant : aéroport, transport médical et scolaire",
+    sector: "Chauffeur indépendant\u00a0: aéroport, transport médical et scolaire",
     before:
       "Un chauffeur seul, sans secrétariat. Pour être appelé, il fallait être trouvé sur la bonne recherche, au bon moment, par des clients pressés.",
     after:
-      "Un site qui ne propose qu'une action : appeler. Le numéro est visible à chaque hauteur de page, et chaque prestation a sa page pour sortir sur la recherche qui lui correspond.",
+      "Un site qui ne propose qu'une action\u00a0: appeler. Le numéro est visible à chaque hauteur de page, et chaque prestation a sa page pour sortir sur la recherche qui lui correspond.",
     running: "Le site, son référencement local, et le numéro qui sonne.",
     measure: { label: "Appels reçus par le site", value: "mesure en cours" },
   },
@@ -167,7 +167,7 @@ export const PROOF = {
   id: "preuve",
   eyebrow: "Trois clients, trois systèmes en service",
   title: "Ce qui tourne aujourd'hui chez trois entreprises romandes.",
-  lede: "Pas de démonstration : des outils utilisés tous les jours par des gens qui ne sont pas informaticiens. Quand une mesure n'est pas encore faite, c'est écrit.",
+  lede: "Pas de démonstration\u00a0: des outils utilisés tous les jours par des gens qui ne sont pas informaticiens. Quand une mesure n'est pas encore faite, c'est écrit.",
   labels: { before: "Avant", after: "Après", running: "Ce qui tourne" },
   cards: PROOF_CARDS,
 } as const;
@@ -200,7 +200,7 @@ export const TIME_COST = {
     },
     {
       title: "Tout passe par vous",
-      body: "Quand vous n'êtes pas là, rien n'avance : le planning, les réponses aux clients, les validations. Les vacances se prennent avec le téléphone dans la poche.",
+      body: "Quand vous n'êtes pas là, rien n'avance\u00a0: le planning, les réponses aux clients, les validations. Les vacances se prennent avec le téléphone dans la poche.",
     },
   ],
 } as const;
@@ -229,7 +229,7 @@ export const PITFALLS = {
     },
   ],
   answer:
-    "La bonne façon tient en une phrase : partir d'une tâche précise, l'installer dans vos outils, mesurer le temps gagné, et savoir dès le premier jour où sont vos données.",
+    "La bonne façon tient en une phrase\u00a0: partir d'une tâche précise, l'installer dans vos outils, mesurer le temps gagné, et savoir dès le premier jour où sont vos données.",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -246,7 +246,7 @@ export const PROCESS = {
       title: "On regarde une tâche, chez vous",
       duration: "une demi-journée",
       body: "On suit une tâche précise du début à la fin, sur place. On chronomètre, on note les allers-retours, les reprises, les oublis.",
-      output: "un chiffre : ce que cette tâche vous coûte par mois.",
+      output: "un chiffre\u00a0: ce que cette tâche vous coûte par mois.",
     },
     {
       title: "On décide si ça vaut le coup",
@@ -257,7 +257,7 @@ export const PROCESS = {
     {
       title: "On installe dans vos outils",
       duration: "deux à trois semaines",
-      body: "Le système est construit et branché à ce que vous utilisez déjà : la boîte mail, le logiciel de facturation, l'agenda. Il est testé sur vos vrais dossiers, pas sur des exemples.",
+      body: "Le système est construit et branché à ce que vous utilisez déjà\u00a0: la boîte mail, le logiciel de facturation, l'agenda. Il est testé sur vos vrais dossiers, pas sur des exemples.",
       output: "une version qui traite vos vraies données.",
     },
     {
@@ -291,7 +291,7 @@ const EXAMPLE_ITEMS: ReadonlyArray<ExampleCard> = [
     trigger:
       "Vous sortez de chez le client et vous dictez le devis à votre téléphone, en vrac, dans la voiture.",
     happens:
-      "Le devis est rédigé proprement, avec vos prix et votre mise en page, et vous arrive prêt à envoyer avant que vous soyez rentré.",
+      "Le devis est rédigé proprement, avec vos prix et votre mise en page, et vous arrive prêt à envoyer avant votre retour.",
     keep: "Vous relisez, vous corrigez une ligne si besoin, vous envoyez. Rien ne part sans vous.",
   },
   {
@@ -320,7 +320,7 @@ const EXAMPLE_ITEMS: ReadonlyArray<ExampleCard> = [
       "La pièce est lue, renommée avec la date et le fournisseur, puis classée dans le bon dossier. En fin de mois, tout est prêt pour la fiduciaire.",
     keep: "Vous validez les pièces dont la lecture est incertaine. Le reste se classe seul.",
     aside: {
-      text: "Vous êtes vous-même une fiduciaire ? Il existe une version pensée pour les cabinets.",
+      text: "Vous êtes vous-même une fiduciaire\u00a0? Il existe une version pensée pour les cabinets.",
       linkLabel: "Voir l'agent pour fiduciaires",
       to: "/fiduciaire",
     },
@@ -331,7 +331,7 @@ export const EXAMPLES = {
   id: "exemples",
   eyebrow: "Ce qu'on installe le plus souvent",
   title: "Quatre tâches, et ce que vous gardez en main dans chacune.",
-  lede: "Aucune n'est une idée en l'air : ce sont les quatre demandes qui reviennent le plus dans une PME de cinq à cinquante personnes.",
+  lede: "Aucune n'est une idée en l'air\u00a0: ce sont les quatre demandes qui reviennent le plus dans une PME de cinq à cinquante personnes.",
   labels: {
     trigger: "Déclencheur",
     happens: "Ce qui se passe",
@@ -360,7 +360,7 @@ export const INFRA = {
     outLabel: "Ce qui sort",
     outputs: ["Devis prêts à envoyer", "Relances parties", "Pièces classées pour la fiduciaire"],
     ariaLabel:
-      "Schéma : vos mails, vos photos et scans et votre logiciel de facturation entrent dans le système, installé chez vous ou chez un hébergeur suisse nommé dans le devis. Il en sort des devis prêts à envoyer, des relances parties et des pièces classées pour la fiduciaire.",
+      "Schéma\u00a0: vos mails, vos photos et scans et votre logiciel de facturation entrent dans le système, installé chez vous ou chez un hébergeur suisse nommé dans le devis. Il en sort des devis prêts à envoyer, des relances parties et des pièces classées pour la fiduciaire.",
   },
 } as const;
 
@@ -374,24 +374,24 @@ export const FAQ = {
   lede: "Les réponses sont celles que je donne au téléphone, limites comprises.",
   entries: [
     {
-      q: "Combien ça coûte ?",
-      a: "Il n'y a pas de tarif unique. Chaque projet est chiffré sur une tâche précise : les heures nécessaires pour construire le système, comparées à ce que la tâche vous coûte aujourd'hui. La demi-journée de départ est facturée à part et son prix est annoncé avant de venir. Si le rapport ne tient pas, on s'arrête là.",
+      q: "Combien ça coûte\u00a0?",
+      a: "Il n'y a pas de tarif unique. Chaque projet est chiffré sur une tâche précise\u00a0: les heures nécessaires pour construire le système, comparées à ce que la tâche vous coûte aujourd'hui. La demi-journée de départ est facturée à part et son prix est annoncé avant de venir. Si le rapport ne tient pas, on s'arrête là.",
     },
     {
-      q: "Je ne connais rien à l'informatique. Est-ce que c'est pour moi ?",
-      a: "Oui, c'est le cas le plus fréquent. Il n'y a pas de nouveau logiciel à apprendre : le système se branche sur ce que vous utilisez déjà, votre boîte mail, votre téléphone, votre logiciel de facturation. La formation tient en une journée et tout est écrit.",
+      q: "Je ne connais rien à l'informatique. Est-ce que c'est pour moi\u00a0?",
+      a: "Oui, c'est le cas le plus fréquent. Il n'y a pas de nouveau logiciel à apprendre\u00a0: le système se branche sur ce que vous utilisez déjà, votre boîte mail, votre téléphone, votre logiciel de facturation. La formation tient en une journée et tout est écrit.",
     },
     {
-      q: "Mes données partent-elles à l'étranger ?",
+      q: "Mes données partent\u2011elles à l'étranger\u00a0?",
       a: "Non, sauf si vous le décidez. Le système tourne sur une machine dans vos locaux ou chez un hébergeur suisse, nommé dans le devis. Ce qui y est branché est écrit avant de commencer, et un informaticien de votre choix peut le vérifier.",
     },
     {
-      q: "Et si ça ne marche pas ?",
+      q: "Et si ça ne marche pas\u00a0?",
       a: "La première version est testée sur vos vrais dossiers, pas sur des exemples. Si elle ne tient pas ses promesses, le projet s'arrête et vous n'avez payé que la demi-journée de départ. Un mois après la mise en service, on remesure la tâche ensemble.",
     },
     {
-      q: "Qui s'en occupe, et qui s'en occupera dans deux ans ?",
-      a: "Tanguy Lachat, fondateur de LX Studio, du premier rendez-vous à la mise en service. Rien n'est sous-traité. Le code et la documentation vous appartiennent : un autre informaticien peut reprendre le système si vous le souhaitez.",
+      q: "Qui s'en occupe, et qui s'en occupera dans deux ans\u00a0?",
+      a: "Tanguy Lachat, fondateur de LX Studio, du premier rendez-vous à la mise en service. Rien n'est sous-traité. Le code et la documentation vous appartiennent\u00a0: un autre informaticien peut reprendre le système si vous le souhaitez.",
     },
   ],
 } as const;
@@ -403,7 +403,7 @@ export const FAQ = {
 export const ABOUT = {
   id: "a-propos",
   eyebrow: "Qui s'en occupe",
-  title: "Tanguy Lachat, 24 ans, Bassecourt.",
+  title: "Tanguy Lachat, 24\u00a0ans, Bassecourt.",
   body: "Je construis des systèmes qui font le travail de bureau des PME, et je les installe moi-même, sur place, en Suisse romande. J'ai commencé par les métiers où la confidentialité ne se négocie pas, parce que c'est le cas le plus exigeant et que le reste en découle.",
   credential: CREDENTIAL,
   trust: [

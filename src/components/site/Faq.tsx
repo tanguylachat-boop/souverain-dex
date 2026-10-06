@@ -80,7 +80,7 @@ export function Faq({
                 fontSize: large ? "1.125rem" : "0.9375rem",
                 color: "var(--text-secondary)",
                 lineHeight: large ? 1.65 : 1.75,
-                maxWidth: large ? "35rem" : "42rem",
+                maxWidth: large ? "31rem" : "42rem",
               }}
             >
               {entry.a}

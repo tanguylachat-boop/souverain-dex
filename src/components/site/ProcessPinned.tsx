@@ -136,7 +136,10 @@ export function ProcessPinned() {
                       </div>
                       <p className="step-body">{stage.body}</p>
                       <p className="step-output">
-                        <span>{PROCESS.outputLabel} : </span>
+                        <span>
+                          {PROCESS.outputLabel}
+                          {"\u00a0: "}
+                        </span>
                         {stage.output}
                       </p>
                     </li>

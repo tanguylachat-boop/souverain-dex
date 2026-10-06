@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { HERO, IMAGES } from "@/content/home";
-import { Action, Dot } from "./ui";
+import { Action } from "./ui";
 
 /** Déplacement maximal de la photo, en pixels, sur toute la hauteur de l'accueil. */
 const PARALLAX_MAX = 40;
@@ -8,7 +8,9 @@ const PARALLAX_MAX = 40;
 /**
  * Accueil de la page d'accueil.
  *
- * Une photo pleine largeur, assombrie, et la promesse par-dessus. Pas de
+ * Une photo pleine largeur, assombrie de 55 %, et la promesse par-dessus. Un
+ * second voile, plus léger, ne couvre que la colonne de texte : il garantit le
+ * contraste quelle que soit la photo finale. Pas de
  * visuel animé : la preuve, ce sont les trois clients juste en dessous, et
  * l'accueil ne dépasse pas 70 % de l'écran pour qu'ils restent visibles sans
  * défiler.
@@ -62,6 +64,7 @@ export function HomeHero() {
         />
       </div>
       <div className="home-hero-shade" aria-hidden="true" />
+      <div className="home-hero-scrim" aria-hidden="true" />
 
       <div className="container-page home-hero-content">
         <p className="home-hero-eyebrow">{HERO.eyebrow}</p>
@@ -80,7 +83,7 @@ export function HomeHero() {
         <ul className="home-hero-trust">
           {HERO.trust.map((item) => (
             <li key={item}>
-              <Dot />
+              <span className="home-hero-dot" aria-hidden="true" />
               {item}
             </li>
           ))}
