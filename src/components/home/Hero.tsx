@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { HERO, HERO_VIDEO, IMAGES } from "@/content/home";
+import { useEffect, useState, type CSSProperties } from "react";
+import { HERO } from "@/content/home";
 import { prefersReducedMotion } from "@/lib/scroll-track";
 import { Btn } from "./text";
+import { HeroScene } from "./HeroScene";
 
 /**
- * Premier écran : vidéo plein écran avec parallaxe, titre dont le premier
- * groupe de mots tourne toutes les 3,4 secondes, deux boutons, phrase d'intro.
- *
- * La vidéo change de source selon la largeur (paysage ou portrait) et ne
- * tourne pas quand la personne demande moins de mouvement : l'image d'arrêt
- * reste seule.
+ * Premier écran : motion design en SVG avec parallaxe (voir HeroScene), titre
+ * dont le premier groupe de mots tourne toutes les 3,4 secondes, deux boutons,
+ * phrase d'intro. Avec mouvement réduit, la scène est figée et le titre ne
+ * tourne pas.
  */
 
 function Word({ text, state }: { text: string; state: "on" | "out" | "" }) {
@@ -27,7 +26,6 @@ function Word({ text, state }: { text: string; state: "on" | "out" | "" }) {
 export function Hero() {
   const [rot, setRot] = useState({ cur: 0, prv: -1 });
   const [still, setStill] = useState(false);
-  const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (prefersReducedMotion()) {
@@ -41,63 +39,10 @@ export function Hero() {
     return () => window.clearInterval(id);
   }, []);
 
-  // Une seule source à la fois : charger les deux vidéos coûterait le double
-  // sur une connexion mobile.
-  useEffect(() => {
-    const el = video.current;
-    if (!el || still) return;
-    const mq = window.matchMedia(`(max-width: ${HERO_VIDEO.mobileMaxWidth}px)`);
-    const pick = () => {
-      const src = mq.matches ? HERO_VIDEO.mobile : HERO_VIDEO.desktop;
-      if (el.getAttribute("src") !== src) {
-        el.setAttribute("src", src);
-        el.load();
-        el.play().catch(() => {});
-      }
-    };
-    // La vidéo attend que la page soit chargée : elle ne doit pas disputer
-    // la connexion à l'image d'arrêt, aux polices et au script.
-    let timer = 0;
-    const start = () => {
-      timer = window.setTimeout(pick, 400);
-    };
-    if (document.readyState === "complete") start();
-    else window.addEventListener("load", start, { once: true });
-    mq.addEventListener("change", pick);
-    return () => {
-      window.removeEventListener("load", start);
-      window.clearTimeout(timer);
-      mq.removeEventListener("change", pick);
-    };
-  }, [still]);
-
   return (
     <section id="accueil" className="sec hero" aria-labelledby="hero-title">
       <div className="hero-media" aria-hidden="true">
-        {/* L'image d'arrêt est toujours là, sous la vidéo : premier rendu
-            immédiat, et la vidéo la recouvre quand elle démarre. */}
-        <img
-          className="hero-poster"
-          src={IMAGES.poster.src}
-          width={IMAGES.poster.width}
-          height={IMAGES.poster.height}
-          alt=""
-          fetchPriority="high"
-          decoding="async"
-        />
-        {still ? null : (
-          <video
-            ref={video}
-            className="hero-video"
-            poster={IMAGES.poster.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-          />
-        )}
-        <div className="hero-scrim" />
+        <HeroScene reduced={still} />
         <div className="hero-arc" />
         <div className="hero-fade" />
       </div>

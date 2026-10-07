@@ -16,14 +16,19 @@ page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 await page.goto(BASE, { waitUntil: "networkidle" });
 await sleep(1500);
 const first = await page.evaluate(() => {
-  const v = document.querySelector(".hero-video");
+  const v = document.querySelector(".hs");
   const words = [...document.querySelectorAll(".rw")].map((w) => ({
     cls: w.className,
     op: getComputedStyle(w.querySelector(".c")).opacity,
   }));
   return {
     heroH: Math.round(document.querySelector(".hero").getBoundingClientRect().height),
-    video: v ? { src: v.getAttribute("src"), playing: !v.paused, ready: v.readyState } : null,
+    scene: v
+      ? {
+          running: !v.animationsPaused() && v.getCurrentTime() > 0,
+          t: Math.round(v.getCurrentTime()),
+        }
+      : null,
     words,
     font: getComputedStyle(document.querySelector(".hero-h1")).fontFamily.split(",")[0],
     h1Lines: Math.round(
@@ -40,7 +45,7 @@ const hp = await page.evaluate(async () => {
   await new Promise((r) => setTimeout(r, 300));
   return {
     hp: document.querySelector(".hero-media").style.getPropertyValue("--hp"),
-    transform: getComputedStyle(document.querySelector(".hero-video")).transform,
+    transform: getComputedStyle(document.querySelector(".hs")).transform,
   };
 });
 const tone = await page.evaluate(async () => {

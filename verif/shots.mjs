@@ -45,7 +45,7 @@ for (const vp of VIEWPORTS) {
   // 1. First screen
   r.first = await page.evaluate(() => {
     const hero = document.querySelector(".hero").getBoundingClientRect();
-    const v = document.querySelector(".hero-video");
+    const v = document.querySelector(".hs");
     const h1 = document.querySelector(".hero-h1").getBoundingClientRect();
     const ctas = document.querySelector(".hero-ctas").getBoundingClientRect();
     const rot = document.querySelector(".rw.on")?.textContent;
@@ -57,8 +57,8 @@ for (const vp of VIEWPORTS) {
         h1.height / parseFloat(getComputedStyle(document.querySelector(".hero-h1")).lineHeight),
       ),
       ctasBottom: Math.round(ctas.bottom),
-      videoSrc: v?.getAttribute("src"),
-      videoPlaying: v ? !v.paused && v.readyState >= 2 : null,
+      scene: !!v,
+      sceneRunning: v ? !v.animationsPaused() && v.getCurrentTime() > 0 : false,
       rotating: rot,
       font: getComputedStyle(document.querySelector(".hero-h1")).fontFamily.split(",")[0],
     };
@@ -326,8 +326,7 @@ for (const vp of VIEWPORTS) {
     hiddenRv: [...document.querySelectorAll("[data-rv]")].filter(
       (e) => getComputedStyle(e).opacity === "0",
     ).length,
-    video: !!document.querySelector(".hero-video"),
-    poster: !!document.querySelector(".hero-poster"),
+    scenePaused: document.querySelector(".hs")?.animationsPaused() ?? null,
     wall: getComputedStyle(document.querySelector(".av-piste")).animationName,
     rotating: document.querySelectorAll(".rw.on").length,
   }));
