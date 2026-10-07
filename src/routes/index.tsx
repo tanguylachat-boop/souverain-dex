@@ -33,7 +33,6 @@ export const Route = createFileRoute("/")({
       meta,
       links: [
         ...links,
-        { rel: "preload", as: "image", href: IMAGES.poster.src, fetchpriority: "high" },
         {
           rel: "preload",
           as: "font",

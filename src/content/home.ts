@@ -44,12 +44,6 @@ export const IMAGES = {
     height: 900,
     alt: "Atelier d'une PME romande : établi, outils rangés, lumière du matin",
   },
-  poster: {
-    src: "/video/hero-poster.webp",
-    width: 1600,
-    height: 900,
-    alt: "",
-  },
   oasis: {
     src: "/img/factures-relance.webp",
     width: 1200,
@@ -82,11 +76,9 @@ export const IMAGES = {
   },
 } as const satisfies Record<string, SiteImage>;
 
-export const HERO_VIDEO = {
-  desktop: "/video/hero-desktop.mp4",
-  mobile: "/video/hero-mobile.mp4",
-  /** Largeur à partir de laquelle la version paysage est servie. */
-  mobileMaxWidth: 760,
+/* Motion design du premier écran : les documents qui filent vers le système. */
+export const HERO_SCENE = {
+  cards: ["Devis", "Facture", "Relance", "Mail", "Pièces"],
 } as const;
 
 /* -------------------------------------------------------------------------- */

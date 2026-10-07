@@ -686,29 +686,102 @@
   overflow: hidden;
   pointer-events: none;
 }
-.lx .hero-video {
+/* Motion design (HeroScene) : boîte centrée en haut sur téléphone, à droite
+ * dès 760 px ; le SVG garde ses proportions (viewBox 400×560). */
+.lx .hs {
   position: absolute;
-  top: -14%;
-  left: 0;
-  width: 100%;
-  height: 128%;
-  object-fit: cover;
-  transform: translate3d(0, var(--hp), 0);
+  left: 50%;
+  top: calc(60px + 2svh);
+  width: min(100%, 430px);
+  height: 56svh;
+  overflow: visible;
+  transform: translate3d(-50%, var(--hp), 0);
   will-change: transform;
 }
-.lx .hero-poster {
-  position: absolute;
-  top: -14%;
-  left: 0;
-  width: 100%;
-  height: 128%;
-  object-fit: cover;
-  transform: translate3d(0, var(--hp), 0);
+.lx .hs-route {
+  fill: none;
+  stroke: rgba(242, 242, 240, 0.14);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
 }
-.lx .hero-scrim {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 5, 7, 0.22);
+.lx .hs-pulse {
+  fill: none;
+  stroke: var(--acc);
+  stroke-width: 1;
+  opacity: 0;
+}
+.lx .hs-ring {
+  fill: none;
+  stroke: rgba(242, 242, 240, 0.24);
+  stroke-width: 1;
+}
+.lx .hs-ring-dash {
+  fill: none;
+  stroke: rgba(242, 242, 240, 0.16);
+  stroke-width: 1;
+  stroke-dasharray: 2 9;
+}
+.lx .hs-ring-in {
+  fill: rgba(127, 176, 255, 0.08);
+  stroke: var(--acc);
+  stroke-opacity: 0.45;
+  stroke-width: 1;
+}
+.lx .hs-nucleus {
+  fill: var(--acc);
+}
+.lx .hs-card-ombre {
+  fill: #000;
+  opacity: 0.45;
+}
+.lx .hs-card-papier {
+  fill: #121217;
+  stroke: rgba(242, 242, 240, 0.18);
+  stroke-width: 1;
+}
+.lx .hs-card-pt {
+  fill: var(--acc);
+}
+.lx .hs-tag {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: rgba(242, 242, 240, 0.8);
+}
+.lx .hs-l {
+  fill: rgba(242, 242, 240, 0.34);
+}
+.lx .hs-l-faible {
+  fill: rgba(242, 242, 240, 0.2);
+}
+.lx .hs-total {
+  fill: rgba(242, 242, 240, 0.07);
+}
+.lx .hs-montant {
+  fill: var(--acc);
+  opacity: 0.8;
+}
+.lx .hs-coche-fond {
+  fill: var(--acc);
+}
+.lx .hs-coche-trait {
+  fill: none;
+  stroke: #0b0b0d;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (min-width: 760px) {
+  .lx .hs {
+    left: auto;
+    right: 7vw;
+    top: 7svh;
+    width: min(46vw, 620px);
+    height: 74svh;
+    transform: translate3d(0, var(--hp), 0);
+  }
 }
 .lx .hero-arc {
   position: absolute;
@@ -3100,8 +3173,7 @@
     animation: none;
     transform: scaleX(1);
   }
-  .lx .hero-video,
-  .lx .hero-poster,
+  .lx .hs,
   .pf-plan {
     transform: none !important;
   }
