@@ -1,163 +1,125 @@
-# VERIF.md : page d'accueil en sept écrans (branche `refonte-pme-v2`)
+# VERIF.md : page d'accueil refaite sur le modèle de levupp.com (branche `refonte-levupp`)
 
-Date : 06.10.2026. État : build Vite OK, `wrangler deploy --dry-run` OK, rien n'est déployé, rien n'est mergé.
-Captures et rapports dans `verif/captures/` (non versionnés), scripts dans `verif/` (voir `verif/README.md`).
-Spécification validée : `docs/superpowers/specs/2026-10-06-accueil-structure-design.md`.
+Date : 06.10.2026. État : `npm run typecheck` 0 erreur, `npm run lint` propre, build Vite OK, servi en local avec `wrangler dev`. Rien n'est déployé, rien n'est mergé.
+Audit de la page de référence : `docs/levupp-audit.md`. Scripts : `verif/` (voir `verif/README.md`). Captures et rapports dans `verif/captures/` (non versionnés).
 
-## 0. Ce qui manque toujours, à lire avant le diff
+## 0. Ce qui reste provisoire, à lire avant le diff
 
-**AUDIT.md n'existe toujours pas.** Comme pour la version mergée le matin même (PR #12), le texte de la page est un provisoire écrit sous les contraintes du brief (vouvoiement, français de Suisse, aucun tiret long, aucun chiffre inventé, le travail du client comme sujet). Tout est dans `src/content/home.ts`, à remplacer chaîne par chaîne sans toucher aux composants :
+**Le texte.** Comme pour les deux versions précédentes, AUDIT.md n'existe pas. Le texte est celui validé pour la version en sept écrans, réparti dans la nouvelle structure, sous les mêmes contraintes : vouvoiement, français de Suisse, aucun tiret long, aucun chiffre inventé, aucun prix affiché (chaque offre a son prix, Tanguy valide tous les devis). Tout est dans `src/content/home.ts`, à remplacer chaîne par chaîne sans toucher aux composants :
 
-| Écran | Constante dans `src/content/home.ts` |
+| Section | Constante |
 | --- | --- |
-| 1. Accueil (eyebrow, H1, lede, CTA, ligne clients) | `HERO` |
-| 2. Le problème concret (cinq situations) | `PROBLEM` |
-| 2 bis. Dépliant « Les trois façons de rater l'IA » | `PITFALLS` |
-| 3. Ce qu'on installe (quatre cartes photo, détail déclencheur / ce qui se passe / ce que vous gardez en main) | `INSTALL_ITEMS`, `INSTALL` |
-| 4. Résultats clients (trois cartes problème / installé / résultat, détail avant / après / ce qui tourne) | `RESULT_ITEMS`, `RESULTS` |
-| 5. Comment on travaille (quatre étapes en accordéon) | `METHOD` |
-| 6. Questions (six, dont « Où vont mes données ? » avec le schéma) | `FAQ`, `DATA_DIAGRAM` |
-| 7. Réserver (photo, titre, texte, ligne à propos, deux boutons) | `CLOSING` |
-| Ligne « Autres projets » | `OTHER_PROJECTS` |
+| Nav (liens, sous-liens, bouton) | `NAV` |
+| Premier écran (mots qui tournent, suite du titre, intro, deux boutons) | `HERO`, `HERO_VIDEO` |
+| Quatre chiffres | `STATS` |
+| Résultats clients (carrousel, trois clients) | `WORKS` |
+| Mur de faits (douze cartes) | `WALL` |
+| Comparatif (cinq lignes, quatre colonnes) | `COMPARE` |
+| Méthode (trois cartes, jalons, outils, badges) | `METHOD` |
+| Ce qui est compris (douze lignes) | `INCLUDED` |
+| Seuil (phrase de bascule) | `THRESHOLD` |
+| Tarifs (deux cartes, sans montant) | `PRICING` |
+| Questions (sept) | `FAQ` |
+| Réserver (titre, bouton, paysage) | `CONTACT` |
+| Pied de page | `FOOTER` |
 | Titre, description, mots-clés | `SEO`, `SERVICE_DESCRIPTION` |
 
-**Les photos sont toujours provisoires.** `hero-atelier.webp` (1600×900), `chantier-telephone.webp`, `bureau-soir.webp`, `pieces-compta.webp` et la nouvelle `factures-relance.webp` (1200×800) portent la mention « image provisoire, a remplacer » dans leur coin. À faire quand les vraies photos arrivent : remplacer les fichiers sous le même nom, ajuster `width` et `height` dans `IMAGES`, relire les textes alternatifs, relancer les scripts de `verif/`. `tanguy.jpg` est la vraie photo.
+**Les images et la vidéo.** Aucun média de levupp.com n'a été repris. Les nôtres sont provisoires :
 
-**Chiffres.** Aucun chiffre inventé. Les trois cartes de résultat disent « mesure en cours ». La « douzaine de minutes par devis » de Richoz, présente dans la version mergée, n'est plus affichée : elle revient quand la mesure est confirmée.
+| Fichier | Usage | État |
+| --- | --- | --- |
+| `public/video/hero-desktop.mp4` (2,7 Mo, 24 s) et `hero-mobile.mp4` (1,2 Mo) | Vidéo du premier écran, en boucle | Fabriquée avec ffmpeg par un zoom lent sur la photo provisoire de l'atelier. À remplacer par une vraie séquence (même nom, même durée approximative, H.264, sans son) |
+| `public/video/hero-poster.webp` (1600×900, 50 Ko) | Image affichée avant la vidéo et avec mouvement réduit | Première image de la vidéo provisoire. À refaire à partir de la vraie vidéo |
+| `public/img/factures-relance.webp`, `chantier-telephone.webp`, `bureau-soir.webp` | Visuels des trois résultats clients | Provisoires, mention « image provisoire » dans le coin |
+| `public/img/paysage.jpg` (1600×900, 276 Ko) | Paysage de la section Réserver, avec parallaxe | Photo de banque (picsum). À remplacer par une photo de la région ou à retirer |
+| `public/img/tanguy.jpg` | Photo de l'équipe (méthode) | Vraie photo |
+| `public/tools/*.svg` | Logos d'outils dans la méthode | Simple Icons (CC0) |
+| `public/fonts/Geist-Variable.woff2`, `GeistMono-Variable.woff2` | Police du site | Geist (licence OFL, `LICENSE-Geist.txt`). Levupp utilise Roobert, non reprise |
 
-## 1. Ce qui change par rapport à la version mergée
+**Chiffres.** Les quatre chiffres du bandeau (4 clients, 1 interlocuteur, 48 h, 15 min) viennent du texte validé. Les résultats clients disent « mesure en cours » quand la mesure manque.
 
-Retour de Tanguy sur la version en ligne : trop rempli, il faut des sections qui défilent de droite à gauche, du contenu repliable, des images qui bougent, le problème concret puis le résultat client, une vraie structure.
+## 1. Ce qui a été construit
 
-| Avant (mergé) | Après (cette branche) |
-| --- | --- |
-| Onze blocs à la suite, 9 428 caractères visibles | Sept écrans, 3 868 caractères visibles détails repliés (0,41 du texte d'avant), 658 mots |
-| Bande clients séparée | Une ligne sous le bouton du hero |
-| Preuve, trois cartes empilées | Écran 4 : rail de trois cartes problème / installé / résultat, détail replié |
-| Cinq situations en liste avec photo | Écran 2 : rail de cinq cartes courtes (90 caractères max) |
-| Trois façons de rater l'IA, trois colonnes | Dépliant fermé sous le rail du problème |
-| Méthode épinglée au défilement (bureau) | Écran 5 : accordéon natif, une étape ouverte à la fois, la première ouverte par défaut |
-| Quatre exemples, deux photos fixes | Écran 3 : rail de quatre cartes avec photo qui zoome au défilement, détail replié |
-| Infrastructure, phrase et schéma | Réponse « Où vont mes données ? » de la FAQ, schéma dans la réponse |
-| À propos, bloc séparé | Une ligne avec la photo dans l'écran 7 |
-| Photos immobiles, parallaxe du hero seule | Hero : parallaxe 40 px et zoom 1,06 ; cartes : zoom lent de 1 à 1,06 en traversant l'écran |
+Même architecture que levupp.com, section par section, avec les mécaniques de mouvement refaites en CSS et dans un petit script maison (aucune librairie d'animation, aucun code, texte, image, vidéo ou police repris de la page de référence). Détail de la transposition dans `docs/levupp-audit.md`, section 3.
 
-Composants supprimés : `ClientNames`, `Proof`, `TimeCost`, `Pitfalls`, `ProcessPinned`, `Examples`, `Infrastructure`, `About`, `use-scroll-progress`. Ajoutés : `Rail`, `Disclosure`, `ZoomPhoto`, `Problem`, `Install`, `Results`, `Method`, `DataDiagram`, `Closing`, `lib/scroll-track`. `Faq` reçoit une option `extra` (contenu sous une réponse), sans effet sur les autres pages.
+| Écran | Composant | Mouvement |
+| --- | --- | --- |
+| Nav | `Nav.tsx` | Pastille centrée de 340 px, classe `solid` après 24 px de défilement, menu qui s'ouvre dans la pastille (liens lettre par lettre, sous-liens, bouton), voile flouté, Échap ferme |
+| Premier écran | `Hero.tsx` | Vidéo plein écran (source téléphone sous 760 px), image d'arrêt sous la vidéo, parallaxe 0,13 × défilement, mot qui tourne toutes les 3,4 s lettre par lettre, apparition dès le premier rendu (animation CSS, sans attendre le script) |
+| Chiffres | `Stats.tsx` | Compteurs 1150 ms, quatre icônes animées (tuiles, noyau, calendrier, jauge) |
+| Résultats | `Works.tsx` | Carrousel trois clients, barre de progression 7 s, flèches, glisser au doigt, pause hors écran, photo révélée par `clip-path` |
+| Mur de faits | `Wall.tsx` | Trois colonnes qui défilent en continu, colonne centrale en sens inverse, statique sous 760 px |
+| Comparatif | `Compare.tsx` | Tableau cinq lignes, première colonne surlignée |
+| Méthode | `Approach.tsx` | Trois cartes décalées à l'apparition avec illustrations animées (noyau et satellites, règle à jalons, points après la mise en service), bento outils en deux rangées opposées, photo et badges à compteur |
+| Compris | `Included.tsx` | Feuille inclinée en perspective, douze lignes qui entrent une à une, à plat au survol |
+| Seuil | `Threshold.tsx` | Phrase de bascule ; le ton de la page passe du sombre au clair ici |
+| Tarifs | `Pricing.tsx` | Deux cartes en perspective, à plat au survol, sans montant |
+| Questions | `Questions.tsx` | Colonne gauche collante, accordéon `grid-template-rows` |
+| Réserver | `Contact.tsx` | Paysage avec parallaxe, dégradés vers le pied de page |
+| Pied de page | `Footer.tsx` | Collé en bas de l'écran et découvert par le contenu (sticky), en flux normal quand il est plus haut que l'écran |
 
-## 2. Vérification anti « site fait par une IA »
+Fichiers : `src/styles/home.css` (3180 lignes, tous les styles de la page sous `.lx`), `src/components/home/` (treize composants, `effects.ts`, `text.tsx`), `src/content/home.ts`, `src/routes/index.tsx`. Les pages intérieures (`/fiduciaire`, `/mentia`, `/athlit`, `/blog`) reçoivent la nouvelle nav et le nouveau pied de page via `src/components/site/Page.tsx`. Quatorze composants de l'ancienne page d'accueil supprimés.
 
-Contrôles sur le texte rendu (`verif/antiai.mjs`) : 0 tiret long, aucun « Imaginez », « Dans un monde où », « Que vous soyez », « Découvrez », aucun « innovant, révolutionnaire, puissant, intelligent, sur mesure, clé en main, fluide, seamless », aucun bouton « Commencer », « En savoir plus », « Découvrir ». Titres en question : seulement les six de la FAQ. « L'IA » comme sujet : une fois, dans le titre du dépliant imposé par le brief. Aucun flou d'arrière-plan.
+## 2. Vérifications faites (Chromium, `verif/shots.mjs`)
 
-- Dégradés : deux usages, tous deux fonctionnels et déjà présents dans la version mergée : le voile noir derrière le texte du hero, et le filet de 1 px entre sections du composant partagé `Section` (un fondu de bordure, utilisé aussi par les autres pages, non touché).
-- Icônes : 26 SVG en ligne, tous fonctionnels : 18 chevrons de dépliants, 6 flèches de rails, 2 flèches dans les boutons principaux. Aucune icône illustrative.
-- Variété : rail de cinq cartes texte, rail de quatre cartes photo, rail de trois cartes client, accordéon, liste de questions, écran de clôture avec photo. Aucun triptyque de cartes.
-- Lien demandé par le brief vers l'agent fiduciaire : sur la carte « Les pièces pour la fiduciaire » de l'écran 3.
+Trois écrans : 390×844 (téléphone), 768×1024 (tablette), 1440×900 (bureau). Rapport complet dans `verif/captures/report.json`.
 
-## 3. Vérification design
-
-Méthode : `npm run build` puis `npx wrangler dev --port 4173` (le build Cloudflare servi en local ; pas de `vite dev`, interdit sur cette machine), Playwright 1.63 avec Chromium 153 et WebKit 26.6, trois tailles : 390×844 à 2x (iPhone 13), 768×1024 à 2x, 1440×900. Chaque écran capturé et regardé, plus trois captures par rail (départ, après un geste, fin) et une page entière par taille.
-
-### 3.1 Premier écran
-
-| | iPhone 390×844 | Tablette 768×1024 | Bureau 1440×900 |
+| Contrôle | Téléphone | Tablette | Bureau |
 | --- | --- | --- | --- |
-| Hauteur du hero | 541 px (max 70 svh = 591) | 676 px (max 717) | 594 px (max 630) |
-| Haut du titre « Ce qui vous coûte du temps. » | 649 px, visible sans défiler | 824 px, visible | 743 px, visible |
-| Éléments cachés dans l'écran au chargement | 0 | 0 | 0 |
+| Vidéo en lecture au premier écran | oui, `hero-mobile.mp4` | oui, `hero-desktop.mp4` | oui, `hero-desktop.mp4` |
+| Titre sur deux lignes, police Geist | oui | oui | oui |
+| Mot qui tourne (« Les devis » puis « Les relances » après 3,4 s) | oui | oui | oui |
+| Compteurs arrivés à 4, 1, 48, 15 (et 4, 4 dans la méthode) | oui | oui | oui |
+| Carrousel : panneau 1 après 7 s, flèche vers le 3, onglets `aria-selected`, photo révélée | oui | oui | oui |
+| Glisser au doigt change de panneau | oui | oui | sans objet |
+| Mur de faits en mouvement | non, statique (voulu) | oui | oui |
+| Ton 0 jusqu'à « Compris », 1 avec encre sombre dès « Seuil » | oui | oui | oui |
+| Accordéon des questions | oui | oui | oui |
+| Pied de page collé et découvert (sticky) | non, en flux (882 px pour 844 d'écran) | oui | oui |
+| Menu : ouverture, fermeture | oui | oui | oui |
+| Débordement horizontal | aucun | aucun | aucun |
+| Tirets longs dans le texte rendu | 0 | 0 | 0 |
+| Erreurs console | 0 | 0 | 0 |
+| Images sans texte alternatif | 0 | 0 | 0 |
 
-### 3.2 Contraste du hero
+Mouvement réduit (`prefers-reduced-motion`) : tout est posé (0 élément caché), l'image d'arrêt remplace la vidéo, le mur est statique, un seul mot du titre est affiché.
 
-Mesuré sur les pixels de la photo provisoire après l'ombre de 55 % et le voile de texte, contre les 5 % de pixels les plus clairs derrière chaque bloc (le pire cas) :
+Pages intérieures : `/fiduciaire`, `/mentia`, `/athlit`, `/blog` répondent 200, avec la nav et le pied de page, sans débordement ni erreur console.
 
-| Bloc | iPhone | Tablette | Bureau |
-| --- | --- | --- | --- |
-| Titre | 8,2:1 | 10,6:1 | 10,7:1 |
-| Lede | 6,6:1 | 9,0:1 | 9,5:1 |
-| Ligne clients | 6,1:1 | 8,1:1 | 8,4:1 |
-| Eyebrow | 6,7:1 | 4,9:1 | 13,7:1 |
+WebKit (moteur de Safari, 390×844, `verif/webkit.mjs`) : vidéo en lecture, titre sur deux lignes, mot qui tourne, parallaxe de 52 px à 400 px de défilement, bascule du ton au niveau des tarifs, pied de page en flux, aucun débordement, 0 erreur.
 
-Le reste de la page utilise les jetons du site : texte secondaire 7,9:1, texte atténué 5,4:1, texte principal 15:1. Lighthouse (axe) ne signale aucun défaut de contraste. À refaire avec les vraies photos : `node verif/shots.mjs` imprime ces valeurs.
+## 3. Performance et accessibilité (Lighthouse 13.5, Chrome headless, build servi par wrangler)
 
-### 3.3 Rails
+| | Performance | Accessibilité | Bonnes pratiques | SEO | FCP | LCP | TBT | CLS | Speed Index |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mobile (4G lente simulée, CPU ralenti 4×) | 92 | 100 | 100 | 100 | 1,8 s | 3,2 s | 0 ms | 0 | 1,8 s |
+| Bureau | 100 | 100 | 100 | 100 | 0,4 s | 0,7 s | 0 ms | 0 | 0,4 s |
 
-Défilement natif (`scroll-snap-type: x mandatory`), une carte par geste, compteur « n / N » (n = première carte entièrement visible), flèches à partir de 768 px, désactivées aux extrémités, cachées quand tout tient dans la largeur.
+Poids transféré sur mobile : 1 609 Kio, dont 1 206 Kio pour la vidéo (chargée seulement après l'événement `load`, elle ne retarde ni le texte ni l'image d'arrêt), 139 Kio de polices, 134 Kio de script, 26 Kio de CSS, 91 Kio d'images.
 
-| | iPhone | Tablette | Bureau |
-| --- | --- | --- | --- |
-| Largeur des cartes | 78 % (86 % pour les clients) | 360 px, 420 px pour les clients | 360 px, 440 px pour les installations, 520 px pour les clients |
-| Cinq situations : geste, flèche, fin | « 2 / 5 », pas de flèche, fin « 5 / 5 » | « 2 / 5 », flèche « 3 / 5 », fin « 4 / 5 » et flèche désactivée | « 2 / 5 », flèche « 3 / 5 », fin « 3 / 5 » et flèche désactivée |
-| Quatre installations | « 2 / 4 », fin « 4 / 4 » | « 2 / 4 », flèche « 3 / 4 », fin « 3 / 4 » | « 2 / 4 », flèche « 2 / 4 », fin « 2 / 4 » |
-| Trois clients | « 2 / 3 », fin « 3 / 3 » | « 2 / 3 », fin « 2 / 3 » | « 2 / 3 », fin « 2 / 3 » |
-| Débordement horizontal de la page | aucun | aucun | aucun |
+La première passe donnait 39 en performance (LCP 3,1 s, TBT 1 570 ms, CLS 1) et 94 en accessibilité. Corrigé depuis :
 
-Sur bureau, la dernière carte visible est coupée au bord du conteneur : c'est le signal qu'il y a plus. Les cartes des rails sont des `li` dans un `ul` avec un libellé ; le rail est atteignable au clavier (flèches du clavier dans la piste, boutons « Carte précédente » et « Carte suivante »).
+- Pied de page collé en CSS (`position: sticky`) au lieu d'un passage en `fixed` par le script après le rendu : le décalage de mise en page disparaît (CLS 1 → 0).
+- Vidéo sans préchargement, source posée 400 ms après `load` ; halo du premier écran sans mode de fusion : le fil principal est libre (TBT 1 570 → 0 ms).
+- Premier écran visible dès le premier rendu : l'apparition du titre, de l'intro et des boutons est une animation CSS, plus une transition déclenchée par le script. Avant, le premier écran restait vide jusqu'à l'hydratation, environ trois secondes sur un téléphone lent.
+- Contraste : texte estompé à 52 % d'encre (au moins 4,5:1 sur fond sombre et sur fond clair), libellés du pied de page à 52 %.
+- Cibles tactiles : liens du bas du pied de page, lien mail et lien « Ou écrire un mail » à 32 px de haut au moins.
+- Police de secours « Geist Fallback » (Arial ou Helvetica ajustées aux métriques de Geist, largeur mesurée dans le navigateur) pour que le texte ne bouge pas si Geist arrive après le premier rendu.
 
-### 3.4 Dépliants
-
-`details` natif, chevron qui tourne, ouverture en 200 ms. Vérifié aux trois tailles : le dépliant des trois façons s'ouvre au clic ; « Voir le détail » s'ouvre à la touche Entrée ; l'accordéon de la méthode garde une seule étape ouverte (attribut `name` des `details`, avec repli en JavaScript). Le contenu replié est dans le HTML servi, donc lisible par les moteurs.
-
-### 3.5 Images
-
-- Hero : `preload` et `fetchpriority="high"`, parallaxe de 0 à 40 px et zoom jusqu'à 1,06, mesurés en fin de course à `translate3d(0, -40px, 0) scale(1.06)`.
-- Cartes : zoom mesuré de 1,002 à l'entrée dans l'écran à 1,045 en haut de l'écran, jamais au-delà de 1,06. Chargement différé, `width`, `height` et `alt` sur chaque image, ratio fixé par `aspect-ratio`.
-- Aucune image agrandie au-delà de sa taille (hero à 0,96 de sa taille sur tablette Retina, le pire cas).
-
-### 3.6 Typographie
-
-- Corps de texte : 1,125 rem (18 px) et interligne 1,6 ; 1,25 rem pour les introductions d'écran.
-- Exceptions sous 18 px, assumées : la ligne clients du hero (15 px, 6,1:1 au pire) et la ligne « Tanguy Lachat, Bassecourt… » de l'écran 7 (16 px, 7,9:1).
-- Longueur de ligne : aucune ligne de paragraphe au-dessus de 65 caractères aux trois tailles.
-- Espaces insécables avant les deux-points et les points d'interrogation ; aucun débordement horizontal.
-
-### 3.7 Lighthouse mobile
-
-Lighthouse 13.5.0, Chrome, émulation mobile et réseau simulé, sur le build servi en local, après la dernière modification :
-
-| Performance | Accessibilité | Bonnes pratiques | SEO |
-| --- | --- | --- | --- |
-| 95 | 100 | 100 | 100 |
-
-FCP 2,0 s, LCP 2,6 s (l'image du hero), TBT 0 ms, CLS 0, Speed Index 2,0 s. JavaScript au premier chargement : 134 Ko compressés (bundle TanStack Start et React ; `Rail`, `Disclosure` et `ZoomPhoto` ajoutent 3 Ko). CSS 16 Ko, hero provisoire 54 Ko. Rapport complet : `verif/captures/lighthouse-mobile.report.html`.
-
-### 3.8 Mouvement réduit
-
-Avec `prefers-reduced-motion: reduce` : 0 élément caché, hero immobile (`transform: none`), les quatre photos immobiles, rails qui sautent sans animation, dépliants sans animation.
-
-### 3.9 Clavier et liens
-
-Ordre de tabulation sur bureau, contour de focus visible sur chacun : « Aller au contenu » (envoie le focus sur `#main`), logo, quatre liens de navigation, « Réserver 15 min », « Réserver 15 minutes avec Tanguy », la piste du rail des situations, « Carte suivante », « Les trois façons de rater l'IA », puis les quatre « Voir le détail » des installations, « Carte suivante » du rail suivant, et ainsi de suite jusqu'aux deux boutons de l'écran 7.
-
-Liens : `https://cal.com/lx-studio/15min` dans un nouvel onglet avec `rel="noopener noreferrer"` (deux fois : hero et écran 7) ; `mailto:contact@lxstudio.ch` ; `/fiduciaire` (carte des pièces et ligne « Autres projets »), `/mentia`, `/athlit`.
-
-### 3.10 WebKit
-
-WebKit 26.6 (moteur de Safari) à 390×844 : hero 541 px, titre du problème à 649 px, 0 élément caché à l'écran et après défilement, parallaxe à `translate3d(0, -40px, 0) scale(1.06)` en fin de course, FAQ fonctionnelle, aucune erreur.
-
-### 3.11 Pages non touchées
-
-`/fiduciaire`, `/mentia`, `/athlit`, `/blog` : statut 200, aucun débordement, aucune erreur console, aux deux tailles. Les routes n'ont pas été modifiées. Seul composant partagé touché : `Faq`, option `extra` facultative, rendu identique sans elle.
-
-### 3.12 Build
-
-- `npx tsc --noEmit` : aucune erreur.
-- `npx eslint` et `npx prettier --check` sur les fichiers de la branche : aucune erreur.
-- `npm run build` : OK, sortie Nitro pour Cloudflare dans `.output/`.
-- `npx wrangler deploy --dry-run` : OK, 86 modules, 1556 Kio (304,5 Kio compressés), 31 fichiers d'assets.
+Le LCP mobile de 3,2 s est celui du paragraphe d'intro du premier écran, compté quand son animation d'entrée le rend visible. Le titre lui-même entre lettre par lettre depuis l'invisible et Chrome ne le compte pas. C'est le prix de l'apparition copiée de la référence ; sur une vraie 4G, le premier écran apparaît bien avant.
 
 ## 4. Ce qui n'a PAS été testé
 
-- Un vrai téléphone en main. Tout est en émulation (Chromium, plus WebKit pour le moteur de Safari). Le geste de glissement est simulé par un défilement, pas par un doigt.
-- Une vraie connexion 3G : Lighthouse simule le réseau sur `localhost`.
-- Les vraies photos et le copy d'AUDIT.md dans la mise en page : les cartes sont calées sur le texte provisoire (90 caractères par situation, trois lignes par résumé de carte). Un texte plus long allonge toutes les cartes du rail.
-- Firefox : l'accordéon repose sur l'attribut `name` des `details` (Firefox 130 et plus) avec un repli JavaScript ; le repli n'a été exercé que dans Chromium et WebKit.
-- Safari avant la version 15.4 : les largeurs de cartes par type de rail utilisent `:has()` ; sans lui, toutes les cartes prennent la largeur de base (78 %, puis 360 px).
-- Le déploiement Cloudflare lui-même (dry-run seulement), la synchronisation Lovable et le domaine.
-- Plausible : inchangé, non vérifié.
+- Aucun vrai téléphone ni vrai Safari iOS : WebKit via Playwright seulement. La vidéo en lecture automatique, le pied de page et la bascule de ton sont à revoir sur un iPhone avant tout déploiement.
+- Aucune vraie connexion lente : les chiffres mobiles sont une simulation Lighthouse.
+- Windows et Android : la police de secours est calibrée sur l'Arial de macOS. Sur Android, sans Arial, le navigateur retombe sur Roboto sans ajustement.
+- Clavier seul et lecteur d'écran : seuls les contrôles automatiques (Lighthouse, attributs ARIA du carrousel, de l'accordéon et du menu) ont tourné.
+- Les liens sortants (cal.com, mailto, LinkedIn, Instagram) n'ont pas été suivis.
+- Le déploiement : Tanguy redéploie depuis Lovable. Ce qui est vérifié ici est le build local, pas la version en ligne.
 
 ## 5. Pour finir
 
-1. Regarder la branche sur un téléphone : la prévisualiser depuis Lovable ou la déployer sur un environnement de test, puis faire glisser les trois rails et ouvrir les dépliants.
-2. Déposer les cinq vraies photos dans `public/img/` sous les mêmes noms ; ajuster `width`, `height` et `alt` dans `IMAGES` (`src/content/home.ts`).
-3. Coller le copy d'AUDIT.md dans `src/content/home.ts` en suivant le tableau du point 0.
-4. Relancer `npm run build`, `npx wrangler dev`, les quatre scripts de `verif/` et Lighthouse.
-5. Merger la PR, puis redéployer depuis Lovable.
+1. Remplacer les chaînes de `src/content/home.ts` par le texte validé, section par section (tableau en 0).
+2. Remplacer les médias sous les mêmes noms (vidéo, image d'arrêt, trois visuels clients, paysage), ajuster `width` et `height` dans `IMAGES` si les formats changent, relire les textes alternatifs.
+3. `npm run build`, `npx wrangler dev --port 4173`, puis `node verif/shots.mjs`, `node verif/webkit.mjs` et les deux commandes Lighthouse de `verif/README.md`. Comparer avec le tableau en 2 et 3.
+4. Ouvrir la version déployée sur un vrai téléphone : première image, vidéo, mot qui tourne, carrousel au doigt, bascule de ton, pied de page.
