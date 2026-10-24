@@ -1,5 +1,5 @@
 /**
- * The journal.
+ * Les articles d'avant la refonte, gardés tels quels.
  *
  * Articles are data rather than markdown files so every block is typed and
  * the same source feeds the page, the listing and the structured data. Each
@@ -109,7 +109,8 @@ export const ARTICLES: ReadonlyArray<Article> = [
   },
   {
     slug: "ou-vivent-vos-donnees-quand-vous-utilisez-lia",
-    title: "Où vivent vos données quand vous utilisez l'IA, et pourquoi la question se tranche au départ",
+    title:
+      "Où vivent vos données quand vous utilisez l'IA, et pourquoi la question se tranche au départ",
     summary:
       "La question de l'hébergement arrête la moitié des projets d'IA en entreprise, presque toujours trop tard. Les trois options réelles, et laquelle correspond à quelle situation.",
     question: "Mes données partent-elles à l'étranger si j'utilise l'IA dans mon entreprise ?",
@@ -170,60 +171,6 @@ export const ARTICLES: ReadonlyArray<Article> = [
       {
         kind: "p",
         text: "Cet article décrit une pratique d'ingénierie et ne remplace pas un avis juridique. Pour un cas soumis au secret professionnel, faites valider le montage par votre conseil avant de signer quoi que ce soit.",
-      },
-    ],
-  },
-  {
-    slug: "pourquoi-chatgpt-cite-votre-concurrent",
-    title: "Pourquoi ChatGPT cite votre concurrent et pas vous",
-    summary:
-      "Vos clients demandent des recommandations à un assistant avant de chercher sur Google. Ce qui décide du nom cité n'est ni la taille, ni l'ancienneté, ni le budget.",
-    question: "Pourquoi les assistants IA citent-ils mon concurrent plutôt que mon entreprise ?",
-    answer:
-      "Parce qu'un assistant ne classe pas des sites, il cherche une réponse déjà écrite, attribuable à quelqu'un, sur la question exacte qu'on lui pose. Un site qui présente une entreprise ne répond à aucune question et ne fournit donc rien à citer. Un site qui répond aux questions que posent réellement ses clients devient la source que l'assistant reprend. Ce n'est presque jamais une affaire de taille, d'ancienneté ou de budget publicitaire.",
-    published: "2026-09-23",
-    readingMinutes: 5,
-    tag: "Visibilité",
-    blocks: [
-      {
-        kind: "p",
-        text: "Une partie de vos clients ne tape plus dans un moteur de recherche. Ils posent une question à un assistant, obtiennent deux ou trois noms, et appellent le premier. Vous ne verrez jamais ces clients dans vos statistiques : ils ne sont pas venus sur votre site, ils n'ont rempli aucun formulaire. C'est une perte qui ne laisse aucune trace, donc impossible à compter sans aller la chercher.",
-      },
-      { kind: "h2", text: "Ce qu'un assistant cherche réellement" },
-      {
-        kind: "p",
-        text: "Un moteur de recherche classe des pages et vous en propose dix. Un assistant doit répondre en trois lignes : il lui faut une affirmation qu'il peut reprendre et attribuer. Il cherche donc un passage qui se tient tout seul, sorti de son contexte, et qui répond précisément à ce qu'on lui a demandé.",
-      },
-      {
-        kind: "p",
-        text: "La plupart des sites d'entreprise ne contiennent aucun passage de ce type. Ils décrivent une société, listent des services, affichent des valeurs. Rien là-dedans ne répond à « quel prestataire pour tel besoin à tel endroit ». L'assistant va donc chercher ailleurs, chez quelqu'un qui a écrit la réponse.",
-      },
-      {
-        kind: "quote",
-        text: "Un site qui présente une entreprise ne répond à aucune question. Un site qui répond aux questions devient la source.",
-      },
-      { kind: "h2", text: "Ce qui ne joue presque pas" },
-      {
-        kind: "list",
-        items: [
-          "La taille de l'entreprise. Des structures d'une personne sont citées devant des groupes.",
-          "L'ancienneté. Une page publiée il y a six mois peut être reprise avant un site de quinze ans.",
-          "Le budget publicitaire. Les annonces n'entrent pas dans ce que lit un assistant.",
-          "L'esthétique du site. Elle compte pour l'humain qui arrive ensuite, pas pour la machine qui cite.",
-        ],
-      },
-      { kind: "h2", text: "Par où commencer" },
-      {
-        kind: "p",
-        text: "Avant d'écrire quoi que ce soit, il faut savoir où vous en êtes. Posez à plusieurs assistants la question exacte qu'un client poserait pour trouver un prestataire comme vous, dans votre région, et lisez les réponses mot pour mot. Notez les noms qui sortent. C'est votre point de départ, et il est souvent inconfortable.",
-      },
-      {
-        kind: "p",
-        text: "Ensuite, écrivez les réponses qui manquent. Une page par question réellement posée, avec la réponse dans les premières lignes plutôt qu'au bout d'une introduction. Et remesurez au mois suivant : les assistants réindexent à leur rythme, et seule la comparaison entre deux relevés dit quelque chose.",
-      },
-      {
-        kind: "p",
-        text: "C'est exactement ce que fait Mentia, un outil que j'édite : il pose les questions, relève qui est cité, publie les réponses manquantes et remesure chaque mois. Le scan est gratuit et ne demande pas de compte.",
       },
     ],
   },
@@ -305,7 +252,8 @@ export const ARTICLES: ReadonlyArray<Article> = [
     title: "ChatGPT, Copilot ou un agent sur mesure : lequel pour votre PME ?",
     summary:
       "Les trois ne répondent pas au même besoin, et l'ordre dans lequel on les adopte compte davantage que le choix lui-même. Ce qui se décide en dix minutes.",
-    question: "Faut-il un abonnement ChatGPT, Microsoft Copilot ou un agent IA sur mesure pour une PME ?",
+    question:
+      "Faut-il un abonnement ChatGPT, Microsoft Copilot ou un agent IA sur mesure pour une PME ?",
     answer:
       "Les trois répondent à des besoins différents et ne se remplacent pas. Un abonnement grand public (de l'ordre de 20 à 30 CHF par personne et par mois) sert à un individu qui rédige, résume ou réfléchit : il change le travail personnel et ne change aucun processus. Copilot a du sens dans une entreprise déjà entièrement sur Microsoft 365, parce qu'il lit les documents et les courriels en place. Un agent sur mesure ne se justifie que pour une tâche répétitive identifiée, dont le coût mensuel mesuré dépasse celui de la construction. L'ordre correct est : abonnements d'abord, mesure ensuite, développement en dernier.",
     published: "2026-09-23",

@@ -1,30 +1,39 @@
-# Vérification de la page d'accueil
+# Vérification du site
 
-Deux scripts Playwright, à lancer depuis la racine du dépôt contre le build servi en local.
-Ils ont produit `VERIF.md` et servent à refaire la même passe quand les vraies photos, la
-vraie vidéo et le texte validé seront en place.
+Scripts Playwright, à lancer depuis la racine du dépôt contre le build servi en local. Ils ont
+produit `VERIF.md` et servent à refaire la même passe quand les textes, les photos et la vidéo
+validés seront en place.
 
 ```bash
 npm run build
 npx wrangler dev --port 4173        # dans un autre terminal (jamais `vite dev` sur cette machine)
 npx playwright install chromium     # une seule fois ; `npx playwright install webkit` pour webkit.mjs
-node verif/shots.mjs                # 390x844, 768x1024, 1440x900 : premier écran (vidéo, mot qui tourne,
-                                    # deux lignes), sections et ton sombre vers clair, compteurs, carrousel
-                                    # (défilement 7 s, flèches, glisser, découverte de la photo), mur d'avis,
-                                    # accordéon, menu, pied de page collé, débordement, tirets longs, erreurs
-                                    # console, mouvement réduit, pages intérieures ; captures par écran et
+npm run verif                       # 390×844, 768×1024, 1440×900 : premier écran (titre révélé mot à
+                                    # mot, nappe WebGL), chaque section après son apparition, en-tête
+                                    # en verre, survol d'une ligne, panneau Métiers, FAQ, menu mobile,
+                                    # formulaire vide (messages, aucun envoi), tirets, débordement,
+                                    # images, erreurs console ; pages intérieures ; mouvement réduit ;
+                                    # redirections 301 ; 404 ; fichiers publics. Captures et
                                     # report.json dans verif/captures/
-node verif/webkit.mjs               # premier écran, parallaxe, ton clair et pied de page dans WebKit (moteur
-                                    # de Safari), 390x844
+npm run verif:webkit                # premier écran, parallaxe, bande de nuit, pied de page dans WebKit
+BASE_URL=http://localhost:4173 npm run verif:dashes -- --pages
+                                    # tirets longs et demi-cadratins : fichiers sources puis texte
+                                    # rendu de chaque page (sortie 1 s'il en reste)
 ```
 
-Variables : `BASE_URL` (défaut `http://localhost:4173/`), `OUT_DIR` (défaut `./verif/captures`).
+Variables : `BASE_URL` (défaut `http://localhost:4173`), `OUT_DIR` (défaut `./verif/captures`).
 
-Lighthouse (mobile puis bureau) :
+Lighthouse (mobile, sur l'accueil et sur /fiduciaires) :
 
 ```bash
-CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npx -y lighthouse@13.5.0 http://localhost:4173/ --output=html --output=json --output-path=./verif/captures/lighthouse-mobile --chrome-flags="--headless=new" --only-categories=performance,accessibility,best-practices,seo
-CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npx -y lighthouse@13.5.0 http://localhost:4173/ --preset=desktop --output=html --output=json --output-path=./verif/captures/lighthouse-desktop --chrome-flags="--headless=new" --only-categories=performance,accessibility,best-practices,seo
+CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npx -y lighthouse@13.5.0 http://localhost:4173/ --output=html --output=json --output-path=./verif/captures/lighthouse-accueil --chrome-flags="--headless=new" --only-categories=performance,accessibility,best-practices,seo
+CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npx -y lighthouse@13.5.0 http://localhost:4173/fiduciaires --output=html --output=json --output-path=./verif/captures/lighthouse-fiduciaires --chrome-flags="--headless=new" --only-categories=performance,accessibility,best-practices,seo
 ```
 
 Les captures (`verif/captures/`) ne sont pas versionnées.
+
+Autres générateurs :
+
+- `npm run og` : les images de partage (`public/og/*.jpg`), à relancer quand un titre change.
+- `npm run dossier:pdf` : le dossier sécurité (`public/dossier-securite-lx-studio.pdf`) depuis
+  `src/content/ia/securite.ts`, à relancer quand le contenu ou la version change.

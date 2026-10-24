@@ -8,8 +8,14 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "og": "node scripts/og.ts",
+    "dossier:pdf": "node scripts/dossier-pdf.ts",
+    "verif": "node verif/shots.mjs",
+    "verif:webkit": "node verif/webkit.mjs",
+    "verif:dashes": "node verif/dashes.mjs"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

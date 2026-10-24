@@ -9,7 +9,9 @@
 
 export const SITE_URL = "https://lxstudio.ch";
 export const SITE_NAME = "LX Studio";
-export const OG_IMAGE = `${SITE_URL}/og-image.png`;
+/** L'image de partage d'une page, générée par `npm run og` dans public/og/. */
+export const ogImage = (name: string) => `${SITE_URL}/og/${name}.jpg`;
+export const OG_IMAGE = ogImage("accueil");
 
 type MetaTag = Record<string, string>;
 type LinkTag = Record<string, string>;
@@ -25,13 +27,10 @@ export type PageSeo = {
 };
 
 /** Meta and link tags for one page, including canonical and Open Graph. */
-export function pageMeta({
-  path,
-  title,
-  description,
-  keywords,
-  image = OG_IMAGE,
-}: PageSeo): { meta: MetaTag[]; links: LinkTag[] } {
+export function pageMeta({ path, title, description, keywords, image = OG_IMAGE }: PageSeo): {
+  meta: MetaTag[];
+  links: LinkTag[];
+} {
   const url = path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 
   const meta: MetaTag[] = [
@@ -80,8 +79,9 @@ export const ORGANIZATION = {
   name: SITE_NAME,
   url: SITE_URL,
   description:
-    "Conseil et développement en intelligence artificielle pour les PME suisses : agents sur mesure, automatisation de processus métier et produits SaaS.",
+    "Installation d'intelligence artificielle sur site pour les fiduciaires, les administrations et les PME de Suisse romande : une machine dans vos locaux, une tâche précise qui tourne seule, aucune donnée qui quitte vos murs.",
   email: "contact@lxstudio.ch",
+  telephone: "+41 78 703 88 00",
   image: OG_IMAGE,
   founder: { "@id": `${SITE_URL}/#founder` },
   address: {
@@ -123,10 +123,10 @@ export const FOUNDER = {
     },
   },
   knowsAbout: [
-    "Intelligence artificielle appliquée aux PME",
-    "Automatisation de processus métier",
-    "Agents IA sur site et souveraineté des données",
-    "Visibilité des marques dans les assistants IA",
+    "Intelligence artificielle installée sur site",
+    "Automatisation administrative des fiduciaires et des PME",
+    "Souveraineté des données et nLPD",
+    "Intégration Bexio",
   ],
 } as const;
 
@@ -137,10 +137,7 @@ export const FOUNDER = {
  * for an answer finds one already written, already scoped, already attributed.
  * Answers are written to stand alone, out of the page's context.
  */
-export function faqSchema(
-  pageId: string,
-  entries: ReadonlyArray<{ q: string; a: string }>,
-) {
+export function faqSchema(pageId: string, entries: ReadonlyArray<{ q: string; a: string }>) {
   return {
     "@type": "FAQPage",
     "@id": `${SITE_URL}${pageId}#faq`,
@@ -152,9 +149,7 @@ export function faqSchema(
   };
 }
 
-export function breadcrumbs(
-  trail: ReadonlyArray<{ name: string; path: string }>,
-) {
+export function breadcrumbs(trail: ReadonlyArray<{ name: string; path: string }>) {
   return {
     "@type": "BreadcrumbList",
     itemListElement: trail.map((item, index) => ({
@@ -177,6 +172,34 @@ export function webPage({ path, title, description }: PageSeo) {
     inLanguage: "fr-CH",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#organization` },
+  };
+}
+
+/** Un article signé, rattaché au fondateur et au studio. */
+export function articleSchema(r: {
+  slug: string;
+  title: string;
+  summary: string;
+  published: string;
+  author: string;
+  keyword?: string;
+}) {
+  const url = `${SITE_URL}/ressources/${r.slug}`;
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: r.title,
+    description: r.summary,
+    keywords: r.keyword,
+    datePublished: r.published,
+    dateModified: r.published,
+    inLanguage: "fr-CH",
+    url,
+    image: ogImage(r.slug),
+    author: { "@type": "Person", "@id": `${SITE_URL}/#founder`, name: r.author },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    mainEntityOfPage: url,
   };
 }
 
