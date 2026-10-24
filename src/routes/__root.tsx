@@ -2,84 +2,46 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 
 import appCss from "../styles.css?url";
 import { WEBSITE, ORGANIZATION, FOUNDER, jsonLd } from "@/lib/seo";
+import { IaPage } from "@/components/ia/Shell";
+import { IconArrow } from "@/components/ia/icons";
 
 /**
- * Root shell.
- *
- * Only site-wide concerns live here: the stylesheet, analytics, and the
- * publisher graph that every page's structured data refers back to. Titles,
- * descriptions and canonical URLs belong to each route, because a single
- * shared title is what makes a multi-page site look like one page to a
- * crawler.
+ * La coque racine. Seul ce qui vaut pour tout le site vit ici : la feuille
+ * de style, la police, la mesure d'audience et le graphe de l'éditeur. Les
+ * titres, descriptions et canoniques appartiennent à chaque route.
  */
 
 function NotFoundComponent() {
   return (
-    <div
-      style={{
-        minHeight: "100svh",
-        display: "grid",
-        placeItems: "center",
-        background: "var(--bg)",
-        padding: "1.5rem",
-      }}
-    >
-      <div style={{ maxWidth: "30rem", textAlign: "center" }}>
-        <p
-          style={{
-            fontSize: "0.6875rem",
-            fontWeight: 600,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--accent-text)",
-          }}
-        >
-          Erreur 404
-        </p>
-        <h1
-          style={{
-            marginTop: "1rem",
-            fontSize: "clamp(1.75rem, 5vw, 2.5rem)",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-          }}
-        >
-          Cette page n'existe pas.
-        </h1>
-        <p
-          style={{
-            marginTop: "0.75rem",
-            fontSize: "0.9375rem",
-            color: "var(--text-muted)",
-            lineHeight: 1.7,
-          }}
-        >
-          Le lien est peut-être ancien. Voici les pages principales du site.
-        </p>
-        <div
-          style={{
-            marginTop: "2rem",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "0.75rem",
-            justifyContent: "center",
-          }}
-        >
-          <Link to="/" className="btn btn-primary pressable">
-            Accueil
-          </Link>
-          <Link to="/fiduciaire" className="btn btn-secondary pressable">
-            Agent fiduciaire
-          </Link>
-          <Link to="/mentia" className="btn btn-secondary pressable">
-            Mentia
-          </Link>
-          <Link to="/athlit" className="btn btn-secondary pressable">
-            Athlit
-          </Link>
+    <IaPage>
+      <section className="ia-plain">
+        <div className="ia-container">
+          <div className="ia-article">
+            <p className="ia-eyebrow">
+              <span className="ia-eyebrow-line" aria-hidden="true" />
+              Erreur 404
+            </p>
+            <h1 style={{ marginTop: 18 }}>Cette page n'existe pas.</h1>
+            <p>Le lien est peut-être ancien. Voici les pages principales du site.</p>
+            <div className="ia-btn-row" style={{ marginTop: 28 }}>
+              <Link to="/" className="ia-btn is-primary">
+                Accueil
+                <IconArrow />
+              </Link>
+              <Link to="/fiduciaires" className="ia-btn is-outline">
+                Fiduciaires
+              </Link>
+              <Link to="/securite" className="ia-btn is-outline">
+                Sécurité
+              </Link>
+              <Link to="/ressources" className="ia-btn is-outline">
+                Ressources
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </IaPage>
   );
 }
 
@@ -88,17 +50,24 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#050a24" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "apple-touch-icon", href: "/favicon.svg" },
+      {
+        rel: "preload",
+        as: "font",
+        href: "/fonts/manrope-latin-wght-normal.woff2",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
     ],
     scripts: [
-      // Runs in <head>, before the body is parsed, so revealed blocks start
-      // hidden without a flash of the final state. Everything stays visible
-      // when this never runs, which is the case for crawlers and for anyone
-      // with scripting off.
+      // Dans <head>, avant le corps : les blocs révélés partent cachés sans
+      // éclair de l'état final. Sans script (robots, scripting coupé), tout
+      // reste visible.
       { children: "document.documentElement.classList.add('js')" },
       {
         src: "https://plausible.io/js/script.js",

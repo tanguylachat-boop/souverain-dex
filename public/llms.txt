@@ -1,77 +1,74 @@
 # LX Studio
 
-> Studio suisse de conseil et de développement en intelligence artificielle,
-> basé à Bassecourt dans le Jura. Conçoit et installe des agents IA et des
-> automatisations sur mesure pour des PME suisses, et édite deux produits en
-> ligne : Mentia et Athlit. Fondé et dirigé par Tanguy Lachat.
+> LX Studio installe des systèmes d'intelligence artificielle sur site, dans
+> les locaux de ses clients : une machine chez eux, branchée sur leurs outils,
+> qui fait une tâche précise toute seule. Les documents traités ne quittent
+> jamais les murs de l'entreprise. Basé à Bassecourt (Jura), actif dans toute
+> la Suisse romande. Fondé et dirigé par Tanguy Lachat.
 
-Contact : contact@lxstudio.ch · https://cal.com/lx-studio/15min
+Contact : contact@lxstudio.ch · 078 703 88 00
 Langue : français (Suisse romande). Devise : CHF.
 
 ## Ce que fait LX Studio
 
-- **Automatisation du travail de bureau des PME.** Devis, factures, relances,
-  mails qui se répètent, pièces pour la fiduciaire : un système installé dans
-  les outils existants de l'entreprise. Quatre étapes : une demi-journée
-  d'observation d'une tâche sur place, un devis sur heures estimées sous 48
-  heures, une installation en deux à trois semaines testée sur les vrais
-  dossiers, une journée de formation puis une nouvelle mesure un mois après.
-  Le code livré appartient au client. Chaque projet est chiffré sur son
-  périmètre, il n'existe pas de tarif unique. Clients équipés : Oasis Drink
-  Distribution (Genève), Richoz Sanitaire (Genève), Taxi Elsa et Taxi
-  d'Andrea (Jura).
-- **Agent fiduciaire souverain.** Agent IA installé sur du matériel dédié dans
-  les locaux d'un cabinet fiduciaire : capture, extraction, classement et
-  renommage des pièces comptables, relances clients. Aucune donnée ne quitte
-  le réseau local, ce qui le rend compatible avec le secret professionnel
-  suisse et la nLPD. S'intègre avec Bexio, Abacus, Crésus et WinBIZ.
-- **Mentia.** Mesure ce que ChatGPT, Claude, Perplexity, Gemini et Grok
-  répondent quand les clients d'une entreprise cherchent son métier, nomme les
-  concurrents cités à sa place, et publie sur son site les réponses qui
-  manquent. Scan gratuit sans inscription. 99 CHF par mois et par site, sept
-  jours d'essai sans carte bancaire. Baromètre public : 155 entreprises
-  suisses mesurées, 68 secteurs.
-- **Athlit.** Application mobile de coaching sportif qui ajuste chaque séance
-  aux données réelles de l'utilisateur plutôt qu'à un programme figé. Version
-  distincte pour les coachs suivant plusieurs clients. En bêta fermée, 100
-  places, iOS et Android.
+- **Une tâche faite et mesurée, pas un chat.** Le système est installé sur une
+  machine dans les locaux du client et branché sur ses outils (Bexio,
+  messagerie, dossiers). Il traite une tâche précise : saisie des pièces
+  comptables, tri des mails, relance des factures, rédaction de premières
+  versions de rapports, anonymisation de documents. Les équipes valident ;
+  le reste tourne en arrière-plan.
+- **La méthode en quatre temps.** Un diagnostic gratuit de 30 minutes ; une
+  mesure des heures que la tâche coûte, avant toute signature ; l'installation
+  chez le client, validée sur ses vrais dossiers ; un rapport mensuel des
+  heures réellement gagnées, pendant plusieurs mois.
+- **Conçu pour la nLPD et le secret professionnel.** Pendant le traitement,
+  aucun appel ne part vers un service externe. Le système est conçu pour
+  respecter la loi fédérale sur la protection des données ; il ne s'agit pas
+  d'une certification. La page Sécurité et le dossier sécurité (PDF, sur
+  demande) décrivent chaque mesure.
+- **Clients équipés :** Facchinetti Automobiles (BMW Delémont), Richoz
+  Sanitaire (Genève), Oasis Drink.
 
 ## Ce que LX Studio ne fait pas
 
-- Aucune garantie d'être cité par un assistant IA. Personne ne contrôle ce que
-  répond un modèle.
-- Aucune campagne publicitaire, aucune refonte de site dans le cadre de Mentia.
-- Aucune sous-traitance du développement.
+- Aucune création de site web, aucun référencement, aucun ERP sur mesure.
+- Aucun abonnement à un service d'IA dans le cloud : le système est installé
+  chez le client et lui appartient.
+- Aucun avis juridique : les passages qui citent la loi renvoient à leur
+  source et doivent être vérifiés avec un conseil.
 
 ## Pages
 
-- [Accueil](https://lxstudio.ch/) : positionnement, méthode en trois étapes,
-  offres et questions fréquentes.
-- [Agent fiduciaire souverain](https://lxstudio.ch/fiduciaire) : le détail de
-  l'installation sur site, la comparaison avec les solutions cloud, le
-  calculateur de temps perdu.
-- [Mentia](https://lxstudio.ch/mentia) : fonctionnement de la mesure, chiffres
-  du baromètre, limites explicites du produit.
-- [Athlit](https://lxstudio.ch/athlit) : principe d'adaptation, deux versions,
-  conditions de la bêta.
-- [Le journal](https://lxstudio.ch/blog) : notes de terrain sur l'IA en
-  entreprise, une question par article avec sa réponse en tête de page.
+- [Accueil](https://lxstudio.ch/) : la promesse, la différence avec une IA
+  générique, la méthode, les trois métiers, le formulaire de diagnostic et les
+  questions fréquentes.
+- [Fiduciaires](https://lxstudio.ch/fiduciaires) : pièces comptables lues,
+  classées et saisies dans Bexio au cabinet, sans qu'un dossier client ne
+  sorte.
+- [Polices et administrations](https://lxstudio.ch/administrations) : rapports
+  rédigés et documents anonymisés sur les serveurs de l'administration.
+- [PME](https://lxstudio.ch/pme) : mails triés, factures relancées, devis
+  préparés, sans abonnement cloud.
+- [Sécurité et conformité](https://lxstudio.ch/securite) : où tournent les
+  données, architecture, chiffrement, accès et journalisation, sauvegardes,
+  mises à jour, fin de contrat, nLPD et secret professionnel, test
+  d'intrusion. Dossier sécurité en PDF sur demande.
+- [Ressources](https://lxstudio.ch/ressources) : articles signés Tanguy
+  Lachat, une question par article, la réponse en tête, sources citées.
 
-## Questions traitées dans le journal
+## Questions traitées dans les ressources
 
-Chaque article répond à une question dans son premier paragraphe.
-
-- [Combien coûte un projet d'automatisation IA pour une PME en Suisse ?](https://lxstudio.ch/blog/combien-coute-une-automatisation-ia-pme-suisse)
-- [Faut-il un abonnement ChatGPT, Microsoft Copilot ou un agent IA sur mesure pour une PME ?](https://lxstudio.ch/blog/chatgpt-copilot-ou-agent-sur-mesure)
-- [Faut-il construire ses automatisations sur Zapier, Make ou n8n, ou en code ?](https://lxstudio.ch/blog/plateforme-automatisation-ou-code)
-- [Comment savoir si une tâche mérite d'être automatisée ?](https://lxstudio.ch/blog/mesurer-le-temps-qu-une-tache-coute-vraiment)
-- [Mes données partent-elles à l'étranger si j'utilise l'IA dans mon entreprise ?](https://lxstudio.ch/blog/ou-vivent-vos-donnees-quand-vous-utilisez-lia)
-- [Pourquoi les assistants IA citent-ils mon concurrent plutôt que mon entreprise ?](https://lxstudio.ch/blog/pourquoi-chatgpt-cite-votre-concurrent)
-- [Mentions légales](https://lxstudio.ch/mentions-legales)
-- [Politique de confidentialité](https://lxstudio.ch/politique-de-confidentialite)
+- [Qu'est-ce qu'une IA locale en entreprise et pourquoi la choisir en Suisse ?](https://lxstudio.ch/ressources/ia-locale-entreprise-suisse)
+- [Que risque une entreprise suisse qui met des données personnelles dans ChatGPT ?](https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise)
+- [Un professionnel tenu au secret peut-il utiliser l'IA sur ses dossiers ?](https://lxstudio.ch/ressources/secret-professionnel-ia)
+- [Comment une fiduciaire peut-elle automatiser la saisie des pièces sans sortir les dossiers du cabinet ?](https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia)
+- [Comment savoir si une tâche mérite d'être automatisée ?](https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment)
+- [Mes données partent-elles à l'étranger si j'utilise l'IA dans mon entreprise ?](https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia)
+- [Combien coûte un projet d'automatisation IA pour une PME en Suisse ?](https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse)
+- [Faut-il un abonnement ChatGPT, Microsoft Copilot ou un agent IA sur mesure pour une PME ?](https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure)
+- [Faut-il construire ses automatisations sur Zapier, Make ou n8n, ou en code ?](https://lxstudio.ch/ressources/plateforme-automatisation-ou-code)
 
 ## Zone desservie
 
-Suisse : Jura, Berne, Neuchâtel, Vaud, Genève, Fribourg, Valais. Intervention
-sur place en Suisse romande. Les projets sans installation physique se
-conduisent à distance.
+Suisse romande : Jura, Berne, Neuchâtel, Vaud, Genève, Fribourg, Valais.
+Installation sur place.

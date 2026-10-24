@@ -1,124 +1,165 @@
-# VERIF.md : page d'accueil refaite sur le modèle de levupp.com (branche `refonte-levupp`)
+# Vérification : refonte « IA locale » (branche `refonte-ia-locale`, 24.10.2026)
 
-Date : 06.10.2026, mis à jour le 07.10.2026 (branche `hero-motion` : motion design SVG à la place de la vidéo du premier écran, qui rendait mal sur téléphone). État : `npm run typecheck` 0 erreur, `npm run lint` propre, build Vite OK, servi en local avec `wrangler dev`.
-Audit de la page de référence : `docs/levupp-audit.md`. Scripts : `verif/` (voir `verif/README.md`). Captures et rapports dans `verif/captures/` (non versionnés).
+Build servi en local par `npx wrangler dev --port 4173` (aucun serveur de dev sur cette machine),
+passé au crible par `verif/shots.mjs`, `verif/webkit.mjs`, `verif/dashes.mjs` et Lighthouse 13.5
+(mobile). Captures dans `verif/captures/` (non versionnées) ; planches de l'accueil dans
+`docs/captures/`, rapports Lighthouse dans `docs/lighthouse/`.
 
-## 0. Ce qui reste provisoire, à lire avant le diff
+## 1. Ce qui passe
 
-**Le texte.** Comme pour les deux versions précédentes, AUDIT.md n'existe pas. Le texte est celui validé pour la version en sept écrans, réparti dans la nouvelle structure, sous les mêmes contraintes : vouvoiement, français de Suisse, aucun tiret long, aucun chiffre inventé, aucun prix affiché (chaque offre a son prix, Tanguy valide tous les devis). Tout est dans `src/content/home.ts`, à remplacer chaîne par chaîne sans toucher aux composants :
-
-| Section | Constante |
+| Contrôle | Résultat |
 | --- | --- |
-| Nav (liens, sous-liens, bouton) | `NAV` |
-| Premier écran (mots qui tournent, suite du titre, intro, deux boutons) | `HERO`, `HERO_VIDEO` |
-| Quatre chiffres | `STATS` |
-| Résultats clients (carrousel, trois clients) | `WORKS` |
-| Mur de faits (douze cartes) | `WALL` |
-| Comparatif (cinq lignes, quatre colonnes) | `COMPARE` |
-| Méthode (trois cartes, jalons, outils, badges) | `METHOD` |
-| Ce qui est compris (douze lignes) | `INCLUDED` |
-| Seuil (phrase de bascule) | `THRESHOLD` |
-| Tarifs (deux cartes, sans montant) | `PRICING` |
-| Questions (sept) | `FAQ` |
-| Réserver (titre, bouton, paysage) | `CONTACT` |
-| Pied de page | `FOOTER` |
-| Titre, description, mots-clés | `SEO`, `SERVICE_DESCRIPTION` |
+| `npm run typecheck` | 0 erreur |
+| `npm run lint` | 0 erreur, 3 avertissements react-refresh (fichiers qui exportent un composant et une fonction : `text.tsx`, `MetierPage.tsx`, `router.tsx`) |
+| `npm run build` | passe ; arbre des routes régénéré |
+| Tirets longs et demi-cadratins | 0 dans 42 fichiers sources, 0 dans le texte rendu et les balises des 17 pages |
+| Erreurs console / pageerror | 0 sur l'accueil (3 écrans) et sur les 8 pages intérieures (2 écrans) |
+| Débordement horizontal | aucun, 390 / 768 / 1440 |
+| Images sans `alt` ou sans `width` | 0 |
+| Un seul `h1` par page | oui, sur chaque page |
+| Police rendue | Manrope (auto-hébergée, preload du latin) |
+| Redirections | `/fiduciaire` → `/fiduciaires`, `/mentia` → `/`, `/athlit` → `/`, `/blog` → `/ressources`, `/blog/<slug>` → `/ressources/<slug>`, `/blog/pourquoi-chatgpt-cite-votre-concurrent` → `/` : toutes en 301, côté serveur (routes) et dans `public/_redirects` |
+| 404 | `/ressources/inconnu` répond 404 avec la page « Cette page n'existe pas » |
+| Fichiers publics | sitemap.xml, robots.txt, llms.txt, polices, images OG en 200 ; le PDF du dossier en 200 avec `X-Robots-Tag: noindex, nofollow` |
+| Mouvement réduit | classe `ia-motion-off`, 0 bloc caché, 0 mot masqué, nappe CSS immobile |
+| WebKit (390×844) | premier écran 726 px, nappe WebGL active, 11/11 mots révélés, 3 lignes de titre, parallaxe `--hp` qui bouge, pied de page avec sa nappe, 0 erreur |
 
-**Les images.** Aucun média de levupp.com n'a été repris. Les nôtres sont provisoires :
+### Lighthouse mobile (Chrome headless, 4× de ralentissement CPU)
 
-| Fichier | Usage | État |
-| --- | --- | --- |
-| Premier écran : aucun fichier | Motion design SVG (`HeroScene.tsx`) : cinq documents (devis, facture, relance, mail, pièces) qui filent vers le système et ressortent validés | Définitif, sauf changement des cinq étiquettes dans `HERO_SCENE`. La vidéo provisoire et son image d'arrêt sont supprimées |
-| `public/img/factures-relance.webp`, `chantier-telephone.webp`, `bureau-soir.webp` | Visuels des trois résultats clients | Provisoires, mention « image provisoire » dans le coin |
-| `public/img/paysage.jpg` (1600×900, 276 Ko) | Paysage de la section Réserver, avec parallaxe | Photo de banque (picsum). À remplacer par une photo de la région ou à retirer |
-| `public/img/tanguy.jpg` | Photo de l'équipe (méthode) | Vraie photo |
-| `public/tools/*.svg` | Logos d'outils dans la méthode | Simple Icons (CC0) |
-| `public/fonts/Geist-Variable.woff2`, `GeistMono-Variable.woff2` | Police du site | Geist (licence OFL, `LICENSE-Geist.txt`). Levupp utilise Roobert, non reprise |
+| Page | Performance | Accessibilité | Bonnes pratiques | SEO | FCP | LCP | TBT | CLS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `/` | 97 | 100 | 100 | 100 | 1,7 s | 2,3 s | 40 ms | 0 |
+| `/fiduciaires` | 98 | 100 | 100 | 100 | 1,8 s | 2,1 s | 0 ms | 0 |
 
-**Chiffres.** Les quatre chiffres du bandeau (4 clients, 1 interlocuteur, 48 h, 15 min) viennent du texte validé. Les résultats clients disent « mesure en cours » quand la mesure manque.
+Avant correction, l'accueil était à 67 (TBT 1 460 ms) : le `filter: drop-shadow` sur le SVG de la
+machine et ses animations internes forçaient un repeint complet à chaque image. Le flottement anime
+désormais l'enveloppe, l'ombre est dessinée dans le SVG, et les animations internes ne tournent que
+sur écran large avec une souris (`@media (hover: hover) and (min-width: 761px)`).
 
-## 1. Ce qui a été construit
+### Poids au premier chargement (gzip)
 
-Même architecture que levupp.com, section par section, avec les mécaniques de mouvement refaites en CSS et dans un petit script maison (aucune librairie d'animation, aucun code, texte, image, vidéo ou police repris de la page de référence). Détail de la transposition dans `docs/levupp-audit.md`, section 3.
+| Fichier | Poids |
+| --- | --- |
+| JS principal (React 19, TanStack Router et Start, effets, nappe WebGL) | 141 Ko |
+| JS de la page d'accueil | 2 Ko |
+| Validation et envoi des formulaires (zod + appel serveur), chargés au premier envoi seulement | 12,5 Ko + 2 Ko |
+| CSS (remise à zéro Tailwind + `styles/ia.css`) | 10 Ko |
+| Police Manrope (latin, preload) | 25 Ko |
 
-| Écran | Composant | Mouvement |
-| --- | --- | --- |
-| Nav | `Nav.tsx` | Pastille centrée de 340 px, classe `solid` après 24 px de défilement, menu qui s'ouvre dans la pastille (liens lettre par lettre, sous-liens, bouton), voile flouté, Échap ferme |
-| Premier écran | `Hero.tsx`, `HeroScene.tsx` | Motion design SVG animé en SMIL (deux chemins, période 11 s, une carte toutes les 2,2 s, coche de sortie), qui démarre avec le document et se met en pause hors écran, parallaxe 0,13 × défilement, mot qui tourne toutes les 3,4 s lettre par lettre, apparition dès le premier rendu (animation CSS, sans attendre le script) |
-| Chiffres | `Stats.tsx` | Compteurs 1150 ms, quatre icônes animées (tuiles, noyau, calendrier, jauge) |
-| Résultats | `Works.tsx` | Carrousel trois clients, barre de progression 7 s, flèches, glisser au doigt, pause hors écran, photo révélée par `clip-path` |
-| Mur de faits | `Wall.tsx` | Trois colonnes qui défilent en continu, colonne centrale en sens inverse, statique sous 760 px |
-| Comparatif | `Compare.tsx` | Tableau cinq lignes, première colonne surlignée |
-| Méthode | `Approach.tsx` | Trois cartes décalées à l'apparition avec illustrations animées (noyau et satellites, règle à jalons, points après la mise en service), bento outils en deux rangées opposées, photo et badges à compteur |
-| Compris | `Included.tsx` | Feuille inclinée en perspective, douze lignes qui entrent une à une, à plat au survol |
-| Seuil | `Threshold.tsx` | Phrase de bascule ; le ton de la page passe du sombre au clair ici |
-| Tarifs | `Pricing.tsx` | Deux cartes en perspective, à plat au survol, sans montant |
-| Questions | `Questions.tsx` | Colonne gauche collante, accordéon `grid-template-rows` |
-| Réserver | `Contact.tsx` | Paysage avec parallaxe, dégradés vers le pied de page |
-| Pied de page | `Footer.tsx` | Collé en bas de l'écran et découvert par le contenu (sticky), en flux normal quand il est plus haut que l'écran |
+Le JS principal est le plancher du cadre (TanStack Start) : aucune bibliothèque d'animation, aucun
+composant tiers, pas de zod avant l'envoi d'un formulaire.
 
-Fichiers : `src/styles/home.css` (3180 lignes, tous les styles de la page sous `.lx`), `src/components/home/` (treize composants, `effects.ts`, `text.tsx`), `src/content/home.ts`, `src/routes/index.tsx`. Les pages intérieures (`/fiduciaire`, `/mentia`, `/athlit`, `/blog`) reçoivent la nouvelle nav et le nouveau pied de page via `src/components/site/Page.tsx`. Quatorze composants de l'ancienne page d'accueil supprimés.
+## 2. Ce qui a été vérifié à l'écran
 
-## 2. Vérifications faites (Chromium, `verif/shots.mjs`)
+Accueil, 390×844 (tactile), 768×1024, 1440×900 :
 
-Trois écrans : 390×844 (téléphone), 768×1024 (tablette), 1440×900 (bureau). Rapport complet dans `verif/captures/report.json`.
+- premier écran : nappe WebGL en place (`canvas.is-on`), titre révélé mot par mot (11/11 à 2,6 s),
+  3 lignes à 70,56 px sur bureau et 32,76 px sur téléphone, boutons dans le premier écran, en-tête
+  en clair sur la nuit (`is-over`) puis en verre après 60 px (`is-scrolled`, fond à 74 %) ;
+- chaque section capturée après son apparition : démo (cadre en attente), références, problème,
+  différence (bande de nuit, nappe WebGL sur bureau et tablette, dégradés CSS sur téléphone),
+  méthode, métiers, ressources, formulaire, questions, pied de page ;
+- survol d'une ligne de la méthode : fond blanc, décalage de 24 px ; panneau « Métiers » visible au
+  survol ;
+- questions : une seule ouverte à la fois (ouvrir la 2e puis la 4e ferme la 2e) ;
+- formulaire envoyé vide : 7 messages sous les champs, 0 appel serveur ;
+- menu mobile : ouvert, 6 entrées, corps verrouillé, fermé à la touche Échap ;
+- bouton de retour en haut visible après 600 px.
 
-| Contrôle | Téléphone | Tablette | Bureau |
-| --- | --- | --- | --- |
-| Motion design en lecture au premier écran (SVG présent, animations non suspendues, horloge qui avance) | oui | oui | oui |
-| Titre sur deux lignes, police Geist | oui | oui | oui |
-| Mot qui tourne (« Les devis » puis « Les relances » après 3,4 s) | oui | oui | oui |
-| Compteurs arrivés à 4, 1, 48, 15 (et 4, 4 dans la méthode) | oui | oui | oui |
-| Carrousel : panneau 1 après 7 s, flèche vers le 3, onglets `aria-selected`, photo révélée | oui | oui | oui |
-| Glisser au doigt change de panneau | oui | oui | sans objet |
-| Mur de faits en mouvement | non, statique (voulu) | oui | oui |
-| Ton 0 jusqu'à « Compris », 1 avec encre sombre dès « Seuil » | oui | oui | oui |
-| Accordéon des questions | oui | oui | oui |
-| Pied de page collé et découvert (sticky) | non, en flux (882 px pour 844 d'écran) | oui | oui |
-| Menu : ouverture, fermeture | oui | oui | oui |
-| Débordement horizontal | aucun | aucun | aucun |
-| Tirets longs dans le texte rendu | 0 | 0 | 0 |
-| Erreurs console | 0 | 0 | 0 |
-| Images sans texte alternatif | 0 | 0 | 0 |
+Pages intérieures (390 et 1440) : `/fiduciaires`, `/administrations`, `/pme`, `/securite`,
+`/ressources`, un article, mentions légales, politique de confidentialité : 200, un `h1`, titre et
+canonique propres, image OG dédiée, 2 blocs JSON-LD, 0 erreur.
 
-Mouvement réduit (`prefers-reduced-motion`) : tout est posé (0 élément caché), la scène du premier écran est figée sur une image du milieu de sa boucle, le mur est statique, un seul mot du titre est affiché.
+## 3. SEO et GEO
 
-Pages intérieures : `/fiduciaire`, `/mentia`, `/athlit`, `/blog` répondent 200, avec la nav et le pied de page, sans débordement ni erreur console.
-
-WebKit (moteur de Safari, 390×844, `verif/webkit.mjs`) : scène en lecture, titre sur deux lignes, mot qui tourne, parallaxe de 52 px à 400 px de défilement, bascule du ton au niveau des tarifs, pied de page en flux, aucun débordement, 0 erreur.
-
-## 3. Performance et accessibilité (Lighthouse 13.5, Chrome headless, build servi par wrangler)
-
-| | Performance | Accessibilité | Bonnes pratiques | SEO | FCP | LCP | TBT | CLS | Speed Index |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mobile (4G lente simulée, CPU ralenti 4×) | 93 | 100 | 100 | 100 | 2,0 s | 3,0 s | 0 ms | 0 | 2,0 s |
-| Bureau | 100 | 100 | 100 | 100 | 0,5 s | 0,6 s | 0 ms | 0 | 0,5 s |
-
-Poids transféré : 355 Kio (139 Kio de polices, 135 Kio de script, 41 Kio d'images, 26 Kio de CSS, 15 Kio de document). Avec la vidéo du 06.10, c'était 1 609 Kio, dont 1 206 Kio de vidéo. Le SVG animé du premier écran coûte environ 10 % d'un processeur ralenti quatre fois en recalculs de style (trace Chromium), rien en réseau.
-
-La première passe donnait 39 en performance (LCP 3,1 s, TBT 1 570 ms, CLS 1) et 94 en accessibilité. Corrigé depuis :
-
-- Pied de page collé en CSS (`position: sticky`) au lieu d'un passage en `fixed` par le script après le rendu : le décalage de mise en page disparaît (CLS 1 → 0).
-- Vidéo sans préchargement, source posée 400 ms après `load` ; halo du premier écran sans mode de fusion : le fil principal est libre (TBT 1 570 → 0 ms).
-- Premier écran visible dès le premier rendu : l'apparition du titre, de l'intro et des boutons est une animation CSS, plus une transition déclenchée par le script. Avant, le premier écran restait vide jusqu'à l'hydratation, environ trois secondes sur un téléphone lent.
-- Contraste : texte estompé à 52 % d'encre (au moins 4,5:1 sur fond sombre et sur fond clair), libellés du pied de page à 52 %.
-- Cibles tactiles : liens du bas du pied de page, lien mail et lien « Ou écrire un mail » à 32 px de haut au moins.
-- Police de secours « Geist Fallback » (Arial ou Helvetica ajustées aux métriques de Geist, largeur mesurée dans le navigateur) pour que le texte ne bouge pas si Geist arrive après le premier rendu.
-
-Le LCP mobile de 3,2 s est celui du paragraphe d'intro du premier écran, compté quand son animation d'entrée le rend visible. Le titre lui-même entre lettre par lettre depuis l'invisible et Chrome ne le compte pas. C'est le prix de l'apparition copiée de la référence ; sur une vraie 4G, le premier écran apparaît bien avant.
+- `lang="fr-CH"`, titre et description uniques par page, canonique, hreflang fr-CH / x-default,
+  Open Graph et Twitter avec une image par page (`public/og/*.jpg`, générées par `npm run og`).
+- JSON-LD : Organization (ProfessionalService avec adresse, téléphone, cantons), Person (fondateur),
+  WebSite ; par page : WebPage ou CollectionPage, BreadcrumbList, Service (accueil et métiers),
+  FAQPage (accueil, métiers, chaque article avec sa question), Article (chaque ressource), ItemList
+  (liste des ressources).
+- `sitemap.xml` (15 URL), `robots.txt` (crawlers d'assistants autorisés), `llms.txt` réécrit pour le
+  nouveau positionnement.
+- Mentions légales et politique de confidentialité en `noindex, follow`.
 
 ## 4. Ce qui n'a PAS été testé
 
-- Aucun vrai téléphone ni vrai Safari iOS : WebKit via Playwright seulement. Le motion design du premier écran (fluidité du SVG animé sur un processeur de téléphone), le pied de page et la bascule de ton sont à revoir sur un iPhone avant tout déploiement.
-- Aucune vraie connexion lente : les chiffres mobiles sont une simulation Lighthouse.
-- Windows et Android : la police de secours est calibrée sur l'Arial de macOS. Sur Android, sans Arial, le navigateur retombe sur Roboto sans ajustement.
-- Clavier seul et lecteur d'écran : seuls les contrôles automatiques (Lighthouse, attributs ARIA du carrousel, de l'accordéon et du menu) ont tourné.
-- Les liens sortants (cal.com, mailto, LinkedIn, Instagram) n'ont pas été suivis.
-- Le déploiement : Tanguy redéploie depuis Lovable. Ce qui est vérifié ici est le build local, pas la version en ligne.
+- **L'envoi réel des mails.** Sans `RESEND_API_KEY` et `MAIL_FROM`, `lib/contact.ts` simule l'envoi
+  et répond `delivered: false` : le formulaire affiche le succès mais rien ne part. À tester sur
+  l'aperçu publié une fois les deux variables posées (secrets du projet, jamais dans le code).
+- **La page publiée par Lovable.** Vérifié sur wrangler en local, pas sur l'URL de prévisualisation ;
+  `_redirects` et `_headers` dépendent de l'hébergeur (les redirections sont aussi faites par les
+  routes, donc sûres ; l'en-tête `noindex` du PDF ne l'est que si l'hébergeur lit `_headers`).
+- **Un vrai téléphone.** WebKit et Chromium émulés seulement ; rendu de la nappe WebGL et du
+  `backdrop-filter` à vérifier sur un iPhone réel.
+- **Lighthouse bureau** et les pages autres que `/` et `/fiduciaires`.
+- **Le PDF ouvert depuis le formulaire** : `window.open` après l'appel serveur peut être bloqué par
+  un bloqueur de fenêtres ; le lien de secours est affiché dans le message de succès.
+- **`VITE_SHOW_CCHBC=true`** : la référence Coca-Cola HBC n'a pas été affichée (variable absente),
+  son logo manque de toute façon.
 
-## 5. Pour finir
+## 5. Les trous à combler (tous visibles en jaune sur le site)
 
-1. Remplacer les chaînes de `src/content/home.ts` par le texte validé, section par section (tableau en 0).
-2. Remplacer les médias sous les mêmes noms (trois visuels clients, paysage), ajuster `width` et `height` dans `IMAGES` si les formats changent, relire les textes alternatifs. Le premier écran n'a plus de média à fournir.
-3. `npm run build`, `npx wrangler dev --port 4173`, puis `node verif/shots.mjs`, `node verif/webkit.mjs` et les deux commandes Lighthouse de `verif/README.md`. Comparer avec le tableau en 2 et 3.
-4. Ouvrir la version déployée sur un vrai téléphone : motion design du premier écran, mot qui tourne, carrousel au doigt, bascule de ton, pied de page.
+Accueil et commun
+
+- `[À COMPLÉTER : lien cal.com]` : `SITE.bookingHref` dans `src/content/ia/site.ts` ; tant qu'il est
+  vide, les boutons mènent au formulaire.
+- `[À COMPLÉTER : vidéo démo]` : section `#demo`, `SITE.demoVideo`.
+- `[À COMPLÉTER : photo ou rendu de la machine ...]` : le visuel du premier écran est fait en code
+  (`HeroMachine.tsx`), remplaçable par une photo.
+- `[À COMPLÉTER : rue et numéro]`, `[À COMPLÉTER : numéro IDE]` : pied de page et mentions légales.
+- `[À COMPLÉTER : logo Oasis Drink]`, `[À COMPLÉTER : logo Coca-Cola HBC]` (affiché seulement avec
+  `VITE_SHOW_CCHBC=true`).
+- `[À COMPLÉTER : garantie, si Tanguy en valide une]` : sous la méthode.
+- FAQ : `[À COMPLÉTER : modèle, mémoire, prix du matériel]`, `[À COMPLÉTER : délai]`,
+  `[À COMPLÉTER : état de chaque connecteur]`, `[À CONFIRMER PAR TANGUY]` (machine = serveur
+  existant ; connexion internet), `[À VÉRIFIER PAR TANGUY : relecture juridique]`.
+
+Métiers
+
+- `/fiduciaires` : `[À COMPLÉTER : nom du cabinet pilote, avec son accord]`, `[À COMPLÉTER : état
+  des connecteurs Abacus, Crésus, WinBIZ]`, relecture juridique.
+- `/administrations` : `[À COMPLÉTER : catégories de données traitées]`, `[À CONFIRMER PAR TANGUY :
+  format et durée de conservation des journaux]`, `[... annuaire pris en charge]`.
+- `/pme` : `[À CONFIRMER PAR TANGUY : modèle de maintenance]`, connecteurs messagerie.
+
+Sécurité (page et PDF, même source `src/content/ia/securite.ts`)
+
+- `[À COMPLÉTER : date et prestataire]` du test d'intrusion (jamais présenté comme fait).
+- `[À CONFIRMER PAR TANGUY]` : les deux options machine dédiée / serveur existant, liste des
+  connecteurs et flux sortants, modèles et versions, méthode de chiffrement et gestion de la clé,
+  certificats, intégration à un annuaire, durée de conservation des journaux, procédure de
+  restauration testée, qui applique les mises à jour, conditions d'achat ou de location, registre
+  des traitements.
+- `[À COMPLÉTER : engagements supplémentaires validés par Tanguy]`.
+- `[À VÉRIFIER PAR TANGUY]` sur les deux passages nLPD et art. 321 CP.
+
+Ressources
+
+- 14 passages juridiques marqués `[À VÉRIFIER PAR TANGUY]` (LPD art. 5, 6, 8, 16, 17, 19, 60 ;
+  art. 321 CP), un `[À VÉRIFIER : conditions contractuelles des éditeurs]`, un `[À COMPLÉTER :
+  configuration type et ordre de prix]`, les cinq lignes de la mesure dans l'article fiduciaire,
+  `[À CONFIRMER PAR TANGUY : formats pris en charge]`.
+
+Pages légales
+
+- Hébergeur du site publié, for juridique, prestataire d'envoi des mails, maintien de la mesure
+  d'audience (Plausible), durée de conservation.
+
+## 6. Décisions à confirmer
+
+- Le logo Facchinetti fourni par e-mail est le « Multimarkenlogo » du groupe : il contient les
+  roundels BMW et MINI. Il est affiché en gris sur l'accueil ; l'accord écrit du client pour cet
+  usage doit être au dossier.
+- Un logo « OD » pour Oasis Drink existait dans l'ancien dépôt (`src/assets/clients/oasis-drink.png`,
+  256×256) : un monogramme improvisé, pas le logo officiel. Il n'a pas été repris ; le placeholder
+  reste.
+- Les cinq anciens articles du journal sont conservés sous `/ressources` avec leur slug ; celui sur
+  la visibilité dans les assistants IA (Mentia) a été retiré et redirige vers l'accueil.
+- La variable d'affichage de Coca-Cola HBC s'appelle `VITE_SHOW_CCHBC` (préfixe obligatoire pour
+  qu'une variable Vite soit lue côté client).
+
+## 7. Refaire la passe
+
+Voir `verif/README.md`. Générateurs : `npm run og` (images de partage), `npm run dossier:pdf`
+(dossier sécurité). Audit de la référence : `docs/emedias-audit.md`.

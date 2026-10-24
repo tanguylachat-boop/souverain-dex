@@ -1,0 +1,8 @@
+# Anciennes adresses du site. Les mêmes redirections sont aussi faites par
+# le serveur (src/routes/{fiduciaire,mentia,athlit,blog.*}.tsx).
+/fiduciaire /fiduciaires 301
+/mentia / 301
+/athlit / 301
+/blog /ressources 301
+/blog/pourquoi-chatgpt-cite-votre-concurrent / 301
+/blog/* /ressources/:splat 301

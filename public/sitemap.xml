@@ -2,80 +2,92 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lxstudio.ch/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/fiduciaire</loc>
-    <lastmod>2026-09-23</lastmod>
+    <loc>https://lxstudio.ch/fiduciaires</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/mentia</loc>
-    <lastmod>2026-09-23</lastmod>
+    <loc>https://lxstudio.ch/administrations</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lxstudio.ch/athlit</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lxstudio.ch/blog</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/blog/mesurer-le-temps-qu-une-tache-coute-vraiment</loc>
-    <lastmod>2026-09-23</lastmod>
+    <loc>https://lxstudio.ch/pme</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/securite</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/blog/ou-vivent-vos-donnees-quand-vous-utilisez-lia</loc>
+    <loc>https://lxstudio.ch/ressources/ia-locale-entreprise-suisse</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/secret-professionnel-ia</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/blog/pourquoi-chatgpt-cite-votre-concurrent</loc>
+    <loc>https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/blog/combien-coute-une-automatisation-ia-pme-suisse</loc>
+    <loc>https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/blog/chatgpt-copilot-ou-agent-sur-mesure</loc>
+    <loc>https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://lxstudio.ch/blog/plateforme-automatisation-ou-code</loc>
+    <loc>https://lxstudio.ch/ressources/plateforme-automatisation-ou-code</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://lxstudio.ch/mentions-legales</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://lxstudio.ch/politique-de-confidentialite</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <priority>0.6</priority>
   </url>
 </urlset>

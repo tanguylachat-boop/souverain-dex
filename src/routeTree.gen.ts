@@ -9,21 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SecuriteRouteImport } from './routes/securite'
 import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
+import { Route as PmeRouteImport } from './routes/pme'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as MentiaRouteImport } from './routes/mentia'
+import { Route as FiduciairesRouteImport } from './routes/fiduciaires'
 import { Route as FiduciaireRouteImport } from './routes/fiduciaire'
 import { Route as AthlitRouteImport } from './routes/athlit'
+import { Route as AdministrationsRouteImport } from './routes/administrations'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RessourcesIndexRouteImport } from './routes/ressources.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as RessourcesSlugRouteImport } from './routes/ressources.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const SecuriteRoute = SecuriteRouteImport.update({
+  id: '/securite',
+  path: '/securite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PolitiqueDeConfidentialiteRoute =
   PolitiqueDeConfidentialiteRouteImport.update({
     id: '/politique-de-confidentialite',
     path: '/politique-de-confidentialite',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PmeRoute = PmeRouteImport.update({
+  id: '/pme',
+  path: '/pme',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
   id: '/mentions-legales',
   path: '/mentions-legales',
@@ -32,6 +48,11 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
 const MentiaRoute = MentiaRouteImport.update({
   id: '/mentia',
   path: '/mentia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FiduciairesRoute = FiduciairesRouteImport.update({
+  id: '/fiduciaires',
+  path: '/fiduciaires',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FiduciaireRoute = FiduciaireRouteImport.update({
@@ -44,14 +65,29 @@ const AthlitRoute = AthlitRouteImport.update({
   path: '/athlit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdministrationsRoute = AdministrationsRouteImport.update({
+  id: '/administrations',
+  path: '/administrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RessourcesIndexRoute = RessourcesIndexRouteImport.update({
+  id: '/ressources/',
+  path: '/ressources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RessourcesSlugRoute = RessourcesSlugRouteImport.update({
+  id: '/ressources/$slug',
+  path: '/ressources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -62,86 +98,142 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
   '/fiduciaire': typeof FiduciaireRoute
+  '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/pme': typeof PmeRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/ressources/': typeof RessourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
   '/fiduciaire': typeof FiduciaireRoute
+  '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/pme': typeof PmeRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/ressources': typeof RessourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
   '/fiduciaire': typeof FiduciaireRoute
+  '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/pme': typeof PmeRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/ressources/': typeof RessourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/administrations'
     | '/athlit'
     | '/fiduciaire'
+    | '/fiduciaires'
     | '/mentia'
     | '/mentions-legales'
+    | '/pme'
     | '/politique-de-confidentialite'
+    | '/securite'
     | '/blog/$slug'
+    | '/ressources/$slug'
     | '/blog/'
+    | '/ressources/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/administrations'
     | '/athlit'
     | '/fiduciaire'
+    | '/fiduciaires'
     | '/mentia'
     | '/mentions-legales'
+    | '/pme'
     | '/politique-de-confidentialite'
+    | '/securite'
     | '/blog/$slug'
+    | '/ressources/$slug'
     | '/blog'
+    | '/ressources'
   id:
     | '__root__'
     | '/'
+    | '/administrations'
     | '/athlit'
     | '/fiduciaire'
+    | '/fiduciaires'
     | '/mentia'
     | '/mentions-legales'
+    | '/pme'
     | '/politique-de-confidentialite'
+    | '/securite'
     | '/blog/$slug'
+    | '/ressources/$slug'
     | '/blog/'
+    | '/ressources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdministrationsRoute: typeof AdministrationsRoute
   AthlitRoute: typeof AthlitRoute
   FiduciaireRoute: typeof FiduciaireRoute
+  FiduciairesRoute: typeof FiduciairesRoute
   MentiaRoute: typeof MentiaRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  PmeRoute: typeof PmeRoute
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
+  SecuriteRoute: typeof SecuriteRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  RessourcesSlugRoute: typeof RessourcesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  RessourcesIndexRoute: typeof RessourcesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/securite': {
+      id: '/securite'
+      path: '/securite'
+      fullPath: '/securite'
+      preLoaderRoute: typeof SecuriteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/politique-de-confidentialite': {
       id: '/politique-de-confidentialite'
       path: '/politique-de-confidentialite'
       fullPath: '/politique-de-confidentialite'
       preLoaderRoute: typeof PolitiqueDeConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pme': {
+      id: '/pme'
+      path: '/pme'
+      fullPath: '/pme'
+      preLoaderRoute: typeof PmeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mentions-legales': {
@@ -158,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentiaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fiduciaires': {
+      id: '/fiduciaires'
+      path: '/fiduciaires'
+      fullPath: '/fiduciaires'
+      preLoaderRoute: typeof FiduciairesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fiduciaire': {
       id: '/fiduciaire'
       path: '/fiduciaire'
@@ -172,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AthlitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/administrations': {
+      id: '/administrations'
+      path: '/administrations'
+      fullPath: '/administrations'
+      preLoaderRoute: typeof AdministrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -179,11 +285,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ressources/': {
+      id: '/ressources/'
+      path: '/ressources'
+      fullPath: '/ressources/'
+      preLoaderRoute: typeof RessourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ressources/$slug': {
+      id: '/ressources/$slug'
+      path: '/ressources/$slug'
+      fullPath: '/ressources/$slug'
+      preLoaderRoute: typeof RessourcesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -198,13 +318,19 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdministrationsRoute: AdministrationsRoute,
   AthlitRoute: AthlitRoute,
   FiduciaireRoute: FiduciaireRoute,
+  FiduciairesRoute: FiduciairesRoute,
   MentiaRoute: MentiaRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  PmeRoute: PmeRoute,
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
+  SecuriteRoute: SecuriteRoute,
   BlogSlugRoute: BlogSlugRoute,
+  RessourcesSlugRoute: RessourcesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  RessourcesIndexRoute: RessourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
