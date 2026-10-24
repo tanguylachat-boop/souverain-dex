@@ -12,7 +12,7 @@ import {
 } from "@/components/ia/sections";
 import { CtaPanel } from "@/components/ia/forms";
 import { Faq } from "@/components/ia/Faq";
-import { HOME_SEO, DIFFERENCE, METHOD, ARTICLES_TEASER, FAQ } from "@/content/ia/home";
+import { HOME_SEO, DIFFERENCE, METHOD, ARTICLES_TEASER, FAQ, DEMO } from "@/content/ia/home";
 import { resourceBySlug, type Resource } from "@/content/ia/ressources";
 import { pageMeta, jsonLd, webPage, faqSchema, breadcrumbs, ogImage, SITE_URL } from "@/lib/seo";
 
@@ -38,6 +38,18 @@ export const Route = createFileRoute("/")({
           webPage(SEO),
           faqSchema("/", FAQ.entries),
           breadcrumbs([{ name: "Accueil", path: "/" }]),
+          {
+            "@type": "VideoObject",
+            "@id": `${SITE_URL}/#demo-video`,
+            name: DEMO.title,
+            description: DEMO.text,
+            thumbnailUrl: `${SITE_URL}${DEMO.poster}`,
+            contentUrl: `${SITE_URL}${DEMO.mp4}`,
+            uploadDate: DEMO.uploadDate,
+            duration: DEMO.duration,
+            inLanguage: "fr-CH",
+            publisher: { "@id": `${SITE_URL}/#organization` },
+          },
           {
             "@type": "Service",
             "@id": `${SITE_URL}/#service`,

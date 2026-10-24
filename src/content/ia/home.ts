@@ -24,6 +24,67 @@ export const HERO = {
     "[À COMPLÉTER : photo ou rendu de la machine dans un bureau suisse, câble réseau débranché]",
 } as const;
 
+/** La démo en 2 minutes : vidéo rendue par `npm run demo` depuis scripts/demo/demo.html. */
+export const DEMO = {
+  eyebrow: "La démo",
+  title: "Deux minutes pour voir une pièce traitée, du scan à l'écriture validée.",
+  text: "Une facture d'exemple arrive, est lue, classée et proposée à la validation, sur une machine qui ne fait aucun appel vers l'extérieur pendant le traitement. Tout est écrit à l'écran, le son n'est pas nécessaire.",
+  play: "Voir la démo en 2 minutes",
+  poster: "/demo/demo-poster.jpg",
+  mp4: "/demo/demo-lx-studio.mp4",
+  webm: "/demo/demo-lx-studio.webm",
+  duration: "PT2M",
+  uploadDate: "2026-10-24",
+  transcriptLabel: "Le texte de la vidéo",
+  chapters: [
+    {
+      time: "0:00",
+      title: "Une pièce comptable, du scan à l'écriture validée.",
+      text: "Sans qu'elle quitte le cabinet.",
+    },
+    {
+      time: "0:06",
+      title: "La machine est chez vous.",
+      text: "Installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel vers un service externe.",
+    },
+    {
+      time: "0:20",
+      title: "Les pièces arrivent comme aujourd'hui.",
+      text: "Scanner, e-mail, photo. Rien ne change pour vos clients ni pour vos collaborateurs.",
+    },
+    {
+      time: "0:34",
+      title: "Lue sur place.",
+      text: "Fournisseur, date, montants, TVA, référence QR : extraits sur la machine, dans vos murs.",
+    },
+    {
+      time: "0:54",
+      title: "Classée, renommée.",
+      text: "Dans le dossier du bon mandat, nommée selon votre convention, prête pour l'archivage.",
+    },
+    {
+      time: "1:08",
+      title: "L'écriture est proposée. Vous validez.",
+      text: "Compte et code TVA proposés d'après vos écritures passées. Un clic pour valider, un clic pour corriger. Si vous corrigez, le système retient la correction pour ce mandat.",
+    },
+    {
+      time: "1:30",
+      title: "Ce qu'il ne comprend pas, il le met de côté.",
+      text: "Avec la raison. Rien n'est comptabilisé sans votre clic.",
+    },
+    {
+      time: "1:44",
+      title: "Chaque mois, un rapport.",
+      text: "Pièces traitées, heures récupérées, corrections. Mesuré chez vous, pas promis.",
+    },
+    {
+      time: "1:55",
+      title: "Rien n'est sorti du cabinet.",
+      text: "Réserver un diagnostic gratuit de 30 minutes.",
+    },
+  ],
+} as const;
+
 export const CREDIBILITY = {
   eyebrow: "Références",
   title: "Ils m'ont confié leurs process",

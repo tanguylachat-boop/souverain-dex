@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { CREDIBILITY, PROBLEM, SECTORS, HERO } from "@/content/ia/home";
+import { CREDIBILITY, PROBLEM, SECTORS, DEMO } from "@/content/ia/home";
 import { SITE } from "@/content/ia/site";
 import type { Resource } from "@/content/ia/ressources";
 import { Mesh } from "./Mesh";
@@ -57,36 +58,59 @@ export function LogoBand() {
 }
 
 /* --------------------------------------------------------------------------
- * La démo : le cadre attend la vidéo, le trou se voit.
+ * La démo : l'affiche, puis la vidéo au clic. Le texte de la vidéo est aussi
+ * dans la page, replié, pour qui ne peut pas la regarder.
  * ------------------------------------------------------------------------ */
 export function Demo() {
+  const [playing, setPlaying] = useState(false);
   return (
     <section className="ia-demo" id="demo" aria-labelledby="demo-title">
       <div className="ia-container">
         <div className="ia-demo-in">
           <div className="ia-demo-text">
-            <Eyebrow>La démo</Eyebrow>
+            <Eyebrow>{DEMO.eyebrow}</Eyebrow>
             <h2 id="demo-title" data-rv="">
-              Deux minutes pour voir le système traiter de vraies pièces.
+              {DEMO.title}
             </h2>
-            <p data-rv="">
-              <T>{`La vidéo montre une pièce qui arrive, est lue, classée et proposée à la validation, sur une machine qui n'est reliée à rien. ${SITE.demoVideo}`}</T>
-            </p>
+            <p data-rv="">{DEMO.text}</p>
+            <details className="ia-demo-transcript" data-rv="">
+              <summary>{DEMO.transcriptLabel}</summary>
+              <ol>
+                {DEMO.chapters.map((c) => (
+                  <li key={c.time}>
+                    <span>{c.time}</span>
+                    <div>
+                      <strong>{c.title}</strong> {c.text}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </details>
           </div>
-          <div
-            className="ia-demo-frame"
-            data-rv="scale"
-            role="img"
-            aria-label="Emplacement de la vidéo de démonstration"
-          >
-            <div className="ia-mesh-css" aria-hidden="true" />
-            <div className="ia-demo-play">
-              <i aria-hidden="true">
-                <IconPlay />
-              </i>
-              <span>{HERO.secondary.label}</span>
-              <mark className="ia-placeholder">{SITE.demoVideo}</mark>
-            </div>
+          <div className="ia-demo-frame" data-rv="scale">
+            {playing ? (
+              <video className="ia-demo-video" controls autoPlay playsInline poster={DEMO.poster}>
+                <source src={DEMO.webm} type="video/webm" />
+                <source src={DEMO.mp4} type="video/mp4" />
+              </video>
+            ) : (
+              <button type="button" className="ia-demo-start" onClick={() => setPlaying(true)}>
+                <img
+                  src={DEMO.poster}
+                  alt=""
+                  width={1920}
+                  height={1080}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="ia-demo-play">
+                  <i aria-hidden="true">
+                    <IconPlay />
+                  </i>
+                  <span>{DEMO.play}</span>
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </div>

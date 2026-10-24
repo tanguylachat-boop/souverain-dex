@@ -24,7 +24,6 @@ export const SITE = {
   /** Lien de réservation du diagnostic. Tant qu'il manque, les boutons mènent au formulaire. */
   booking: "[À COMPLÉTER : lien cal.com]",
   bookingHref: "",
-  demoVideo: "[À COMPLÉTER : vidéo démo]",
   /** Affiche Coca-Cola HBC dans les références seulement avec l'accord écrit. */
   showCchbc: false,
 } as const;

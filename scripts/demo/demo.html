@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="fr-CH">
+<head>
+<meta charset="utf-8">
+<title>Démo LX Studio, scène rendue image par image</title>
+<style>
+@font-face{font-family:"Manrope";src:url("../../public/fonts/manrope-latin-wght-normal.woff2") format("woff2-variations");font-weight:200 800}
+@font-face{font-family:"Manrope";src:url("../../public/fonts/manrope-latin-ext-wght-normal.woff2") format("woff2-variations");font-weight:200 800;unicode-range:U+0100-02BA}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#050a24}
+body{font-family:"Manrope",sans-serif;color:#f6f9ff;-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#050a24}
+#bg{position:absolute;inset:-12%;background:
+  radial-gradient(42% 48% at calc(24% + var(--mx,0px)) calc(34% + var(--my,0px)),rgba(12,30,92,.95),transparent 70%),
+  radial-gradient(36% 42% at 78% 22%,rgba(31,95,208,.55),transparent 70%),
+  radial-gradient(22% 26% at calc(55% - var(--mx,0px)) 78%,rgba(156,200,255,.26),transparent 70%),
+  radial-gradient(30% 34% at 10% 86%,rgba(31,95,208,.35),transparent 70%),#050a24}
+#grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,10,36,.35),rgba(5,10,36,0) 30%,rgba(5,10,36,.1) 60%,rgba(5,10,36,.75))}
+.sc{position:absolute;inset:0;opacity:0}
+.el{position:absolute;transform-origin:center;will-change:transform,opacity}
+.brand{position:absolute;left:120px;top:72px;display:flex;align-items:center;gap:14px;font-weight:800;font-size:30px;letter-spacing:-.03em}
+.brand i{width:20px;height:20px;border-radius:6px;background:#1f5fd0;display:inline-block}
+#progress{position:absolute;left:0;bottom:0;height:6px;background:#9cc8ff;width:0;opacity:.9}
+.cap{position:absolute;left:120px;bottom:120px;width:860px}
+.cap.top{bottom:auto;top:170px}
+.cap .kicker,.cap h2,.cap p{opacity:0}
+.kicker{font-size:20px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(246,249,255,.72);display:flex;gap:16px;align-items:center}
+.kicker:before{content:"";width:36px;height:2px;background:#9cc8ff;flex:none}
+.cap h2{margin-top:22px;font-size:62px;font-weight:800;letter-spacing:-.035em;line-height:1.06;text-wrap:balance}
+.cap p{margin-top:20px;font-size:31px;line-height:1.45;font-weight:500;color:rgba(246,249,255,.8);max-width:820px;text-wrap:pretty}
+.glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:28px}
+.card{background:#fff;color:#050a24;border-radius:26px;box-shadow:0 50px 120px -40px rgba(0,0,0,.75)}
+.chip{display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);font-size:22px;font-weight:600;width:540px;line-height:1.3}
+.chip b{font-weight:800;color:#9cc8ff;min-width:160px;font-size:18px;letter-spacing:.04em;text-transform:uppercase}
+.chip i{flex:none;width:26px;height:26px;border-radius:50%;background:#1f5fd0;display:grid;place-items:center}
+.chip i:after{content:"";width:12px;height:7px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:translateY(-2px) rotate(-45deg)}
+/* La facture d'exemple */
+.inv{position:relative;width:760px;height:930px;padding:56px 60px;overflow:hidden}
+.inv .wm{position:absolute;right:-30px;top:120px;transform:rotate(-24deg);font-size:120px;font-weight:800;color:rgba(5,10,36,.05);letter-spacing:.1em}
+.inv .h{display:flex;justify-content:space-between;align-items:flex-start}
+.inv .h b{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.inv .h small{display:block;font-size:17px;color:#5a6280;margin-top:6px;line-height:1.5}
+.inv .num{text-align:right;font-size:17px;color:#5a6280;line-height:1.7}
+.inv .num b{display:block;color:#050a24;font-size:20px}
+.inv .to{margin-top:44px;font-size:17px;line-height:1.55;color:#5a6280}
+.inv .to b{color:#050a24;font-size:19px}
+.inv table{width:100%;border-collapse:collapse;margin-top:38px;font-size:18px}
+.inv th{text-align:left;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#5a6280;padding:0 0 12px;border-bottom:1.5px solid #dfe5f3}
+.inv td{padding:14px 0;border-bottom:1px solid #eef1f8}
+.inv td.r,.inv th.r{text-align:right;font-variant-numeric:tabular-nums}
+.inv .tot{margin-top:26px;margin-left:auto;width:360px;font-size:18px}
+.inv .tot div{display:flex;justify-content:space-between;padding:8px 0;font-variant-numeric:tabular-nums}
+.inv .tot div.t{border-top:2px solid #050a24;margin-top:8px;padding-top:14px;font-weight:800;font-size:22px}
+.inv .qr{position:absolute;left:60px;bottom:56px;display:flex;gap:22px;align-items:flex-end}
+.inv .qr svg{width:170px;height:170px;background:#fff}
+.inv .qr small{font-size:14px;color:#5a6280;line-height:1.6;max-width:260px}
+.inv .qr small b{display:block;color:#050a24;font-size:15px;letter-spacing:.04em}
+.hl{position:absolute;border-radius:10px;background:rgba(31,95,208,.14);border:2px solid #1f5fd0;opacity:0;pointer-events:none}
+.scanline{position:absolute;left:0;right:0;height:6px;background:linear-gradient(90deg,transparent,#9cc8ff,transparent);box-shadow:0 0 40px 10px rgba(156,200,255,.45);opacity:0}
+/* L'arborescence */
+.tree{width:880px;padding:40px 44px;font-size:24px;line-height:1.5}
+.tree .lvl{display:flex;align-items:center;gap:14px;padding:10px 0;color:rgba(246,249,255,.86)}
+.tree .lvl svg{width:30px;height:30px;flex:none;color:#9cc8ff}
+.tree .file{padding:12px 0 12px 44px;font-size:19.5px;white-space:nowrap;color:rgba(246,249,255,.6);display:flex;gap:14px;align-items:center;font-variant-numeric:tabular-nums}
+.tree .file svg{width:24px;height:24px;flex:none;color:rgba(246,249,255,.5)}
+.tree .file.new{color:#f6f9ff;font-weight:700}
+.tree .file.new svg{color:#9cc8ff}
+.names{display:grid}.names>span{grid-area:1/1}
+/* L'écriture proposée */
+.val{width:880px;padding:46px 52px}
+.val .h{display:flex;justify-content:space-between;align-items:center}
+.val .h b{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.val .badge{font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:10px 16px;border-radius:99px;background:#e8f0ff;color:#1f5fd0}
+.val .rows{margin-top:30px;border-top:1.5px solid #dfe5f3}
+.val .row{display:flex;justify-content:space-between;gap:30px;padding:17px 0;border-bottom:1px solid #eef1f8;font-size:21px}
+.val .row span{color:#5a6280}
+.val .row b{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.val .btns{display:flex;gap:16px;justify-content:flex-end;margin-top:34px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:20px 38px;border-radius:99px;font-size:22px;font-weight:700;border:2px solid #050a24;color:#050a24;transform-origin:center}
+.btn.p{background:#1f5fd0;border-color:#1f5fd0;color:#fff}
+.done{position:absolute;inset:0;display:grid;place-items:center;border-radius:26px;background:rgba(255,255,255,.92);opacity:0}
+.done div{text-align:center}
+.done i{display:grid;place-items:center;width:110px;height:110px;border-radius:50%;background:#1f5fd0;margin:0 auto 22px}
+.done i:after{content:"";width:46px;height:24px;border-left:8px solid #fff;border-bottom:8px solid #fff;transform:translateY(-6px) rotate(-45deg)}
+.done b{font-size:38px;font-weight:800;letter-spacing:-.02em;display:block}
+.done small{display:block;margin-top:10px;font-size:22px;color:#5a6280}
+.note{width:640px;padding:30px 34px;font-size:24px;line-height:1.5;color:rgba(246,249,255,.86)}
+.note b{color:#9cc8ff}
+/* Le reçu douteux */
+.rcpt{width:380px;height:500px;padding:34px;background:#f4f1ea;color:#3a3a3a;border-radius:16px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7)}
+.rcpt div{height:14px;border-radius:7px;background:#c9c3b6;margin:16px 0;filter:blur(1.6px)}
+.rcpt div.s{width:60%}.rcpt div.m{width:80%}.rcpt div.t{width:45%;background:#9a9385;height:18px}
+.tag{position:absolute;padding:12px 20px;border-radius:14px;background:#ffe08a;color:#5a3f00;font-size:22px;font-weight:800;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+.tray{width:560px;padding:34px 38px;text-align:center}
+.tray b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em}
+.tray small{display:block;margin-top:8px;font-size:21px;color:rgba(246,249,255,.65)}
+.q{width:84px;height:84px;border-radius:50%;background:#ffe08a;color:#5a3f00;display:grid;place-items:center;font-size:52px;font-weight:800}
+/* Le rapport */
+.rep{width:1240px;padding:54px 64px}
+.rep .h b{font-size:40px;font-weight:800;letter-spacing:-.025em}
+.rep .h small{display:block;margin-top:8px;font-size:22px;color:#5a6280}
+.rep .line{display:grid;grid-template-columns:420px 1fr;gap:34px;align-items:center;margin-top:34px;font-size:26px;font-weight:700}
+.rep .bar{height:34px;border-radius:99px;background:#eef1f8;overflow:hidden}
+.rep .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1f5fd0,#5b8dff);border-radius:99px}
+.stamp{position:absolute;right:48px;top:40px;padding:14px 24px;border:4px solid #1f5fd0;color:#1f5fd0;border-radius:14px;font-size:24px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;transform:rotate(-7deg)}
+.cursor{position:absolute;width:42px;height:52px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.big{font-size:96px;font-weight:800;letter-spacing:-.04em;line-height:1.05;text-wrap:balance}
+.pill{display:inline-flex;align-items:center;gap:16px;padding:24px 44px;border-radius:99px;background:#f6f9ff;color:#050a24;font-size:30px;font-weight:700}
+.src{width:300px;padding:28px 30px;display:flex;align-items:center;gap:20px;font-size:26px;font-weight:700}
+.src svg{width:48px;height:48px;color:#9cc8ff;flex:none}
+.doc{width:130px;height:164px;border-radius:12px;background:#f6f9ff;box-shadow:0 30px 60px -24px rgba(0,0,0,.8);padding:22px 18px}
+.doc div{height:8px;border-radius:4px;background:#9aa6c4;margin:10px 0}
+.doc div.s{width:55%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+  <div id="grad"></div>
+
+  <!-- S0 : titre -->
+  <section class="sc" id="s0">
+    <div class="el" id="s0-k" style="left:120px;top:380px"><div class="kicker">La démo en 2 minutes</div></div>
+    <h1 class="el big" id="s0-h" style="left:120px;top:440px;width:1300px">Une pièce comptable, du scan à l'écriture validée.</h1>
+    <p class="el" id="s0-p" style="left:120px;top:690px;font-size:40px;font-weight:600;color:rgba(246,249,255,.82)">Sans qu'elle quitte le cabinet.</p>
+  </section>
+
+  <!-- S1 : où ça tourne -->
+  <section class="sc" id="s1">
+    <svg class="el" id="s1-svg" viewBox="0 0 1200 640" style="left:640px;top:120px;width:1180px;height:630px;overflow:visible" fill="none" stroke="#9cc8ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect id="s1-room" x="40" y="40" width="820" height="560" rx="28" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" stroke="rgba(156,200,255,.9)"/>
+      <text id="s1-roomlbl" x="70" y="88" fill="#9cc8ff" stroke="none" font-size="18" font-weight="800" letter-spacing="4">VOS LOCAUX</text>
+      <g id="s1-machine" transform="translate(120 300)" style="opacity:0">
+        <rect x="0" y="0" width="150" height="190" rx="22" fill="#0c1e5c" stroke="rgba(156,200,255,.8)"/>
+        <circle cx="75" cy="70" r="30" stroke="rgba(156,200,255,.5)" stroke-width="7"/>
+        <path d="M22 130h106M22 150h106M22 170h70" stroke="rgba(156,200,255,.35)"/>
+        <rect x="12" y="12" width="14" height="14" rx="4" fill="#1f5fd0" stroke="none"/>
+        <text x="0" y="-16" fill="#f6f9ff" stroke="none" font-size="19" font-weight="700">La machine</text>
+      </g>
+      <g id="s1-pc" transform="translate(380 330)" style="opacity:0">
+        <rect x="0" y="0" width="190" height="120" rx="12" fill="#0c1e5c"/>
+        <path d="M70 150h50M95 120v30"/>
+        <text x="0" y="-16" fill="#f6f9ff" stroke="none" font-size="19" font-weight="700">Vos postes</text>
+      </g>
+      <g id="s1-nas" transform="translate(640 340)" style="opacity:0">
+        <rect x="0" y="0" width="150" height="110" rx="12" fill="#0c1e5c"/>
+        <path d="M20 30h110M20 55h110M20 80h110" stroke="rgba(156,200,255,.5)"/>
+        <text x="0" y="-16" fill="#f6f9ff" stroke="none" font-size="19" font-weight="700">Vos dossiers, Bexio</text>
+      </g>
+      <path id="s1-lan" d="M150 545 H790 M195 492 V545 M475 482 V545 M715 452 V545" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" stroke="#5b8dff" stroke-width="4"/>
+      <text id="s1-lanlbl" x="340" y="584" fill="rgba(246,249,255,.7)" stroke="none" font-size="18" font-weight="700" letter-spacing="3" style="opacity:0">VOTRE RÉSEAU INTERNE</text>
+      <g id="s1-cloud" style="opacity:0">
+        <path d="M980 300c-40 0-62-30-50-62 8-24 34-34 56-28 10-44 72-54 96-16 36-8 70 24 56 60-6 18-24 30-44 30z" fill="rgba(255,255,255,.05)" stroke="rgba(246,249,255,.45)"/>
+        <text x="946" y="370" fill="rgba(246,249,255,.65)" stroke="none" font-size="18" font-weight="700">Internet, cloud,</text>
+        <text x="946" y="394" fill="rgba(246,249,255,.65)" stroke="none" font-size="18" font-weight="700">éditeurs d'IA</text>
+      </g>
+      <path id="s1-link" d="M862 290 H975" stroke="rgba(246,249,255,.35)" stroke-dasharray="10 10" style="opacity:0"/>
+      <g id="s1-cross" transform="translate(918 290)" style="opacity:0">
+        <circle r="26" fill="#050a24" stroke="#ff6b6b" stroke-width="4"/>
+        <path d="M-11 -11L11 11M11 -11L-11 11" stroke="#ff6b6b" stroke-width="5"/>
+      </g>
+      <text id="s1-crosslbl" x="946" y="446" fill="#ff8a8a" stroke="none" font-size="18" font-weight="800" letter-spacing="2" style="opacity:0"><tspan x="946" dy="0">AUCUN APPEL</tspan><tspan x="946" dy="24">PENDANT LE TRAITEMENT</tspan></text>
+    </svg>
+    <div class="cap" id="cap1"><div class="kicker">01 · Où ça tourne</div><h2>La machine est chez vous.</h2><p>Installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel vers un service externe.</p></div>
+  </section>
+
+  <!-- S2 : l'arrivée -->
+  <section class="sc" id="s2">
+    <div class="el glass src" id="s2-src1" style="left:160px;top:160px"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="36" height="18" rx="4"/><path d="M12 20V10h24v10M12 29h24"/></svg>Scanner</div>
+    <div class="el glass src" id="s2-src2" style="left:160px;top:330px"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="12" width="36" height="26" rx="4"/><path d="M6 16l18 13 18-13"/></svg>E-mail</div>
+    <div class="el glass src" id="s2-src3" style="left:160px;top:500px"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="6" width="20" height="36" rx="4"/><path d="M22 36h4"/></svg>Photo</div>
+    <div class="el doc" id="s2-d1" style="left:0;top:0;opacity:0"><div></div><div></div><div class="s"></div><div></div></div>
+    <div class="el doc" id="s2-d2" style="left:0;top:0;opacity:0"><div></div><div class="s"></div><div></div><div></div></div>
+    <div class="el doc" id="s2-d3" style="left:0;top:0;opacity:0"><div class="s"></div><div></div><div></div><div class="s"></div></div>
+    <div class="el doc" id="s2-d4" style="left:0;top:0;opacity:0"><div></div><div class="s"></div><div></div><div class="s"></div></div>
+    <div class="el doc" id="s2-d5" style="left:0;top:0;opacity:0"><div></div><div></div><div class="s"></div><div></div></div>
+    <div class="el" id="s2-machine" style="left:820px;top:120px;width:560px"></div>
+    <div class="cap" id="cap2"><div class="kicker">02 · L'arrivée</div><h2>Les pièces arrivent comme aujourd'hui.</h2><p>Scanner, e-mail, photo. Rien ne change pour vos clients ni pour vos collaborateurs.</p></div>
+  </section>
+
+  <!-- S3 : la lecture -->
+  <section class="sc" id="s3">
+    <div class="cap top" id="cap3"><div class="kicker">03 · La lecture</div><h2>Lue sur place.</h2><p>Fournisseur, date, montants, TVA, référence QR : extraits sur la machine, dans vos murs.</p></div>
+    <div class="el" id="s3-machine" style="left:110px;top:560px;width:330px"></div>
+    <div id="s3-chips" style="position:absolute;left:460px;top:560px;display:grid;gap:12px">
+      <div class="el chip" style="position:relative"><i></i><b>Fournisseur</b><span>Fournisseur Exemple SA</span></div>
+      <div class="el chip" style="position:relative"><i></i><b>Date</b><span>14.10.2026</span></div>
+      <div class="el chip" style="position:relative"><i></i><b>Montant HT</b><span>CHF 1'250.00</span></div>
+      <div class="el chip" style="position:relative"><i></i><b>TVA 8,1 %</b><span>CHF 101.25</span></div>
+      <div class="el chip" style="position:relative"><i></i><b>Total</b><span>CHF 1'351.25</span></div>
+      <div class="el chip" style="position:relative"><i></i><b>Référence QR</b><span>21 00000 00003 13947 14300 09017</span></div>
+    </div>
+    <div class="el card inv" id="s3-inv" style="left:1030px;top:76px">
+      <div class="wm">EXEMPLE</div>
+      <div class="h"><div><b class="f-supplier">Fournisseur Exemple SA</b><small>Rue de l'Exemple 1<br>2800 Delémont</small></div><div class="num">Facture <b>F-2026-0418</b>Date : <span class="f-date">14.10.2026</span></div></div>
+      <div class="to"><b>Boulangerie Exemple SA</b><br>Route du Four 12<br>2854 Bassecourt</div>
+      <table><tr><th>Désignation</th><th class="r">Qté</th><th class="r">Montant</th></tr>
+        <tr><td>Farine type 550, sac 25 kg</td><td class="r">20</td><td class="r">800.00</td></tr>
+        <tr><td>Levure, carton</td><td class="r">6</td><td class="r">450.00</td></tr></table>
+      <div class="tot"><div><span>Sous-total HT</span><b class="f-ht">CHF 1'250.00</b></div><div><span>TVA 8,1 %</span><b class="f-vat">CHF 101.25</b></div><div class="t"><span>Total</span><b class="f-total">CHF 1'351.25</b></div></div>
+      <div class="qr f-qr"><svg id="s3-qr" viewBox="0 0 21 21" shape-rendering="crispEdges"></svg><small><b>Facture QR</b>Référence 21 00000 00003 13947 14300 09017<br>Payable jusqu'au 13.11.2026</small></div>
+      <div class="scanline" id="s3-scan"></div>
+    </div>
+  </section>
+
+  <!-- S4 : le classement -->
+  <section class="sc" id="s4">
+    <div class="el glass tree" id="s4-tree" style="left:120px;top:130px">
+      <div class="lvl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Mandats</div>
+      <div class="lvl" style="padding-left:40px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Boulangerie Exemple SA</div>
+      <div class="lvl" style="padding-left:80px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>2026 › Fournisseurs</div>
+      <div class="file" style="padding-left:124px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h8l4 4v14H6zM14 3v4h4"/></svg>2026-10-02_Energie-Exemple_F-887.pdf</div>
+      <div class="file" style="padding-left:124px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h8l4 4v14H6zM14 3v4h4"/></svg>2026-10-09_Transports-Exemple_F-1120.pdf</div>
+      <div class="file new" id="s4-newfile" style="padding-left:124px;opacity:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h8l4 4v14H6zM14 3v4h4"/></svg><span class="names"><span id="s4-name1">scan_0418.pdf</span><span id="s4-name2" style="opacity:0">2026-10-14_Fournisseur-Exemple-SA_F-2026-0418.pdf</span></span></div>
+    </div>
+    <div class="el card inv" id="s4-inv" style="left:1030px;top:76px;transform-origin:top left"></div>
+    <div class="el" id="s4-machine" style="left:1340px;top:330px;width:420px"></div>
+    <div class="el doc" id="s4-doc" style="left:0;top:0;opacity:0;width:150px;height:190px"><div></div><div></div><div class="s"></div><div></div></div>
+    <div class="cap" id="cap4"><div class="kicker">04 · Le classement</div><h2>Classée, renommée.</h2><p>Dans le dossier du bon mandat, nommée selon votre convention, prête pour l'archivage.</p></div>
+  </section>
+
+  <!-- S5 : la validation -->
+  <section class="sc" id="s5">
+    <div class="cap top" id="cap5"><div class="kicker">05 · La validation</div><h2>L'écriture est proposée. Vous validez.</h2><p>Compte et code TVA proposés d'après vos écritures passées. Un clic pour valider, un clic pour corriger.</p></div>
+    <div class="el glass note" id="s5-note" style="left:120px;top:720px"><b>Vous corrigez ?</b> Le système retient la correction pour ce mandat et la propose la fois suivante.</div>
+    <div class="el card val" id="s5-val" style="left:940px;top:86px">
+      <div class="h"><b>Écriture proposée</b><span class="badge">Confiance : élevée</span></div>
+      <div class="rows">
+        <div class="row"><span>Pièce</span><b>F-2026-0418 · Fournisseur Exemple SA</b></div>
+        <div class="row"><span>Mandat</span><b>Boulangerie Exemple SA</b></div>
+        <div class="row"><span>Date</span><b>14.10.2026</b></div>
+        <div class="row"><span>Débit</span><b>4000 Achats de marchandises</b></div>
+        <div class="row"><span>Crédit</span><b>2000 Créanciers</b></div>
+        <div class="row"><span>Montant HT</span><b>CHF 1'250.00</b></div>
+        <div class="row"><span>TVA 8,1 %, achats</span><b>CHF 101.25</b></div>
+        <div class="row"><span>Total</span><b>CHF 1'351.25</b></div>
+      </div>
+      <div class="btns"><span class="btn" id="s5-fix">Corriger</span><span class="btn p" id="s5-ok">Valider</span></div>
+      <div class="done" id="s5-done"><div><i></i><b>Écriture validée</b><small>Envoyée dans votre logiciel comptable</small></div></div>
+    </div>
+    <svg class="el cursor" id="s5-cursor" viewBox="0 0 42 52" style="left:0;top:0;opacity:0"><path d="M4 3l30 24-13 2 8 17-7 3-8-17-10 9z" fill="#fff" stroke="#050a24" stroke-width="3" stroke-linejoin="round"/></svg>
+  </section>
+
+  <!-- S6 : le doute -->
+  <section class="sc" id="s6">
+    <div class="el" id="s6-machine" style="left:720px;top:140px;width:480px"></div>
+    <div class="el rcpt" id="s6-rcpt" style="left:0;top:0;opacity:0"><div class="t"></div><div></div><div class="m"></div><div class="s"></div><div></div><div class="m"></div><div class="s"></div><div class="t"></div></div>
+    <div class="el q" id="s6-q" style="left:0;top:0;opacity:0">?</div>
+    <div class="el glass tray" id="s6-tray" style="left:1240px;top:430px;opacity:0"><b>À traiter à la main</b><small>Une pièce, avec la raison</small></div>
+    <div class="el tag" id="s6-tag" style="left:0;top:0;opacity:0">Montant illisible</div>
+    <div class="cap" id="cap6"><div class="kicker">06 · Le doute</div><h2>Ce qu'il ne comprend pas, il le met de côté.</h2><p>Avec la raison. Rien n'est comptabilisé sans votre clic.</p></div>
+  </section>
+
+  <!-- S7 : le contrôle -->
+  <section class="sc" id="s7">
+    <div class="el card rep" id="s7-rep" style="left:340px;top:130px">
+      <div class="h"><b>Rapport mensuel</b><small>Comparé à la mesure faite avant l'installation</small></div>
+      <div class="stamp" id="s7-stamp" style="opacity:0">Mesuré chez vous</div>
+      <div class="line"><span>Pièces traitées</span><div class="bar"><i id="s7-b1"></i></div></div>
+      <div class="line"><span>Heures de saisie récupérées</span><div class="bar"><i id="s7-b2"></i></div></div>
+      <div class="line"><span>Corrections apportées</span><div class="bar"><i id="s7-b3"></i></div></div>
+    </div>
+    <div class="cap" id="cap7" style="bottom:110px"><div class="kicker">07 · Le contrôle</div><h2>Chaque mois, un rapport.</h2><p>Pièces traitées, heures récupérées, corrections. Mesuré chez vous, pas promis.</p></div>
+  </section>
+
+  <!-- S8 : fin -->
+  <section class="sc" id="s8">
+    <h2 class="el big" id="s8-h" style="left:120px;top:360px;width:1400px">Rien n'est sorti du cabinet.</h2>
+    <div class="el" id="s8-p" style="left:120px;top:600px"><span class="pill">Réserver un diagnostic gratuit de 30 minutes</span></div>
+    <div class="el" id="s8-u" style="left:120px;top:720px;font-size:30px;font-weight:600;color:rgba(246,249,255,.75)">lxstudio.ch · Jura · Suisse romande</div>
+  </section>
+
+  <div class="brand"><i></i>LX Studio</div>
+  <div id="progress"></div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------ outils */
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const lin = (t) => t;
+const prog = (t, a, d, e = easeOut) => e(clamp((t - a) / d, 0, 1));
+const lerp = (a, b, p) => a + (b - a) * p;
+const $ = (id) => document.getElementById(id);
+function track(t, keys, e = easeOut) {
+  if (t <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    if (t <= keys[i][0]) {
+      const [t0, a] = keys[i - 1], [t1, b] = keys[i];
+      const p = e((t - t0) / (t1 - t0));
+      const out = {};
+      for (const k in b) out[k] = lerp(a[k] ?? b[k], b[k], p);
+      for (const k in a) if (!(k in out)) out[k] = a[k];
+      return out;
+    }
+  }
+  return keys[keys.length - 1][1];
+}
+function apply(el, v) {
+  el.style.opacity = v.o ?? 1;
+  el.style.transform = `translate(${v.x ?? 0}px, ${v.y ?? 0}px) scale(${v.s ?? 1}) rotate(${v.r ?? 0}deg)`;
+}
+function fade(el, t, a, b, fi = 0.5, fo = 0.5) {
+  const o = Math.min(prog(t, a, fi, lin), 1 - prog(t, b - fo, fo, lin));
+  el.style.opacity = o;
+  el.style.visibility = o > 0 ? "visible" : "hidden";
+  return o > 0;
+}
+/* Une ligne qui apparaît : monte de 26 px et se révèle en 0,7 s. */
+function line(el, t, at) {
+  const p = prog(t, at, 0.7);
+  el.style.opacity = p;
+  el.style.transform = `translateY(${26 * (1 - p)}px)`;
+}
+function caption(id, t, at) {
+  const c = $(id);
+  line(c.querySelector(".kicker"), t, at);
+  line(c.querySelector("h2"), t, at + 0.15);
+  line(c.querySelector("p"), t, at + 0.35);
+}
+
+/* ----------------------------------------------------------- la machine */
+const MACHINE = `<svg viewBox="0 0 640 520" style="width:100%;height:auto;display:block">
+<defs>
+<linearGradient id="mb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15317a" stop-opacity=".92"/><stop offset=".55" stop-color="#0a1a4e" stop-opacity=".96"/><stop offset="1" stop-color="#050a24"/></linearGradient>
+<linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cc8ff" stop-opacity=".34"/><stop offset=".35" stop-color="#9cc8ff" stop-opacity=".04"/><stop offset="1" stop-color="#9cc8ff" stop-opacity="0"/></linearGradient>
+<linearGradient id="me" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9cc8ff" stop-opacity=".75"/><stop offset=".5" stop-color="#5b8dff" stop-opacity=".3"/><stop offset="1" stop-color="#9cc8ff" stop-opacity=".55"/></linearGradient>
+<radialGradient id="mf" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#1f5fd0" stop-opacity=".45"/><stop offset="1" stop-color="#1f5fd0" stop-opacity="0"/></radialGradient>
+<linearGradient id="mm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b8dff"/><stop offset="1" stop-color="#1f5fd0"/></linearGradient>
+</defs>
+<ellipse cx="340" cy="452" rx="250" ry="40" fill="url(#mf)"/><ellipse cx="340" cy="446" rx="150" ry="16" fill="#000" fill-opacity=".45"/>
+<rect x="206" y="216" width="10" height="26" rx="3" fill="#050a24" stroke="#9cc8ff" stroke-opacity=".5"/>
+<rect x="214" y="118" width="252" height="312" rx="30" fill="url(#mb)"/><rect x="214" y="118" width="252" height="312" rx="30" fill="url(#mg)"/>
+<rect x="214.75" y="118.75" width="250.5" height="310.5" rx="29.5" fill="none" stroke="url(#me)" stroke-width="1.5"/>
+<path d="M244 134H436" stroke="#fff" stroke-opacity=".32" stroke-linecap="round"/>
+<g fill="none" stroke-linecap="round"><circle cx="340" cy="236" r="52" stroke="#9cc8ff" stroke-opacity=".14" stroke-width="10"/><circle class="ring" cx="340" cy="236" r="52" stroke="#9cc8ff" stroke-opacity=".85" stroke-width="3" stroke-dasharray="90 237"/><circle class="ring2" cx="340" cy="236" r="34" stroke="#5b8dff" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 7"/></g>
+<g stroke="#9cc8ff" stroke-opacity=".16" stroke-width="1.5" stroke-linecap="round"><path d="M248 322h184M248 338h184M248 354h184M248 370h184M248 386h184"/></g>
+<rect x="286" y="152" width="22" height="22" rx="6" fill="url(#mm)"/><text x="318" y="170" fill="#f6f9ff" font-size="18" font-weight="800" letter-spacing="-.5" font-family="Manrope,sans-serif">LX Studio</text>
+<circle class="led" cx="440" cy="163" r="10" fill="#9cc8ff" fill-opacity=".9"/><circle cx="440" cy="163" r="3.2" fill="#f6f9ff"/>
+</svg>`;
+for (const id of ["s2-machine", "s3-machine", "s4-machine", "s6-machine"]) $(id).innerHTML = MACHINE;
+const RINGS = [...document.querySelectorAll(".ring")];
+const RINGS2 = [...document.querySelectorAll(".ring2")];
+const LEDS = [...document.querySelectorAll(".led")];
+function machine(t, speed = 1) {
+  const r = (t * 110 * speed) % 360;
+  for (const el of RINGS) el.setAttribute("transform", `rotate(${r} 340 236)`);
+  for (const el of RINGS2) el.setAttribute("transform", `rotate(${-r * 0.3} 340 236)`);
+  const pulse = 0.75 + 0.25 * Math.sin(t * 2.6);
+  for (const el of LEDS) el.setAttribute("fill-opacity", pulse);
+}
+
+/* ----------------------------------------------------- le code QR factice */
+(function qr() {
+  let seed = 20261014;
+  const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
+  const svg = $("s3-qr");
+  let out = "";
+  const eye = (x, y) => `<rect x="${x}" y="${y}" width="7" height="7" fill="#050a24"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" fill="#fff"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" fill="#050a24"/>`;
+  for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) {
+    const inEye = (x < 8 && y < 8) || (x > 12 && y < 8) || (x < 8 && y > 12);
+    if (!inEye && rnd() > 0.52) out += `<rect x="${x}" y="${y}" width="1" height="1" fill="#050a24"/>`;
+  }
+  out += eye(0, 0) + eye(14, 0) + eye(0, 14);
+  svg.innerHTML = out;
+})();
+
+/* ------------------------------------- surlignages de la facture (S3) */
+const HL = [];
+let laidOut = false;
+function makeHl() {
+  const fontsIn = [...document.fonts].filter((f) => f.family.includes("Manrope"));
+  if (laidOut || !fontsIn.some((f) => f.status === "loaded") || fontsIn.some((f) => f.status === "loading")) return;
+  laidOut = true;
+  const inv = $("s3-inv");
+  for (const [cls, at] of [["f-supplier", 36.6], ["f-date", 38.1], ["f-ht", 39.6], ["f-vat", 41.1], ["f-total", 42.6], ["f-qr", 44.1]]) {
+    const target = inv.querySelector("." + cls);
+    const r = target.getBoundingClientRect(), base = inv.getBoundingClientRect();
+    const d = document.createElement("div");
+    d.className = "hl";
+    d.style.left = r.left - base.left - 10 + "px";
+    d.style.top = r.top - base.top - 8 + "px";
+    d.style.width = r.width + 20 + "px";
+    d.style.height = r.height + 16 + "px";
+    inv.appendChild(d);
+    HL.push([d, at]);
+  }
+  $("s4-inv").innerHTML = inv.innerHTML;
+  $("s4-inv").querySelectorAll(".hl, .scanline").forEach((e) => e.remove());
+}
+
+/* ------------------------------------------------------- les scènes */
+const S = { s0: [0, 6], s1: [6, 20], s2: [20, 34], s3: [34, 54], s4: [54, 68], s5: [68, 90], s6: [90, 104], s7: [104, 115], s8: [115, 120.5] };
+
+function scene0(t) {
+  line($("s0-k"), t, 0.4);
+  line($("s0-h"), t, 0.6);
+  line($("s0-p"), t, 1.1);
+}
+function scene1(t) {
+  $("s1-room").style.strokeDashoffset = 1 - prog(t, 6.4, 1.4, easeInOut);
+  $("s1-roomlbl").style.opacity = prog(t, 7.4, 0.5);
+  for (const [id, at] of [["s1-machine", 7.6], ["s1-pc", 8.1], ["s1-nas", 8.4]]) {
+    const p = prog(t, at, 0.6);
+    const g = $(id);
+    g.style.opacity = p;
+    g.style.transformBox = "fill-box";
+    g.style.transformOrigin = "center";
+    g.style.scale = String(0.9 + 0.1 * p);
+  }
+  $("s1-lan").style.strokeDashoffset = 1 - prog(t, 8.8, 1.2, easeInOut);
+  $("s1-lanlbl").style.opacity = prog(t, 9.8, 0.5);
+  $("s1-cloud").style.opacity = prog(t, 10.6, 0.7);
+  $("s1-link").style.opacity = prog(t, 11.2, 0.5);
+  const c = prog(t, 12.0, 0.5);
+  const cg = $("s1-cross");
+  cg.style.opacity = c;
+  cg.style.transformBox = "fill-box";
+  cg.style.transformOrigin = "center";
+  cg.style.scale = String(0.6 + 0.4 * c);
+  $("s1-crosslbl").style.opacity = prog(t, 12.5, 0.5);
+  caption("cap1", t, 6.5);
+}
+/* Un document qui glisse d'une source à la fente de la machine. */
+function glide(el, t, at, from, to, dur = 2.4) {
+  const p = prog(t, at, dur, easeInOut);
+  const vis = t >= at && t <= at + dur + 0.2;
+  const cx = (from.x + to.x) / 2 + 40, cy = Math.min(from.y, to.y) - 160;
+  const x = (1 - p) * (1 - p) * from.x + 2 * (1 - p) * p * cx + p * p * to.x;
+  const y = (1 - p) * (1 - p) * from.y + 2 * (1 - p) * p * cy + p * p * to.y;
+  const fadeIn = prog(t, at, 0.3, lin), fadeOut = 1 - prog(t, at + dur - 0.35, 0.35, lin);
+  el.style.opacity = vis ? Math.min(fadeIn, fadeOut) : 0;
+  el.style.transform = `translate(${x}px, ${y}px) scale(${1 - 0.45 * p}) rotate(${-8 * (1 - p)}deg)`;
+}
+function scene2(t) {
+  machine(t, 1);
+  const slot = { x: 950, y: 250 };
+  glide($("s2-d1"), t, 21.2, { x: 330, y: 150 }, slot);
+  glide($("s2-d2"), t, 23.4, { x: 330, y: 320 }, slot);
+  glide($("s2-d3"), t, 25.6, { x: 330, y: 490 }, slot);
+  glide($("s2-d4"), t, 28.4, { x: 330, y: 150 }, slot);
+  glide($("s2-d5"), t, 30.2, { x: 330, y: 320 }, slot);
+  for (const [id, at] of [["s2-src1", 20.4], ["s2-src2", 20.6], ["s2-src3", 20.8]]) line($(id), t, at);
+  apply($("s2-machine"), track(t, [[20, { o: 0, y: 30 }], [21, { o: 1, y: 0 }]]));
+  caption("cap2", t, 20.8);
+}
+function scene3(t) {
+  machine(t, 2.2);
+  caption("cap3", t, 34.5);
+  apply($("s3-inv"), track(t, [[34, { o: 0, x: 60, s: 0.96 }], [35, { o: 1, x: 0, s: 1 }]]));
+  apply($("s3-machine"), track(t, [[34.2, { o: 0, y: 30 }], [35, { o: 1, y: 0 }]]));
+  const scan = $("s3-scan");
+  const sp = prog(t, 35.6, 9.4, lin);
+  scan.style.opacity = t > 35.6 && t < 45.2 ? 1 : 0;
+  scan.style.top = 20 + sp * 880 + "px";
+  for (const [d, at] of HL) {
+    const p = prog(t, at, 0.5);
+    d.style.opacity = p;
+    d.style.transform = `scale(${1.08 - 0.08 * p})`;
+  }
+  const chips = $("s3-chips").children;
+  const ats = [36.9, 38.4, 39.9, 41.4, 42.9, 44.4];
+  for (let i = 0; i < chips.length; i++) {
+    const p = prog(t, ats[i], 0.6);
+    chips[i].style.opacity = p;
+    chips[i].style.transform = `translateX(${-30 * (1 - p)}px)`;
+  }
+}
+function scene4(t) {
+  machine(t, 0.8);
+  caption("cap4", t, 54.6);
+  apply($("s4-machine"), track(t, [[57.4, { o: 0, y: 30 }], [58.4, { o: 1, y: 0 }]]));
+  apply($("s4-tree"), track(t, [[54, { o: 0, x: -40 }], [55, { o: 1, x: 0 }]]));
+  // La facture se réduit en icône de fichier et file dans l'arborescence.
+  const inv = $("s4-inv");
+  const k = track(t, [[54, { o: 1, s: 1, x: 0, y: 0 }], [56.2, { o: 1, s: 1, x: 0, y: 0 }], [57.6, { o: 0, s: 0.18, x: -120, y: 200 }]], easeInOut);
+  apply(inv, k);
+  const doc = $("s4-doc");
+  const d = track(t, [[57.0, { o: 0, x: 1030, y: 260, s: 1 }], [57.5, { o: 1, x: 980, y: 300, s: 1 }], [59.2, { o: 1, x: 290, y: 470, s: 0.3 }], [59.4, { o: 0, x: 290, y: 470, s: 0.2 }]], easeInOut);
+  apply(doc, d);
+  const nf = $("s4-newfile");
+  nf.style.opacity = prog(t, 59.2, 0.5);
+  const sw = prog(t, 61.5, 0.8);
+  $("s4-name1").style.opacity = 1 - sw;
+  $("s4-name2").style.opacity = sw;
+  $("s4-name2").style.transform = `translateY(${10 * (1 - sw)}px)`;
+}
+function scene5(t) {
+  caption("cap5", t, 68.5);
+  apply($("s5-val"), track(t, [[68, { o: 0, x: 60 }], [69, { o: 1, x: 0 }]]));
+  apply($("s5-note"), track(t, [[82, { o: 0, y: 24 }], [83, { o: 1, y: 0 }]]));
+  const cur = $("s5-cursor");
+  const c = track(t, [[73.5, { o: 0, x: 1250, y: 760 }], [74, { o: 1, x: 1250, y: 760 }], [76.5, { o: 1, x: 1672, y: 770 }], [79.5, { o: 1, x: 1672, y: 770 }], [80.5, { o: 0, x: 1710, y: 810 }]], easeInOut);
+  apply(cur, c);
+  const press = t > 76.8 && t < 77.1 ? 0.94 : 1;
+  $("s5-ok").style.transform = `scale(${press})`;
+  const done = prog(t, 77.3, 0.6);
+  const dn = $("s5-done");
+  dn.style.opacity = done;
+  dn.querySelector("div").style.transform = `scale(${0.9 + 0.1 * done})`;
+}
+function scene6(t) {
+  machine(t, 1.4);
+  apply($("s6-machine"), track(t, [[90, { o: 0, y: 30 }], [91, { o: 1, y: 0 }]]));
+  const r = track(t, [[90.4, { o: 0, x: -200, y: 300, r: -12 }], [92.2, { o: 1, x: 300, y: 290, r: -4 }], [95.2, { o: 1, x: 300, y: 290, r: -4 }], [97.4, { o: 1, x: 1330, y: 250, r: 2, s: 0.42 }], [98.2, { o: 0, x: 1330, y: 250, r: 2, s: 0.36 }]], easeInOut);
+  apply($("s6-rcpt"), r);
+  const q = track(t, [[92.8, { o: 0, x: 620, y: 240, s: 0.5 }], [93.3, { o: 1, x: 620, y: 240, s: 1 }], [95.2, { o: 1, x: 620, y: 240, s: 1 }], [95.7, { o: 0, x: 620, y: 240, s: 0.6 }]]);
+  apply($("s6-q"), q);
+  apply($("s6-tray"), track(t, [[94.5, { o: 0, y: 24 }], [95.5, { o: 1, y: 0 }]]));
+  apply($("s6-tag"), track(t, [[97.8, { o: 0, x: 1380, y: 600, s: 0.8 }], [98.4, { o: 1, x: 1380, y: 600, s: 1 }]]));
+  caption("cap6", t, 90.6);
+}
+function scene7(t) {
+  caption("cap7", t, 104.6);
+  apply($("s7-rep"), track(t, [[104, { o: 0, y: 30 }], [105, { o: 1, y: 0 }]]));
+  $("s7-b1").style.width = 78 * prog(t, 105.6, 1.4, easeInOut) + "%";
+  $("s7-b2").style.width = 62 * prog(t, 106.4, 1.4, easeInOut) + "%";
+  $("s7-b3").style.width = 18 * prog(t, 107.2, 1.2, easeInOut) + "%";
+  const s = prog(t, 109.4, 0.4);
+  const st = $("s7-stamp");
+  st.style.opacity = s;
+  st.style.transform = `rotate(-7deg) scale(${1.6 - 0.6 * s})`;
+}
+function scene8(t) {
+  line($("s8-h"), t, 115.5);
+  line($("s8-p"), t, 116.1);
+  line($("s8-u"), t, 116.5);
+}
+const SCENES = { s0: scene0, s1: scene1, s2: scene2, s3: scene3, s4: scene4, s5: scene5, s6: scene6, s7: scene7, s8: scene8 };
+
+window.render = function render(t) {
+  makeHl();
+  $("bg").style.setProperty("--mx", `${Math.sin(t * 0.21) * 70}px`);
+  $("bg").style.setProperty("--my", `${Math.cos(t * 0.17) * 50}px`);
+  $("progress").style.width = `${(clamp(t / 120, 0, 1) * 100).toFixed(2)}%`;
+  for (const id in S) {
+    const el = $(id);
+    const [a, b] = S[id];
+    const on = fade(el, t, a, b, 0.5, 0.5);
+    if (on) SCENES[id](t);
+  }
+};
+</script>
+</body>
+</html>

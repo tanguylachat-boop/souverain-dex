@@ -163,3 +163,29 @@ Pages légales
 
 Voir `verif/README.md`. Générateurs : `npm run og` (images de partage), `npm run dossier:pdf`
 (dossier sécurité). Audit de la référence : `docs/emedias-audit.md`.
+
+## 8. La démo en 2 minutes (branche `demo-video`, 24.10.2026)
+
+Vidéo en motion design fabriquée en code : `scripts/demo/demo.html` est une scène dont chaque
+image est une fonction du temps (aucune animation CSS), rendue par Chromium à 30 images par seconde
+puis encodée par ffmpeg (`npm run demo`). Script, storyboard et version voix off dans
+`docs/demo-script.md`.
+
+| Fichier | Contenu | Poids |
+| --- | --- | --- |
+| `public/demo/demo-lx-studio.mp4` | H.264, 1280 × 720, 30 i/s, 120 s, 3600 images | 3,0 Mo |
+| `public/demo/demo-lx-studio.webm` | VP9, 1280 × 720, 30 i/s, 120 s | 3,0 Mo |
+| `public/demo/demo-poster.jpg` | affiche (image à 3,4 s) | 107 Ko |
+| `.demo-master-1080.mp4` (non versionné) | master 1920 × 1080 pour LinkedIn ou un salon | 10 Mo |
+
+- Huit scènes, texte à l'écran pesé mot par mot, vouvoiement, aucun tiret long, aucun chiffre
+  présenté comme un résultat client : la facture porte le filigrane « EXEMPLE », le rapport mensuel
+  n'affiche aucune valeur, les comptes sont génériques (4000 Achats de marchandises, 2000
+  Créanciers), TVA à 8,1 %, aucun logo de logiciel (« votre logiciel comptable »).
+- Sur la page : l'affiche se charge en différé (`loading="lazy"`), la vidéo n'est demandée qu'au
+  clic (aucun octet vidéo au premier chargement), lecture avec les commandes du navigateur, texte
+  de la vidéo replié sous le titre, VideoObject dans le JSON-LD de l'accueil.
+- Contrôle : neuf images de la scène relues avant le rendu, quatre images extraites du mp4 encodé,
+  lecture au clic vérifiée par `verif/shots.mjs` aux trois tailles : source webm choisie, 1280 × 720, 120 s, en lecture à 2,5 s après le clic, 0 erreur console.
+- Non fait : voix off et musique (texte prêt dans `docs/demo-script.md`), lecture sur un vrai
+  téléphone, Safari réel (WebKit émulé lit le mp4, pas le webm).

@@ -33,3 +33,7 @@ dist-ssr
 
 # Captures de vérification (voir verif/README.md)
 verif/captures/
+
+# Images intermédiaires et master de la vidéo démo (npm run demo)
+.demo-frames/
+.demo-master-1080.mp4
