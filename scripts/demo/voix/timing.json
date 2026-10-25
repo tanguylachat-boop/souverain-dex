@@ -1,0 +1,1195 @@
+{
+ "fps": 30,
+ "voix": "Achird",
+ "modele": "gemini-3.8-flash-tts",
+ "scenes": {
+  "s0": {
+   "start_s": 0.0,
+   "dur_s": 6,
+   "phrases": [
+    {
+     "t": "Voici ce qui se passe quand une pièce comptable arrive dans un cabinet équipé par LX Studio.",
+     "at_s": 0.9,
+     "fin_s": 4.98,
+     "mots": [
+      {
+       "w": "voici",
+       "s": 0.9
+      },
+      {
+       "w": "ce",
+       "s": 1.22
+      },
+      {
+       "w": "qui",
+       "s": 1.26
+      },
+      {
+       "w": "se",
+       "s": 1.4
+      },
+      {
+       "w": "passe",
+       "s": 1.48
+      },
+      {
+       "w": "quand",
+       "s": 1.66
+      },
+      {
+       "w": "une",
+       "s": 1.78
+      },
+      {
+       "w": "piece",
+       "s": 1.94
+      },
+      {
+       "w": "comptable",
+       "s": 2.14
+      },
+      {
+       "w": "arrive",
+       "s": 2.6
+      },
+      {
+       "w": "dans",
+       "s": 2.92
+      },
+      {
+       "w": "un",
+       "s": 3.04
+      },
+      {
+       "w": "cabinet",
+       "s": 3.18
+      },
+      {
+       "w": "equipe",
+       "s": 3.52
+      },
+      {
+       "w": "par",
+       "s": 3.96
+      },
+      {
+       "w": "lx",
+       "s": 4.22
+      },
+      {
+       "w": "studio",
+       "s": 4.58
+      }
+     ]
+    }
+   ]
+  },
+  "s1": {
+   "start_s": 6.0,
+   "dur_s": 14,
+   "phrases": [
+    {
+     "t": "La machine est chez vous.",
+     "at_s": 0.7,
+     "fin_s": 1.48,
+     "mots": [
+      {
+       "w": "la",
+       "s": 0.7
+      },
+      {
+       "w": "machine",
+       "s": 0.82
+      },
+      {
+       "w": "est",
+       "s": 1.08
+      },
+      {
+       "w": "chez",
+       "s": 1.18
+      },
+      {
+       "w": "vous",
+       "s": 1.3
+      }
+     ]
+    },
+    {
+     "t": "Installée dans vos locaux, branchée sur votre réseau.",
+     "at_s": 2.2,
+     "fin_s": 4.57,
+     "mots": [
+      {
+       "w": "installee",
+       "s": 2.2
+      },
+      {
+       "w": "dans",
+       "s": 2.6
+      },
+      {
+       "w": "vos",
+       "s": 2.72
+      },
+      {
+       "w": "locaux",
+       "s": 2.84
+      },
+      {
+       "w": "branchee",
+       "s": 3.64
+      },
+      {
+       "w": "sur",
+       "s": 3.84
+      },
+      {
+       "w": "votre",
+       "s": 4.06
+      },
+      {
+       "w": "reseau",
+       "s": 4.26
+      }
+     ]
+    },
+    {
+     "t": "Pendant le traitement, aucun appel ne part vers un service externe : ni vers un éditeur d'intelligence artificielle, ni vers LX Studio.",
+     "at_s": 5.0,
+     "fin_s": 11.59,
+     "mots": [
+      {
+       "w": "pendant",
+       "s": 5.0
+      },
+      {
+       "w": "le",
+       "s": 5.44
+      },
+      {
+       "w": "traitement",
+       "s": 5.54
+      },
+      {
+       "w": "aucun",
+       "s": 6.42
+      },
+      {
+       "w": "appel",
+       "s": 6.48
+      },
+      {
+       "w": "ne",
+       "s": 6.74
+      },
+      {
+       "w": "part",
+       "s": 7.04
+      },
+      {
+       "w": "vers",
+       "s": 7.12
+      },
+      {
+       "w": "un",
+       "s": 7.26
+      },
+      {
+       "w": "service",
+       "s": 7.4
+      },
+      {
+       "w": "externe",
+       "s": 7.62
+      },
+      {
+       "w": "ni",
+       "s": 8.6
+      },
+      {
+       "w": "vers",
+       "s": 8.74
+      },
+      {
+       "w": "un",
+       "s": 8.86
+      },
+      {
+       "w": "editeur",
+       "s": 9.06
+      },
+      {
+       "w": "d",
+       "s": 9.26
+      },
+      {
+       "w": "intelligence",
+       "s": 9.36
+      },
+      {
+       "w": "artificielle",
+       "s": 9.66
+      },
+      {
+       "w": "ni",
+       "s": 10.74
+      },
+      {
+       "w": "vers",
+       "s": 10.92
+      },
+      {
+       "w": "lx",
+       "s": 11.06
+      },
+      {
+       "w": "studio",
+       "s": 11.24
+      }
+     ]
+    }
+   ]
+  },
+  "s2": {
+   "start_s": 20.0,
+   "dur_s": 14,
+   "phrases": [
+    {
+     "t": "Les pièces arrivent comme aujourd'hui.",
+     "at_s": 0.9,
+     "fin_s": 2.32,
+     "mots": [
+      {
+       "w": "les",
+       "s": 0.9
+      },
+      {
+       "w": "pieces",
+       "s": 1.36
+      },
+      {
+       "w": "arrivent",
+       "s": 1.56
+      },
+      {
+       "w": "comme",
+       "s": 1.78
+      },
+      {
+       "w": "aujourd",
+       "s": 1.92
+      },
+      {
+       "w": "hui",
+       "s": 2.12
+      }
+     ]
+    },
+    {
+     "t": "Par le scanner, par e-mail, par une photo prise au téléphone.",
+     "at_s": 2.9,
+     "fin_s": 5.82,
+     "mots": [
+      {
+       "w": "par",
+       "s": 2.9
+      },
+      {
+       "w": "le",
+       "s": 3.04
+      },
+      {
+       "w": "scanner",
+       "s": 3.12
+      },
+      {
+       "w": "par",
+       "s": 3.88
+      },
+      {
+       "w": "e",
+       "s": 4.02
+      },
+      {
+       "w": "mail",
+       "s": 4.06
+      },
+      {
+       "w": "par",
+       "s": 4.74
+      },
+      {
+       "w": "une",
+       "s": 4.82
+      },
+      {
+       "w": "photo",
+       "s": 4.92
+      },
+      {
+       "w": "prise",
+       "s": 5.08
+      },
+      {
+       "w": "au",
+       "s": 5.22
+      },
+      {
+       "w": "telephone",
+       "s": 5.44
+      }
+     ]
+    },
+    {
+     "t": "Rien ne change pour vos clients ni pour vos collaborateurs.",
+     "at_s": 7.6,
+     "fin_s": 9.99,
+     "mots": [
+      {
+       "w": "rien",
+       "s": 7.6
+      },
+      {
+       "w": "ne",
+       "s": 7.86
+      },
+      {
+       "w": "change",
+       "s": 8.04
+      },
+      {
+       "w": "pour",
+       "s": 8.16
+      },
+      {
+       "w": "vos",
+       "s": 8.3
+      },
+      {
+       "w": "clients",
+       "s": 8.44
+      },
+      {
+       "w": "ni",
+       "s": 8.68
+      },
+      {
+       "w": "pour",
+       "s": 9.06
+      },
+      {
+       "w": "vos",
+       "s": 9.18
+      },
+      {
+       "w": "collaborateurs",
+       "s": 9.32
+      }
+     ]
+    }
+   ]
+  },
+  "s3": {
+   "start_s": 34.0,
+   "dur_s": 15,
+   "phrases": [
+    {
+     "t": "La pièce est lue sur place.",
+     "at_s": 0.6,
+     "fin_s": 2.14,
+     "mots": [
+      {
+       "w": "la",
+       "s": 0.6
+      },
+      {
+       "w": "piece",
+       "s": 0.98
+      },
+      {
+       "w": "est",
+       "s": 1.28
+      },
+      {
+       "w": "lue",
+       "s": 1.44
+      },
+      {
+       "w": "sur",
+       "s": 1.6
+      },
+      {
+       "w": "place",
+       "s": 1.78
+      }
+     ]
+    },
+    {
+     "t": "Le fournisseur, la date, les montants, la TVA, la référence de la facture QR : tout est extrait sur la machine, dans vos murs.",
+     "at_s": 2.7,
+     "fin_s": 10.48,
+     "mots": [
+      {
+       "w": "le",
+       "s": 2.7
+      },
+      {
+       "w": "fournisseur",
+       "s": 2.88
+      },
+      {
+       "w": "la",
+       "s": 3.78
+      },
+      {
+       "w": "date",
+       "s": 4.08
+      },
+      {
+       "w": "les",
+       "s": 4.52
+      },
+      {
+       "w": "montants",
+       "s": 4.66
+      },
+      {
+       "w": "la",
+       "s": 5.44
+      },
+      {
+       "w": "tva",
+       "s": 5.6
+      },
+      {
+       "w": "la",
+       "s": 6.38
+      },
+      {
+       "w": "reference",
+       "s": 6.48
+      },
+      {
+       "w": "de",
+       "s": 6.76
+      },
+      {
+       "w": "la",
+       "s": 6.9
+      },
+      {
+       "w": "facture",
+       "s": 7.08
+      },
+      {
+       "w": "qr",
+       "s": 7.24
+      },
+      {
+       "w": "tout",
+       "s": 8.3
+      },
+      {
+       "w": "est",
+       "s": 8.38
+      },
+      {
+       "w": "extrait",
+       "s": 8.52
+      },
+      {
+       "w": "sur",
+       "s": 8.9
+      },
+      {
+       "w": "la",
+       "s": 9.18
+      },
+      {
+       "w": "machine",
+       "s": 9.4
+      },
+      {
+       "w": "dans",
+       "s": 9.66
+      },
+      {
+       "w": "vos",
+       "s": 10.06
+      },
+      {
+       "w": "murs",
+       "s": 10.24
+      }
+     ]
+    }
+   ]
+  },
+  "s4": {
+   "start_s": 49.0,
+   "dur_s": 12,
+   "phrases": [
+    {
+     "t": "Elle est ensuite classée dans le dossier du bon mandat.",
+     "at_s": 0.7,
+     "fin_s": 3.11,
+     "mots": [
+      {
+       "w": "elle",
+       "s": 0.7
+      },
+      {
+       "w": "est",
+       "s": 0.86
+      },
+      {
+       "w": "ensuite",
+       "s": 0.98
+      },
+      {
+       "w": "classee",
+       "s": 1.32
+      },
+      {
+       "w": "dans",
+       "s": 1.78
+      },
+      {
+       "w": "le",
+       "s": 1.94
+      },
+      {
+       "w": "dossier",
+       "s": 2.04
+      },
+      {
+       "w": "du",
+       "s": 2.38
+      },
+      {
+       "w": "bon",
+       "s": 2.52
+      },
+      {
+       "w": "mandat",
+       "s": 2.74
+      }
+     ]
+    },
+    {
+     "t": "Et renommée selon votre convention, prête pour l'archivage.",
+     "at_s": 6.6,
+     "fin_s": 9.82,
+     "mots": [
+      {
+       "w": "et",
+       "s": 6.6
+      },
+      {
+       "w": "renommee",
+       "s": 6.84
+      },
+      {
+       "w": "selon",
+       "s": 7.36
+      },
+      {
+       "w": "votre",
+       "s": 7.6
+      },
+      {
+       "w": "convention",
+       "s": 7.9
+      },
+      {
+       "w": "prete",
+       "s": 9.08
+      },
+      {
+       "w": "pour",
+       "s": 9.08
+      },
+      {
+       "w": "l",
+       "s": 9.26
+      },
+      {
+       "w": "archivage",
+       "s": 9.34
+      }
+     ]
+    }
+   ]
+  },
+  "s5": {
+   "start_s": 61.0,
+   "dur_s": 22,
+   "phrases": [
+    {
+     "t": "L'écriture est proposée dans votre logiciel comptable, avec le compte et le code TVA déduits de vos écritures passées.",
+     "at_s": 0.6,
+     "fin_s": 6.62,
+     "mots": [
+      {
+       "w": "l",
+       "s": 0.6
+      },
+      {
+       "w": "ecriture",
+       "s": 0.76
+      },
+      {
+       "w": "est",
+       "s": 1.1
+      },
+      {
+       "w": "proposee",
+       "s": 1.22
+      },
+      {
+       "w": "dans",
+       "s": 1.56
+      },
+      {
+       "w": "votre",
+       "s": 1.68
+      },
+      {
+       "w": "logiciel",
+       "s": 1.92
+      },
+      {
+       "w": "comptable",
+       "s": 2.34
+      },
+      {
+       "w": "avec",
+       "s": 3.82
+      },
+      {
+       "w": "le",
+       "s": 3.94
+      },
+      {
+       "w": "compte",
+       "s": 4.24
+      },
+      {
+       "w": "et",
+       "s": 4.42
+      },
+      {
+       "w": "le",
+       "s": 4.58
+      },
+      {
+       "w": "code",
+       "s": 4.82
+      },
+      {
+       "w": "tva",
+       "s": 4.92
+      },
+      {
+       "w": "deduits",
+       "s": 5.28
+      },
+      {
+       "w": "de",
+       "s": 5.66
+      },
+      {
+       "w": "vos",
+       "s": 5.78
+      },
+      {
+       "w": "ecritures",
+       "s": 5.92
+      },
+      {
+       "w": "passees",
+       "s": 6.26
+      }
+     ]
+    },
+    {
+     "t": "Un clic pour valider.",
+     "at_s": 8.2,
+     "fin_s": 9.13,
+     "mots": [
+      {
+       "w": "un",
+       "s": 8.2
+      },
+      {
+       "w": "clic",
+       "s": 8.4
+      },
+      {
+       "w": "pour",
+       "s": 8.54
+      },
+      {
+       "w": "valider",
+       "s": 8.7
+      }
+     ]
+    },
+    {
+     "t": "Un clic pour corriger.",
+     "at_s": 10.4,
+     "fin_s": 11.36,
+     "mots": [
+      {
+       "w": "un",
+       "s": 10.4
+      },
+      {
+       "w": "clic",
+       "s": 10.56
+      },
+      {
+       "w": "pour",
+       "s": 10.7
+      },
+      {
+       "w": "corriger",
+       "s": 10.88
+      }
+     ]
+    },
+    {
+     "t": "Si vous corrigez, le système retient la correction pour ce mandat et la propose la fois suivante.",
+     "at_s": 13.4,
+     "fin_s": 17.65,
+     "mots": [
+      {
+       "w": "si",
+       "s": 13.4
+      },
+      {
+       "w": "vous",
+       "s": 13.56
+      },
+      {
+       "w": "corrigez",
+       "s": 13.68
+      },
+      {
+       "w": "le",
+       "s": 14.28
+      },
+      {
+       "w": "systeme",
+       "s": 14.34
+      },
+      {
+       "w": "retient",
+       "s": 14.6
+      },
+      {
+       "w": "la",
+       "s": 14.92
+      },
+      {
+       "w": "correction",
+       "s": 15.06
+      },
+      {
+       "w": "pour",
+       "s": 15.4
+      },
+      {
+       "w": "ce",
+       "s": 15.6
+      },
+      {
+       "w": "mandat",
+       "s": 15.78
+      },
+      {
+       "w": "et",
+       "s": 16.12
+      },
+      {
+       "w": "la",
+       "s": 16.5
+      },
+      {
+       "w": "propose",
+       "s": 16.64
+      },
+      {
+       "w": "la",
+       "s": 16.9
+      },
+      {
+       "w": "fois",
+       "s": 17.04
+      },
+      {
+       "w": "suivante",
+       "s": 17.16
+      }
+     ]
+    }
+   ]
+  },
+  "s6": {
+   "start_s": 83.0,
+   "dur_s": 14,
+   "phrases": [
+    {
+     "t": "Ce qu'il ne comprend pas, il le met de côté.",
+     "at_s": 0.8,
+     "fin_s": 2.81,
+     "mots": [
+      {
+       "w": "ce",
+       "s": 0.8
+      },
+      {
+       "w": "qu",
+       "s": 1.0
+      },
+      {
+       "w": "il",
+       "s": 1.1
+      },
+      {
+       "w": "ne",
+       "s": 1.14
+      },
+      {
+       "w": "comprend",
+       "s": 1.32
+      },
+      {
+       "w": "pas",
+       "s": 1.46
+      },
+      {
+       "w": "il",
+       "s": 2.18
+      },
+      {
+       "w": "le",
+       "s": 2.22
+      },
+      {
+       "w": "met",
+       "s": 2.38
+      },
+      {
+       "w": "de",
+       "s": 2.38
+      },
+      {
+       "w": "cote",
+       "s": 2.54
+      }
+     ]
+    },
+    {
+     "t": "Avec la raison.",
+     "at_s": 7.4,
+     "fin_s": 8.07,
+     "mots": [
+      {
+       "w": "avec",
+       "s": 7.4
+      },
+      {
+       "w": "la",
+       "s": 7.64
+      },
+      {
+       "w": "raison",
+       "s": 7.84
+      }
+     ]
+    },
+    {
+     "t": "Rien n'est comptabilisé sans votre clic.",
+     "at_s": 9.4,
+     "fin_s": 11.41,
+     "mots": [
+      {
+       "w": "rien",
+       "s": 9.4
+      },
+      {
+       "w": "n",
+       "s": 9.72
+      },
+      {
+       "w": "est",
+       "s": 9.8
+      },
+      {
+       "w": "comptabilise",
+       "s": 9.84
+      },
+      {
+       "w": "sans",
+       "s": 10.46
+      },
+      {
+       "w": "votre",
+       "s": 10.82
+      },
+      {
+       "w": "clic",
+       "s": 11.04
+      }
+     ]
+    }
+   ]
+  },
+  "s7": {
+   "start_s": 97.0,
+   "dur_s": 14.18,
+   "phrases": [
+    {
+     "t": "Et chaque mois, un rapport : les pièces traitées, les heures de saisie récupérées, les corrections apportées.",
+     "at_s": 0.6,
+     "fin_s": 7.32,
+     "mots": [
+      {
+       "w": "et",
+       "s": 0.6
+      },
+      {
+       "w": "chaque",
+       "s": 0.84
+      },
+      {
+       "w": "mois",
+       "s": 0.98
+      },
+      {
+       "w": "un",
+       "s": 1.6
+      },
+      {
+       "w": "rapport",
+       "s": 1.7
+      },
+      {
+       "w": "les",
+       "s": 2.92
+      },
+      {
+       "w": "pieces",
+       "s": 2.98
+      },
+      {
+       "w": "traitees",
+       "s": 3.14
+      },
+      {
+       "w": "les",
+       "s": 4.24
+      },
+      {
+       "w": "heures",
+       "s": 4.4
+      },
+      {
+       "w": "de",
+       "s": 4.5
+      },
+      {
+       "w": "saisie",
+       "s": 4.74
+      },
+      {
+       "w": "recuperees",
+       "s": 4.94
+      },
+      {
+       "w": "les",
+       "s": 6.24
+      },
+      {
+       "w": "corrections",
+       "s": 6.38
+      },
+      {
+       "w": "apportees",
+       "s": 6.72
+      }
+     ]
+    },
+    {
+     "t": "Comparé à la mesure faite avant l'installation.",
+     "at_s": 8.3,
+     "fin_s": 10.47,
+     "mots": [
+      {
+       "w": "compare",
+       "s": 8.3
+      },
+      {
+       "w": "a",
+       "s": 8.72
+      },
+      {
+       "w": "la",
+       "s": 8.78
+      },
+      {
+       "w": "mesure",
+       "s": 8.88
+      },
+      {
+       "w": "faite",
+       "s": 9.18
+      },
+      {
+       "w": "avant",
+       "s": 9.44
+      },
+      {
+       "w": "l",
+       "s": 9.78
+      },
+      {
+       "w": "installation",
+       "s": 9.88
+      }
+     ]
+    },
+    {
+     "t": "Mesuré chez vous, pas promis.",
+     "at_s": 11.2,
+     "fin_s": 12.98,
+     "mots": [
+      {
+       "w": "mesure",
+       "s": 11.2
+      },
+      {
+       "w": "chez",
+       "s": 11.6
+      },
+      {
+       "w": "vous",
+       "s": 11.9
+      },
+      {
+       "w": "pas",
+       "s": 12.52
+      },
+      {
+       "w": "promis",
+       "s": 12.68
+      }
+     ]
+    }
+   ]
+  },
+  "s8": {
+   "start_s": 111.18,
+   "dur_s": 8.72,
+   "phrases": [
+    {
+     "t": "Rien n'est sorti du cabinet.",
+     "at_s": 0.6,
+     "fin_s": 1.89,
+     "mots": [
+      {
+       "w": "rien",
+       "s": 0.6
+      },
+      {
+       "w": "n",
+       "s": 1.0
+      },
+      {
+       "w": "est",
+       "s": 1.08
+      },
+      {
+       "w": "sorti",
+       "s": 1.16
+      },
+      {
+       "w": "du",
+       "s": 1.38
+      },
+      {
+       "w": "cabinet",
+       "s": 1.48
+      }
+     ]
+    },
+    {
+     "t": "Réservez un diagnostic gratuit de 30 minutes sur lxstudio.ch.",
+     "at_s": 3.0,
+     "fin_s": 6.92,
+     "mots": [
+      {
+       "w": "reservez",
+       "s": 3.0
+      },
+      {
+       "w": "un",
+       "s": 3.56
+      },
+      {
+       "w": "diagnostic",
+       "s": 3.64
+      },
+      {
+       "w": "gratuit",
+       "s": 4.06
+      },
+      {
+       "w": "de",
+       "s": 4.38
+      },
+      {
+       "w": "trente",
+       "s": 4.5
+      },
+      {
+       "w": "minutes",
+       "s": 4.74
+      },
+      {
+       "w": "sur",
+       "s": 5.08
+      },
+      {
+       "w": "l",
+       "s": 5.46
+      },
+      {
+       "w": "x",
+       "s": 5.588
+      },
+      {
+       "w": "studio",
+       "s": 5.715
+      },
+      {
+       "w": "point",
+       "s": 6.162
+      },
+      {
+       "w": "c",
+       "s": 6.545
+      },
+      {
+       "w": "h",
+       "s": 6.672
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "total_s": 119.9
+}

@@ -100,7 +100,9 @@ export const FOOTER = {
       ],
     },
   ],
-  copyright: `${new Date().getFullYear()} LX Studio, Bassecourt`,
+  // L'année est ajoutée au rendu (Footer.tsx) : à la portée du module, l'horloge du Worker
+  // Cloudflare vaut 0 avant la première requête, le site affichait « 1970 LX Studio ».
+  copyright: "LX Studio, Bassecourt",
   madeIn: "Conçu et hébergé pour la Suisse romande",
 } as const;
 

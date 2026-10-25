@@ -93,8 +93,10 @@ qui relit (Tanguy, une fiduciaire partenaire, un avocat) et quand.
 
 ## F. Vidéo démo
 
-36. **Voix off** : aucune, la voix de Tanguy, ou une synthèse ? Le texte est dans
-    `docs/demo-script.md`.
+36. **Voix off** : faite le 24.10.2026 en synthèse, la voix « Achird » de Gemini TTS, celle des
+    films Mentia et LX Sales Coach (`npm run demo:voix`, script dans `scripts/demo/voix.json`).
+    Reste ouvert : la remplacer par la voix de Tanguy (meilleure preuve) ; le texte à lire est
+    dans `docs/demo-script.md`, phrase par phrase.
 37. **Musique** : aucune, ou une nappe discrète ?
 38. **Cas montré** : la facture d'exemple et le mandat « Boulangerie Exemple SA » conviennent, ou
     un cas réel anonymisé ?

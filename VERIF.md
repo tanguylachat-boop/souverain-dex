@@ -164,28 +164,43 @@ Pages légales
 Voir `verif/README.md`. Générateurs : `npm run og` (images de partage), `npm run dossier:pdf`
 (dossier sécurité). Audit de la référence : `docs/emedias-audit.md`.
 
-## 8. La démo en 2 minutes (branche `demo-video`, 24.10.2026)
+## 8. La démo en 2 minutes, avec sa voix off (branche `demo-video`, 24 et 25.10.2026)
 
 Vidéo en motion design fabriquée en code : `scripts/demo/demo.html` est une scène dont chaque
 image est une fonction du temps (aucune animation CSS), rendue par Chromium à 30 images par seconde
-puis encodée par ffmpeg (`npm run demo`). Script, storyboard et version voix off dans
+puis encodée par ffmpeg avec la voix (`npm run demo`). Script, storyboard et voix off dans
 `docs/demo-script.md`.
 
 | Fichier | Contenu | Poids |
 | --- | --- | --- |
-| `public/demo/demo-lx-studio.mp4` | H.264, 1280 × 720, 30 i/s, 120 s, 3600 images | 3,0 Mo |
-| `public/demo/demo-lx-studio.webm` | VP9, 1280 × 720, 30 i/s, 120 s | 3,0 Mo |
+| `public/demo/demo-lx-studio.mp4` | H.264, 1280 × 720, 30 i/s, 119,9 s, 3597 images, AAC mono 48 kHz | 4,0 Mo |
+| `public/demo/demo-lx-studio.webm` | VP9, 1280 × 720, 30 i/s, 119,9 s, Opus mono 48 kHz | 3,6 Mo |
 | `public/demo/demo-poster.jpg` | affiche (image à 3,4 s) | 107 Ko |
-| `.demo-master-1080.mp4` (non versionné) | master 1920 × 1080 pour LinkedIn ou un salon | 10 Mo |
+| `scripts/demo/voix/track.flac` + `timing.json` | la piste voix (mono 24 kHz, sans perte) et le minutage des scènes, phrases et mots | 2,0 Mo |
+| `.demo-master-1080.mp4` (non versionné) | master 1920 × 1080 pour LinkedIn ou un salon | 10,9 Mo |
 
-- Huit scènes, texte à l'écran pesé mot par mot, vouvoiement, aucun tiret long, aucun chiffre
-  présenté comme un résultat client : la facture porte le filigrane « EXEMPLE », le rapport mensuel
-  n'affiche aucune valeur, les comptes sont génériques (4000 Achats de marchandises, 2000
-  Créanciers), TVA à 8,1 %, aucun logo de logiciel (« votre logiciel comptable »).
-- Sur la page : l'affiche se charge en différé (`loading="lazy"`), la vidéo n'est demandée qu'au
-  clic (aucun octet vidéo au premier chargement), lecture avec les commandes du navigateur, texte
-  de la vidéo replié sous le titre, VideoObject dans le JSON-LD de l'accueil.
-- Contrôle : neuf images de la scène relues avant le rendu, quatre images extraites du mp4 encodé,
-  lecture au clic vérifiée par `verif/shots.mjs` aux trois tailles : source webm choisie, 1280 × 720, 120 s, en lecture à 2,5 s après le clic, 0 erreur console.
-- Non fait : voix off et musique (texte prêt dans `docs/demo-script.md`), lecture sur un vrai
-  téléphone, Safari réel (WebKit émulé lit le mp4, pas le webm).
+- La voix off : celle des films Mentia et LX Sales Coach (Gemini TTS, voix « Achird », modèle
+  `gemini-3.8-flash-tts` le 25.10.2026), produite par `npm run demo:voix` (`scripts/demo/voix.py`,
+  méthode reprise de `~/mentia-motion`) : trois lectures de scènes consécutives, transcription
+  locale par whisper.cpp et horodatage des mots par whisper-1, découpe de chaque phrase au milieu
+  d'un silence, pose sur sa scène à l'instant choisi. 23 phrases ; piste à -16,6 LUFS intégrés,
+  crête -1,4 dBFS ; le mp4 encodé mesure -16,7 LUFS, crête -1,3 dBFS.
+- La scène est pilotée par la voix : chaque scène commence et dure selon `timing.json` (s3 ramenée
+  de 20 à 15 s, s4 de 14 à 12 s, s7 prolongée de 3,2 s, s8 de 3,2 s), et les éléments qui doivent
+  tomber sur un mot le lisent dans le minutage (document qui part du scanner sur « scanner », chaque
+  champ de la facture sur son nom, clic sur « valider », étiquette sur « Avec la raison », tampon
+  sur « Mesuré chez vous », pastille de fin avec la dernière phrase).
+- Contrôles de la voix : `python3 scripts/demo/verifier_voix.py` retranscrit chaque phrase depuis
+  la piste finale et la compare au script, 23/23 sans fuite aux bords (deux écarts homophones,
+  « comparez » pour « comparé », « installez » pour « installée ») ; les seize silences de plus de
+  1,2 s de la piste tombent tous entre deux scènes ou entre deux phrases, jamais dans une phrase.
+- Contrôles de l'image : 23 images de contrôle au début de chaque phrase (`npm run demo -- --preview`),
+  huit relues ; cinq images extraites du mp4 encodé (23,7 s, 70,1 s, 91,2 s, 108,9 s, 115,0 s).
+- Sur la page : affiche en différé, vidéo demandée au clic seulement, commandes du navigateur, texte
+  de la vidéo (la voix, scène par scène) replié sous le titre, VideoObject dans le JSON-LD.
+  Lecture au clic vérifiée par `verif/shots.mjs` aux trois tailles : source webm, 1280 × 720,
+  120 s, en lecture 2,5 s après le clic, son décodé (`webkitAudioDecodedByteCount` de 11 à 12 Ko à
+  2,4 s, `muted: false`), 0 erreur console ; pages intérieures, redirections, 404, fichiers publics
+  inchangés ; 0 tiret long sur 44 fichiers et 17 pages rendues ; typecheck et lint sans erreur.
+- Non fait : écoute humaine de la piste (les contrôles sont des retranscriptions et des mesures),
+  musique, lecture sur un vrai téléphone, Safari réel (WebKit émulé lit le mp4, pas le webm).

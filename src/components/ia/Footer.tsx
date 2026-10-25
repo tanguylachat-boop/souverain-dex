@@ -46,7 +46,9 @@ export function Footer() {
           ))}
         </div>
         <div className="ia-footer-bottom">
-          <span>{FOOTER.copyright}</span>
+          <span>
+            {new Date().getFullYear()} {FOOTER.copyright}
+          </span>
           <span>{FOOTER.madeIn}</span>
         </div>
       </div>

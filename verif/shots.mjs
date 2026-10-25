@@ -170,6 +170,9 @@ for (const vp of VIEWPORTS) {
           size: `${v.videoWidth}x${v.videoHeight}`,
           duration: Math.round(v.duration),
           src: (v.currentSrc || "").split("/").pop(),
+          // Chromium expose les octets audio décodés : > 0 prouve que la piste voix est lue.
+          audioBytes: v.webkitAudioDecodedByteCount ?? null,
+          muted: v.muted,
         }
       : "no video";
   });
