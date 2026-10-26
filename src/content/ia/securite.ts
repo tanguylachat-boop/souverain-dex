@@ -43,7 +43,7 @@ export const SECURITE_SECTIONS: ReadonlyArray<SecuriteSection> = [
     summary:
       "Sur une machine installée chez vous, sur votre réseau, sans appel vers un service externe pendant le traitement.",
     points: [
-      "Le système est installé sur une machine dédiée dans vos locaux, fournie avec le système.",
+      "Le système est installé sur une machine dédiée dans vos locaux, fournie avec lui : un Mac mini Apple (puce M4 Pro, 64 Go de mémoire unifiée), de la taille d'un livre.",
       "Pendant le traitement d'un document, aucune requête ne part vers un service externe : ni vers un éditeur de modèle d'IA, ni vers LX Studio.",
       "Les documents traités, les résultats et les journaux restent sur le disque de cette machine.",
       "Les connecteurs vers vos outils (Bexio, messagerie, dossiers) parlent à ces outils depuis votre réseau, avec vos comptes. La liste des connecteurs actifs et de leurs flux est consignée dans le dossier à l'installation.",
@@ -56,7 +56,7 @@ export const SECURITE_SECTIONS: ReadonlyArray<SecuriteSection> = [
       "Trois briques sur une seule machine : les connecteurs vers vos outils, le moteur d'IA, et l'interface de validation.",
     points: [
       "Connecteurs : ils lisent vos sources (messagerie, dossiers, logiciel comptable) et y réécrivent les résultats validés.",
-      "Moteur : un ou plusieurs modèles d'IA ouverts, exécutés localement sur la machine ; leurs noms et versions sont consignés dans le dossier à l'installation.",
+      "Moteur : des modèles d'IA ouverts (familles Llama et Qwen), exécutés localement sur la machine par Ollama, avec une reconnaissance de texte locale (Tesseract) et un lecteur de factures QR ; les noms et versions exacts sont consignés dans le dossier à l'installation.",
       "Interface : une page web accessible depuis votre réseau interne seulement, où vos équipes valident ou corrigent.",
       "Aucune de ces briques n'est joignable depuis l'extérieur de votre réseau sans votre autorisation explicite.",
     ],
@@ -79,7 +79,7 @@ export const SECURITE_SECTIONS: ReadonlyArray<SecuriteSection> = [
       "Les comptes utilisateurs sont créés et retirés par vous ; l'intégration à votre annuaire existant est étudiée à l'installation.",
       "Les droits suivent les rôles : qui peut lancer un traitement, qui peut valider, qui peut consulter les journaux.",
       "Chaque traitement est journalisé : utilisateur, document, heure, résultat. Les journaux restent sur la machine ; leur durée de conservation est fixée avec vous.",
-      "L'accès de LX Studio pour la maintenance n'existe que si vous l'activez, pour une intervention datée, et il est journalisé comme les autres.",
+      "L'accès à distance de LX Studio pour le support passe par un tunnel chiffré que vous autorisez à l'installation et que vous pouvez couper à tout moment ; chaque intervention est datée et journalisée comme les autres.",
     ],
   },
   {
@@ -88,7 +88,7 @@ export const SECURITE_SECTIONS: ReadonlyArray<SecuriteSection> = [
     summary: "Les sauvegardes sont faites sur vos supports, selon votre politique.",
     points: [
       "Le système n'envoie aucune sauvegarde hors de votre réseau.",
-      "Vous choisissez le support (NAS, serveur, disque) et la fréquence. La procédure de restauration est décrite dans le dossier remis à l'installation.",
+      "Une sauvegarde planifiée tourne sur la machine ; vous choisissez le support (NAS, serveur, disque) et la fréquence. La procédure de restauration est décrite dans le dossier remis à l'installation.",
       "Les données traitées peuvent être purgées de la machine après validation, selon la durée que vous fixez.",
     ],
   },
@@ -164,7 +164,7 @@ export const SECURITE_DOSSIER = {
 /** Engagements contractuels, page 4 du PDF. */
 export const SECURITE_ENGAGEMENTS = [
   "Aucune donnée traitée ne quitte le réseau du client pendant le traitement.",
-  "Aucun accès de LX Studio sans activation par le client, pour une intervention datée et journalisée.",
+  "Aucun accès à distance de LX Studio sans l'autorisation du client, qui peut le couper à tout moment ; chaque intervention est datée et journalisée.",
   "La machine, le code et la documentation restent au client en fin de contrat.",
   "Chaque mise à jour est annoncée, datée et documentée.",
 ] as const;

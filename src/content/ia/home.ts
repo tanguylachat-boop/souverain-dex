@@ -261,7 +261,7 @@ export const FAQ = {
     },
     {
       q: "De quel matériel ai-je besoin ?",
-      a: "D'une prise, d'un accès à votre réseau et d'un emplacement de la taille d'un petit ordinateur de bureau. La machine est fournie et installée avec le système ; son modèle et son prix figurent dans le devis, dimensionnés pour votre volume.",
+      a: "D'une prise, d'un accès à votre réseau et d'un emplacement de la taille d'un livre. La machine est fournie et installée avec le système : un Mac mini Apple (puce M4 Pro, 64 Go de mémoire unifiée), dont le prix figure dans le devis.",
     },
     {
       q: "Combien ça coûte ?",

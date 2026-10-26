@@ -102,7 +102,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h2", text: "Quel matériel il faut vraiment" },
       {
         kind: "p",
-        text: "Pour les tâches de bureau décrites plus haut, une machine avec un processeur récent et une carte graphique de milieu de gamme suffit dans la plupart des cas. Elle tient dans un boîtier de la taille d'un petit ordinateur de bureau, se branche sur une prise et un câble réseau, et ne demande pas de salle serveur. La configuration retenue et son prix dépendent du modèle choisi pour la tâche, et figurent dans le devis.",
+        text: "Pour les tâches de bureau décrites plus haut, une machine de bureau récente avec beaucoup de mémoire suffit dans la plupart des cas. Dans mes installations, c'est un Mac mini Apple avec 64 Go de mémoire unifiée : il tient dans la main, se branche sur une prise et un câble réseau, et ne demande pas de salle serveur. Le prix de la machine figure dans le devis.",
       },
       {
         kind: "p",

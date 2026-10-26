@@ -43,7 +43,7 @@ function MentionsLegales() {
             <p>
               <strong>LX Studio</strong>
               <br />
-              Entreprise individuelle, {SITE.founder}
+              Raison individuelle, {SITE.founder}
               <br />
               {SITE.address.street ? `${SITE.address.street}, ` : ""}
               {SITE.address.zip} {SITE.address.city}, {SITE.address.country}
@@ -51,6 +51,11 @@ function MentionsLegales() {
               Téléphone : <a href={SITE.phoneHref}>{SITE.phone}</a>
               <br />
               E-mail : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            </p>
+            <p>
+              Numéro IDE : {SITE.ide}
+              <br />
+              {SITE.vat}
             </p>
 
             <h2>Hébergement</h2>
