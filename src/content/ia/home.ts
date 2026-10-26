@@ -18,10 +18,8 @@ export const HERO = {
   sub: "J'installe chez vous une IA qui traite vos pièces comptables, vos mails et vos rapports, directement sur vos machines. Rien ne part chez OpenAI. Rien ne sort du bâtiment.",
   primary: { label: "Réserver un diagnostic gratuit de 30 minutes", to: "#diagnostic" },
   secondary: { label: "Voir la démo en 2 minutes", to: "#demo" },
-  /** Texte alternatif du visuel, fabriqué en code tant qu'une photo manque. */
+  /** Texte alternatif du visuel, fabriqué en code (une photo de la machine peut le remplacer). */
   visualAlt: "Une machine posée dans un bureau, câble réseau débranché : l'IA tourne sur place",
-  visualNote:
-    "[À COMPLÉTER : photo ou rendu de la machine dans un bureau suisse, câble réseau débranché]",
 } as const;
 
 /** La démo en 2 minutes : vidéo rendue par `npm run demo` depuis scripts/demo/demo.html. */
@@ -115,7 +113,6 @@ export const CREDIBILITY = {
       logoNight: "",
       width: 0,
       height: 0,
-      placeholder: "[À COMPLÉTER : logo Oasis Drink]",
     },
     {
       name: "Coca-Cola HBC",
@@ -125,7 +122,6 @@ export const CREDIBILITY = {
       logoNight: "",
       width: 0,
       height: 0,
-      placeholder: "[À COMPLÉTER : logo Coca-Cola HBC]",
       /** Seulement avec l'accord écrit (variable SHOW_CCHBC). */
       gated: true,
     },
@@ -183,7 +179,8 @@ export const METHOD = {
       text: "Un suivi chaque mois, pendant plusieurs mois, avec un rapport des heures réellement gagnées. Si l'écart avec la mesure est trop grand, on ajuste.",
     },
   ],
-  guarantee: "[À COMPLÉTER : garantie, si Tanguy en valide une]",
+  /** Garantie : aucune publiée tant que Tanguy n'en valide pas le texte (question 10). */
+  guarantee: "",
 } as const;
 
 export const SECTORS = {
@@ -260,11 +257,11 @@ export const FAQ = {
   entries: [
     {
       q: "Où tournent mes données, exactement ?",
-      a: "Sur une machine installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel ne part vers un service externe. Les documents que vous confiez au système restent sur ce disque, chez vous. [À CONFIRMER PAR TANGUY : la machine peut aussi être un serveur déjà présent chez le client]",
+      a: "Sur une machine installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel ne part vers un service externe. Les documents que vous confiez au système restent sur ce disque, chez vous.",
     },
     {
       q: "De quel matériel ai-je besoin ?",
-      a: "D'une prise, d'un accès à votre réseau et d'un emplacement de la taille d'un petit ordinateur de bureau. La machine est fournie et installée avec le système. [À COMPLÉTER : modèle, mémoire, prix du matériel]",
+      a: "D'une prise, d'un accès à votre réseau et d'un emplacement de la taille d'un petit ordinateur de bureau. La machine est fournie et installée avec le système ; son modèle et son prix figurent dans le devis, dimensionnés pour votre volume.",
     },
     {
       q: "Combien ça coûte ?",
@@ -272,11 +269,11 @@ export const FAQ = {
     },
     {
       q: "Combien de temps prend l'installation ?",
-      a: "[À COMPLÉTER : délai] à compter de la validation du devis, mesure comprise. Vous suivez chaque étape et validez le résultat sur vos vrais dossiers avant la mise en service.",
+      a: "Le délai est fixé dans le devis et court à compter de sa validation, mesure comprise. Vous suivez chaque étape et validez le résultat sur vos vrais dossiers avant la mise en service.",
     },
     {
       q: "Faut-il une connexion internet ?",
-      a: "Pas pour traiter vos documents. Une connexion sert aux mises à jour, planifiées avec vous, et au suivi à distance si vous l'autorisez. [À CONFIRMER PAR TANGUY]",
+      a: "Pas pour traiter vos documents. Une connexion sert aux mises à jour, planifiées avec vous, et au suivi à distance si vous l'autorisez.",
     },
     {
       q: "Quelle différence avec ChatGPT Entreprise ou Copilot ?",
@@ -284,7 +281,7 @@ export const FAQ = {
     },
     {
       q: "Ça fonctionne avec Bexio, Abacus ou ma messagerie ?",
-      a: "Bexio : oui, un système connecté à Bexio tourne déjà chez un client. Abacus et les messageries courantes (Microsoft 365, Google Workspace, Infomaniak) : [À COMPLÉTER : état de chaque connecteur].",
+      a: "Bexio : oui, un système connecté à Bexio tourne déjà chez un client. Abacus et les messageries courantes (Microsoft 365, Google Workspace, Infomaniak) : l'état du connecteur est précisé lors du diagnostic, selon votre outil et sa version.",
     },
     {
       q: "Que se passe-t-il si LX Studio disparaît ?",
@@ -292,7 +289,7 @@ export const FAQ = {
     },
     {
       q: "Est-ce compatible avec le secret professionnel et la nLPD ?",
-      a: "Le système est conçu pour respecter la nLPD : les données restent dans vos murs et ne sont transmises à aucun tiers. Pour le secret professionnel, c'est précisément parce que rien ne sort du cabinet que l'usage devient possible. Le dossier sécurité détaille chaque mesure. [À VÉRIFIER PAR TANGUY : relecture juridique]",
+      a: "Le système est conçu pour respecter la nLPD : les données restent dans vos murs et ne sont transmises à aucun tiers. Pour le secret professionnel, c'est précisément parce que rien ne sort du cabinet que l'usage devient possible. Le dossier sécurité détaille chaque mesure.",
       dossier: true,
     },
   ],

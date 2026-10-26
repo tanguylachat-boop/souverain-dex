@@ -98,53 +98,17 @@ canonique propres, image OG dédiée, 2 blocs JSON-LD, 0 erreur.
 - **`VITE_SHOW_CCHBC=true`** : la référence Coca-Cola HBC n'a pas été affichée (variable absente),
   son logo manque de toute façon.
 
-## 5. Les trous à combler (tous visibles en jaune sur le site)
+## 5. Les trous à combler (plus aucun n'est visible sur le site depuis le 26.10.2026)
 
-Accueil et commun
-
-- `[À COMPLÉTER : lien cal.com]` : `SITE.bookingHref` dans `src/content/ia/site.ts` ; tant qu'il est
-  vide, les boutons mènent au formulaire.
-- `[À COMPLÉTER : vidéo démo]` : section `#demo`, `SITE.demoVideo`.
-- `[À COMPLÉTER : photo ou rendu de la machine ...]` : le visuel du premier écran est fait en code
-  (`HeroMachine.tsx`), remplaçable par une photo.
-- `[À COMPLÉTER : rue et numéro]`, `[À COMPLÉTER : numéro IDE]` : pied de page et mentions légales.
-- `[À COMPLÉTER : logo Oasis Drink]`, `[À COMPLÉTER : logo Coca-Cola HBC]` (affiché seulement avec
-  `VITE_SHOW_CCHBC=true`).
-- `[À COMPLÉTER : garantie, si Tanguy en valide une]` : sous la méthode.
-- FAQ : `[À COMPLÉTER : modèle, mémoire, prix du matériel]`, `[À COMPLÉTER : délai]`,
-  `[À COMPLÉTER : état de chaque connecteur]`, `[À CONFIRMER PAR TANGUY]` (machine = serveur
-  existant ; connexion internet), `[À VÉRIFIER PAR TANGUY : relecture juridique]`.
-
-Métiers
-
-- `/fiduciaires` : `[À COMPLÉTER : nom du cabinet pilote, avec son accord]`, `[À COMPLÉTER : état
-  des connecteurs Abacus, Crésus, WinBIZ]`, relecture juridique.
-- `/administrations` : `[À COMPLÉTER : catégories de données traitées]`, `[À CONFIRMER PAR TANGUY :
-  format et durée de conservation des journaux]`, `[... annuaire pris en charge]`.
-- `/pme` : `[À CONFIRMER PAR TANGUY : modèle de maintenance]`, connecteurs messagerie.
-
-Sécurité (page et PDF, même source `src/content/ia/securite.ts`)
-
-- `[À COMPLÉTER : date et prestataire]` du test d'intrusion (jamais présenté comme fait).
-- `[À CONFIRMER PAR TANGUY]` : les deux options machine dédiée / serveur existant, liste des
-  connecteurs et flux sortants, modèles et versions, méthode de chiffrement et gestion de la clé,
-  certificats, intégration à un annuaire, durée de conservation des journaux, procédure de
-  restauration testée, qui applique les mises à jour, conditions d'achat ou de location, registre
-  des traitements.
-- `[À COMPLÉTER : engagements supplémentaires validés par Tanguy]`.
-- `[À VÉRIFIER PAR TANGUY]` sur les deux passages nLPD et art. 321 CP.
-
-Ressources
-
-- 14 passages juridiques marqués `[À VÉRIFIER PAR TANGUY]` (LPD art. 5, 6, 8, 16, 17, 19, 60 ;
-  art. 321 CP), un `[À VÉRIFIER : conditions contractuelles des éditeurs]`, un `[À COMPLÉTER :
-  configuration type et ordre de prix]`, les cinq lignes de la mesure dans l'article fiduciaire,
-  `[À CONFIRMER PAR TANGUY : formats pris en charge]`.
-
-Pages légales
-
-- Hébergeur du site publié, for juridique, prestataire d'envoi des mails, maintien de la mesure
-  d'audience (Plausible), durée de conservation.
+Les marques jaunes `[À COMPLÉTER / À CONFIRMER / À VÉRIFIER PAR TANGUY]` ont toutes été retirées
+du contenu le 26.10.2026 : chaque phrase a été réécrite pour être vraie sans la donnée manquante
+(« précisé dans le devis », « fixé à l'installation et consigné dans le dossier », « aucun test
+d'intrusion indépendant à ce jour »), la ligne IDE est retirée, la rue n'est pas affichée, le logo
+Oasis est remplacé par le nom, la garantie n'est pas publiée. Les passages juridiques ont été
+comparés aux textes consolidés de fedlex (LPD art. 5, 6, 8, 12, 16, 17, 19, 22, 60, 61 ; CP art. 320
+et 321) et corrigés. La liste de ce qui manque encore, avec ce que le site dit en attendant, est
+`docs/a-completer.md` (38 points). Le composant `T` reste en place : une marque qui réapparaîtrait
+dans le contenu serait de nouveau affichée en jaune.
 
 ## 6. Décisions à confirmer
 
@@ -152,8 +116,8 @@ Pages légales
   roundels BMW et MINI. Il est affiché en gris sur l'accueil ; l'accord écrit du client pour cet
   usage doit être au dossier.
 - Un logo « OD » pour Oasis Drink existait dans l'ancien dépôt (`src/assets/clients/oasis-drink.png`,
-  256×256) : un monogramme improvisé, pas le logo officiel. Il n'a pas été repris ; le placeholder
-  reste.
+  256×256) : un monogramme improvisé, pas le logo officiel. Il n'a pas été repris ; le nom est
+  affiché en texte.
 - Les cinq anciens articles du journal sont conservés sous `/ressources` avec leur slug ; celui sur
   la visibilité dans les assistants IA (Mentia) a été retiré et redirige vers l'accueil.
 - La variable d'affichage de Coca-Cola HBC s'appelle `VITE_SHOW_CCHBC` (préfixe obligatoire pour

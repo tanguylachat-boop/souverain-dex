@@ -5,7 +5,7 @@ import { SITE, bookingHref } from "@/content/ia/site";
 import { SECURITE_DOSSIER, SECURITE_VERSION } from "@/content/ia/securite";
 import { Mesh } from "./Mesh";
 import { IconArrow, IconDownload } from "./icons";
-import { Eyebrow, T, Words } from "./text";
+import { Eyebrow, Words } from "./text";
 
 /**
  * Les deux formulaires du site. La validation (zod) et l'appel serveur ne
@@ -107,7 +107,9 @@ export function ContactForm() {
         return;
       }
       setErrors({});
-      await submitDiagnostic({ data: parsed.data });
+      const result = await submitDiagnostic({ data: parsed.data });
+      // Sans prestataire d'envoi configuré, rien n'est parti : on le dit, avec le téléphone et l'e-mail.
+      if (!result.delivered) throw new Error("message non remis");
       setStatus("ok");
     } catch (err) {
       console.error(err);
@@ -129,11 +131,7 @@ export function ContactForm() {
                 <IconArrow />
               </a>
             </div>
-          ) : (
-            <div style={{ marginTop: 12 }}>
-              <mark className="ia-placeholder">{SITE.booking}</mark>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     );
@@ -256,9 +254,11 @@ export function CtaPanel({
                 <span>
                   Par e-mail : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
                 </span>
-                <span>
-                  En direct dans l'agenda : <T>{SITE.booking}</T>
-                </span>
+                {bookingHref("") ? (
+                  <span>
+                    En direct dans l'agenda : <a href={bookingHref("")}>{FORM.success.cta}</a>
+                  </span>
+                ) : null}
               </div>
             </div>
             <ContactForm />
@@ -275,6 +275,7 @@ export function CtaPanel({
 export function DossierCard() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [mailed, setMailed] = useState(true);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -294,6 +295,7 @@ export function DossierCard() {
       }
       setErrors({});
       const result = await requestDossier({ data: parsed.data });
+      setMailed(result.delivered);
       setStatus("ok");
       window.open(result.file, "_blank", "noopener");
     } catch (err) {
@@ -319,7 +321,7 @@ export function DossierCard() {
           {status === "ok" ? (
             <div className="ia-form-ok" role="status">
               <strong>{SECURITE_DOSSIER.success.title}</strong>
-              {SECURITE_DOSSIER.success.text}
+              {mailed ? SECURITE_DOSSIER.success.text : SECURITE_DOSSIER.success.textNoMail}
               <div>
                 <a
                   className="ia-btn is-primary"

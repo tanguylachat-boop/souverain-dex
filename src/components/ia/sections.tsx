@@ -39,9 +39,6 @@ export function LogoBand() {
                   <span className="ia-ref-name">{c.name}</span>
                 )}
               </div>
-              {"placeholder" in c && c.placeholder ? (
-                <mark className="ia-placeholder">{c.placeholder}</mark>
-              ) : null}
               <p className="ia-ref-line">
                 <small>
                   {c.name}

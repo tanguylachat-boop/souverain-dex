@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { IaPage } from "@/components/ia/Shell";
-import { T } from "@/components/ia/text";
 import { SITE } from "@/content/ia/site";
 import { pageMeta, jsonLd, webPage, breadcrumbs } from "@/lib/seo";
 
@@ -47,8 +46,8 @@ function PolitiqueConfidentialite() {
             <p>
               <strong>LX Studio</strong>, {SITE.founder}
               <br />
-              <T>{SITE.address.street}</T>, {SITE.address.zip} {SITE.address.city},{" "}
-              {SITE.address.country}
+              {SITE.address.street ? `${SITE.address.street}, ` : ""}
+              {SITE.address.zip} {SITE.address.city}, {SITE.address.country}
               <br />
               E-mail : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </p>
@@ -70,8 +69,7 @@ function PolitiqueConfidentialite() {
             <p>
               La fréquentation du site est mesurée sans cookie et sans identifiant personnel
               (Plausible Analytics, données agrégées par page). Aucun pixel publicitaire, aucun
-              traçage entre sites.{" "}
-              <T>{"[À CONFIRMER PAR TANGUY : maintien de la mesure d'audience]"}</T>
+              traçage entre sites.
             </p>
 
             <h2>3. Finalités</h2>
@@ -99,12 +97,8 @@ function PolitiqueConfidentialite() {
             <p>
               Chaque formulaire est transmis au serveur du site, qui l'envoie par e-mail à{" "}
               {SITE.email} via un prestataire d'envoi d'e-mails. Aucune base de données n'est tenue
-              par le site : le message reçu est la seule trace.{" "}
-              <T>
-                {
-                  "[À CONFIRMER PAR TANGUY : prestataire d'envoi (Resend) et lieu d'hébergement des serveurs]"
-                }
-              </T>
+              par le site : le message reçu est la seule trace. Le prestataire d'envoi est Resend
+              (Resend, Inc.), qui ne reçoit que le contenu du message pour le transmettre.
             </p>
             <p>
               <strong>Le système installé chez les clients est distinct de ce site :</strong> les
@@ -117,8 +111,7 @@ function PolitiqueConfidentialite() {
             <p>
               Les demandes sont conservées au plus 24 mois après le dernier échange, sauf relation
               contractuelle, auquel cas les documents sont conservés selon les obligations légales
-              suisses (10 ans pour les pièces comptables).{" "}
-              <T>{"[À CONFIRMER PAR TANGUY : durée]"}</T>
+              suisses (10 ans pour les pièces comptables).
             </p>
 
             <h2>7. Vos droits</h2>

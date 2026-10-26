@@ -4,7 +4,8 @@
  * fichiers de `content/ia/`, jamais dans un composant.
  *
  * Règles : vouvoiement, français de Suisse, aucun tiret long, aucune
- * statistique inventée, placeholders visibles `[À COMPLÉTER : ...]`.
+ * statistique inventée. Ce qui manque n'est pas inventé : il est listé dans
+ * docs/a-completer.md et la phrase est écrite pour tenir sans la donnée.
  */
 
 export const SITE = {
@@ -15,14 +16,14 @@ export const SITE = {
   phoneHref: "tel:+41787038800",
   founder: "Tanguy Lachat",
   address: {
-    street: "[À COMPLÉTER : rue et numéro]",
+    /** Rue et numéro : à fournir par Tanguy (docs/a-completer.md, question 2). */
+    street: "",
     zip: "2854",
     city: "Bassecourt",
     region: "Jura",
     country: "Suisse",
   },
-  /** Lien de réservation du diagnostic. Tant qu'il manque, les boutons mènent au formulaire. */
-  booking: "[À COMPLÉTER : lien cal.com]",
+  /** Lien de réservation du diagnostic (cal.com). Tant qu'il manque, les boutons mènent au formulaire. */
   bookingHref: "",
   /** Affiche Coca-Cola HBC dans les références seulement avec l'accord écrit. */
   showCchbc: false,
