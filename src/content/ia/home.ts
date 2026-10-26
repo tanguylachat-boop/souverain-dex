@@ -18,10 +18,69 @@ export const HERO = {
   sub: "J'installe chez vous une IA qui traite vos pièces comptables, vos mails et vos rapports, directement sur vos machines. Rien ne part chez OpenAI. Rien ne sort du bâtiment.",
   primary: { label: "Réserver un diagnostic gratuit de 30 minutes", to: "#diagnostic" },
   secondary: { label: "Voir la démo en 2 minutes", to: "#demo" },
-  /** Texte alternatif du visuel, fabriqué en code tant qu'une photo manque. */
+  /** Texte alternatif du visuel, fabriqué en code (une photo de la machine peut le remplacer). */
   visualAlt: "Une machine posée dans un bureau, câble réseau débranché : l'IA tourne sur place",
-  visualNote:
-    "[À COMPLÉTER : photo ou rendu de la machine dans un bureau suisse, câble réseau débranché]",
+} as const;
+
+/** La démo en 2 minutes : vidéo rendue par `npm run demo` depuis scripts/demo/demo.html. */
+export const DEMO = {
+  eyebrow: "La démo",
+  title: "Deux minutes pour voir une pièce traitée, du scan à l'écriture validée.",
+  text: "Une facture d'exemple arrive, est lue, classée et proposée à la validation, sur une machine qui ne fait aucun appel vers l'extérieur pendant le traitement. Une voix explique chaque étape, et tout est aussi écrit à l'écran.",
+  play: "Voir la démo en 2 minutes",
+  poster: "/demo/demo-poster.jpg",
+  mp4: "/demo/demo-lx-studio.mp4",
+  webm: "/demo/demo-lx-studio.webm",
+  duration: "PT2M",
+  uploadDate: "2026-10-24",
+  transcriptLabel: "Le texte de la vidéo",
+  chapters: [
+    {
+      time: "0:00",
+      title: "Une pièce comptable, du scan à l'écriture validée.",
+      text: "Voici ce qui se passe quand une pièce comptable arrive dans un cabinet équipé par LX Studio.",
+    },
+    {
+      time: "0:06",
+      title: "La machine est chez vous.",
+      text: "La machine est chez vous. Installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel ne part vers un service externe : ni vers un éditeur d'intelligence artificielle, ni vers LX Studio.",
+    },
+    {
+      time: "0:20",
+      title: "Les pièces arrivent comme aujourd'hui.",
+      text: "Les pièces arrivent comme aujourd'hui. Par le scanner, par e-mail, par une photo prise au téléphone. Rien ne change pour vos clients ni pour vos collaborateurs.",
+    },
+    {
+      time: "0:34",
+      title: "Lue sur place.",
+      text: "La pièce est lue sur place. Le fournisseur, la date, les montants, la TVA, la référence de la facture QR : tout est extrait sur la machine, dans vos murs.",
+    },
+    {
+      time: "0:49",
+      title: "Classée, renommée.",
+      text: "Elle est ensuite classée dans le dossier du bon mandat. Et renommée selon votre convention, prête pour l'archivage.",
+    },
+    {
+      time: "1:01",
+      title: "L'écriture est proposée. Vous validez.",
+      text: "L'écriture est proposée dans votre logiciel comptable, avec le compte et le code TVA déduits de vos écritures passées. Un clic pour valider. Un clic pour corriger. Si vous corrigez, le système retient la correction pour ce mandat et la propose la fois suivante.",
+    },
+    {
+      time: "1:23",
+      title: "Ce qu'il ne comprend pas, il le met de côté.",
+      text: "Ce qu'il ne comprend pas, il le met de côté. Avec la raison. Rien n'est comptabilisé sans votre clic.",
+    },
+    {
+      time: "1:37",
+      title: "Chaque mois, un rapport.",
+      text: "Et chaque mois, un rapport : les pièces traitées, les heures de saisie récupérées, les corrections apportées. Comparé à la mesure faite avant l'installation. Mesuré chez vous, pas promis.",
+    },
+    {
+      time: "1:51",
+      title: "Rien n'est sorti du cabinet.",
+      text: "Rien n'est sorti du cabinet. Réservez un diagnostic gratuit de 30 minutes sur lxstudio.ch.",
+    },
+  ],
 } as const;
 
 export const CREDIBILITY = {
@@ -54,7 +113,6 @@ export const CREDIBILITY = {
       logoNight: "",
       width: 0,
       height: 0,
-      placeholder: "[À COMPLÉTER : logo Oasis Drink]",
     },
     {
       name: "Coca-Cola HBC",
@@ -64,7 +122,6 @@ export const CREDIBILITY = {
       logoNight: "",
       width: 0,
       height: 0,
-      placeholder: "[À COMPLÉTER : logo Coca-Cola HBC]",
       /** Seulement avec l'accord écrit (variable SHOW_CCHBC). */
       gated: true,
     },
@@ -122,7 +179,8 @@ export const METHOD = {
       text: "Un suivi chaque mois, pendant plusieurs mois, avec un rapport des heures réellement gagnées. Si l'écart avec la mesure est trop grand, on ajuste.",
     },
   ],
-  guarantee: "[À COMPLÉTER : garantie, si Tanguy en valide une]",
+  /** Garantie : aucune publiée tant que Tanguy n'en valide pas le texte (question 10). */
+  guarantee: "",
 } as const;
 
 export const SECTORS = {
@@ -199,11 +257,11 @@ export const FAQ = {
   entries: [
     {
       q: "Où tournent mes données, exactement ?",
-      a: "Sur une machine installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel ne part vers un service externe. Les documents que vous confiez au système restent sur ce disque, chez vous. [À CONFIRMER PAR TANGUY : la machine peut aussi être un serveur déjà présent chez le client]",
+      a: "Sur une machine installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel ne part vers un service externe. Les documents que vous confiez au système restent sur ce disque, chez vous.",
     },
     {
       q: "De quel matériel ai-je besoin ?",
-      a: "D'une prise, d'un accès à votre réseau et d'un emplacement de la taille d'un petit ordinateur de bureau. La machine est fournie et installée avec le système. [À COMPLÉTER : modèle, mémoire, prix du matériel]",
+      a: "D'une prise, d'un accès à votre réseau et d'un emplacement de la taille d'un livre. La machine est fournie et installée avec le système : un Mac mini Apple (puce M4 Pro, 64 Go de mémoire unifiée), dont le prix figure dans le devis.",
     },
     {
       q: "Combien ça coûte ?",
@@ -211,11 +269,11 @@ export const FAQ = {
     },
     {
       q: "Combien de temps prend l'installation ?",
-      a: "[À COMPLÉTER : délai] à compter de la validation du devis, mesure comprise. Vous suivez chaque étape et validez le résultat sur vos vrais dossiers avant la mise en service.",
+      a: "Le délai est fixé dans le devis et court à compter de sa validation, mesure comprise. Vous suivez chaque étape et validez le résultat sur vos vrais dossiers avant la mise en service.",
     },
     {
       q: "Faut-il une connexion internet ?",
-      a: "Pas pour traiter vos documents. Une connexion sert aux mises à jour, planifiées avec vous, et au suivi à distance si vous l'autorisez. [À CONFIRMER PAR TANGUY]",
+      a: "Pas pour traiter vos documents. Une connexion sert aux mises à jour, planifiées avec vous, et au suivi à distance si vous l'autorisez.",
     },
     {
       q: "Quelle différence avec ChatGPT Entreprise ou Copilot ?",
@@ -223,7 +281,7 @@ export const FAQ = {
     },
     {
       q: "Ça fonctionne avec Bexio, Abacus ou ma messagerie ?",
-      a: "Bexio : oui, un système connecté à Bexio tourne déjà chez un client. Abacus et les messageries courantes (Microsoft 365, Google Workspace, Infomaniak) : [À COMPLÉTER : état de chaque connecteur].",
+      a: "Bexio : oui, un système connecté à Bexio tourne déjà chez un client. Abacus et les messageries courantes (Microsoft 365, Google Workspace, Infomaniak) : l'état du connecteur est précisé lors du diagnostic, selon votre outil et sa version.",
     },
     {
       q: "Que se passe-t-il si LX Studio disparaît ?",
@@ -231,7 +289,7 @@ export const FAQ = {
     },
     {
       q: "Est-ce compatible avec le secret professionnel et la nLPD ?",
-      a: "Le système est conçu pour respecter la nLPD : les données restent dans vos murs et ne sont transmises à aucun tiers. Pour le secret professionnel, c'est précisément parce que rien ne sort du cabinet que l'usage devient possible. Le dossier sécurité détaille chaque mesure. [À VÉRIFIER PAR TANGUY : relecture juridique]",
+      a: "Le système est conçu pour respecter la nLPD : les données restent dans vos murs et ne sont transmises à aucun tiers. Pour le secret professionnel, c'est précisément parce que rien ne sort du cabinet que l'usage devient possible. Le dossier sécurité détaille chaque mesure.",
       dossier: true,
     },
   ],

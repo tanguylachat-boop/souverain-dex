@@ -4,8 +4,8 @@
  * « En résumé », un mot-clé, un auteur et des sources citées en bas.
  *
  * Chaque article ouvre par une réponse directe dans les deux premières
- * phrases. Les passages juridiques citent leur source et portent la mention
- * [À VÉRIFIER PAR TANGUY]. Aucun chiffre inventé.
+ * phrases. Les passages juridiques citent leur source (textes vérifiés sur
+ * fedlex le 26.10.2026, voir docs/a-completer.md D). Aucun chiffre inventé.
  */
 
 import { ARTICLES, type Article, type Block } from "../articles.ts";
@@ -80,7 +80,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h2", text: "Pourquoi la question se pose particulièrement en Suisse" },
       {
         kind: "p",
-        text: "Trois raisons reviennent chez les entreprises romandes qui me contactent. La première est juridique : la loi fédérale sur la protection des données, révisée et en vigueur depuis le 1er septembre 2023, encadre la communication de données personnelles à l'étranger (voir la source en bas de page). [À VÉRIFIER PAR TANGUY]",
+        text: "Trois raisons reviennent chez les entreprises romandes qui me contactent. La première est juridique : la loi fédérale sur la protection des données, révisée et en vigueur depuis le 1er septembre 2023, encadre la communication de données personnelles à l'étranger (art. 16 et 17 LPD, voir la source en bas de page).",
       },
       {
         kind: "p",
@@ -102,7 +102,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h2", text: "Quel matériel il faut vraiment" },
       {
         kind: "p",
-        text: "Pour les tâches de bureau décrites plus haut, une machine avec un processeur récent et une carte graphique de milieu de gamme suffit dans la plupart des cas. Elle tient dans un boîtier de la taille d'un petit ordinateur de bureau, se branche sur une prise et un câble réseau, et ne demande pas de salle serveur. [À COMPLÉTER : configuration type et ordre de prix]",
+        text: "Pour les tâches de bureau décrites plus haut, une machine de bureau récente avec beaucoup de mémoire suffit dans la plupart des cas. Dans mes installations, c'est un Mac mini Apple avec 64 Go de mémoire unifiée : il tient dans la main, se branche sur une prise et un câble réseau, et ne demande pas de salle serveur. Le prix de la machine figure dans le devis.",
       },
       {
         kind: "p",
@@ -181,15 +181,15 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h2", text: "Ce que la nLPD demande, en quatre points" },
       {
         kind: "p",
-        text: "La loi fédérale sur la protection des données révisée est entrée en vigueur le 1er septembre 2023. Elle s'applique aux traitements de données personnelles, c'est-à-dire à toute information qui se rapporte à une personne identifiée ou identifiable : un nom, un e-mail, un numéro de téléphone, mais aussi une facture nominative ou un rapport qui cite quelqu'un. [À VÉRIFIER PAR TANGUY]",
+        text: "La loi fédérale sur la protection des données révisée est entrée en vigueur le 1er septembre 2023. Elle s'applique aux traitements de données personnelles, c'est-à-dire à toute information qui se rapporte à une personne identifiée ou identifiable : un nom, un e-mail, un numéro de téléphone, mais aussi une facture nominative ou un rapport qui cite quelqu'un (art. 5 LPD).",
       },
       {
         kind: "list",
         items: [
-          "Les principes : licéité, bonne foi, proportionnalité, finalité. Vous ne traitez que ce qui est nécessaire, pour un but reconnaissable (art. 6 LPD). [À VÉRIFIER PAR TANGUY]",
-          "L'information : la personne doit savoir que ses données sont collectées et, le cas échéant, communiquées à l'étranger (art. 19 LPD). [À VÉRIFIER PAR TANGUY]",
-          "La sécurité : des mesures techniques et organisationnelles adaptées au risque (art. 8 LPD). [À VÉRIFIER PAR TANGUY]",
-          "La communication à l'étranger : possible si le pays offre une protection adéquate ou si des garanties existent, sinon soumise à conditions (art. 16 et 17 LPD). [À VÉRIFIER PAR TANGUY]",
+          "Les principes : licéité, bonne foi, proportionnalité, finalité. Vous ne traitez que ce qui est nécessaire, pour un but reconnaissable (art. 6 LPD).",
+          "L'information : la personne doit savoir que ses données sont collectées et, le cas échéant, communiquées à l'étranger, avec le nom du pays destinataire (art. 19 LPD).",
+          "La sécurité : des mesures techniques et organisationnelles adaptées au risque (art. 8 LPD).",
+          "La communication à l'étranger : possible si le pays offre une protection adéquate ou si des garanties existent, sinon soumise aux exceptions prévues, comme le consentement exprès (art. 16 et 17 LPD).",
         ],
       },
       { kind: "h2", text: "Pourquoi ChatGPT est concerné" },
@@ -199,7 +199,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       },
       {
         kind: "p",
-        text: "Les versions payantes et les offres pour entreprises apportent des engagements contractuels qui changent l'analyse sur la sécurité et l'usage des données pour l'entraînement. Elles ne changent pas le fait que le document a quitté votre entreprise. [À VÉRIFIER PAR TANGUY : conditions contractuelles en vigueur des principaux éditeurs]",
+        text: "Les versions payantes et les offres pour entreprises apportent des engagements contractuels qui changent l'analyse sur la sécurité et l'usage des données pour l'entraînement. Elles ne changent pas le fait que le document a quitté votre entreprise. Les conditions exactes sont celles publiées par chaque éditeur au moment où vous signez.",
       },
       { kind: "h2", text: "Ce qui est risqué, et ce qui ne l'est pas" },
       { kind: "h3", text: "Pas de données personnelles, pas de problème" },
@@ -213,17 +213,17 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       },
       {
         kind: "p",
-        text: "Un mail de client avec son nom et sa demande, une liste de contacts, un contrat nominatif : ce sont des données personnelles ordinaires. Les envoyer suppose que ce traitement soit proportionné, que les personnes en soient informées, et que la communication à l'étranger soit couverte. En pratique, peu d'entreprises ont fait ce travail. [À VÉRIFIER PAR TANGUY]",
+        text: "Un mail de client avec son nom et sa demande, une liste de contacts, un contrat nominatif : ce sont des données personnelles ordinaires. Les envoyer suppose que ce traitement soit proportionné, que les personnes en soient informées, et que la communication à l'étranger soit couverte. En pratique, peu d'entreprises ont fait ce travail.",
       },
       { kind: "h3", text: "Des données sensibles : la zone rouge" },
       {
         kind: "p",
-        text: "La loi protège davantage certaines données : santé, opinions religieuses ou politiques, origine, poursuites et sanctions, données génétiques et biométriques (art. 5 LPD). Un dossier médical, un dossier de police, une situation de poursuite ne devraient pas passer par un outil cloud grand public. Les fiduciaires et les avocats y ajoutent le secret professionnel. [À VÉRIFIER PAR TANGUY]",
+        text: "La loi protège davantage certaines données : santé et sphère intime, opinions religieuses, philosophiques, politiques ou syndicales, origine raciale ou ethnique, poursuites et sanctions pénales ou administratives, mesures d'aide sociale, données génétiques et biométriques (art. 5 LPD). Un dossier médical, un dossier de police, une situation de poursuite ne devraient pas passer par un outil cloud grand public. Les avocats et les professions de la santé y ajoutent le secret professionnel, les administrations le secret de fonction.",
       },
       { kind: "h2", text: "Ce que l'entreprise risque concrètement" },
       {
         kind: "p",
-        text: "La nLPD prévoit des amendes pénales qui visent les personnes physiques responsables, jusqu'à 250 000 francs dans les cas prévus par la loi, notamment pour violation intentionnelle des obligations d'information ou de communication à l'étranger (art. 60 et suivants LPD). Le Préposé fédéral peut aussi ouvrir une enquête et ordonner des mesures. [À VÉRIFIER PAR TANGUY]",
+        text: "La nLPD prévoit des amendes pénales qui visent les personnes physiques responsables, jusqu'à 250 000 francs dans les cas prévus par la loi, notamment pour violation intentionnelle des obligations d'information (art. 60 LPD) ou pour communication de données à l'étranger sans garanties ni exception (art. 61 LPD). Le Préposé fédéral peut aussi ouvrir une enquête et ordonner des mesures.",
       },
       {
         kind: "p",
@@ -296,11 +296,11 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h2", text: "Ce que dit l'article 321 du Code pénal" },
       {
         kind: "p",
-        text: "L'article 321 du Code pénal suisse punit les ecclésiastiques, avocats, défenseurs en justice, notaires, conseils en brevets, contrôleurs astreints au secret professionnel, médecins, dentistes, chiropraticiens, pharmaciens, sages-femmes, psychologues et leurs auxiliaires qui révèlent un secret à eux confié en vertu de leur profession. La révélation est punie sur plainte, et le secret subsiste après la fin de l'activité. [À VÉRIFIER PAR TANGUY]",
+        text: "L'article 321 du Code pénal suisse punit les ecclésiastiques, avocats, défenseurs en justice, notaires, conseils en brevet, contrôleurs astreints au secret professionnel en vertu du code des obligations, médecins, dentistes, chiropraticiens, pharmaciens, sages-femmes, psychologues, infirmiers, physiothérapeutes, ergothérapeutes, diététiciens, optométristes, ostéopathes, ainsi que leurs auxiliaires, qui révèlent un secret à eux confié en vertu de leur profession. La révélation est punie sur plainte, et le secret subsiste après la fin de l'activité.",
       },
       {
         kind: "p",
-        text: "Les fiduciaires ne sont pas toutes visées par cet article en tant que telles. Beaucoup sont tenues au secret par leur contrat, par les règles de leur association professionnelle, par le secret d'affaires ou, pour les organes de révision, par le droit de la société anonyme. L'obligation vient alors d'ailleurs, mais la question pratique est la même : un dossier qui sort du cabinet est un dossier révélé. [À VÉRIFIER PAR TANGUY]",
+        text: "Les fiduciaires ne sont pas toutes visées par cet article en tant que telles. Beaucoup sont tenues au secret par leur contrat, par les règles de leur association professionnelle, par le secret d'affaires ou, pour les organes de révision, par le droit de la société anonyme. L'obligation vient alors d'ailleurs, mais la question pratique est la même : un dossier qui sort du cabinet est un dossier révélé.",
       },
       { kind: "h2", text: "Pourquoi un outil en ligne pose problème" },
       {
@@ -379,7 +379,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       },
       {
         kind: "p",
-        text: "Cet article décrit comment cela fonctionne concrètement, ce que le système fait bien, ce qui demande encore une validation humaine, et par où commencer. Il s'appuie sur ce que j'installe chez mes clients et sur le pilote en cours dans un cabinet romand. [À COMPLÉTER : nom du cabinet pilote, avec son accord]",
+        text: "Cet article décrit comment cela fonctionne concrètement, ce que le système fait bien, ce qui demande encore une validation humaine, et par où commencer. Il s'appuie sur ce que j'installe chez mes clients et sur le pilote en cours dans un cabinet romand.",
       },
       {
         kind: "resume",
@@ -408,7 +408,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h3", text: "2. La lecture" },
       {
         kind: "p",
-        text: "Chaque pièce est lue sur la machine du cabinet. Le système identifie le type de document, le fournisseur ou le client, la date, les montants hors taxe et TTC, le taux de TVA, la référence. Pour les factures QR suisses, il lit directement le code QR, ce qui élimine les erreurs de saisie sur les montants et les références de paiement. [À CONFIRMER PAR TANGUY : formats pris en charge]",
+        text: "Chaque pièce est lue sur la machine du cabinet. Le système identifie le type de document, le fournisseur ou le client, la date, les montants hors taxe et TTC, le taux de TVA, la référence. Pour les factures QR suisses, il lit directement le code QR, ce qui élimine les erreurs de saisie sur les montants et les références de paiement. Les pièces arrivent en PDF ou en image (scan, photo).",
       },
       { kind: "h3", text: "3. Le classement" },
       {
@@ -418,7 +418,7 @@ export const RESOURCES: ReadonlyArray<Resource> = [
       { kind: "h3", text: "4. L'écriture proposée" },
       {
         kind: "p",
-        text: "L'écriture est préparée dans Bexio, avec le compte et le code TVA proposés à partir du plan comptable du mandat et des écritures passées. Le collaborateur la voit dans une interface accessible depuis le réseau du cabinet, la valide en un clic ou la corrige. [À COMPLÉTER : état des connecteurs Abacus, Crésus, WinBIZ]",
+        text: "L'écriture est préparée dans Bexio, avec le compte et le code TVA proposés à partir du plan comptable du mandat et des écritures passées. Le collaborateur la voit dans une interface accessible depuis le réseau du cabinet, la valide en un clic ou la corrige. Pour Abacus, Crésus ou WinBIZ, l'état du connecteur est précisé lors du diagnostic.",
       },
       { kind: "h3", text: "5. L'apprentissage" },
       {
@@ -444,17 +444,17 @@ export const RESOURCES: ReadonlyArray<Resource> = [
         kind: "example",
         title: "Ce que contient la mesure",
         lines: [
-          "Nombre de pièces par semaine : [À COMPLÉTER]",
-          "Temps moyen par pièce, saisie et classement : [À COMPLÉTER]",
-          "Part des factures QR : [À COMPLÉTER]",
-          "Part des pièces difficiles (manuscrites, photos) : [À COMPLÉTER]",
-          "Heures par semaine, total : [À COMPLÉTER]",
+          "Nombre de pièces par semaine",
+          "Temps moyen par pièce, saisie et classement",
+          "Part des factures QR",
+          "Part des pièces difficiles (manuscrites, photos)",
+          "Heures par semaine, total",
         ],
       },
       { kind: "h2", text: "Le secret professionnel et la nLPD" },
       {
         kind: "p",
-        text: "Le système est conçu pour que rien ne sorte du cabinet : la lecture, le classement et la préparation des écritures se font sur la machine installée dans vos locaux, et l'échange avec Bexio se fait depuis votre réseau, avec vos comptes. Les mesures de sécurité, l'accès, la journalisation et ce qui se passe en fin de contrat sont décrits dans le dossier sécurité. [À VÉRIFIER PAR TANGUY : relecture juridique]",
+        text: "Le système est conçu pour que rien ne sorte du cabinet : la lecture, le classement et la préparation des écritures se font sur la machine installée dans vos locaux, et l'échange avec Bexio se fait depuis votre réseau, avec vos comptes. Les mesures de sécurité, l'accès, la journalisation et ce qui se passe en fin de contrat sont décrits dans le dossier sécurité.",
       },
       { kind: "h2", text: "Par où commencer" },
       {

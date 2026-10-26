@@ -98,53 +98,17 @@ canonique propres, image OG dédiée, 2 blocs JSON-LD, 0 erreur.
 - **`VITE_SHOW_CCHBC=true`** : la référence Coca-Cola HBC n'a pas été affichée (variable absente),
   son logo manque de toute façon.
 
-## 5. Les trous à combler (tous visibles en jaune sur le site)
+## 5. Les trous à combler (plus aucun n'est visible sur le site depuis le 26.10.2026)
 
-Accueil et commun
-
-- `[À COMPLÉTER : lien cal.com]` : `SITE.bookingHref` dans `src/content/ia/site.ts` ; tant qu'il est
-  vide, les boutons mènent au formulaire.
-- `[À COMPLÉTER : vidéo démo]` : section `#demo`, `SITE.demoVideo`.
-- `[À COMPLÉTER : photo ou rendu de la machine ...]` : le visuel du premier écran est fait en code
-  (`HeroMachine.tsx`), remplaçable par une photo.
-- `[À COMPLÉTER : rue et numéro]`, `[À COMPLÉTER : numéro IDE]` : pied de page et mentions légales.
-- `[À COMPLÉTER : logo Oasis Drink]`, `[À COMPLÉTER : logo Coca-Cola HBC]` (affiché seulement avec
-  `VITE_SHOW_CCHBC=true`).
-- `[À COMPLÉTER : garantie, si Tanguy en valide une]` : sous la méthode.
-- FAQ : `[À COMPLÉTER : modèle, mémoire, prix du matériel]`, `[À COMPLÉTER : délai]`,
-  `[À COMPLÉTER : état de chaque connecteur]`, `[À CONFIRMER PAR TANGUY]` (machine = serveur
-  existant ; connexion internet), `[À VÉRIFIER PAR TANGUY : relecture juridique]`.
-
-Métiers
-
-- `/fiduciaires` : `[À COMPLÉTER : nom du cabinet pilote, avec son accord]`, `[À COMPLÉTER : état
-  des connecteurs Abacus, Crésus, WinBIZ]`, relecture juridique.
-- `/administrations` : `[À COMPLÉTER : catégories de données traitées]`, `[À CONFIRMER PAR TANGUY :
-  format et durée de conservation des journaux]`, `[... annuaire pris en charge]`.
-- `/pme` : `[À CONFIRMER PAR TANGUY : modèle de maintenance]`, connecteurs messagerie.
-
-Sécurité (page et PDF, même source `src/content/ia/securite.ts`)
-
-- `[À COMPLÉTER : date et prestataire]` du test d'intrusion (jamais présenté comme fait).
-- `[À CONFIRMER PAR TANGUY]` : les deux options machine dédiée / serveur existant, liste des
-  connecteurs et flux sortants, modèles et versions, méthode de chiffrement et gestion de la clé,
-  certificats, intégration à un annuaire, durée de conservation des journaux, procédure de
-  restauration testée, qui applique les mises à jour, conditions d'achat ou de location, registre
-  des traitements.
-- `[À COMPLÉTER : engagements supplémentaires validés par Tanguy]`.
-- `[À VÉRIFIER PAR TANGUY]` sur les deux passages nLPD et art. 321 CP.
-
-Ressources
-
-- 14 passages juridiques marqués `[À VÉRIFIER PAR TANGUY]` (LPD art. 5, 6, 8, 16, 17, 19, 60 ;
-  art. 321 CP), un `[À VÉRIFIER : conditions contractuelles des éditeurs]`, un `[À COMPLÉTER :
-  configuration type et ordre de prix]`, les cinq lignes de la mesure dans l'article fiduciaire,
-  `[À CONFIRMER PAR TANGUY : formats pris en charge]`.
-
-Pages légales
-
-- Hébergeur du site publié, for juridique, prestataire d'envoi des mails, maintien de la mesure
-  d'audience (Plausible), durée de conservation.
+Les marques jaunes `[À COMPLÉTER / À CONFIRMER / À VÉRIFIER PAR TANGUY]` ont toutes été retirées
+du contenu le 26.10.2026 : chaque phrase a été réécrite pour être vraie sans la donnée manquante
+(« précisé dans le devis », « fixé à l'installation et consigné dans le dossier », « aucun test
+d'intrusion indépendant à ce jour »), la ligne IDE est retirée, la rue n'est pas affichée, le logo
+Oasis est remplacé par le nom, la garantie n'est pas publiée. Les passages juridiques ont été
+comparés aux textes consolidés de fedlex (LPD art. 5, 6, 8, 12, 16, 17, 19, 22, 60, 61 ; CP art. 320
+et 321) et corrigés. La liste de ce qui manque encore, avec ce que le site dit en attendant, est
+`docs/a-completer.md` (38 points). Le composant `T` reste en place : une marque qui réapparaîtrait
+dans le contenu serait de nouveau affichée en jaune.
 
 ## 6. Décisions à confirmer
 
@@ -152,8 +116,8 @@ Pages légales
   roundels BMW et MINI. Il est affiché en gris sur l'accueil ; l'accord écrit du client pour cet
   usage doit être au dossier.
 - Un logo « OD » pour Oasis Drink existait dans l'ancien dépôt (`src/assets/clients/oasis-drink.png`,
-  256×256) : un monogramme improvisé, pas le logo officiel. Il n'a pas été repris ; le placeholder
-  reste.
+  256×256) : un monogramme improvisé, pas le logo officiel. Il n'a pas été repris ; le nom est
+  affiché en texte.
 - Les cinq anciens articles du journal sont conservés sous `/ressources` avec leur slug ; celui sur
   la visibilité dans les assistants IA (Mentia) a été retiré et redirige vers l'accueil.
 - La variable d'affichage de Coca-Cola HBC s'appelle `VITE_SHOW_CCHBC` (préfixe obligatoire pour
@@ -163,3 +127,44 @@ Pages légales
 
 Voir `verif/README.md`. Générateurs : `npm run og` (images de partage), `npm run dossier:pdf`
 (dossier sécurité). Audit de la référence : `docs/emedias-audit.md`.
+
+## 8. La démo en 2 minutes, avec sa voix off (branche `demo-video`, 24 et 25.10.2026)
+
+Vidéo en motion design fabriquée en code : `scripts/demo/demo.html` est une scène dont chaque
+image est une fonction du temps (aucune animation CSS), rendue par Chromium à 30 images par seconde
+puis encodée par ffmpeg avec la voix (`npm run demo`). Script, storyboard et voix off dans
+`docs/demo-script.md`.
+
+| Fichier | Contenu | Poids |
+| --- | --- | --- |
+| `public/demo/demo-lx-studio.mp4` | H.264, 1280 × 720, 30 i/s, 119,9 s, 3597 images, AAC mono 48 kHz | 4,0 Mo |
+| `public/demo/demo-lx-studio.webm` | VP9, 1280 × 720, 30 i/s, 119,9 s, Opus mono 48 kHz | 3,6 Mo |
+| `public/demo/demo-poster.jpg` | affiche (image à 3,4 s) | 107 Ko |
+| `scripts/demo/voix/track.flac` + `timing.json` | la piste voix (mono 24 kHz, sans perte) et le minutage des scènes, phrases et mots | 2,0 Mo |
+| `.demo-master-1080.mp4` (non versionné) | master 1920 × 1080 pour LinkedIn ou un salon | 10,9 Mo |
+
+- La voix off : celle des films Mentia et LX Sales Coach (Gemini TTS, voix « Achird », modèle
+  `gemini-3.8-flash-tts` le 25.10.2026), produite par `npm run demo:voix` (`scripts/demo/voix.py`,
+  méthode reprise de `~/mentia-motion`) : trois lectures de scènes consécutives, transcription
+  locale par whisper.cpp et horodatage des mots par whisper-1, découpe de chaque phrase au milieu
+  d'un silence, pose sur sa scène à l'instant choisi. 23 phrases ; piste à -16,6 LUFS intégrés,
+  crête -1,4 dBFS ; le mp4 encodé mesure -16,7 LUFS, crête -1,3 dBFS.
+- La scène est pilotée par la voix : chaque scène commence et dure selon `timing.json` (s3 ramenée
+  de 20 à 15 s, s4 de 14 à 12 s, s7 prolongée de 3,2 s, s8 de 3,2 s), et les éléments qui doivent
+  tomber sur un mot le lisent dans le minutage (document qui part du scanner sur « scanner », chaque
+  champ de la facture sur son nom, clic sur « valider », étiquette sur « Avec la raison », tampon
+  sur « Mesuré chez vous », pastille de fin avec la dernière phrase).
+- Contrôles de la voix : `python3 scripts/demo/verifier_voix.py` retranscrit chaque phrase depuis
+  la piste finale et la compare au script, 23/23 sans fuite aux bords (deux écarts homophones,
+  « comparez » pour « comparé », « installez » pour « installée ») ; les seize silences de plus de
+  1,2 s de la piste tombent tous entre deux scènes ou entre deux phrases, jamais dans une phrase.
+- Contrôles de l'image : 23 images de contrôle au début de chaque phrase (`npm run demo -- --preview`),
+  huit relues ; cinq images extraites du mp4 encodé (23,7 s, 70,1 s, 91,2 s, 108,9 s, 115,0 s).
+- Sur la page : affiche en différé, vidéo demandée au clic seulement, commandes du navigateur, texte
+  de la vidéo (la voix, scène par scène) replié sous le titre, VideoObject dans le JSON-LD.
+  Lecture au clic vérifiée par `verif/shots.mjs` aux trois tailles : source webm, 1280 × 720,
+  120 s, en lecture 2,5 s après le clic, son décodé (`webkitAudioDecodedByteCount` de 11 à 12 Ko à
+  2,4 s, `muted: false`), 0 erreur console ; pages intérieures, redirections, 404, fichiers publics
+  inchangés ; 0 tiret long sur 44 fichiers et 17 pages rendues ; typecheck et lint sans erreur.
+- Non fait : écoute humaine de la piste (les contrôles sont des retranscriptions et des mesures),
+  musique, lecture sur un vrai téléphone, Safari réel (WebKit émulé lit le mp4, pas le webm).

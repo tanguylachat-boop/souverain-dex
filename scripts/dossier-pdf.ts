@@ -84,7 +84,7 @@ const page4 = `<section class="page">${header}
 <p class="k">Page 4</p><h1>Conformité et engagements</h1>
 ${section(by("nlpd"))}
 <section class="sec"><h2>Engagements contractuels</h2><ul>${SECURITE_ENGAGEMENTS.map((e) => `<li>${mark(e)}</li>`).join("")}</ul></section>
-<section class="sec"><h2>Contact</h2><p>${esc(SITE.founder)}, ${esc(SITE.name)}<br>${mark(SITE.address.street)}, ${SITE.address.zip} ${esc(SITE.address.city)}<br>${esc(SITE.email)} · ${esc(SITE.phone)}<br>${esc(SITE.url)}/securite</p></section>
+<section class="sec"><h2>Contact</h2><p>${esc(SITE.founder)}, ${esc(SITE.name)}<br>${SITE.address.street ? `${esc(SITE.address.street)}, ` : ""}${SITE.address.zip} ${esc(SITE.address.city)}<br>${esc(SITE.email)} · ${esc(SITE.phone)}<br>${esc(SITE.url)}/securite</p></section>
 ${footer(4)}</section>`;
 
 const html = `<!doctype html><html lang="fr-CH"><head><meta charset="utf-8"><title>Dossier sécurité LX Studio ${SECURITE_VERSION.version}</title><style>

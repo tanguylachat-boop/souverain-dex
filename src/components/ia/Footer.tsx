@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { FOOTER, SITE } from "@/content/ia/site";
 import { Mesh } from "./Mesh";
-import { T } from "./text";
 
 /** Pied de page de nuit : la nappe, un filet dégradé en haut, quatre colonnes. */
 export function Footer() {
@@ -20,8 +19,12 @@ export function Footer() {
               <a href={SITE.phoneHref}>{SITE.phone}</a>
               <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
               <span>
-                <T>{SITE.address.street}</T>
-                <br />
+                {SITE.address.street ? (
+                  <>
+                    {SITE.address.street}
+                    <br />
+                  </>
+                ) : null}
                 {SITE.address.zip} {SITE.address.city}, {SITE.address.country}
               </span>
             </address>
@@ -46,7 +49,9 @@ export function Footer() {
           ))}
         </div>
         <div className="ia-footer-bottom">
-          <span>{FOOTER.copyright}</span>
+          <span>
+            {new Date().getFullYear()} {FOOTER.copyright}
+          </span>
           <span>{FOOTER.madeIn}</span>
         </div>
       </div>

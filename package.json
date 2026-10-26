@@ -15,7 +15,9 @@
     "dossier:pdf": "node scripts/dossier-pdf.ts",
     "verif": "node verif/shots.mjs",
     "verif:webkit": "node verif/webkit.mjs",
-    "verif:dashes": "node verif/dashes.mjs"
+    "verif:dashes": "node verif/dashes.mjs",
+    "demo": "node scripts/demo/render.mjs",
+    "demo:voix": "python3 scripts/demo/voix.py"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

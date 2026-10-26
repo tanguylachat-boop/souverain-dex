@@ -1,0 +1,169 @@
+{
+  "_source": "Texte voix off de docs/demo-script.md, découpé en phrases (une par paragraphe lu). Voix et méthode des films Mentia : Gemini TTS, voix Achird, le moins de lectures possible (scripts/demo/voix.py ; gemini-3.8-flash-tts le 24.10.2026, les modèles suivants servent de repli quand le quota du jour est atteint). « at » : instant de départ de la phrase en secondes depuis le début de sa scène, calé sur le visuel de scripts/demo/demo.html ; « min_s » : durée minimale de la scène (celle du visuel) ; « tail_s » : silence tenu après la dernière phrase.",
+  "voix": "Achird",
+  "modeles": [
+    "gemini-3.8-flash-tts",
+    "gemini-2.5-flash-preview-tts",
+    "gemini-3.1-flash-tts-preview"
+  ],
+  "separateur_phrases": "\n\n",
+  "pause_s": 0.35,
+  "scenes": [
+    {
+      "id": "s0",
+      "min_s": 6,
+      "tail_s": 1.0,
+      "phrases": [
+        {
+          "t": "Voici ce qui se passe quand une pièce comptable arrive dans un cabinet équipé par LX Studio.",
+          "at": 0.9
+        }
+      ]
+    },
+    {
+      "id": "s1",
+      "min_s": 14,
+      "tail_s": 0.8,
+      "phrases": [
+        {
+          "t": "La machine est chez vous.",
+          "at": 0.7
+        },
+        {
+          "t": "Installée dans vos locaux, branchée sur votre réseau.",
+          "at": 2.2
+        },
+        {
+          "t": "Pendant le traitement, aucun appel ne part vers un service externe : ni vers un éditeur d'intelligence artificielle, ni vers LX Studio.",
+          "at": 5.0
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "min_s": 14,
+      "tail_s": 0.8,
+      "phrases": [
+        {
+          "t": "Les pièces arrivent comme aujourd'hui.",
+          "at": 0.9
+        },
+        {
+          "t": "Par le scanner, par e-mail, par une photo prise au téléphone.",
+          "at": 2.9
+        },
+        {
+          "t": "Rien ne change pour vos clients ni pour vos collaborateurs.",
+          "at": 7.6
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "min_s": 15,
+      "tail_s": 1.0,
+      "phrases": [
+        {
+          "t": "La pièce est lue sur place.",
+          "at": 0.6
+        },
+        {
+          "t": "Le fournisseur, la date, les montants, la TVA, la référence de la facture QR : tout est extrait sur la machine, dans vos murs.",
+          "at": 2.7
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "min_s": 12,
+      "tail_s": 0.8,
+      "phrases": [
+        {
+          "t": "Elle est ensuite classée dans le dossier du bon mandat.",
+          "at": 0.7
+        },
+        {
+          "t": "Et renommée selon votre convention, prête pour l'archivage.",
+          "at": 6.6
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "min_s": 22,
+      "tail_s": 0.8,
+      "phrases": [
+        {
+          "t": "L'écriture est proposée dans votre logiciel comptable, avec le compte et le code TVA déduits de vos écritures passées.",
+          "at": 0.6
+        },
+        {
+          "t": "Un clic pour valider.",
+          "at": 8.2
+        },
+        {
+          "t": "Un clic pour corriger.",
+          "at": 10.4
+        },
+        {
+          "t": "Si vous corrigez, le système retient la correction pour ce mandat et la propose la fois suivante.",
+          "at": 13.4
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "min_s": 14,
+      "tail_s": 0.8,
+      "phrases": [
+        {
+          "t": "Ce qu'il ne comprend pas, il le met de côté.",
+          "at": 0.8
+        },
+        {
+          "t": "Avec la raison.",
+          "at": 7.4
+        },
+        {
+          "t": "Rien n'est comptabilisé sans votre clic.",
+          "at": 9.4
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "min_s": 11,
+      "tail_s": 1.2,
+      "phrases": [
+        {
+          "t": "Et chaque mois, un rapport : les pièces traitées, les heures de saisie récupérées, les corrections apportées.",
+          "at": 0.6
+        },
+        {
+          "t": "Comparé à la mesure faite avant l'installation.",
+          "at": 8.3
+        },
+        {
+          "t": "Mesuré chez vous, pas promis.",
+          "at": 11.2
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "min_s": 5.5,
+      "tail_s": 1.8,
+      "phrases": [
+        {
+          "t": "Rien n'est sorti du cabinet.",
+          "at": 0.6
+        },
+        {
+          "t": "Réservez un diagnostic gratuit de trente minutes sur L X Studio point C H.",
+          "c": "Réservez un diagnostic gratuit de 30 minutes sur lxstudio.ch.",
+          "at": 3.0
+        }
+      ]
+    }
+  ]
+}

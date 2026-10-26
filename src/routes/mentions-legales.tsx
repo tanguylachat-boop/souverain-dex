@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { IaPage } from "@/components/ia/Shell";
-import { T } from "@/components/ia/text";
 import { SITE } from "@/content/ia/site";
 import { pageMeta, jsonLd, webPage, breadcrumbs } from "@/lib/seo";
 
@@ -44,23 +43,25 @@ function MentionsLegales() {
             <p>
               <strong>LX Studio</strong>
               <br />
-              Entreprise individuelle, {SITE.founder}
+              Raison individuelle, {SITE.founder}
               <br />
-              <T>{SITE.address.street}</T>, {SITE.address.zip} {SITE.address.city},{" "}
-              {SITE.address.country}
+              {SITE.address.street ? `${SITE.address.street}, ` : ""}
+              {SITE.address.zip} {SITE.address.city}, {SITE.address.country}
               <br />
               Téléphone : <a href={SITE.phoneHref}>{SITE.phone}</a>
               <br />
               E-mail : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </p>
             <p>
-              <T>{"Numéro IDE : [À COMPLÉTER : numéro IDE]"}</T>
+              Numéro IDE : {SITE.ide}
+              <br />
+              {SITE.vat}
             </p>
 
             <h2>Hébergement</h2>
             <p>
               Ce site est hébergé par Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107,
-              États-Unis. <T>{"[À CONFIRMER PAR TANGUY : hébergeur du site publié]"}</T>
+              États-Unis.
             </p>
 
             <h2>Propriété intellectuelle</h2>
@@ -73,10 +74,10 @@ function MentionsLegales() {
 
             <h2>Responsabilité</h2>
             <p>
-              LX Studio s'efforce d'assurer l'exactitude des informations publiées sur ce site. Les
-              points marqués « à compléter », « à confirmer » ou « à vérifier » sont en cours de
-              validation et ne constituent pas un engagement. Les informations juridiques publiées
-              ne sont pas un avis juridique.
+              LX Studio s'efforce d'assurer l'exactitude des informations publiées sur ce site. Ce
+              qui est fixé au cas par cas (devis, installation) est présenté comme tel et ne
+              constitue pas un engagement avant signature. Les informations juridiques publiées ne
+              sont pas un avis juridique.
             </p>
             <p>
               Les liens vers d'autres sites sont fournis à titre d'information. LX Studio n'est pas
@@ -94,7 +95,7 @@ function MentionsLegales() {
             <h2>Droit applicable</h2>
             <p>
               Ce site et ses mentions légales sont soumis au droit suisse. For : {SITE.address.city}
-              , canton du {SITE.address.region}. <T>{"[À VÉRIFIER PAR TANGUY : for juridique]"}</T>
+              , canton du {SITE.address.region}.
             </p>
           </article>
         </div>

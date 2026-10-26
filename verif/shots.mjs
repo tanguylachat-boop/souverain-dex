@@ -151,6 +151,33 @@ for (const vp of VIEWPORTS) {
     await page.screenshot({ path: `${dir}/${name}.png` });
   }
 
+  // 2b. La démo : l'affiche, puis la vidéo qui joue au clic
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.querySelector("#demo").getBoundingClientRect().top + scrollY - 70,
+      behavior: "instant",
+    }),
+  );
+  await sleep(900);
+  await page.click(".ia-demo-start");
+  await sleep(2500);
+  r.demo = await page.evaluate(() => {
+    const v = document.querySelector(".ia-demo-video");
+    return v
+      ? {
+          playing: !v.paused && v.currentTime > 0,
+          currentTime: Math.round(v.currentTime * 10) / 10,
+          size: `${v.videoWidth}x${v.videoHeight}`,
+          duration: Math.round(v.duration),
+          src: (v.currentSrc || "").split("/").pop(),
+          // Chromium expose les octets audio décodés : > 0 prouve que la piste voix est lue.
+          audioBytes: v.webkitAudioDecodedByteCount ?? null,
+          muted: v.muted,
+        }
+      : "no video";
+  });
+  await page.screenshot({ path: `${dir}/demo-playing.png` });
+
   // 3. Survol d'une ligne et d'une carte (souris fine seulement)
   if (!vp.mobile) {
     await page.evaluate(() =>

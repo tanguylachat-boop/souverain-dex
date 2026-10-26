@@ -22,7 +22,7 @@ const files = [];
 function walk(p) {
   const st = statSync(p);
   if (st.isDirectory()) for (const f of readdirSync(p)) walk(join(p, f));
-  else if (/\.(ts|tsx|txt|md|css|mjs)$/.test(p)) files.push(p);
+  else if (/\.(ts|tsx|txt|md|css|mjs|html)$/.test(p)) files.push(p);
 }
 ROOTS.forEach(walk);
 

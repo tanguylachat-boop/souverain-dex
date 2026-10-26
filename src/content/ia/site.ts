@@ -4,7 +4,8 @@
  * fichiers de `content/ia/`, jamais dans un composant.
  *
  * Règles : vouvoiement, français de Suisse, aucun tiret long, aucune
- * statistique inventée, placeholders visibles `[À COMPLÉTER : ...]`.
+ * statistique inventée. Ce qui manque n'est pas inventé : il est listé dans
+ * docs/a-completer.md et la phrase est écrite pour tenir sans la donnée.
  */
 
 export const SITE = {
@@ -15,16 +16,17 @@ export const SITE = {
   phoneHref: "tel:+41787038800",
   founder: "Tanguy Lachat",
   address: {
-    street: "[À COMPLÉTER : rue et numéro]",
+    street: "Rue des Romains 25",
     zip: "2854",
     city: "Bassecourt",
     region: "Jura",
     country: "Suisse",
   },
-  /** Lien de réservation du diagnostic. Tant qu'il manque, les boutons mènent au formulaire. */
-  booking: "[À COMPLÉTER : lien cal.com]",
-  bookingHref: "",
-  demoVideo: "[À COMPLÉTER : vidéo démo]",
+  /** Lien de réservation du diagnostic : l'événement « Rendez-vous de 30 min » de cal.com/lx-studio (vérifié le 26.10.2026). */
+  bookingHref: "https://cal.com/lx-studio/30min",
+  /** Numéro IDE et statut TVA, tels qu'ils figurent sur les factures LX Studio. */
+  ide: "CHE-325.224.095",
+  vat: "Non assujettie à la TVA (art. 10 al. 2 let. a LTVA)",
   /** Affiche Coca-Cola HBC dans les références seulement avec l'accord écrit. */
   showCchbc: false,
 } as const;
@@ -101,7 +103,9 @@ export const FOOTER = {
       ],
     },
   ],
-  copyright: `${new Date().getFullYear()} LX Studio, Bassecourt`,
+  // L'année est ajoutée au rendu (Footer.tsx) : à la portée du module, l'horloge du Worker
+  // Cloudflare vaut 0 avant la première requête, le site affichait « 1970 LX Studio ».
+  copyright: "LX Studio, Bassecourt",
   madeIn: "Conçu et hébergé pour la Suisse romande",
 } as const;
 
