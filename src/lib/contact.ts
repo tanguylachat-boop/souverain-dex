@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { diagnosticSchema, dossierSchema } from "@/lib/forms";
-import { SECURITE_VERSION } from "@/content/ia/securite";
+import { CONTENT } from "@/content/ia/bundle";
+import { langOf } from "@/content/ia/lang";
 
 /**
  * Les envois du site. Chaque demande part par e-mail à contact@lxstudio.ch
@@ -9,12 +10,19 @@ import { SECURITE_VERSION } from "@/content/ia/securite";
  * et l'appelant reçoit `delivered: false` pour le dire honnêtement.
  *
  * Rien n'est stocké : pas de base, pas de fichier. Le mail est la trace.
+ * La notification interne est toujours en français ; la copie envoyée au
+ * visiteur est dans la langue de la page d'où il a écrit.
  */
 
 const SITE_URL = "https://lxstudio.ch";
 const TO = "contact@lxstudio.ch";
 
 type Mail = { to: string; subject: string; text: string; replyTo?: string };
+
+// Côté serveur, les tailles d'équipe des deux langues sont acceptées.
+const SIZES = [...CONTENT.fr.home.FORM.sizes, ...CONTENT.en.home.FORM.sizes];
+const serverDiagnostic = diagnosticSchema(CONTENT.fr.ui.UI.formErrors, SIZES);
+const serverDossier = dossierSchema(CONTENT.fr.ui.UI.formErrors);
 
 function env(name: string): string | undefined {
   const value = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process
@@ -58,13 +66,14 @@ const stamp = () =>
   }).format(new Date());
 
 export const submitDiagnostic = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => diagnosticSchema.parse(input))
+  .inputValidator((input: unknown) => serverDiagnostic.parse(input))
   .handler(async ({ data }) => {
     // Le piège à robots est rempli : on répond comme si tout allait bien,
     // sans rien envoyer.
     if (data.website) return { ok: true as const, delivered: false };
+    const lang = langOf(data.source ?? "/");
     const text = [
-      `Demande de diagnostic reçue le ${stamp()} depuis ${SITE_URL}${data.source ?? "/"}`,
+      `Demande de diagnostic reçue le ${stamp()} depuis ${SITE_URL}${data.source ?? "/"} (langue : ${lang})`,
       "",
       `Nom : ${data.name}`,
       `Entreprise : ${data.company}`,
@@ -85,16 +94,44 @@ export const submitDiagnostic = createServerFn({ method: "POST" })
   });
 
 export const requestDossier = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => dossierSchema.parse(input))
+  .inputValidator((input: unknown) => serverDossier.parse(input))
   .handler(async ({ data }) => {
-    if (data.website) return { ok: true as const, delivered: false, file: SECURITE_VERSION.file };
-    const link = `${SITE_URL}${SECURITE_VERSION.file}`;
+    const lang = langOf(data.source ?? "/securite");
+    const version = CONTENT[lang].securite.SECURITE_VERSION;
+    if (data.website) return { ok: true as const, delivered: false, file: version.file };
+    const link = `${SITE_URL}${version.file}`;
+    const copyText =
+      lang === "en"
+        ? [
+            `Hello ${data.name},`,
+            "",
+            `Here is the LX Studio security dossier, version ${version.version} of ${version.date}:`,
+            link,
+            "",
+            "It describes where the data is processed, the architecture, encryption, access control, backups, updates, the end of the contract and the legal framework. For any question, simply reply to this message.",
+            "",
+            "Tanguy Lachat",
+            "LX Studio, Bassecourt",
+            "+41 78 703 88 00",
+          ]
+        : [
+            `Bonjour ${data.name},`,
+            "",
+            `Voici le dossier sécurité de LX Studio, version ${version.version} du ${version.date} :`,
+            link,
+            "",
+            "Il décrit où tournent les données, l'architecture, le chiffrement, les accès, les sauvegardes, les mises à jour, la fin de contrat et le cadre légal. Pour toute question, répondez simplement à ce message.",
+            "",
+            "Tanguy Lachat",
+            "LX Studio, Bassecourt",
+            "078 703 88 00",
+          ];
     const [notice, copy] = await Promise.all([
       send({
         to: TO,
         subject: `Dossier sécurité demandé : ${data.company}`,
         text: [
-          `Demande du dossier sécurité (version ${SECURITE_VERSION.version} du ${SECURITE_VERSION.date}) reçue le ${stamp()} depuis ${SITE_URL}${data.source ?? "/securite"}`,
+          `Demande du dossier sécurité (version ${version.version} du ${version.date}, langue : ${lang}) reçue le ${stamp()} depuis ${SITE_URL}${data.source ?? "/securite"}`,
           "",
           `Nom : ${data.name}`,
           `Entreprise : ${data.company}`,
@@ -104,25 +141,15 @@ export const requestDossier = createServerFn({ method: "POST" })
       }),
       send({
         to: data.email,
-        subject: "Votre dossier sécurité LX Studio",
-        text: [
-          `Bonjour ${data.name},`,
-          "",
-          `Voici le dossier sécurité de LX Studio, version ${SECURITE_VERSION.version} du ${SECURITE_VERSION.date} :`,
-          link,
-          "",
-          "Il décrit où tournent les données, l'architecture, le chiffrement, les accès, les sauvegardes, les mises à jour, la fin de contrat et le cadre légal. Pour toute question, répondez simplement à ce message.",
-          "",
-          "Tanguy Lachat",
-          "LX Studio, Bassecourt",
-          "078 703 88 00",
-        ].join("\n"),
+        subject:
+          lang === "en" ? "Your LX Studio security dossier" : "Votre dossier sécurité LX Studio",
+        text: copyText.join("\n"),
         replyTo: TO,
       }),
     ]);
     return {
       ok: true as const,
       delivered: notice.delivered && copy.delivered,
-      file: SECURITE_VERSION.file,
+      file: version.file,
     };
   });

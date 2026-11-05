@@ -23,6 +23,8 @@ export type Resource = {
   answer: string;
   keyword: string;
   published: string;
+  /** Date de la dernière modification de fond (sitemap, dateModified). */
+  updated?: string;
   readingMinutes: number;
   tag: string;
   author: string;
@@ -37,20 +39,17 @@ export const RESOURCES: ReadonlyArray<Resource> = [
     slug: "ia-locale-entreprise-suisse",
     title: "IA locale en entreprise : utiliser l'IA sans que vos données quittent la Suisse",
     summary:
-      "Ce qu'est une IA locale, ce qu'elle change pour une entreprise suisse qui ne peut pas envoyer ses dossiers à l'étranger, ce qu'il faut comme matériel, et comment la mettre en place sans se tromper.",
+      "Ce qu'est une IA locale, dite aussi souveraine ou on-premise, ce qu'elle change pour une entreprise suisse, quel matériel il faut et comment démarrer.",
     question: "Qu'est-ce qu'une IA locale en entreprise et pourquoi la choisir en Suisse ?",
     answer:
-      "Une IA locale est un modèle d'intelligence artificielle qui tourne sur une machine installée dans l'entreprise, sans envoyer les données à un service externe. Une entreprise suisse la choisit quand ses dossiers ne peuvent pas quitter ses murs : secret professionnel, nLPD, contrats clients, ou simple prudence.",
+      "Une IA locale, aussi appelée IA souveraine, IA on-premise ou IA sur site, est un modèle de langage ouvert qui tourne sur une machine installée dans les locaux de l'entreprise, sans envoyer les documents à un service externe. Une entreprise suisse la choisit quand ses dossiers ne peuvent pas quitter ses murs : secret professionnel, secret de fonction, nLPD, contrats clients, ou simple prudence. LX Studio, à Bassecourt dans le Jura, installe ce type de système chez ses clients.",
     keyword: "IA locale Suisse",
     published: "2026-10-24",
+    updated: "2026-11-05",
     readingMinutes: 7,
     tag: "IA locale",
     author: AUTHOR,
     blocks: [
-      {
-        kind: "p",
-        text: "Une IA locale est un modèle d'intelligence artificielle qui tourne sur une machine installée dans vos locaux, et qui traite vos documents sans les envoyer à un service externe. Une entreprise suisse la choisit quand ses dossiers ne peuvent pas quitter ses murs, pour une raison de droit, de contrat ou de bon sens.",
-      },
       {
         kind: "p",
         text: "Cet article explique ce que « local » veut dire concrètement, ce que cela change par rapport à ChatGPT ou Copilot, ce qu'il faut comme matériel, et comment démarrer sans acheter un serveur pour rien.",
@@ -151,20 +150,17 @@ export const RESOURCES: ReadonlyArray<Resource> = [
     slug: "chatgpt-nlpd-entreprise",
     title: "ChatGPT et la nLPD : ce que votre entreprise risque vraiment",
     summary:
-      "Utiliser ChatGPT avec des données de clients ou de collaborateurs engage la responsabilité de l'entreprise au sens de la nLPD. Ce que dit la loi, ce qui est risqué, ce qui ne l'est pas, et comment utiliser l'IA sans s'exposer.",
+      "Mettre des données de clients dans ChatGPT engage l'entreprise au sens de la nLPD. Ce que dit la loi, ce qui est risqué, le Cloud Act, comment s'en protéger.",
     question: "Que risque une entreprise suisse qui met des données personnelles dans ChatGPT ?",
     answer:
       "Au sens de la nLPD, l'entreprise qui met des données personnelles dans ChatGPT reste responsable de ce traitement, y compris de la communication de ces données à l'étranger. Le risque dépend de ce qui est envoyé : un texte anonyme ne pose pas de problème, un dossier client avec des noms en pose un.",
     keyword: "ChatGPT nLPD entreprise",
     published: "2026-10-24",
+    updated: "2026-11-05",
     readingMinutes: 8,
     tag: "nLPD",
     author: AUTHOR,
     blocks: [
-      {
-        kind: "p",
-        text: "Au sens de la nouvelle loi fédérale sur la protection des données, l'entreprise qui met des données personnelles dans ChatGPT reste responsable de ce traitement, y compris de leur communication à l'étranger. Le risque dépend de ce qui est envoyé : une question générale ne pose pas de problème, un dossier client avec des noms, des montants et des adresses en pose un.",
-      },
       {
         kind: "p",
         text: "Cet article n'est pas un avis juridique. Il résume ce que dit la loi, à partir de ses articles et des publications du Préposé fédéral, et il décrit ce que j'observe dans les entreprises romandes. Les points marqués à vérifier doivent l'être avec votre conseil.",
@@ -229,6 +225,11 @@ export const RESOURCES: ReadonlyArray<Resource> = [
         kind: "p",
         text: "Le risque le plus fréquent n'est pourtant pas l'amende. C'est la question d'un client, d'un donneur d'ordre ou d'un auditeur : « Où sont passées nos données ? » Une réponse floue coûte plus cher qu'une procédure.",
       },
+      { kind: "h2", text: "Et le Cloud Act ?" },
+      {
+        kind: "p",
+        text: "Le Cloud Act, loi américaine en vigueur depuis 2018, permet aux autorités des États-Unis d'exiger d'un fournisseur soumis à leur droit les données qu'il contrôle, où qu'elles soient stockées. Un hébergement « en Europe » chez un éditeur américain ne règle donc pas la question de la communication à l'étranger. La seule façon de ne pas avoir à y répondre est que le document ne soit jamais sous le contrôle d'un tel fournisseur : traité sur place, il reste sous le vôtre.",
+      },
       { kind: "h2", text: "Comment utiliser l'IA sans s'exposer" },
       {
         kind: "list",
@@ -259,6 +260,11 @@ export const RESOURCES: ReadonlyArray<Resource> = [
           "Préposé fédéral à la protection des données et à la transparence (PFPDT), nouvelle loi sur la protection des données",
         url: "https://www.edoeb.admin.ch/",
       },
+      {
+        label:
+          "Clarifying Lawful Overseas Use of Data Act (CLOUD Act), H.R. 4943, 115e Congrès des États-Unis, congress.gov",
+        url: "https://www.congress.gov/bill/115th-congress/house-bill/4943",
+      },
     ],
   },
   {
@@ -266,20 +272,17 @@ export const RESOURCES: ReadonlyArray<Resource> = [
     title:
       "Secret professionnel et IA : ce que les fiduciaires, avocats et médecins doivent savoir",
     summary:
-      "Le secret professionnel interdit de révéler ce qu'un client, un patient ou un mandant a confié. Mettre un dossier dans un outil d'IA en ligne est une révélation à un tiers. Ce que dit l'article 321 CP, ce qui reste possible, et comment utiliser l'IA sans rompre le secret.",
+      "Un dossier mis dans un outil d'IA en ligne est révélé à un tiers. Ce que dit l'art. 321 CP, ce qui reste possible, comment utiliser l'IA sans rompre le secret.",
     question: "Un professionnel tenu au secret peut-il utiliser l'IA sur ses dossiers ?",
     answer:
       "Oui, à condition que les dossiers ne soient révélés à personne, ce qui exclut en principe les outils en ligne qui lisent les documents sur leurs serveurs. Une IA installée dans le cabinet, qui traite les dossiers sans les communiquer, permet d'utiliser l'IA sans rompre le secret.",
     keyword: "IA secret professionnel",
     published: "2026-10-24",
+    updated: "2026-11-05",
     readingMinutes: 7,
     tag: "Secret professionnel",
     author: AUTHOR,
     blocks: [
-      {
-        kind: "p",
-        text: "Un professionnel tenu au secret peut utiliser l'IA sur ses dossiers à une condition : qu'ils ne soient révélés à personne. Cela exclut en principe les outils en ligne qui lisent les documents sur leurs serveurs, et cela rend possible une IA installée dans le cabinet, qui traite les dossiers sans les communiquer.",
-      },
       {
         kind: "p",
         text: "Cet article s'adresse aux fiduciaires, aux avocats, aux médecins et à toutes les professions tenues au secret. Il n'est pas un avis juridique : les passages qui citent la loi portent leur source et sont à vérifier avec votre conseil ou votre ordre professionnel.",
@@ -362,21 +365,18 @@ export const RESOURCES: ReadonlyArray<Resource> = [
     slug: "fiduciaire-automatiser-saisie-pieces-ia",
     title: "Fiduciaire : automatiser la saisie des pièces avec une IA installée au cabinet",
     summary:
-      "Comment une IA installée au cabinet lit les pièces comptables, les classe et propose les écritures dans Bexio, sans qu'un dossier client ne sorte. Ce qui marche, ce qui demande encore une validation, et par où commencer.",
+      "Comment une IA installée au cabinet lit les pièces, les classe et propose les écritures dans Bexio sans qu'un dossier ne sorte, et par où commencer.",
     question:
       "Comment une fiduciaire peut-elle automatiser la saisie des pièces sans sortir les dossiers du cabinet ?",
     answer:
       "En installant une IA sur une machine dans le cabinet, branchée sur le logiciel comptable. Elle lit chaque pièce, extrait les montants, dates et TVA, propose l'écriture, et le collaborateur valide. Les dossiers ne quittent pas le cabinet, et les heures de saisie sont mesurées avant et après.",
     keyword: "IA fiduciaire",
     published: "2026-10-24",
+    updated: "2026-11-05",
     readingMinutes: 8,
     tag: "Fiduciaires",
     author: AUTHOR,
     blocks: [
-      {
-        kind: "p",
-        text: "Une fiduciaire peut automatiser la saisie des pièces sans sortir les dossiers du cabinet en installant une IA sur une machine dans ses locaux, branchée sur son logiciel comptable. Le système lit chaque pièce, extrait les montants, dates et codes TVA, propose l'écriture, et un collaborateur valide.",
-      },
       {
         kind: "p",
         text: "Cet article décrit comment cela fonctionne concrètement, ce que le système fait bien, ce qui demande encore une validation humaine, et par où commencer. Il s'appuie sur ce que j'installe chez mes clients et sur le pilote en cours dans un cabinet romand.",

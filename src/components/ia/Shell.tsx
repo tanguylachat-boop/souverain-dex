@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useIaEffects } from "./effects";
 import { IconArrowUp } from "./icons";
+import { useContent } from "./lang";
 
 /**
  * La coque de chaque page : lien d'évitement, en-tête, contenu, pied de
@@ -11,11 +12,12 @@ import { IconArrowUp } from "./icons";
  */
 export function IaPage({ children }: { children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
+  const { ui } = useContent();
   useIaEffects(root);
   return (
     <>
       <a className="ia-skip" href="#main">
-        Aller au contenu
+        {ui.skipLink}
       </a>
       <Header />
       <main id="main" tabIndex={-1} className="ia-main" ref={root}>
@@ -25,7 +27,7 @@ export function IaPage({ children }: { children: ReactNode }) {
       <button
         type="button"
         className="ia-top"
-        aria-label="Retour en haut de la page"
+        aria-label={ui.backToTop}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
         <IconArrowUp />

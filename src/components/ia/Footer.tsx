@@ -1,19 +1,25 @@
-import { Link } from "@tanstack/react-router";
-import { FOOTER, SITE } from "@/content/ia/site";
+import { useRouterState } from "@tanstack/react-router";
+import { alternate } from "@/content/ia/lang";
 import { Mesh } from "./Mesh";
+import { L, useContent } from "./lang";
 
-/** Pied de page de nuit : la nappe, un filet dégradé en haut, quatre colonnes. */
+/** Pied de page de nuit : la nappe, un filet dégradé en haut, quatre colonnes, la langue. */
 export function Footer() {
+  const { site, ui, lang } = useContent();
+  const { FOOTER, SITE } = site;
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const switchTo = alternate(pathname) ?? (lang === "fr" ? "/en" : "/");
+  const switchLang = lang === "fr" ? "en" : "fr";
   return (
     <footer className="ia-footer ia-night">
       <Mesh intensity={0.7} />
       <div className="ia-container">
         <div className="ia-footer-grid">
           <div>
-            <Link to="/" className="ia-brand" aria-label="LX Studio, accueil">
+            <L to={ui.paths.home} className="ia-brand" aria-label={ui.brandHome}>
               <i aria-hidden="true" />
               <span>{FOOTER.brand}</span>
-            </Link>
+            </L>
             <p className="ia-footer-claim">{FOOTER.claim}</p>
             <address className="ia-footer-contact" style={{ fontStyle: "normal" }}>
               <a href={SITE.phoneHref}>{SITE.phone}</a>
@@ -35,12 +41,12 @@ export function Footer() {
               <ul className="ia-footer-list">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    {"hash" in l ? (
-                      <Link to={l.to} hash={l.hash}>
+                    {"hash" in l && l.hash ? (
+                      <L to={l.to} hash={l.hash}>
                         {l.label}
-                      </Link>
+                      </L>
                     ) : (
-                      <Link to={l.to}>{l.label}</Link>
+                      <L to={l.to}>{l.label}</L>
                     )}
                   </li>
                 ))}
@@ -52,7 +58,13 @@ export function Footer() {
           <span>
             {new Date().getFullYear()} {FOOTER.copyright}
           </span>
-          <span>{FOOTER.madeIn}</span>
+          <span>
+            {FOOTER.madeIn}
+            {" · "}
+            <L to={switchTo} hrefLang={switchLang} lang={switchLang} title={ui.switchTitle}>
+              {ui.switchLabel}
+            </L>
+          </span>
         </div>
       </div>
     </footer>

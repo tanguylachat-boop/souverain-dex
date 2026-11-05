@@ -5,9 +5,9 @@
 
 export const HOME_SEO = {
   path: "/",
-  title: "IA locale en entreprise, installée chez vous | LX Studio",
+  title: "IA locale installée chez vous, Jura et Suisse romande | LX Studio",
   description:
-    "Une IA installée sur vos machines, dans vos locaux, qui traite vos pièces comptables, vos mails et vos rapports. Rien ne part chez OpenAI, rien ne sort du bâtiment. Jura et Suisse romande.",
+    "Une IA installée dans vos locaux (IA souveraine, on-premise) traite vos pièces comptables, mails et rapports. Rien ne sort de chez vous. Jura, Suisse romande.",
   keywords:
     "IA locale Suisse, IA on-premise Suisse romande, IA souveraine entreprise, IA conforme nLPD, automatisation administrative IA, IA Jura",
 } as const;
@@ -257,7 +257,7 @@ export const FAQ = {
   entries: [
     {
       q: "Où tournent mes données, exactement ?",
-      a: "Sur une machine installée dans vos locaux, branchée sur votre réseau. Pendant le traitement, aucun appel ne part vers un service externe. Les documents que vous confiez au système restent sur ce disque, chez vous.",
+      a: "Sur une machine installée dans vos locaux, branchée sur votre réseau : c'est ce qu'on appelle une IA locale, souveraine ou on-premise. Pendant le traitement, aucun appel ne part vers un service externe. Les documents que vous confiez au système restent sur ce disque, chez vous.",
     },
     {
       q: "De quel matériel ai-je besoin ?",
@@ -282,6 +282,10 @@ export const FAQ = {
     {
       q: "Ça fonctionne avec Bexio, Abacus ou ma messagerie ?",
       a: "Bexio : oui, un système connecté à Bexio tourne déjà chez un client. Abacus et les messageries courantes (Microsoft 365, Google Workspace, Infomaniak) : l'état du connecteur est précisé lors du diagnostic, selon votre outil et sa version.",
+    },
+    {
+      q: "Qui est derrière LX Studio ?",
+      a: "Tanguy Lachat, ingénieur IA, fondateur de LX Studio à Bassecourt, dans le Jura. J'installe moi-même chaque système, dans le Jura et dans toute la Suisse romande, et je reste votre interlocuteur après la mise en service.",
     },
     {
       q: "Que se passe-t-il si LX Studio disparaît ?",

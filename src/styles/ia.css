@@ -125,7 +125,7 @@ body {
   outline: none;
 }
 html.js .ia-main {
-  animation: iaFade 0.6s ease-out 0.1s both;
+  animation: iaFade 0.3s ease-out both;
 }
 @keyframes iaFade {
   from {
@@ -262,8 +262,8 @@ html.js .ia-words.in .ia-w-in {
 html.js .ia-words[data-now] .ia-w-in {
   transform: none;
   transition: none;
-  animation: iaWordUp 1.15s var(--ease-quart) both;
-  animation-delay: calc(var(--i, 0) * 70ms + 200ms);
+  animation: iaWordUp 0.7s var(--ease-quart) both;
+  animation-delay: calc(var(--i, 0) * 35ms + 60ms);
 }
 @keyframes iaWordUp {
   from {
@@ -277,8 +277,8 @@ html.js [data-now][data-rv] {
   opacity: 1;
   transform: none;
   transition: none;
-  animation: iaRise 1s var(--ease-cubic) both;
-  animation-delay: calc(var(--d, 0) * 1ms + 300ms);
+  animation: iaRise 0.7s var(--ease-cubic) both;
+  animation-delay: calc(var(--d, 0) * 0.6ms + 120ms);
 }
 @keyframes iaRise {
   from {
@@ -732,6 +732,32 @@ html:not(.js) .ia-eyebrow-line,
   display: flex;
   align-items: center;
   gap: 14px;
+}
+.ia-lang {
+  display: inline-grid;
+  place-items: center;
+  min-width: 40px;
+  height: 36px;
+  padding: 0 11px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-brd);
+  background: var(--glass);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+.ia-lang:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.22);
+}
+.ia-footer-bottom a {
+  color: inherit;
 }
 .ia-header .ia-btn.is-cta {
   padding: 12px 22px;
@@ -2838,14 +2864,41 @@ html:not(.js) .hm-doc-1,
   inset: 0;
   background: linear-gradient(to top, rgba(5, 10, 36, 0.6), rgba(5, 10, 36, 0.08) 55%);
 }
+/* Le bouton de lecture se pose en bas à droite, hors du titre de l'affiche (à gauche, au milieu).
+   Le bouton cliquable reste le cadre entier (.ia-demo-start). */
 .ia-demo-start .ia-demo-play {
   position: absolute;
-  inset: 0;
+  right: 20px;
+  bottom: 18px;
   z-index: 1;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  text-align: left;
+}
+.ia-demo-start .ia-demo-play > span {
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .ia-demo-start .ia-demo-play {
+    right: 14px;
+    bottom: 14px;
+    gap: 10px;
+  }
+  .ia-demo-start .ia-demo-play i {
+    width: 48px;
+    height: 48px;
+  }
+  .ia-demo-start .ia-demo-play i svg {
+    width: 18px;
+    height: 18px;
+    margin-left: 2px;
+  }
+  .ia-demo-start .ia-demo-play > span {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
 }
 .ia-demo-start .ia-demo-play i {
   transition:
@@ -2907,4 +2960,23 @@ html:not(.js) .hm-doc-1,
 }
 .ia-demo-transcript li strong {
   color: var(--ink);
+}
+
+/* Sous 760 px, les champs passent à 16 px : Safari iOS ne zoome plus la page au focus. */
+@media (max-width: 760px) {
+  .ia-field input,
+  .ia-field select,
+  .ia-field textarea {
+    font-size: 16px;
+  }
+}
+
+/* La question de l'article, au-dessus de la réponse directe. */
+.ia-article-question {
+  margin: 0 0 10px;
+  font-size: 0.78em;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent, #1f5fd0);
 }

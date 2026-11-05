@@ -20,9 +20,18 @@ import { Route as AthlitRouteImport } from './routes/athlit'
 import { Route as AdministrationsRouteImport } from './routes/administrations'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RessourcesIndexRouteImport } from './routes/ressources.index'
+import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as RessourcesSlugRouteImport } from './routes/ressources.$slug'
+import { Route as EnSmesRouteImport } from './routes/en.smes'
+import { Route as EnSecurityRouteImport } from './routes/en.security'
+import { Route as EnPublicAdministrationsRouteImport } from './routes/en.public-administrations'
+import { Route as EnPrivacyPolicyRouteImport } from './routes/en.privacy-policy'
+import { Route as EnLegalNoticeRouteImport } from './routes/en.legal-notice'
+import { Route as EnFiduciariesRouteImport } from './routes/en.fiduciaries'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as EnResourcesIndexRouteImport } from './routes/en.resources.index'
+import { Route as EnResourcesSlugRouteImport } from './routes/en.resources.$slug'
 
 const SecuriteRoute = SecuriteRouteImport.update({
   id: '/securite',
@@ -80,6 +89,11 @@ const RessourcesIndexRoute = RessourcesIndexRouteImport.update({
   path: '/ressources/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/en/',
+  path: '/en/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -90,9 +104,49 @@ const RessourcesSlugRoute = RessourcesSlugRouteImport.update({
   path: '/ressources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnSmesRoute = EnSmesRouteImport.update({
+  id: '/en/smes',
+  path: '/en/smes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSecurityRoute = EnSecurityRouteImport.update({
+  id: '/en/security',
+  path: '/en/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPublicAdministrationsRoute = EnPublicAdministrationsRouteImport.update({
+  id: '/en/public-administrations',
+  path: '/en/public-administrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPrivacyPolicyRoute = EnPrivacyPolicyRouteImport.update({
+  id: '/en/privacy-policy',
+  path: '/en/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnLegalNoticeRoute = EnLegalNoticeRouteImport.update({
+  id: '/en/legal-notice',
+  path: '/en/legal-notice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnFiduciariesRoute = EnFiduciariesRouteImport.update({
+  id: '/en/fiduciaries',
+  path: '/en/fiduciaries',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnResourcesIndexRoute = EnResourcesIndexRouteImport.update({
+  id: '/en/resources/',
+  path: '/en/resources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnResourcesSlugRoute = EnResourcesSlugRouteImport.update({
+  id: '/en/resources/$slug',
+  path: '/en/resources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -108,9 +162,18 @@ export interface FileRoutesByFullPath {
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/fiduciaries': typeof EnFiduciariesRoute
+  '/en/legal-notice': typeof EnLegalNoticeRoute
+  '/en/privacy-policy': typeof EnPrivacyPolicyRoute
+  '/en/public-administrations': typeof EnPublicAdministrationsRoute
+  '/en/security': typeof EnSecurityRoute
+  '/en/smes': typeof EnSmesRoute
   '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/en/': typeof EnIndexRoute
   '/ressources/': typeof RessourcesIndexRoute
+  '/en/resources/$slug': typeof EnResourcesSlugRoute
+  '/en/resources/': typeof EnResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,9 +187,18 @@ export interface FileRoutesByTo {
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/fiduciaries': typeof EnFiduciariesRoute
+  '/en/legal-notice': typeof EnLegalNoticeRoute
+  '/en/privacy-policy': typeof EnPrivacyPolicyRoute
+  '/en/public-administrations': typeof EnPublicAdministrationsRoute
+  '/en/security': typeof EnSecurityRoute
+  '/en/smes': typeof EnSmesRoute
   '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/en': typeof EnIndexRoute
   '/ressources': typeof RessourcesIndexRoute
+  '/en/resources/$slug': typeof EnResourcesSlugRoute
+  '/en/resources': typeof EnResourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,9 +213,18 @@ export interface FileRoutesById {
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/fiduciaries': typeof EnFiduciariesRoute
+  '/en/legal-notice': typeof EnLegalNoticeRoute
+  '/en/privacy-policy': typeof EnPrivacyPolicyRoute
+  '/en/public-administrations': typeof EnPublicAdministrationsRoute
+  '/en/security': typeof EnSecurityRoute
+  '/en/smes': typeof EnSmesRoute
   '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/en/': typeof EnIndexRoute
   '/ressources/': typeof RessourcesIndexRoute
+  '/en/resources/$slug': typeof EnResourcesSlugRoute
+  '/en/resources/': typeof EnResourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -159,9 +240,18 @@ export interface FileRouteTypes {
     | '/politique-de-confidentialite'
     | '/securite'
     | '/blog/$slug'
+    | '/en/fiduciaries'
+    | '/en/legal-notice'
+    | '/en/privacy-policy'
+    | '/en/public-administrations'
+    | '/en/security'
+    | '/en/smes'
     | '/ressources/$slug'
     | '/blog/'
+    | '/en/'
     | '/ressources/'
+    | '/en/resources/$slug'
+    | '/en/resources/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -175,9 +265,18 @@ export interface FileRouteTypes {
     | '/politique-de-confidentialite'
     | '/securite'
     | '/blog/$slug'
+    | '/en/fiduciaries'
+    | '/en/legal-notice'
+    | '/en/privacy-policy'
+    | '/en/public-administrations'
+    | '/en/security'
+    | '/en/smes'
     | '/ressources/$slug'
     | '/blog'
+    | '/en'
     | '/ressources'
+    | '/en/resources/$slug'
+    | '/en/resources'
   id:
     | '__root__'
     | '/'
@@ -191,9 +290,18 @@ export interface FileRouteTypes {
     | '/politique-de-confidentialite'
     | '/securite'
     | '/blog/$slug'
+    | '/en/fiduciaries'
+    | '/en/legal-notice'
+    | '/en/privacy-policy'
+    | '/en/public-administrations'
+    | '/en/security'
+    | '/en/smes'
     | '/ressources/$slug'
     | '/blog/'
+    | '/en/'
     | '/ressources/'
+    | '/en/resources/$slug'
+    | '/en/resources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -208,9 +316,18 @@ export interface RootRouteChildren {
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
   SecuriteRoute: typeof SecuriteRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  EnFiduciariesRoute: typeof EnFiduciariesRoute
+  EnLegalNoticeRoute: typeof EnLegalNoticeRoute
+  EnPrivacyPolicyRoute: typeof EnPrivacyPolicyRoute
+  EnPublicAdministrationsRoute: typeof EnPublicAdministrationsRoute
+  EnSecurityRoute: typeof EnSecurityRoute
+  EnSmesRoute: typeof EnSmesRoute
   RessourcesSlugRoute: typeof RessourcesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  EnIndexRoute: typeof EnIndexRoute
   RessourcesIndexRoute: typeof RessourcesIndexRoute
+  EnResourcesSlugRoute: typeof EnResourcesSlugRoute
+  EnResourcesIndexRoute: typeof EnResourcesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +409,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RessourcesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/': {
+      id: '/en/'
+      path: '/en'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -306,11 +430,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RessourcesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/smes': {
+      id: '/en/smes'
+      path: '/en/smes'
+      fullPath: '/en/smes'
+      preLoaderRoute: typeof EnSmesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/security': {
+      id: '/en/security'
+      path: '/en/security'
+      fullPath: '/en/security'
+      preLoaderRoute: typeof EnSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/public-administrations': {
+      id: '/en/public-administrations'
+      path: '/en/public-administrations'
+      fullPath: '/en/public-administrations'
+      preLoaderRoute: typeof EnPublicAdministrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/privacy-policy': {
+      id: '/en/privacy-policy'
+      path: '/en/privacy-policy'
+      fullPath: '/en/privacy-policy'
+      preLoaderRoute: typeof EnPrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/legal-notice': {
+      id: '/en/legal-notice'
+      path: '/en/legal-notice'
+      fullPath: '/en/legal-notice'
+      preLoaderRoute: typeof EnLegalNoticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/fiduciaries': {
+      id: '/en/fiduciaries'
+      path: '/en/fiduciaries'
+      fullPath: '/en/fiduciaries'
+      preLoaderRoute: typeof EnFiduciariesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/resources/': {
+      id: '/en/resources/'
+      path: '/en/resources'
+      fullPath: '/en/resources/'
+      preLoaderRoute: typeof EnResourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/resources/$slug': {
+      id: '/en/resources/$slug'
+      path: '/en/resources/$slug'
+      fullPath: '/en/resources/$slug'
+      preLoaderRoute: typeof EnResourcesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -328,9 +508,18 @@ const rootRouteChildren: RootRouteChildren = {
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
   SecuriteRoute: SecuriteRoute,
   BlogSlugRoute: BlogSlugRoute,
+  EnFiduciariesRoute: EnFiduciariesRoute,
+  EnLegalNoticeRoute: EnLegalNoticeRoute,
+  EnPrivacyPolicyRoute: EnPrivacyPolicyRoute,
+  EnPublicAdministrationsRoute: EnPublicAdministrationsRoute,
+  EnSecurityRoute: EnSecurityRoute,
+  EnSmesRoute: EnSmesRoute,
   RessourcesSlugRoute: RessourcesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  EnIndexRoute: EnIndexRoute,
   RessourcesIndexRoute: RessourcesIndexRoute,
+  EnResourcesSlugRoute: EnResourcesSlugRoute,
+  EnResourcesIndexRoute: EnResourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
