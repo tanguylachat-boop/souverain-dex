@@ -17,7 +17,9 @@
     "verif:webkit": "node verif/webkit.mjs",
     "verif:dashes": "node verif/dashes.mjs",
     "demo": "node scripts/demo/render.mjs",
-    "demo:voix": "python3 scripts/demo/voix.py"
+    "demo:voix": "python3 scripts/demo/voix.py",
+    "sitemap": "node scripts/sitemap.ts",
+    "assets": "npm run og && npm run dossier:pdf && npm run sitemap"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

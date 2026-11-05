@@ -40,7 +40,7 @@ sur écran large avec une souris (`@media (hover: hover) and (min-width: 761px)`
 
 | Fichier | Poids |
 | --- | --- |
-| JS principal (React 19, TanStack Router et Start, effets, nappe WebGL) | 141 Ko |
+| JS principal (React 19, TanStack Router et Start, effets, nappe WebGL, contenu des deux langues depuis le 05.11.2026) | 167 Ko (141 Ko avant la version anglaise ; voir docs/i18n.md pour la suite) |
 | JS de la page d'accueil | 2 Ko |
 | Validation et envoi des formulaires (zod + appel serveur), chargés au premier envoi seulement | 12,5 Ko + 2 Ko |
 | CSS (remise à zéro Tailwind + `styles/ia.css`) | 10 Ko |
@@ -168,3 +168,20 @@ puis encodée par ffmpeg avec la voix (`npm run demo`). Script, storyboard et vo
   inchangés ; 0 tiret long sur 44 fichiers et 17 pages rendues ; typecheck et lint sans erreur.
 - Non fait : écoute humaine de la piste (les contrôles sont des retranscriptions et des mesures),
   musique, lecture sur un vrai téléphone, Safari réel (WebKit émulé lit le mp4, pas le webm).
+
+## 9. Version anglaise et correctifs de l'audit SEO (branche `seo-i18n`, 05.11.2026)
+
+Audit complet dans `docs/seo/2026-11-05/README.md` (huit rapports détaillés à côté). Ce qui a été
+vérifié sur la construction locale (`npm run build` puis `npx wrangler dev --port 4173`) :
+
+- 29 pages en 200 (12 anglaises sous `/en`), `<html lang>` `fr-CH` ou `en`, un seul `<title>` par
+  page, canonique, `og:locale`, `hreflang` réciproques (`fr-CH`, `en`, `x-default` sur le français),
+  JSON-LD valide sur chaque page, 0 marque `[À ...]`, 0 tiret long (`verif:dashes --pages`), aucun
+  texte français sur les pages anglaises (contrôle par liste de mots).
+- Sitemap de 25 URL généré par `npm run sitemap` avec les alternates et les dates corrigées ;
+  `robots.txt` complété ; `llms.txt` avec les synonymes (souveraine, on-premise) et une section
+  anglaise ; images de partage et PDF du dossier dans les deux langues.
+- Lighthouse 13.5 mobile sur `/`, `/en`, `/fiduciaires`, `/en/fiduciaries` : performance 94 à 97,
+  accessibilité, bonnes pratiques et SEO 100, CLS 0, TBT 0 à 30 ms, LCP 2,2 à 2,8 s.
+- Non testé : vrai téléphone, envoi réel des formulaires (clés Resend absentes en local), rendu des
+  PDF à l'impression, Search Console (hreflang et sitemap à soumettre après la mise en ligne).

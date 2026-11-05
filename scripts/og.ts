@@ -1,50 +1,87 @@
 /**
- * Images de partage (Open Graph, 1200 × 630), une par page, rendues avec
- * Chromium depuis le contenu du site. À relancer quand un titre change :
+ * Images de partage (Open Graph, 1200 × 630), une par page et par langue,
+ * rendues avec Chromium depuis le contenu du site. À relancer quand un titre
+ * change :
  *
  *   npm run og
  *
- * Sortie : public/og/<nom>.jpg (JPEG : la nappe de dégradés pèserait cinq fois plus en PNG). Le nom est celui que `ogImage()` attend
- * (lib/seo.ts) : accueil, fiduciaires, administrations, pme, securite,
- * ressources, puis le slug de chaque article.
+ * Sortie : public/og/<nom>.jpg pour le français, public/og/en/<nom>.jpg pour
+ * l'anglais (JPEG : la nappe de dégradés pèserait cinq fois plus en PNG). Le
+ * nom est celui que `ogImage()` attend (lib/seo.ts, components/ia/pages.tsx) :
+ * accueil, fiduciaires, administrations, pme, securite, ressources, puis le
+ * slug de chaque article ; en anglais home, fiduciaries, public-administrations,
+ * smes, security, resources, puis les slugs anglais.
  */
 import { chromium } from "playwright";
 import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { HERO } from "../src/content/ia/home.ts";
-import { METIERS } from "../src/content/ia/metiers.ts";
-import { SECURITE_HERO } from "../src/content/ia/securite.ts";
-import { ALL_RESOURCES } from "../src/content/ia/ressources.ts";
+import { CONTENT } from "../src/content/ia/bundle.ts";
+import type { Lang } from "../src/content/ia/lang.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = resolve(root, "public/og");
-mkdirSync(out, { recursive: true });
+mkdirSync(resolve(out, "en"), { recursive: true });
 
-type Card = { name: string; kicker: string; title: string; foot?: string };
+type Card = { name: string; lang: Lang; kicker: string; title: string; foot?: string };
 
-const cards: Card[] = [
-  { name: "accueil", kicker: "IA installée chez vous · Jura · Suisse romande", title: HERO.title },
-  ...METIERS.map((m) => ({ name: m.slug, kicker: m.hero.eyebrow, title: m.hero.title })),
-  { name: "securite", kicker: "Sécurité et conformité", title: SECURITE_HERO.title },
-  {
-    name: "ressources",
-    kicker: "Ressources",
-    title: "Ce qu'il faut savoir avant d'installer une IA chez vous.",
-  },
-  ...ALL_RESOURCES.map((r) => ({
-    name: r.slug,
-    kicker: r.tag,
-    title: r.title,
-    foot: `${r.author} · lxstudio.ch/ressources`,
-  })),
-];
+const FOOT: Record<Lang, string> = {
+  fr: "Installé sur site · Conçu pour la nLPD · lxstudio.ch",
+  en: "Installed on site · Built for the Swiss FADP · lxstudio.ch/en",
+};
+const PILL: Record<Lang, string> = {
+  fr: "Vos données restent chez vous",
+  en: "Your data stays with you",
+};
+const HTML_LANG: Record<Lang, string> = { fr: "fr-CH", en: "en" };
+
+const cards: Card[] = [];
+for (const lang of ["fr", "en"] as const) {
+  const c = CONTENT[lang];
+  const ui = c.ui.UI;
+  const dir = lang === "en" ? "en/" : "";
+  cards.push({
+    name: `${dir}${lang === "en" ? "home" : "accueil"}`,
+    lang,
+    kicker: c.home.HERO.eyebrow,
+    title: c.home.HERO.title,
+  });
+  cards.push(
+    ...c.metiers.METIERS.map((m) => ({
+      name: `${dir}${m.slug}`,
+      lang,
+      kicker: m.hero.eyebrow,
+      title: m.hero.title,
+    })),
+  );
+  cards.push({
+    name: `${dir}${lang === "en" ? "security" : "securite"}`,
+    lang,
+    kicker: c.securite.SECURITE_HERO.eyebrow,
+    title: c.securite.SECURITE_HERO.title,
+  });
+  cards.push({
+    name: `${dir}${lang === "en" ? "resources" : "ressources"}`,
+    lang,
+    kicker: ui.resources.eyebrow,
+    title: ui.resources.title,
+  });
+  cards.push(
+    ...c.ressources.ALL_RESOURCES.map((r) => ({
+      name: `${dir}${r.slug}`,
+      lang,
+      kicker: r.tag,
+      title: r.title,
+      foot: `${r.author} · lxstudio.ch${lang === "en" ? "/en/resources" : "/ressources"}`,
+    })),
+  );
+}
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
 function html(card: Card) {
   const size = card.title.length > 90 ? 50 : card.title.length > 64 ? 58 : 68;
-  return `<!doctype html><html lang="fr-CH"><head><meta charset="utf-8"><style>
+  return `<!doctype html><html lang="${HTML_LANG[card.lang]}"><head><meta charset="utf-8"><style>
 @font-face{font-family:"Manrope";src:url("../fonts/manrope-latin-wght-normal.woff2") format("woff2-variations");font-weight:200 800}
 @font-face{font-family:"Manrope";src:url("../fonts/manrope-latin-ext-wght-normal.woff2") format("woff2-variations");font-weight:200 800;unicode-range:U+0100-02BA}
 *{margin:0;box-sizing:border-box}
@@ -67,7 +104,7 @@ h1{margin-top:22px;font-size:${size}px;font-weight:800;line-height:1.08;letter-s
 </style></head><body><div class="bg"></div><div class="grad"></div><div class="in">
 <div class="brand"><i></i>LX Studio</div>
 <div><div class="k">${esc(card.kicker)}</div><h1>${esc(card.title)}</h1></div>
-<div class="foot"><span>${esc(card.foot ?? "Installé sur site · Conçu pour la nLPD · lxstudio.ch")}</span><span class="pill">Vos données restent chez vous</span></div>
+<div class="foot"><span>${esc(card.foot ?? FOOT[card.lang])}</span><span class="pill">${esc(PILL[card.lang])}</span></div>
 </div></body></html>`;
 }
 

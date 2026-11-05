@@ -15,7 +15,7 @@ export const SECURITE_SEO = {
   path: "/securite",
   title: "Sécurité et conformité d'une IA installée sur site | LX Studio",
   description:
-    "Où tournent les données, chiffrement, contrôle des accès, journalisation, sauvegardes, fin de contrat, nLPD et secret professionnel : la page que lit votre responsable informatique. Dossier sécurité en PDF.",
+    "Où tournent les données, chiffrement, accès, journalisation, sauvegardes, fin de contrat, nLPD, Cloud Act : la page que lit votre responsable informatique.",
   keywords:
     "IA on-premise sécurité, IA conforme nLPD, IA secret professionnel, souveraineté des données Suisse, IA locale chiffrement",
 } as const;
@@ -23,7 +23,7 @@ export const SECURITE_SEO = {
 export const SECURITE_HERO = {
   eyebrow: "Sécurité et conformité",
   title: "Vos données restent chez vous. Voici comment, point par point.",
-  sub: "Cette page est écrite pour le responsable informatique, le commandant ou l'associé qui doit répondre de la sécurité. Ce qui est fixé à l'installation est dit comme tel, et ce qui n'est pas encore fait aussi.",
+  sub: "Une IA installée sur site, aussi appelée IA souveraine ou IA on-premise, ne vaut que si chaque mesure est vérifiable. Cette page est écrite pour le responsable informatique, le commandant ou l'associé qui doit répondre de la sécurité. Ce qui est fixé à l'installation est dit comme tel, et ce qui n'est pas encore fait aussi.",
 } as const;
 
 export type SecuriteSection = {
@@ -121,6 +121,7 @@ export const SECURITE_SECTIONS: ReadonlyArray<SecuriteSection> = [
     points: [
       "La loi fédérale sur la protection des données (nLPD), en vigueur depuis le 1er septembre 2023, encadre le traitement des données personnelles par les entreprises suisses. Le système est conçu pour la respecter : traitement sur place, aucune communication à un tiers, journalisation, mesures de sécurité adaptées au risque (art. 8 LPD). Il ne s'agit pas d'une certification.",
       "Le secret professionnel (article 321 du Code pénal suisse) s'impose notamment aux avocats, aux notaires, aux médecins et aux autres professions de la santé, ainsi qu'aux réviseurs astreints au secret par le code des obligations ; les fiduciaires sont tenues par leur mandat et, souvent, par les règles de leur association. Les administrations relèvent du secret de fonction (article 320). Un traitement qui ne fait sortir aucun document de vos murs est la condition de base pour l'envisager. L'appréciation finale revient à votre conseil.",
+      "Le Cloud Act américain, en vigueur depuis 2018, permet aux autorités des États-Unis de requérir les données qu'un fournisseur soumis à leur droit contrôle, où qu'elles soient hébergées. Un document traité sur votre machine n'est sous le contrôle d'aucun fournisseur : la question ne se pose pas.",
       "Un registre des traitements et une analyse d'impact peuvent être documentés avec vous si votre activité l'exige.",
     ],
     source: {
