@@ -38,7 +38,7 @@ export const ARTICLES: ReadonlyArray<Article> = [
     slug: "mesurer-le-temps-qu-une-tache-coute-vraiment",
     title: "Mesurer ce qu'une tâche coûte vraiment avant d'automatiser quoi que ce soit",
     summary:
-      "La plupart des projets d'automatisation démarrent sur une intuition et finissent sans preuve. Voici la mesure qui remplace l'intuition, et comment la faire en une demi-journée.",
+      "La plupart des projets d'automatisation démarrent sur une intuition et finissent sans preuve. La mesure qui la remplace, faite en une demi-journée.",
     question: "Comment savoir si une tâche mérite d'être automatisée ?",
     answer:
       "En la chronométrant sur une semaine réelle plutôt qu'en l'estimant de mémoire. On compte le temps passé, le nombre de reprises et le nombre d'interruptions, puis on multiplie par le taux horaire chargé de la personne qui la fait. Une tâche mérite d'être automatisée quand ce coût mensuel dépasse nettement le coût de l'automatisation amorti sur un an. En dessous, le projet coûte plus qu'il ne rapporte, et il vaut mieux le savoir avant de le lancer.",
@@ -112,7 +112,7 @@ export const ARTICLES: ReadonlyArray<Article> = [
     title:
       "Où vivent vos données quand vous utilisez l'IA, et pourquoi la question se tranche au départ",
     summary:
-      "La question de l'hébergement arrête la moitié des projets d'IA en entreprise, presque toujours trop tard. Les trois options réelles, et laquelle correspond à quelle situation.",
+      "L'hébergement arrête la moitié des projets d'IA en entreprise, presque toujours trop tard. Les trois options réelles, et laquelle convient à quelle situation.",
     question: "Mes données partent-elles à l'étranger si j'utilise l'IA dans mon entreprise ?",
     answer:
       "Cela dépend entièrement du montage choisi, et c'est une décision, pas une fatalité. Trois options existent : un modèle exécuté sur du matériel installé dans vos locaux, où rien ne sort du réseau local ; un hébergement en Suisse ou dans l'Union européenne avec un contrat de sous-traitance ; ou l'usage direct d'un service grand public, où le contrôle est le plus faible. Le choix se fait au début du projet, parce qu'en changer après coup revient presque toujours à tout reconstruire.",
@@ -178,7 +178,7 @@ export const ARTICLES: ReadonlyArray<Article> = [
     slug: "combien-coute-une-automatisation-ia-pme-suisse",
     title: "Combien coûte une automatisation IA pour une PME suisse ?",
     summary:
-      "Le marché romand affiche entre 2'000 et 10'000 CHF par projet. Ce que ces fourchettes recouvrent réellement, et comment vérifier qu'un devis tient avant de le signer.",
+      "Le marché romand affiche entre 2'000 et 10'000 CHF par projet. Ce que ces fourchettes recouvrent, et comment vérifier qu'un devis tient avant de le signer.",
     question: "Combien coûte un projet d'automatisation IA pour une PME en Suisse ?",
     answer:
       "Les prestataires suisses romands annoncent en général entre 2'000 et 10'000 CHF pour la mise en place d'un projet, avec un suivi mensuel facultatif (fourchettes relevées en septembre 2026 sur les sites publics du marché). Cette fourchette ne veut rien dire tant que le périmètre n'est pas défini : le même montant peut couvrir une automatisation d'une tâche ou d'un service entier. Un devis sérieux se lit à trois choses, pas au prix affiché : le nombre d'heures estimées, la tâche exactement nommée, et le temps mesuré qu'elle coûte aujourd'hui. Sans ces trois éléments, le prix est une supposition, qu'il soit bas ou élevé.",
@@ -316,7 +316,7 @@ export const ARTICLES: ReadonlyArray<Article> = [
     slug: "plateforme-automatisation-ou-code",
     title: "Zapier, Make, n8n ou du code : sur quoi construire une automatisation qui dure ?",
     summary:
-      "Les plateformes sont imbattables pour tester une idée en une après-midi, et fragiles comme fondation. Où passe la frontière, et à quel moment il faut changer de terrain.",
+      "Les plateformes sont imbattables pour tester une idée en une après-midi, et fragiles comme fondation. Où passe la frontière, et quand changer de terrain.",
     question: "Faut-il construire ses automatisations sur Zapier, Make ou n8n, ou en code ?",
     answer:
       "Une plateforme d'automatisation est le bon choix pour valider une idée : montée en une après-midi, sans développeur, et abandonnée sans regret si l'idée ne tient pas. Elle devient un mauvais choix dès que l'entreprise dépend du résultat, pour trois raisons mesurables : le coût augmente avec le volume traité au lieu de rester fixe, la logique métier vit dans un compte chez un tiers plutôt que dans un dépôt que vous possédez, et une mise à jour de la plateforme peut casser un enchaînement sans alerte. La règle utile : prototyper sur une plateforme, reconstruire en code le jour où l'automatisation devient indispensable.",

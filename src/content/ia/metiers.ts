@@ -4,7 +4,7 @@
  */
 
 export type Metier = {
-  slug: "fiduciaires" | "administrations" | "pme";
+  slug: string;
   path: string;
   seo: { title: string; description: string; keywords: string };
   hero: { eyebrow: string; title: string; sub: string };
@@ -29,14 +29,14 @@ export const METIERS: ReadonlyArray<Metier> = [
     seo: {
       title: "IA pour fiduciaires : pièces saisies au cabinet | LX Studio",
       description:
-        "Une IA installée dans votre cabinet qui saisit les pièces comptables, lit les factures QR suisses et écrit dans Bexio. Aucun dossier client ne quitte le cabinet. Conçu pour la nLPD et le secret professionnel.",
+        "Une IA installée au cabinet saisit les pièces comptables, lit les factures QR et écrit dans Bexio. Aucun dossier client ne sort. nLPD et secret professionnel.",
       keywords:
         "intelligence artificielle fiduciaire, IA fiduciaire Suisse, saisie automatique pièces comptables, IA Bexio, IA secret professionnel, IA conforme nLPD",
     },
     hero: {
       eyebrow: "Fiduciaires · Jura et Suisse romande",
       title:
-        "Vos pièces comptables saisies toutes seules. Pas un dossier client ne quitte le cabinet.",
+        "IA pour fiduciaires : vos pièces comptables saisies au cabinet. Pas un dossier client n'en sort.",
       sub: "Une IA installée sur une machine dans votre cabinet lit les pièces, les classe, les saisit dans Bexio et vous laisse valider. Rien ne part sur un serveur externe. Le produit tourne déjà en pilote dans un cabinet romand.",
     },
     tasks: {
@@ -152,14 +152,15 @@ export const METIERS: ReadonlyArray<Metier> = [
     seo: {
       title: "IA pour polices et administrations, sur vos serveurs | LX Studio",
       description:
-        "Rédaction de rapports et anonymisation de documents par une IA installée sur vos serveurs, sans qu'une donnée ne quitte votre réseau. Conçu pour la nLPD. Jura et Suisse romande.",
+        "Rapports rédigés et documents anonymisés par une IA installée sur les serveurs de votre commune, canton ou police. Aucune donnée ne quitte votre réseau.",
       keywords:
         "IA administration publique Suisse, IA police rapports, anonymisation documents IA, IA souveraine administration, IA on-premise Suisse romande",
     },
     hero: {
       eyebrow: "Polices et administrations · Suisse romande",
-      title: "Rapports rédigés et documents anonymisés, sur vos serveurs.",
-      sub: "Une IA installée dans vos locaux rédige les premières versions de vos rapports à partir de vos notes et anonymise les documents avant transmission. Aucune donnée ne quitte votre réseau.",
+      title:
+        "IA pour polices et administrations : rapports rédigés et documents anonymisés, sur vos serveurs.",
+      sub: "Une IA installée sur les serveurs d'une commune, d'un service cantonal ou d'un corps de police rédige les premières versions des rapports à partir de vos notes et anonymise les documents avant transmission. Aucune donnée ne quitte votre réseau : c'est la condition de base pour travailler sous le secret de fonction (art. 320 CP).",
     },
     tasks: {
       eyebrow: "Ce que le système fait",
@@ -249,6 +250,11 @@ export const METIERS: ReadonlyArray<Metier> = [
         dossier: true,
       },
       {
+        q: "Et le secret de fonction ?",
+        a: "Les agents publics sont tenus au secret de fonction (art. 320 CP). Un traitement qui ne fait sortir aucun document de votre réseau est la condition de base pour l'envisager ; l'appréciation finale revient à votre service juridique.",
+        dossier: true,
+      },
+      {
         q: "Le système prend-il des décisions ?",
         a: "Non. Il rédige des premières versions et propose des anonymisations. La décision et la signature restent humaines.",
       },
@@ -270,13 +276,13 @@ export const METIERS: ReadonlyArray<Metier> = [
     seo: {
       title: "IA locale pour PME : mails triés, factures relancées | LX Studio",
       description:
-        "Une IA installée chez vous trie vos mails, relance vos factures et prépare vos devis, sans abonnement cloud et sans qu'une donnée ne quitte l'entreprise. Jura et Suisse romande.",
+        "Une IA installée chez vous trie vos mails, relance vos factures et prépare vos devis. Sans abonnement cloud, sans donnée chez un tiers. Jura et Suisse romande.",
       keywords:
         "IA locale PME Suisse, automatisation administrative IA, relance factures automatique, tri des mails IA, IA sans cloud, IA Jura",
     },
     hero: {
       eyebrow: "PME · Jura et Suisse romande",
-      title: "Mails triés, factures relancées, sans abonnement cloud.",
+      title: "IA locale pour PME : mails triés, factures relancées, sans abonnement cloud.",
       sub: "Une IA installée chez vous trie la boîte info@, relance les factures en retard et prépare les devis, directement dans vos outils. Pas d'abonnement, pas de données chez un tiers.",
     },
     tasks: {

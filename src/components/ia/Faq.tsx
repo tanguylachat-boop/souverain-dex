@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { SECURITE_DOSSIER } from "@/content/ia/securite";
 import { IconDownload, IconPlus } from "./icons";
 import { SectionHead, T } from "./text";
+import { L, useContent } from "./lang";
 
 /**
  * Questions fréquentes : une seule ouverte à la fois, la hauteur animée par
  * une grille (0fr vers 1fr). Les réponses marquées `dossier` renvoient au
- * dossier sécurité, sur la page si elle l'héberge, sinon sur /securite.
+ * dossier sécurité, sur la page si elle l'héberge, sinon sur la page sécurité.
  */
 export function Faq({
   id = "faq",
@@ -23,6 +22,8 @@ export function Faq({
   dossierOnPage?: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(null);
+  const { securite, ui } = useContent();
+  const button = securite.SECURITE_DOSSIER.button;
   return (
     <section className="ia-section" id={id} aria-labelledby={`${id}-title`}>
       <div className="ia-container">
@@ -61,12 +62,12 @@ export function Faq({
                           {" "}
                           {dossierOnPage ? (
                             <a href="#dossier">
-                              <IconDownload size={13} /> {SECURITE_DOSSIER.button}
+                              <IconDownload size={13} /> {button}
                             </a>
                           ) : (
-                            <Link to="/securite" hash="dossier">
-                              <IconDownload size={13} /> {SECURITE_DOSSIER.button}
-                            </Link>
+                            <L to={ui.paths.securite} hash="dossier">
+                              <IconDownload size={13} /> {button}
+                            </L>
                           )}
                         </>
                       ) : null}

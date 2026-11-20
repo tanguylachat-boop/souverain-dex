@@ -1,8 +1,10 @@
 # Anciennes adresses du site. Les mêmes redirections sont aussi faites par
-# le serveur (src/routes/{fiduciaire,mentia,athlit,blog.*}.tsx).
+# le serveur (src/routes/{fiduciaire,mentia,athlit,blog.*,avis}.tsx).
 /fiduciaire /fiduciaires 301
 /mentia / 301
 /athlit / 301
 /blog /ressources 301
 /blog/pourquoi-chatgpt-cite-votre-concurrent / 301
 /blog/* /ressources/:splat 301
+# Lien court pour les avis clients : formulaire d'avis de la fiche Google.
+/avis https://search.google.com/local/writereview?placeid=ChIJFaXReUSuPosRgLUCF9ERl5Y 302

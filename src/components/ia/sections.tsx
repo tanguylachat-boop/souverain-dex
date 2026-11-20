@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { CREDIBILITY, PROBLEM, SECTORS, DEMO } from "@/content/ia/home";
-import { SITE } from "@/content/ia/site";
+import { useRef, useState } from "react";
 import type { Resource } from "@/content/ia/ressources";
 import { Mesh } from "./Mesh";
 import { IconArrow, IconPlay } from "./icons";
 import { SectionHead, T, Eyebrow, vars } from "./text";
+import { L, fmtDate, useContent } from "./lang";
 
 /* --------------------------------------------------------------------------
  * Références : un logo en gris, une ligne vraie sous chacun.
  * ------------------------------------------------------------------------ */
 export function LogoBand() {
-  const showCchbc = SITE.showCchbc || import.meta.env.VITE_SHOW_CCHBC === "true";
+  const { home, site } = useContent();
+  const { CREDIBILITY } = home;
+  const showCchbc = site.SITE.showCchbc || import.meta.env.VITE_SHOW_CCHBC === "true";
   const clients = CREDIBILITY.clients.filter((c) => !("gated" in c && c.gated) || showCchbc);
   return (
     <section className="ia-refs" aria-labelledby="refs-title">
@@ -55,11 +55,27 @@ export function LogoBand() {
 }
 
 /* --------------------------------------------------------------------------
- * La démo : l'affiche, puis la vidéo au clic. Le texte de la vidéo est aussi
- * dans la page, replié, pour qui ne peut pas la regarder.
+ * La démo : la vidéo est dans la page dès le rendu serveur (affiche seule,
+ * rien n'est téléchargé avant le clic), le bouton par-dessus lance la
+ * lecture. Le texte de la vidéo est aussi dans la page, replié, pour qui ne
+ * peut pas la regarder.
  * ------------------------------------------------------------------------ */
 export function Demo() {
+  const { home } = useContent();
+  const { DEMO } = home;
   const [playing, setPlaying] = useState(false);
+  const video = useRef<HTMLVideoElement>(null);
+
+  function start() {
+    setPlaying(true);
+    const v = video.current;
+    if (!v) return;
+    v.controls = true;
+    v.play().catch(() => {
+      // Lecture refusée (navigateur) : les commandes natives restent visibles.
+    });
+  }
+
   return (
     <section className="ia-demo" id="demo" aria-labelledby="demo-title">
       <div className="ia-container">
@@ -84,22 +100,21 @@ export function Demo() {
               </ol>
             </details>
           </div>
-          <div className="ia-demo-frame" data-rv="scale">
-            {playing ? (
-              <video className="ia-demo-video" controls autoPlay playsInline poster={DEMO.poster}>
-                <source src={DEMO.webm} type="video/webm" />
-                <source src={DEMO.mp4} type="video/mp4" />
-              </video>
-            ) : (
-              <button type="button" className="ia-demo-start" onClick={() => setPlaying(true)}>
-                <img
-                  src={DEMO.poster}
-                  alt=""
-                  width={1920}
-                  height={1080}
-                  loading="lazy"
-                  decoding="async"
-                />
+          <div className="ia-demo-frame" id="demo-video" data-rv="scale">
+            <video
+              ref={video}
+              className="ia-demo-video"
+              preload="none"
+              playsInline
+              poster={DEMO.poster}
+              controls={playing}
+              onPlay={() => setPlaying(true)}
+            >
+              <source src={DEMO.webm} type="video/webm" />
+              <source src={DEMO.mp4} type="video/mp4" />
+            </video>
+            {playing ? null : (
+              <button type="button" className="ia-demo-start" onClick={start}>
                 <span className="ia-demo-play">
                   <i aria-hidden="true">
                     <IconPlay />
@@ -118,19 +133,16 @@ export function Demo() {
 /* --------------------------------------------------------------------------
  * Le problème : trois cartes numérotées.
  * ------------------------------------------------------------------------ */
-export function Problem({
-  title = PROBLEM.title,
-  blocks = PROBLEM.blocks,
-}: {
-  title?: string;
-  blocks?: readonly string[];
-}) {
+export function Problem({ title, blocks }: { title?: string; blocks?: readonly string[] }) {
+  const { home } = useContent();
+  const { PROBLEM } = home;
+  const items = blocks ?? PROBLEM.blocks;
   return (
     <section className="ia-section" aria-labelledby="problem-title">
       <div className="ia-container">
-        <SectionHead id="problem-title" eyebrow={PROBLEM.eyebrow} title={title} />
+        <SectionHead id="problem-title" eyebrow={PROBLEM.eyebrow} title={title ?? PROBLEM.title} />
         <div className="ia-cards">
-          {blocks.map((text, i) => (
+          {items.map((text, i) => (
             <div key={text} className="ia-card" data-rv="">
               <span className="ia-num">{String(i + 1).padStart(2, "0")}</span>
               <p className="is-big">{text}</p>
@@ -203,26 +215,27 @@ export function Difference({
 }: {
   eyebrow: string;
   title: string;
-  columns: readonly [string, string];
+  columns: ReadonlyArray<string>;
   rows: ReadonlyArray<{ label: string; generic: string; lx: string }>;
 }) {
+  const [generic = "", lx = ""] = columns;
   return (
     <section className="ia-night ia-night-sec" aria-labelledby="diff-title">
       <Mesh intensity={0.8} />
       <div className="ia-container">
         <SectionHead id="diff-title" eyebrow={eyebrow} title={title} />
-        <div className="ia-cmp" role="table" aria-label={`${columns[0]} comparée à ${columns[1]}`}>
+        <div className="ia-cmp" role="table" aria-label={`${generic} / ${lx}`}>
           <div className="ia-cmp-row is-head" role="row">
             <div className="ia-cmp-cell" role="columnheader" />
             <div className="ia-cmp-cell" role="columnheader">
-              {columns[0]}
+              {generic}
             </div>
             <div
               className="ia-cmp-cell ia-cmp-lx"
               role="columnheader"
               style={{ background: "transparent", border: 0, boxShadow: "none" }}
             >
-              {columns[1]}
+              {lx}
             </div>
           </div>
           {rows.map((r) => (
@@ -230,10 +243,10 @@ export function Difference({
               <div className="ia-cmp-cell ia-cmp-label" role="rowheader">
                 {r.label}
               </div>
-              <div className="ia-cmp-cell ia-cmp-generic" role="cell" data-col={columns[0]}>
+              <div className="ia-cmp-cell ia-cmp-generic" role="cell" data-col={generic}>
                 {r.generic}
               </div>
-              <div className="ia-cmp-cell ia-cmp-lx" role="cell" data-col={columns[1]}>
+              <div className="ia-cmp-cell ia-cmp-lx" role="cell" data-col={lx}>
                 {r.lx}
               </div>
             </div>
@@ -246,9 +259,10 @@ export function Difference({
 }
 
 /* --------------------------------------------------------------------------
- * Par métier : trois cartes qui dézooment.
+ * Par métier : trois cartes qui dézooment. Le pictogramme suit l'ordre des
+ * cartes : fiduciaires, administrations, PME.
  * ------------------------------------------------------------------------ */
-function SectorGlyph({ to }: { to: string }) {
+function SectorGlyph({ index }: { index: number }) {
   const common = {
     fill: "none",
     stroke: "currentColor",
@@ -256,7 +270,7 @@ function SectorGlyph({ to }: { to: string }) {
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
   };
-  if (to === "/fiduciaires") {
+  if (index === 0) {
     return (
       <svg viewBox="0 0 120 120" className="ia-sector-glyph" aria-hidden="true" {...common}>
         <rect x="30" y="22" width="54" height="70" rx="8" />
@@ -266,7 +280,7 @@ function SectorGlyph({ to }: { to: string }) {
       </svg>
     );
   }
-  if (to === "/administrations") {
+  if (index === 1) {
     return (
       <svg viewBox="0 0 120 120" className="ia-sector-glyph" aria-hidden="true" {...common}>
         <path d="M60 18l34 12v26c0 22-14 38-34 46-20-8-34-24-34-46V30z" />
@@ -294,17 +308,19 @@ function SectorGlyph({ to }: { to: string }) {
 }
 
 export function Sectors() {
+  const { home } = useContent();
+  const { SECTORS } = home;
   return (
     <section className="ia-section" aria-labelledby="sectors-title">
       <div className="ia-container">
         <SectionHead id="sectors-title" eyebrow={SECTORS.eyebrow} title={SECTORS.title} />
         <div className="ia-sectors">
-          {SECTORS.cards.map((card) => (
-            <Link key={card.to} to={card.to} className="ia-sector" data-rv="">
+          {SECTORS.cards.map((card, i) => (
+            <L key={card.to} to={card.to} className="ia-sector" data-rv="">
               <div className="ia-sector-art">
                 <div className="ia-mesh-css" aria-hidden="true" />
                 <span className="ia-sector-kicker">{card.kicker}</span>
-                <SectorGlyph to={card.to} />
+                <SectorGlyph index={i} />
               </div>
               <div className="ia-sector-meta">
                 <h3 className="ia-sector-title">{card.title}</h3>
@@ -313,7 +329,7 @@ export function Sectors() {
                   <IconArrow size={14} />
                 </span>
               </div>
-            </Link>
+            </L>
           ))}
         </div>
       </div>
@@ -324,12 +340,6 @@ export function Sectors() {
 /* --------------------------------------------------------------------------
  * Articles : cartes de lecture.
  * ------------------------------------------------------------------------ */
-const dateFormat = new Intl.DateTimeFormat("fr-CH", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-});
-
 export function Posts({
   id = "posts",
   eyebrow,
@@ -342,9 +352,10 @@ export function Posts({
   eyebrow: string;
   title: string;
   items: ReadonlyArray<Resource>;
-  cta?: { label: string; to: "/ressources" };
+  cta?: { label: string; to: string };
   limit?: number;
 }) {
+  const { ui } = useContent();
   const list = limit ? items.slice(0, limit) : items;
   return (
     <section className="ia-section" id={id} aria-labelledby={`${id}-title`}>
@@ -355,19 +366,18 @@ export function Posts({
           title={title}
           aside={
             cta ? (
-              <Link to={cta.to} className="ia-btn is-outline">
+              <L to={cta.to} className="ia-btn is-outline">
                 {cta.label}
                 <IconArrow />
-              </Link>
+              </L>
             ) : undefined
           }
         />
         <div className="ia-posts">
           {list.map((r, i) => (
-            <Link
+            <L
               key={r.slug}
-              to="/ressources/$slug"
-              params={{ slug: r.slug }}
+              to={ui.resourcePath(r.slug)}
               className="ia-post"
               data-rv=""
               style={vars({ "--d": Math.min(i, 5) * 50 })}
@@ -376,9 +386,9 @@ export function Posts({
               <h3>{r.title}</h3>
               <p>{r.summary}</p>
               <span className="ia-post-meta">
-                {dateFormat.format(new Date(r.published))} · {r.readingMinutes} min de lecture
+                {fmtDate(r.published)} · {r.readingMinutes} {ui.readingMinutes}
               </span>
-            </Link>
+            </L>
           ))}
         </div>
       </div>

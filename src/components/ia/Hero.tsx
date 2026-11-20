@@ -1,9 +1,8 @@
-import { HERO } from "@/content/ia/home";
-import { TRUST, bookingHref } from "@/content/ia/site";
 import { Mesh } from "./Mesh";
 import { HeroMachine } from "./HeroMachine";
 import { IconArrow, IconPlay } from "./icons";
 import { Words, Eyebrow, vars } from "./text";
+import { useContent } from "./lang";
 
 /**
  * Premier écran : la nappe animée, le visuel en parallaxe, le titre révélé
@@ -11,6 +10,9 @@ import { Words, Eyebrow, vars } from "./text";
  * rendu (data-now), sans attendre le script.
  */
 export function Hero() {
+  const { home, site } = useContent();
+  const { HERO } = home;
+  const { TRUST, bookingHref } = site;
   return (
     <section className="ia-hero" data-dark-hero="" aria-labelledby="hero-title">
       <div className="ia-hero-bg" aria-hidden="true">
@@ -41,7 +43,7 @@ export function Hero() {
                 {HERO.secondary.label}
               </a>
             </div>
-            <ul className="ia-hero-trust" aria-label="Ce qui est garanti">
+            <ul className="ia-hero-trust" aria-label={TRUST.join(", ")}>
               {TRUST.map((item, i) => (
                 <li
                   key={item}

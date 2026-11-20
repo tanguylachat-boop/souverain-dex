@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Pages en français (version d'origine, cible Suisse romande) -->
+  <url>
+    <loc>https://lxstudio.ch/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/fiduciaires</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/fiduciaires"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/fiduciaires"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/fiduciaires"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/administrations</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/administrations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/administrations"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/administrations"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/pme</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/pme"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/pme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/pme"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/securite</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/securite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/securite"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/securite"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources</loc>
+    <lastmod>2026-10-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/ia-locale-entreprise-suisse</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/ia-locale-entreprise-suisse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/ia-locale-entreprise-suisse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/ia-locale-entreprise-suisse"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/chatgpt-nlpd-entreprise"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/secret-professionnel-ia</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/secret-professionnel-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/secret-professionnel-ia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/secret-professionnel-ia"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia</loc>
+    <lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/fiduciaire-automatiser-saisie-pieces-ia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/combien-coute-une-automatisation-ia-pme-suisse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/chatgpt-copilot-ou-agent-sur-mesure"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/ressources/plateforme-automatisation-ou-code</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/plateforme-automatisation-ou-code"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/plateforme-automatisation-ou-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/plateforme-automatisation-ou-code"/>
+  </url>
+
+  <!-- Pages en anglais sous /en/. lastmod à renseigner avec la date de mise en ligne de chaque page anglaise, jamais une date inventée. -->
+  <url>
+    <loc>https://lxstudio.ch/en</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/fiduciaires</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/fiduciaires"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/fiduciaires"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/fiduciaires"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/administrations</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/administrations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/administrations"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/administrations"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/pme</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/pme"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/pme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/pme"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/securite</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/securite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/securite"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/securite"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/ia-locale-entreprise-suisse</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/ia-locale-entreprise-suisse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/ia-locale-entreprise-suisse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/ia-locale-entreprise-suisse"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/chatgpt-nlpd-entreprise</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/chatgpt-nlpd-entreprise"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/chatgpt-nlpd-entreprise"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/secret-professionnel-ia</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/secret-professionnel-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/secret-professionnel-ia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/secret-professionnel-ia"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/fiduciaire-automatiser-saisie-pieces-ia</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/fiduciaire-automatiser-saisie-pieces-ia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/fiduciaire-automatiser-saisie-pieces-ia"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/mesurer-le-temps-qu-une-tache-coute-vraiment"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/ou-vivent-vos-donnees-quand-vous-utilisez-lia"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/combien-coute-une-automatisation-ia-pme-suisse</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/combien-coute-une-automatisation-ia-pme-suisse"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/combien-coute-une-automatisation-ia-pme-suisse"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/chatgpt-copilot-ou-agent-sur-mesure</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/chatgpt-copilot-ou-agent-sur-mesure"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/chatgpt-copilot-ou-agent-sur-mesure"/>
+  </url>
+  <url>
+    <loc>https://lxstudio.ch/en/ressources/plateforme-automatisation-ou-code</loc>
+    <!-- lastmod : date de mise en ligne de la version anglaise -->
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://lxstudio.ch/ressources/plateforme-automatisation-ou-code"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lxstudio.ch/en/ressources/plateforme-automatisation-ou-code"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lxstudio.ch/ressources/plateforme-automatisation-ou-code"/>
+  </url>
+</urlset>

@@ -1,31 +1,40 @@
 # LX Studio
 
 > LX Studio installe des systèmes d'intelligence artificielle sur site, dans
-> les locaux de ses clients : une machine chez eux, branchée sur leurs outils,
-> qui fait une tâche précise toute seule. Les documents traités ne quittent
-> jamais les murs de l'entreprise. Basé à Bassecourt (Jura), actif dans toute
-> la Suisse romande. Fondé et dirigé par Tanguy Lachat.
+> les locaux de ses clients : une IA locale, aussi appelée IA souveraine ou
+> IA on-premise, c'est-à-dire un modèle de langage ouvert qui tourne sur une
+> machine chez eux, branchée sur leurs outils, et qui fait une tâche précise
+> toute seule. Les documents traités ne quittent jamais les murs de
+> l'entreprise. Basé à Bassecourt (Jura), actif dans toute la Suisse romande.
+> Fondé et dirigé par Tanguy Lachat, ingénieur IA. Site en français et en
+> anglais (https://lxstudio.ch/en).
 
-Contact : contact@lxstudio.ch · 078 703 88 00
-Langue : français (Suisse romande). Devise : CHF.
+Contact : contact@lxstudio.ch · +41 78 703 88 00 · Rue des Romains 25, 2854 Bassecourt
+Langues : français (Suisse romande), anglais. Devise : CHF. Mis à jour le 05.11.2026.
 
 ## Ce que fait LX Studio
 
 - **Une tâche faite et mesurée, pas un chat.** Le système est installé sur une
-  machine dans les locaux du client et branché sur ses outils (Bexio,
-  messagerie, dossiers). Il traite une tâche précise : saisie des pièces
-  comptables, tri des mails, relance des factures, rédaction de premières
-  versions de rapports, anonymisation de documents. Les équipes valident ;
-  le reste tourne en arrière-plan.
+  machine dans les locaux du client (un Mac mini Apple, puce M4 Pro, 64 Go de
+  mémoire unifiée) et branché sur ses outils (Bexio, messagerie, dossiers). Il
+  traite une tâche précise : saisie des pièces comptables, lecture des
+  factures QR suisses, tri des mails, relance des factures, rédaction de
+  premières versions de rapports, anonymisation de documents. Les équipes
+  valident ; le reste tourne en arrière-plan.
+- **Des modèles ouverts, exécutés sur place.** Modèles des familles Llama et
+  Qwen exécutés localement par Ollama, reconnaissance de texte locale
+  (Tesseract), lecteur de factures QR. Pendant le traitement, aucun appel ne
+  part vers un service externe, ni vers un éditeur d'IA, ni vers LX Studio.
 - **La méthode en quatre temps.** Un diagnostic gratuit de 30 minutes ; une
   mesure des heures que la tâche coûte, avant toute signature ; l'installation
   chez le client, validée sur ses vrais dossiers ; un rapport mensuel des
   heures réellement gagnées, pendant plusieurs mois.
-- **Conçu pour la nLPD et le secret professionnel.** Pendant le traitement,
-  aucun appel ne part vers un service externe. Le système est conçu pour
-  respecter la loi fédérale sur la protection des données ; il ne s'agit pas
-  d'une certification. La page Sécurité et le dossier sécurité (PDF, sur
-  demande) décrivent chaque mesure.
+- **Conçu pour la nLPD, le secret professionnel et le secret de fonction.**
+  Le système est conçu pour respecter la loi fédérale sur la protection des
+  données ; il ne s'agit pas d'une certification. Un document traité sur
+  place n'est sous le contrôle d'aucun fournisseur étranger, donc hors de
+  portée du Cloud Act américain. La page Sécurité et le dossier sécurité
+  (PDF, envoyé sur demande) décrivent chaque mesure.
 - **Clients équipés :** Facchinetti Automobiles (BMW Delémont), Richoz
   Sanitaire (Genève), Oasis Drink.
 
@@ -39,19 +48,20 @@ Langue : français (Suisse romande). Devise : CHF.
 
 ## Pages
 
-- [Accueil](https://lxstudio.ch/) : la promesse, la différence avec une IA
-  générique, la méthode, les trois métiers, le formulaire de diagnostic et les
-  questions fréquentes.
+- [Accueil](https://lxstudio.ch/) : la promesse, la démo en deux minutes, la
+  différence avec une IA générique, la méthode, les trois métiers, le
+  formulaire de diagnostic et les questions fréquentes.
 - [Fiduciaires](https://lxstudio.ch/fiduciaires) : pièces comptables lues,
   classées et saisies dans Bexio au cabinet, sans qu'un dossier client ne
   sorte.
 - [Polices et administrations](https://lxstudio.ch/administrations) : rapports
-  rédigés et documents anonymisés sur les serveurs de l'administration.
+  rédigés et documents anonymisés sur les serveurs de la commune, du canton ou
+  du corps de police, sous le secret de fonction.
 - [PME](https://lxstudio.ch/pme) : mails triés, factures relancées, devis
   préparés, sans abonnement cloud.
 - [Sécurité et conformité](https://lxstudio.ch/securite) : où tournent les
   données, architecture, chiffrement, accès et journalisation, sauvegardes,
-  mises à jour, fin de contrat, nLPD et secret professionnel, test
+  mises à jour, fin de contrat, nLPD, secret professionnel, Cloud Act, test
   d'intrusion. Dossier sécurité en PDF sur demande.
 - [Ressources](https://lxstudio.ch/ressources) : articles signés Tanguy
   Lachat, une question par article, la réponse en tête, sources citées.
@@ -70,5 +80,20 @@ Langue : français (Suisse romande). Devise : CHF.
 
 ## Zone desservie
 
-Suisse romande : Jura, Berne, Neuchâtel, Vaud, Genève, Fribourg, Valais.
-Installation sur place.
+Suisse romande : Jura, Jura bernois, Neuchâtel, Vaud, Genève, Fribourg, Valais.
+Installation sur place, dans toute la Suisse sur demande.
+
+## English
+
+LX Studio installs on-premise AI systems (also called local AI or sovereign AI) in its clients' own premises in Switzerland: an open language model running on a machine inside the company, connected to its tools, doing one specific task on its own. No document ever leaves the company's walls. Based in Bassecourt (Jura), serving French-speaking Switzerland and the rest of the country on request. Founded and run by Tanguy Lachat, AI engineer.
+
+- [Home](https://lxstudio.ch/en): the promise, the two-minute demo (narrated in French, written in English), the method, the three sectors, the diagnostic form and the FAQ.
+- [Fiduciaries](https://lxstudio.ch/en/fiduciaries): accounting documents read, filed and entered into Bexio at the firm, without a client file leaving it.
+- [Police and public administrations](https://lxstudio.ch/en/public-administrations): reports drafted and documents anonymised on the administration's own servers, under official secrecy.
+- [SMEs](https://lxstudio.ch/en/smes): emails sorted, invoices chased, quotes prepared, without a cloud subscription.
+- [Security and compliance](https://lxstudio.ch/en/security): where the data is processed, architecture, encryption, access control and logging, backups, updates, end of contract, Swiss FADP, professional secrecy, US CLOUD Act, penetration testing. Security dossier as a PDF on request.
+- [Resources](https://lxstudio.ch/en/resources): articles signed by Tanguy Lachat, one question per article, the answer first, sources cited.
+- [What is local AI in a company and why choose it in Switzerland?](https://lxstudio.ch/en/resources/local-ai-switzerland)
+- [What does a Swiss company risk when it puts personal data into ChatGPT?](https://lxstudio.ch/en/resources/chatgpt-swiss-data-protection-act)
+- [Can a professional bound by secrecy use AI on their files?](https://lxstudio.ch/en/resources/professional-secrecy-ai)
+- [How can an accounting firm automate bookkeeping without files leaving the office?](https://lxstudio.ch/en/resources/accounting-firm-automate-bookkeeping-ai)

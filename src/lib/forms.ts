@@ -1,41 +1,43 @@
 import { z } from "zod";
-import { FORM } from "@/content/ia/home";
+import type { UiContent } from "@/content/ia/shape";
 
 /**
  * Les deux formulaires du site, validés avec le même schéma côté client
- * (messages immédiats) et côté serveur (la seule validation qui compte).
- * Le champ `website` est un piège à robots : un humain ne le voit pas et ne
- * le remplit pas.
+ * (messages immédiats, dans la langue de la page) et côté serveur (la seule
+ * validation qui compte). Le champ `website` est un piège à robots : un
+ * humain ne le voit pas et ne le remplit pas.
  */
+
+export type FormMessages = UiContent["UI"]["formErrors"];
 
 const trimmed = (max: number) => z.string().trim().max(max);
 
-export const diagnosticSchema = z.object({
-  name: trimmed(120).min(2, "Indiquez votre nom."),
-  company: trimmed(160).min(2, "Indiquez le nom de votre entreprise."),
-  email: trimmed(200).email("Indiquez une adresse e-mail valide."),
-  phone: trimmed(40).min(6, "Indiquez un numéro de téléphone."),
-  size: z.enum(FORM.sizes, { errorMap: () => ({ message: "Choisissez une taille d'équipe." }) }),
-  task: trimmed(2000).min(10, "Décrivez la tâche en quelques mots."),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "Votre accord est nécessaire pour traiter la demande." }),
-  }),
-  website: z.string().max(0).optional(),
-  source: trimmed(200).optional(),
-});
-export type DiagnosticInput = z.infer<typeof diagnosticSchema>;
+export function diagnosticSchema(m: FormMessages, sizes: ReadonlyArray<string>) {
+  return z.object({
+    name: trimmed(120).min(2, m.name),
+    company: trimmed(160).min(2, m.company),
+    email: trimmed(200).email(m.email),
+    phone: trimmed(40).min(6, m.phone),
+    size: trimmed(40).refine((v) => sizes.includes(v), { message: m.size }),
+    task: trimmed(2000).min(10, m.task),
+    consent: z.literal(true, { errorMap: () => ({ message: m.consent }) }),
+    website: z.string().max(0).optional(),
+    source: trimmed(200).optional(),
+  });
+}
+export type DiagnosticInput = z.infer<ReturnType<typeof diagnosticSchema>>;
 
-export const dossierSchema = z.object({
-  name: trimmed(120).min(2, "Indiquez votre nom."),
-  company: trimmed(160).min(2, "Indiquez le nom de votre entreprise."),
-  email: trimmed(200).email("Indiquez une adresse e-mail valide."),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "Votre accord est nécessaire pour recevoir le dossier." }),
-  }),
-  website: z.string().max(0).optional(),
-  source: trimmed(200).optional(),
-});
-export type DossierInput = z.infer<typeof dossierSchema>;
+export function dossierSchema(m: FormMessages) {
+  return z.object({
+    name: trimmed(120).min(2, m.name),
+    company: trimmed(160).min(2, m.company),
+    email: trimmed(200).email(m.email),
+    consent: z.literal(true, { errorMap: () => ({ message: m.consentDossier }) }),
+    website: z.string().max(0).optional(),
+    source: trimmed(200).optional(),
+  });
+}
+export type DossierInput = z.infer<ReturnType<typeof dossierSchema>>;
 
 /** Les erreurs d'un schéma, par champ, pour l'affichage. */
 export function fieldErrors(error: z.ZodError): Record<string, string> {

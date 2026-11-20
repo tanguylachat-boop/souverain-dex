@@ -61,6 +61,18 @@ if (process.argv.includes("--pages")) {
     "/ressources/plateforme-automatisation-ou-code",
     "/mentions-legales",
     "/politique-de-confidentialite",
+    "/en",
+    "/en/fiduciaries",
+    "/en/public-administrations",
+    "/en/smes",
+    "/en/security",
+    "/en/resources",
+    "/en/resources/local-ai-switzerland",
+    "/en/resources/chatgpt-swiss-data-protection-act",
+    "/en/resources/professional-secrecy-ai",
+    "/en/resources/accounting-firm-automate-bookkeeping-ai",
+    "/en/legal-notice",
+    "/en/privacy-policy",
   ];
   const browser = await chromium.launch();
   const page = await browser.newPage();

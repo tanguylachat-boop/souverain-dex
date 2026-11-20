@@ -1,17 +1,28 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+  Outlet,
+  createRootRoute,
+  HeadContent,
+  Scripts,
+  useRouterState,
+} from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { WEBSITE, ORGANIZATION, FOUNDER, jsonLd } from "@/lib/seo";
 import { IaPage } from "@/components/ia/Shell";
 import { IconArrow } from "@/components/ia/icons";
+import { L, useContent } from "@/components/ia/lang";
+import { langOf } from "@/content/ia/lang";
+import { CONTENT } from "@/content/ia/bundle";
 
 /**
  * La coque racine. Seul ce qui vaut pour tout le site vit ici : la feuille
  * de style, la police, la mesure d'audience et le graphe de l'éditeur. Les
- * titres, descriptions et canoniques appartiennent à chaque route.
+ * titres, descriptions et canoniques appartiennent à chaque route. La langue
+ * de `<html>` suit le chemin : /en et ses pages sont en anglais.
  */
 
 function NotFoundComponent() {
+  const { ui, site } = useContent();
   return (
     <IaPage>
       <section className="ia-plain">
@@ -19,24 +30,25 @@ function NotFoundComponent() {
           <div className="ia-article">
             <p className="ia-eyebrow">
               <span className="ia-eyebrow-line" aria-hidden="true" />
-              Erreur 404
+              {ui.notFound.eyebrow}
             </p>
-            <h1 style={{ marginTop: 18 }}>Cette page n'existe pas.</h1>
-            <p>Le lien est peut-être ancien. Voici les pages principales du site.</p>
+            <h1 style={{ marginTop: 18 }}>{ui.notFound.title}</h1>
+            <p>{ui.notFound.text}</p>
             <div className="ia-btn-row" style={{ marginTop: 28 }}>
-              <Link to="/" className="ia-btn is-primary">
-                Accueil
+              <L to={ui.paths.home} className="ia-btn is-primary">
+                {ui.breadcrumbHome}
                 <IconArrow />
-              </Link>
-              <Link to="/fiduciaires" className="ia-btn is-outline">
-                Fiduciaires
-              </Link>
-              <Link to="/securite" className="ia-btn is-outline">
-                Sécurité
-              </Link>
-              <Link to="/ressources" className="ia-btn is-outline">
-                Ressources
-              </Link>
+              </L>
+              {site.NAV.metiers.slice(0, 1).map((m) => (
+                <L key={m.to} to={m.to} className="ia-btn is-outline">
+                  {m.label}
+                </L>
+              ))}
+              {site.NAV.links.map((l) => (
+                <L key={l.to} to={l.to} className="ia-btn is-outline">
+                  {l.label}
+                </L>
+              ))}
             </div>
           </div>
         </div>
@@ -51,6 +63,9 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#050a24" },
+      // Valeurs par défaut (page 404, erreur) : chaque route les remplace.
+      { title: CONTENT.fr.ui.UI.notFound.seoTitle },
+      { name: "description", content: CONTENT.fr.site.FOOTER.claim },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -83,8 +98,10 @@ export const Route = createRootRoute({
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const lang = langOf(pathname);
   return (
-    <html lang="fr-CH">
+    <html lang={CONTENT[lang].ui.UI.htmlLang}>
       <head>
         <HeadContent />
       </head>

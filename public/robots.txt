@@ -1,9 +1,10 @@
 User-agent: *
 Allow: /
 
-# Assistant crawlers are allowed explicitly rather than by default. Several of
-# these read a site only when they find their own name here, and being quoted
-# by them is the point of the pages below.
+# Assistant crawlers, named explicitly so the intent is readable at a glance.
+# A crawler without its own group follows the "*" group above (RFC 9309), so
+# these groups confirm the default rather than create it. Being quoted by
+# these assistants is the point of the pages behind them.
 User-agent: GPTBot
 Allow: /
 
@@ -16,10 +17,10 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: Claude-Web
+User-agent: Claude-SearchBot
 Allow: /
 
-User-agent: anthropic-ai
+User-agent: Claude-User
 Allow: /
 
 User-agent: PerplexityBot
@@ -29,6 +30,21 @@ User-agent: Perplexity-User
 Allow: /
 
 User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: Amazonbot
 Allow: /
 
 User-agent: Applebot-Extended

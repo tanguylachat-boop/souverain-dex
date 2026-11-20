@@ -1,16 +1,15 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
-import { FORM } from "@/content/ia/home";
-import { SITE, bookingHref } from "@/content/ia/site";
-import { SECURITE_DOSSIER, SECURITE_VERSION } from "@/content/ia/securite";
+import { useRouterState } from "@tanstack/react-router";
 import { Mesh } from "./Mesh";
 import { IconArrow, IconDownload } from "./icons";
 import { Eyebrow, Words } from "./text";
+import { L, useContent } from "./lang";
 
 /**
  * Les deux formulaires du site. La validation (zod) et l'appel serveur ne
  * sont chargés qu'au premier envoi : rien de tout cela ne pèse sur le
- * premier affichage de la page.
+ * premier affichage de la page. Les libellés et messages viennent du contenu
+ * de la langue affichée.
  */
 
 type Status = "idle" | "sending" | "ok" | "error";
@@ -50,7 +49,11 @@ function Field({
   );
 }
 
+/** La case de consentement : la fin du texte (« politique de confidentialité. ») devient le lien. */
 function Consent({ text, error, id = "consent" }: { text: string; error?: string; id?: string }) {
+  const { ui } = useContent();
+  const tail = `${ui.privacyLink}.`;
+  const body = text.endsWith(tail) ? text.slice(0, -tail.length) : `${text} `;
   return (
     <div className="ia-field is-full">
       <label className="ia-consent">
@@ -61,8 +64,8 @@ function Consent({ text, error, id = "consent" }: { text: string; error?: string
           aria-describedby={error ? `f-${id}-err` : undefined}
         />
         <span>
-          {text.replace("politique de confidentialité.", "")}
-          <Link to="/politique-de-confidentialite">politique de confidentialité</Link>.
+          {body}
+          <L to={ui.paths.politique}>{ui.privacyLink}</L>.
         </span>
       </label>
       {error ? (
@@ -75,9 +78,10 @@ function Consent({ text, error, id = "consent" }: { text: string; error?: string
 }
 
 function Honeypot({ id }: { id: string }) {
+  const { ui } = useContent();
   return (
     <div className="ia-hp" aria-hidden="true">
-      <label htmlFor={id}>Votre site</label>
+      <label htmlFor={id}>{ui.honeypot}</label>
       <input id={id} name="website" type="text" tabIndex={-1} autoComplete="off" />
     </div>
   );
@@ -90,6 +94,8 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { home, site, ui } = useContent();
+  const { FORM } = home;
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -100,7 +106,7 @@ export function ContactForm() {
         import("@/lib/forms"),
         import("@/lib/contact"),
       ]);
-      const parsed = diagnosticSchema.safeParse(input);
+      const parsed = diagnosticSchema(ui.formErrors, FORM.sizes).safeParse(input);
       if (!parsed.success) {
         setErrors(fieldErrors(parsed.error));
         setStatus("idle");
@@ -118,7 +124,7 @@ export function ContactForm() {
   }
 
   if (status === "ok") {
-    const href = bookingHref("");
+    const href = site.bookingHref("");
     return (
       <div className="ia-form" role="status">
         <div className="ia-form-ok">
@@ -190,7 +196,7 @@ export function ContactForm() {
         <Field name="size" label={FORM.fields.size} error={errors.size} full>
           <select id="f-size" name="size" defaultValue="" required aria-invalid={!!errors.size}>
             <option value="" disabled>
-              Choisir
+              {ui.choose}
             </option>
             {FORM.sizes.map((s) => (
               <option key={s} value={s}>
@@ -227,13 +233,11 @@ export function ContactForm() {
 /* --------------------------------------------------------------------------
  * Le panneau d'appel, avec le formulaire dedans.
  * ------------------------------------------------------------------------ */
-export function CtaPanel({
-  title = FORM.title,
-  text = FORM.text,
-}: {
-  title?: string;
-  text?: string;
-}) {
+export function CtaPanel({ title, text }: { title?: string; text?: string }) {
+  const { home, site, ui } = useContent();
+  const { FORM } = home;
+  const { SITE } = site;
+  const booking = site.bookingHref("");
   return (
     <section className="ia-cta-wrap" id={FORM.id} aria-labelledby="cta-title">
       <div className="ia-container">
@@ -243,20 +247,20 @@ export function CtaPanel({
           <div className="ia-cta-in">
             <div>
               <Eyebrow>{FORM.eyebrow}</Eyebrow>
-              <Words as="h2" id="cta-title" className="ia-cta-title" text={title} />
+              <Words as="h2" id="cta-title" className="ia-cta-title" text={title ?? FORM.title} />
               <p className="ia-cta-text" data-rv="">
-                {text}
+                {text ?? FORM.text}
               </p>
               <div className="ia-cta-side" data-rv="">
                 <span>
-                  Par téléphone : <a href={SITE.phoneHref}>{SITE.phone}</a>
+                  {ui.byPhone} <a href={SITE.phoneHref}>{SITE.phone}</a>
                 </span>
                 <span>
-                  Par e-mail : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                  {ui.byEmail} <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
                 </span>
-                {bookingHref("") ? (
+                {booking ? (
                   <span>
-                    En direct dans l'agenda : <a href={bookingHref("")}>{FORM.success.cta}</a>
+                    {ui.inCalendar} <a href={booking}>{FORM.success.cta}</a>
                   </span>
                 ) : null}
               </div>
@@ -277,6 +281,8 @@ export function DossierCard() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [mailed, setMailed] = useState(true);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { home, securite, ui } = useContent();
+  const { SECURITE_DOSSIER, SECURITE_VERSION } = securite;
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -287,7 +293,7 @@ export function DossierCard() {
         import("@/lib/forms"),
         import("@/lib/contact"),
       ]);
-      const parsed = dossierSchema.safeParse(input);
+      const parsed = dossierSchema(ui.formErrors).safeParse(input);
       if (!parsed.success) {
         setErrors(fieldErrors(parsed.error));
         setStatus("idle");
@@ -315,7 +321,7 @@ export function DossierCard() {
             </h2>
             <p>{SECURITE_DOSSIER.text}</p>
             <p className="ia-dossier-meta">
-              Version {SECURITE_VERSION.version} · {SECURITE_VERSION.date} · 4 pages
+              {ui.dossierVersion(SECURITE_VERSION.version, SECURITE_VERSION.date)}
             </p>
           </div>
           {status === "ok" ? (
@@ -387,7 +393,7 @@ export function DossierCard() {
               ) : null}
               <button type="submit" className="ia-btn is-primary" disabled={status === "sending"}>
                 <IconDownload />
-                {status === "sending" ? FORM.sending : SECURITE_DOSSIER.submit}
+                {status === "sending" ? home.FORM.sending : SECURITE_DOSSIER.submit}
               </button>
             </form>
           )}
@@ -399,15 +405,17 @@ export function DossierCard() {
 
 /** Le bouton vers le dossier, pour les pages et les réponses de la FAQ. */
 export function DossierButton({ local = false }: { local?: boolean }) {
+  const { securite, ui } = useContent();
+  const label = securite.SECURITE_DOSSIER.button;
   return local ? (
     <a className="ia-btn is-glass" href="#dossier" data-magnetic="">
       <IconDownload />
-      {SECURITE_DOSSIER.button}
+      {label}
     </a>
   ) : (
-    <Link to="/securite" hash="dossier" className="ia-btn is-glass" data-magnetic="">
+    <L to={ui.paths.securite} hash="dossier" className="ia-btn is-glass" data-magnetic="">
       <IconDownload />
-      {SECURITE_DOSSIER.button}
-    </Link>
+      {label}
+    </L>
   );
 }

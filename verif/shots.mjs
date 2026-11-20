@@ -44,6 +44,15 @@ const INNER = [
   "/ressources/fiduciaire-automatiser-saisie-pieces-ia",
   "/mentions-legales",
   "/politique-de-confidentialite",
+  "/en",
+  "/en/fiduciaries",
+  "/en/public-administrations",
+  "/en/smes",
+  "/en/security",
+  "/en/resources",
+  "/en/resources/accounting-firm-automate-bookkeeping-ai",
+  "/en/legal-notice",
+  "/en/privacy-policy",
 ];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const report = {};

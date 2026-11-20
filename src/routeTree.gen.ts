@@ -9,24 +9,74 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SecuriteRouteImport } from './routes/securite'
-import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
-import { Route as PmeRouteImport } from './routes/pme'
-import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
-import { Route as MentiaRouteImport } from './routes/mentia'
-import { Route as FiduciairesRouteImport } from './routes/fiduciaires'
-import { Route as FiduciaireRouteImport } from './routes/fiduciaire'
-import { Route as AthlitRouteImport } from './routes/athlit'
-import { Route as AdministrationsRouteImport } from './routes/administrations'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RessourcesIndexRouteImport } from './routes/ressources.index'
+import { Route as AdministrationsRouteImport } from './routes/administrations'
+import { Route as AthlitRouteImport } from './routes/athlit'
+import { Route as AvisRouteImport } from './routes/avis'
+import { Route as FiduciaireRouteImport } from './routes/fiduciaire'
+import { Route as FiduciairesRouteImport } from './routes/fiduciaires'
+import { Route as MentiaRouteImport } from './routes/mentia'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as PmeRouteImport } from './routes/pme'
+import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
+import { Route as SecuriteRouteImport } from './routes/securite'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
-import { Route as RessourcesSlugRouteImport } from './routes/ressources.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as EnIndexRouteImport } from './routes/en.index'
+import { Route as EnFiduciariesRouteImport } from './routes/en.fiduciaries'
+import { Route as EnLegalNoticeRouteImport } from './routes/en.legal-notice'
+import { Route as EnPrivacyPolicyRouteImport } from './routes/en.privacy-policy'
+import { Route as EnPublicAdministrationsRouteImport } from './routes/en.public-administrations'
+import { Route as EnSecurityRouteImport } from './routes/en.security'
+import { Route as EnSmesRouteImport } from './routes/en.smes'
+import { Route as RessourcesIndexRouteImport } from './routes/ressources.index'
+import { Route as RessourcesSlugRouteImport } from './routes/ressources.$slug'
+import { Route as EnResourcesIndexRouteImport } from './routes/en.resources.index'
+import { Route as EnResourcesSlugRouteImport } from './routes/en.resources.$slug'
 
-const SecuriteRoute = SecuriteRouteImport.update({
-  id: '/securite',
-  path: '/securite',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdministrationsRoute = AdministrationsRouteImport.update({
+  id: '/administrations',
+  path: '/administrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AthlitRoute = AthlitRouteImport.update({
+  id: '/athlit',
+  path: '/athlit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvisRoute = AvisRouteImport.update({
+  id: '/avis',
+  path: '/avis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FiduciaireRoute = FiduciaireRouteImport.update({
+  id: '/fiduciaire',
+  path: '/fiduciaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FiduciairesRoute = FiduciairesRouteImport.update({
+  id: '/fiduciaires',
+  path: '/fiduciaires',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentiaRoute = MentiaRouteImport.update({
+  id: '/mentia',
+  path: '/mentia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PmeRoute = PmeRouteImport.update({
+  id: '/pme',
+  path: '/pme',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PolitiqueDeConfidentialiteRoute =
@@ -35,49 +85,9 @@ const PolitiqueDeConfidentialiteRoute =
     path: '/politique-de-confidentialite',
     getParentRoute: () => rootRouteImport,
   } as any)
-const PmeRoute = PmeRouteImport.update({
-  id: '/pme',
-  path: '/pme',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
-  id: '/mentions-legales',
-  path: '/mentions-legales',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MentiaRoute = MentiaRouteImport.update({
-  id: '/mentia',
-  path: '/mentia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FiduciairesRoute = FiduciairesRouteImport.update({
-  id: '/fiduciaires',
-  path: '/fiduciaires',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FiduciaireRoute = FiduciaireRouteImport.update({
-  id: '/fiduciaire',
-  path: '/fiduciaire',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AthlitRoute = AthlitRouteImport.update({
-  id: '/athlit',
-  path: '/athlit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdministrationsRoute = AdministrationsRouteImport.update({
-  id: '/administrations',
-  path: '/administrations',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RessourcesIndexRoute = RessourcesIndexRouteImport.update({
-  id: '/ressources/',
-  path: '/ressources/',
+const SecuriteRoute = SecuriteRouteImport.update({
+  id: '/securite',
+  path: '/securite',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -85,14 +95,64 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/en/',
+  path: '/en/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnFiduciariesRoute = EnFiduciariesRouteImport.update({
+  id: '/en/fiduciaries',
+  path: '/en/fiduciaries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnLegalNoticeRoute = EnLegalNoticeRouteImport.update({
+  id: '/en/legal-notice',
+  path: '/en/legal-notice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPrivacyPolicyRoute = EnPrivacyPolicyRouteImport.update({
+  id: '/en/privacy-policy',
+  path: '/en/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPublicAdministrationsRoute = EnPublicAdministrationsRouteImport.update({
+  id: '/en/public-administrations',
+  path: '/en/public-administrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSecurityRoute = EnSecurityRouteImport.update({
+  id: '/en/security',
+  path: '/en/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSmesRoute = EnSmesRouteImport.update({
+  id: '/en/smes',
+  path: '/en/smes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RessourcesIndexRoute = RessourcesIndexRouteImport.update({
+  id: '/ressources/',
+  path: '/ressources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RessourcesSlugRoute = RessourcesSlugRouteImport.update({
   id: '/ressources/$slug',
   path: '/ressources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
+const EnResourcesIndexRoute = EnResourcesIndexRouteImport.update({
+  id: '/en/resources/',
+  path: '/en/resources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnResourcesSlugRoute = EnResourcesSlugRouteImport.update({
+  id: '/en/resources/$slug',
+  path: '/en/resources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -100,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
+  '/avis': typeof AvisRoute
   '/fiduciaire': typeof FiduciaireRoute
   '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
@@ -108,14 +169,24 @@ export interface FileRoutesByFullPath {
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/fiduciaries': typeof EnFiduciariesRoute
+  '/en/legal-notice': typeof EnLegalNoticeRoute
+  '/en/privacy-policy': typeof EnPrivacyPolicyRoute
+  '/en/public-administrations': typeof EnPublicAdministrationsRoute
+  '/en/security': typeof EnSecurityRoute
+  '/en/smes': typeof EnSmesRoute
   '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/en/': typeof EnIndexRoute
   '/ressources/': typeof RessourcesIndexRoute
+  '/en/resources/$slug': typeof EnResourcesSlugRoute
+  '/en/resources/': typeof EnResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
+  '/avis': typeof AvisRoute
   '/fiduciaire': typeof FiduciaireRoute
   '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
@@ -124,15 +195,25 @@ export interface FileRoutesByTo {
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/fiduciaries': typeof EnFiduciariesRoute
+  '/en/legal-notice': typeof EnLegalNoticeRoute
+  '/en/privacy-policy': typeof EnPrivacyPolicyRoute
+  '/en/public-administrations': typeof EnPublicAdministrationsRoute
+  '/en/security': typeof EnSecurityRoute
+  '/en/smes': typeof EnSmesRoute
   '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/en': typeof EnIndexRoute
   '/ressources': typeof RessourcesIndexRoute
+  '/en/resources/$slug': typeof EnResourcesSlugRoute
+  '/en/resources': typeof EnResourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
+  '/avis': typeof AvisRoute
   '/fiduciaire': typeof FiduciaireRoute
   '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
@@ -141,9 +222,18 @@ export interface FileRoutesById {
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/securite': typeof SecuriteRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/fiduciaries': typeof EnFiduciariesRoute
+  '/en/legal-notice': typeof EnLegalNoticeRoute
+  '/en/privacy-policy': typeof EnPrivacyPolicyRoute
+  '/en/public-administrations': typeof EnPublicAdministrationsRoute
+  '/en/security': typeof EnSecurityRoute
+  '/en/smes': typeof EnSmesRoute
   '/ressources/$slug': typeof RessourcesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/en/': typeof EnIndexRoute
   '/ressources/': typeof RessourcesIndexRoute
+  '/en/resources/$slug': typeof EnResourcesSlugRoute
+  '/en/resources/': typeof EnResourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +241,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administrations'
     | '/athlit'
+    | '/avis'
     | '/fiduciaire'
     | '/fiduciaires'
     | '/mentia'
@@ -159,14 +250,24 @@ export interface FileRouteTypes {
     | '/politique-de-confidentialite'
     | '/securite'
     | '/blog/$slug'
+    | '/en/fiduciaries'
+    | '/en/legal-notice'
+    | '/en/privacy-policy'
+    | '/en/public-administrations'
+    | '/en/security'
+    | '/en/smes'
     | '/ressources/$slug'
     | '/blog/'
+    | '/en/'
     | '/ressources/'
+    | '/en/resources/$slug'
+    | '/en/resources/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/administrations'
     | '/athlit'
+    | '/avis'
     | '/fiduciaire'
     | '/fiduciaires'
     | '/mentia'
@@ -175,14 +276,24 @@ export interface FileRouteTypes {
     | '/politique-de-confidentialite'
     | '/securite'
     | '/blog/$slug'
+    | '/en/fiduciaries'
+    | '/en/legal-notice'
+    | '/en/privacy-policy'
+    | '/en/public-administrations'
+    | '/en/security'
+    | '/en/smes'
     | '/ressources/$slug'
     | '/blog'
+    | '/en'
     | '/ressources'
+    | '/en/resources/$slug'
+    | '/en/resources'
   id:
     | '__root__'
     | '/'
     | '/administrations'
     | '/athlit'
+    | '/avis'
     | '/fiduciaire'
     | '/fiduciaires'
     | '/mentia'
@@ -191,15 +302,25 @@ export interface FileRouteTypes {
     | '/politique-de-confidentialite'
     | '/securite'
     | '/blog/$slug'
+    | '/en/fiduciaries'
+    | '/en/legal-notice'
+    | '/en/privacy-policy'
+    | '/en/public-administrations'
+    | '/en/security'
+    | '/en/smes'
     | '/ressources/$slug'
     | '/blog/'
+    | '/en/'
     | '/ressources/'
+    | '/en/resources/$slug'
+    | '/en/resources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdministrationsRoute: typeof AdministrationsRoute
   AthlitRoute: typeof AthlitRoute
+  AvisRoute: typeof AvisRoute
   FiduciaireRoute: typeof FiduciaireRoute
   FiduciairesRoute: typeof FiduciairesRoute
   MentiaRoute: typeof MentiaRoute
@@ -208,67 +329,27 @@ export interface RootRouteChildren {
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
   SecuriteRoute: typeof SecuriteRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  EnFiduciariesRoute: typeof EnFiduciariesRoute
+  EnLegalNoticeRoute: typeof EnLegalNoticeRoute
+  EnPrivacyPolicyRoute: typeof EnPrivacyPolicyRoute
+  EnPublicAdministrationsRoute: typeof EnPublicAdministrationsRoute
+  EnSecurityRoute: typeof EnSecurityRoute
+  EnSmesRoute: typeof EnSmesRoute
   RessourcesSlugRoute: typeof RessourcesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  EnIndexRoute: typeof EnIndexRoute
   RessourcesIndexRoute: typeof RessourcesIndexRoute
+  EnResourcesSlugRoute: typeof EnResourcesSlugRoute
+  EnResourcesIndexRoute: typeof EnResourcesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/securite': {
-      id: '/securite'
-      path: '/securite'
-      fullPath: '/securite'
-      preLoaderRoute: typeof SecuriteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/politique-de-confidentialite': {
-      id: '/politique-de-confidentialite'
-      path: '/politique-de-confidentialite'
-      fullPath: '/politique-de-confidentialite'
-      preLoaderRoute: typeof PolitiqueDeConfidentialiteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pme': {
-      id: '/pme'
-      path: '/pme'
-      fullPath: '/pme'
-      preLoaderRoute: typeof PmeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mentions-legales': {
-      id: '/mentions-legales'
-      path: '/mentions-legales'
-      fullPath: '/mentions-legales'
-      preLoaderRoute: typeof MentionsLegalesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mentia': {
-      id: '/mentia'
-      path: '/mentia'
-      fullPath: '/mentia'
-      preLoaderRoute: typeof MentiaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fiduciaires': {
-      id: '/fiduciaires'
-      path: '/fiduciaires'
-      fullPath: '/fiduciaires'
-      preLoaderRoute: typeof FiduciairesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fiduciaire': {
-      id: '/fiduciaire'
-      path: '/fiduciaire'
-      fullPath: '/fiduciaire'
-      preLoaderRoute: typeof FiduciaireRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/athlit': {
-      id: '/athlit'
-      path: '/athlit'
-      fullPath: '/athlit'
-      preLoaderRoute: typeof AthlitRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/administrations': {
@@ -278,18 +359,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdministrationsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/athlit': {
+      id: '/athlit'
+      path: '/athlit'
+      fullPath: '/athlit'
+      preLoaderRoute: typeof AthlitRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ressources/': {
-      id: '/ressources/'
-      path: '/ressources'
-      fullPath: '/ressources/'
-      preLoaderRoute: typeof RessourcesIndexRouteImport
+    '/avis': {
+      id: '/avis'
+      path: '/avis'
+      fullPath: '/avis'
+      preLoaderRoute: typeof AvisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fiduciaire': {
+      id: '/fiduciaire'
+      path: '/fiduciaire'
+      fullPath: '/fiduciaire'
+      preLoaderRoute: typeof FiduciaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fiduciaires': {
+      id: '/fiduciaires'
+      path: '/fiduciaires'
+      fullPath: '/fiduciaires'
+      preLoaderRoute: typeof FiduciairesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentia': {
+      id: '/mentia'
+      path: '/mentia'
+      fullPath: '/mentia'
+      preLoaderRoute: typeof MentiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pme': {
+      id: '/pme'
+      path: '/pme'
+      fullPath: '/pme'
+      preLoaderRoute: typeof PmeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politique-de-confidentialite': {
+      id: '/politique-de-confidentialite'
+      path: '/politique-de-confidentialite'
+      fullPath: '/politique-de-confidentialite'
+      preLoaderRoute: typeof PolitiqueDeConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/securite': {
+      id: '/securite'
+      path: '/securite'
+      fullPath: '/securite'
+      preLoaderRoute: typeof SecuriteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -299,6 +429,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/en'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/fiduciaries': {
+      id: '/en/fiduciaries'
+      path: '/en/fiduciaries'
+      fullPath: '/en/fiduciaries'
+      preLoaderRoute: typeof EnFiduciariesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/legal-notice': {
+      id: '/en/legal-notice'
+      path: '/en/legal-notice'
+      fullPath: '/en/legal-notice'
+      preLoaderRoute: typeof EnLegalNoticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/privacy-policy': {
+      id: '/en/privacy-policy'
+      path: '/en/privacy-policy'
+      fullPath: '/en/privacy-policy'
+      preLoaderRoute: typeof EnPrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/public-administrations': {
+      id: '/en/public-administrations'
+      path: '/en/public-administrations'
+      fullPath: '/en/public-administrations'
+      preLoaderRoute: typeof EnPublicAdministrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/security': {
+      id: '/en/security'
+      path: '/en/security'
+      fullPath: '/en/security'
+      preLoaderRoute: typeof EnSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/smes': {
+      id: '/en/smes'
+      path: '/en/smes'
+      fullPath: '/en/smes'
+      preLoaderRoute: typeof EnSmesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ressources/': {
+      id: '/ressources/'
+      path: '/ressources'
+      fullPath: '/ressources/'
+      preLoaderRoute: typeof RessourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ressources/$slug': {
       id: '/ressources/$slug'
       path: '/ressources/$slug'
@@ -306,11 +499,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RessourcesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
+    '/en/resources/': {
+      id: '/en/resources/'
+      path: '/en/resources'
+      fullPath: '/en/resources/'
+      preLoaderRoute: typeof EnResourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/resources/$slug': {
+      id: '/en/resources/$slug'
+      path: '/en/resources/$slug'
+      fullPath: '/en/resources/$slug'
+      preLoaderRoute: typeof EnResourcesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -320,6 +520,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdministrationsRoute: AdministrationsRoute,
   AthlitRoute: AthlitRoute,
+  AvisRoute: AvisRoute,
   FiduciaireRoute: FiduciaireRoute,
   FiduciairesRoute: FiduciairesRoute,
   MentiaRoute: MentiaRoute,
@@ -328,9 +529,18 @@ const rootRouteChildren: RootRouteChildren = {
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
   SecuriteRoute: SecuriteRoute,
   BlogSlugRoute: BlogSlugRoute,
+  EnFiduciariesRoute: EnFiduciariesRoute,
+  EnLegalNoticeRoute: EnLegalNoticeRoute,
+  EnPrivacyPolicyRoute: EnPrivacyPolicyRoute,
+  EnPublicAdministrationsRoute: EnPublicAdministrationsRoute,
+  EnSecurityRoute: EnSecurityRoute,
+  EnSmesRoute: EnSmesRoute,
   RessourcesSlugRoute: RessourcesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  EnIndexRoute: EnIndexRoute,
   RessourcesIndexRoute: RessourcesIndexRoute,
+  EnResourcesSlugRoute: EnResourcesSlugRoute,
+  EnResourcesIndexRoute: EnResourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
