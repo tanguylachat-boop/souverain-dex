@@ -16,6 +16,7 @@ import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as MentiaRouteImport } from './routes/mentia'
 import { Route as FiduciairesRouteImport } from './routes/fiduciaires'
 import { Route as FiduciaireRouteImport } from './routes/fiduciaire'
+import { Route as AvisRouteImport } from './routes/avis'
 import { Route as AthlitRouteImport } from './routes/athlit'
 import { Route as AdministrationsRouteImport } from './routes/administrations'
 import { Route as IndexRouteImport } from './routes/index'
@@ -67,6 +68,11 @@ const FiduciairesRoute = FiduciairesRouteImport.update({
 const FiduciaireRoute = FiduciaireRouteImport.update({
   id: '/fiduciaire',
   path: '/fiduciaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvisRoute = AvisRouteImport.update({
+  id: '/avis',
+  path: '/avis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AthlitRoute = AthlitRouteImport.update({
@@ -154,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
+  '/avis': typeof AvisRoute
   '/fiduciaire': typeof FiduciaireRoute
   '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
+  '/avis': typeof AvisRoute
   '/fiduciaire': typeof FiduciaireRoute
   '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/administrations': typeof AdministrationsRoute
   '/athlit': typeof AthlitRoute
+  '/avis': typeof AvisRoute
   '/fiduciaire': typeof FiduciaireRoute
   '/fiduciaires': typeof FiduciairesRoute
   '/mentia': typeof MentiaRoute
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administrations'
     | '/athlit'
+    | '/avis'
     | '/fiduciaire'
     | '/fiduciaires'
     | '/mentia'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administrations'
     | '/athlit'
+    | '/avis'
     | '/fiduciaire'
     | '/fiduciaires'
     | '/mentia'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administrations'
     | '/athlit'
+    | '/avis'
     | '/fiduciaire'
     | '/fiduciaires'
     | '/mentia'
@@ -308,6 +320,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdministrationsRoute: typeof AdministrationsRoute
   AthlitRoute: typeof AthlitRoute
+  AvisRoute: typeof AvisRoute
   FiduciaireRoute: typeof FiduciaireRoute
   FiduciairesRoute: typeof FiduciairesRoute
   MentiaRoute: typeof MentiaRoute
@@ -379,6 +392,13 @@ declare module '@tanstack/react-router' {
       path: '/fiduciaire'
       fullPath: '/fiduciaire'
       preLoaderRoute: typeof FiduciaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avis': {
+      id: '/avis'
+      path: '/avis'
+      fullPath: '/avis'
+      preLoaderRoute: typeof AvisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/athlit': {
@@ -500,6 +520,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdministrationsRoute: AdministrationsRoute,
   AthlitRoute: AthlitRoute,
+  AvisRoute: AvisRoute,
   FiduciaireRoute: FiduciaireRoute,
   FiduciairesRoute: FiduciairesRoute,
   MentiaRoute: MentiaRoute,

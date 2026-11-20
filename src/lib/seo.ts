@@ -106,6 +106,9 @@ export const ORGANIZATION = {
   telephone: PHONE_E164,
   image: OG_IMAGE,
   logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.svg` },
+  // Fiche Google et fiche local.ch : les moteurs relient ainsi le site à la même entité.
+  hasMap: SITE.profiles.googleMaps,
+  sameAs: [SITE.profiles.googleMaps, SITE.profiles.localCh],
   founder: { "@id": `${SITE_URL}/#founder` },
   identifier: {
     "@type": "PropertyValue",

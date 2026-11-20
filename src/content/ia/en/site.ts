@@ -28,6 +28,12 @@ export const SITE: SiteContent["SITE"] = {
   vat: "Not subject to VAT (Art. 10 para. 2 let. a of the Swiss VAT Act)",
   /** Show Coca-Cola HBC among the references only with written consent. */
   showCchbc: false,
+  /** Public listings of LX Studio, same values as the French module (checked on 20.11.2026). */
+  profiles: {
+    googleMaps: "https://www.google.com/maps?cid=10851161416904390016",
+    googleReview: "https://search.google.com/local/writereview?placeid=ChIJFaXReUSuPosRgLUCF9ERl5Y",
+    localCh: "https://www.local.ch/fr/d/bassecourt/2854/lx-studio-xEPs7H4uAIxvyhFpUfwSlA",
+  },
 };
 
 /** A booking link, or the page form when the link is missing: same function as the French module. */

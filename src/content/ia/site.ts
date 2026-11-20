@@ -29,6 +29,16 @@ export const SITE = {
   vat: "Non assujettie à la TVA (art. 10 al. 2 let. a LTVA)",
   /** Affiche Coca-Cola HBC dans les références seulement avec l'accord écrit. */
   showCchbc: false,
+  /**
+   * Fiches publiques de LX Studio, relevées le 20.11.2026. `googleReview` ouvre
+   * directement le formulaire d'avis de la fiche Google (lien court à envoyer
+   * aux clients : lxstudio.ch/avis, voir src/routes/avis.tsx).
+   */
+  profiles: {
+    googleMaps: "https://www.google.com/maps?cid=10851161416904390016",
+    googleReview: "https://search.google.com/local/writereview?placeid=ChIJFaXReUSuPosRgLUCF9ERl5Y",
+    localCh: "https://www.local.ch/fr/d/bassecourt/2854/lx-studio-xEPs7H4uAIxvyhFpUfwSlA",
+  },
 } as const;
 
 /** Un lien de réservation, ou le formulaire de la page si le lien manque. */
