@@ -41,3 +41,5 @@ verif/captures/
 # Voix off de la démo : lecture et transcriptions en cache (npm run demo:voix)
 scripts/demo/.voix-cache/
 scripts/demo/__pycache__/
+.vercel
+.env*
