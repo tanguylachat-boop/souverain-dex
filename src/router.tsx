@@ -1,8 +1,10 @@
-import { createRouter, useRouter } from "@tanstack/react-router";
+import { createRouter, useRouter, type ErrorComponentProps } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
-function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function DefaultErrorComponent({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
+  // Le routeur type l'erreur en `unknown` : on n'affiche un message que s'il y en a un.
+  const message = error instanceof Error ? error.message : "";
 
   return (
     <main className="ia-main" style={{ display: "grid", placeItems: "center", padding: "24px" }}>
@@ -19,7 +21,7 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
         <p className="ia-lede" style={{ margin: "14px auto 0" }}>
           Rechargez la page. Si le problème persiste, écrivez à contact@lxstudio.ch.
         </p>
-        {import.meta.env.DEV && error.message ? (
+        {import.meta.env.DEV && message ? (
           <pre
             style={{
               marginTop: 16,
@@ -29,7 +31,7 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
               color: "#8a1c1c",
             }}
           >
-            {error.message}
+            {message}
           </pre>
         ) : null}
         <div className="ia-btn-row" style={{ marginTop: 28, justifyContent: "center" }}>

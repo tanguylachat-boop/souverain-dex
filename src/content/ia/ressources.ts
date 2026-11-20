@@ -11,9 +11,7 @@
 import { ARTICLES, type Article, type Block } from "../articles.ts";
 
 export type ResourceBlock =
-  | Block
-  | { kind: "h3"; text: string }
-  | { kind: "resume"; items: readonly string[] };
+  Block | { kind: "h3"; text: string } | { kind: "resume"; items: readonly string[] };
 
 export type Resource = {
   slug: string;
