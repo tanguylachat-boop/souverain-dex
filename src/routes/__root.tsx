@@ -21,6 +21,16 @@ import { CONTENT } from "@/content/ia/bundle";
  * de `<html>` suit le chemin : /en et ses pages sont en anglais.
  */
 
+/**
+ * Metricool (statistiques reliées aux réseaux sociaux). Le script officiel,
+ * réécrit sans le reste pour Internet Explorer : il charge be.js en asynchrone,
+ * qui envoie un pixel sans cookie avec l'adresse de la page, la page de
+ * provenance et la taille de la fenêtre. Appelé une fois par page chargée,
+ * comme le prévoit Metricool. Déclaré dans la politique de confidentialité.
+ */
+const METRICOOL_HASH = "ff6b33e3826776c75b4929da4db12b4e";
+const METRICOOL_LOADER = `(function(){var s=document.createElement("script");s.src="https://tracker.metricool.com/resources/be.js";s.async=true;s.onload=function(){window.beTracker&&window.beTracker.t({hash:"${METRICOOL_HASH}"})};document.head.appendChild(s)})();`;
+
 function NotFoundComponent() {
   const { ui, site } = useContent();
   return (
@@ -89,6 +99,7 @@ export const Route = createRootRoute({
         defer: true,
         "data-domain": "lxstudio.ch",
       },
+      { children: METRICOOL_LOADER },
       jsonLd([WEBSITE, ORGANIZATION, FOUNDER]),
     ],
   }),
