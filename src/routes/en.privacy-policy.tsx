@@ -39,7 +39,7 @@ function PrivacyPolicy() {
             <h1>Privacy policy</h1>
             <p className="is-meta">
               Designed to comply with the Swiss Federal Act on Data Protection (FADP, revised in
-              2023). Last updated: 05.11.2026
+              2023). Last updated: 23.11.2026
             </p>
 
             <h2>1. Data controller</h2>
@@ -66,9 +66,12 @@ function PrivacyPolicy() {
               </li>
             </ul>
             <p>
-              Site traffic is measured without cookies and without any personal identifier
-              (Plausible Analytics, data aggregated per page). No advertising pixel, no cross-site
-              tracking.
+              Site traffic is measured without cookies and without any personal identifier, by two
+              services: Plausible Analytics (data aggregated per page) and Metricool (Metricool
+              Software, S.L., Madrid, Spain), which receives, for each page loaded, its address, the
+              referring page and the size of the browser window. As with any web page, your IP
+              address and browser type reach them with the request. No advertising pixel, no
+              cross-site tracking.
             </p>
 
             <h2>3. Purposes</h2>

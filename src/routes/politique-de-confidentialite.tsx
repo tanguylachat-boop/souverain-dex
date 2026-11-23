@@ -39,7 +39,7 @@ function PolitiqueConfidentialite() {
             <h1>Politique de confidentialité</h1>
             <p className="is-meta">
               Conçue pour respecter la loi fédérale sur la protection des données (LPD). Dernière
-              mise à jour : 24.10.2026
+              mise à jour : 23.11.2026
             </p>
 
             <h2>1. Responsable du traitement</h2>
@@ -67,9 +67,12 @@ function PolitiqueConfidentialite() {
               </li>
             </ul>
             <p>
-              La fréquentation du site est mesurée sans cookie et sans identifiant personnel
-              (Plausible Analytics, données agrégées par page). Aucun pixel publicitaire, aucun
-              traçage entre sites.
+              La fréquentation du site est mesurée sans cookie et sans identifiant personnel, par
+              deux services : Plausible Analytics (données agrégées par page) et Metricool
+              (Metricool Software, S.L., Madrid, Espagne), qui reçoit pour chaque page chargée son
+              adresse, la page de provenance et la taille de la fenêtre du navigateur. Comme pour
+              toute page web, votre adresse IP et le type de votre navigateur leur parviennent avec
+              la requête. Aucun pixel publicitaire, aucun traçage entre sites.
             </p>
 
             <h2>3. Finalités</h2>
